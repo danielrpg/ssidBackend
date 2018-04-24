@@ -15,4 +15,5 @@ public class RiskIpercIncident {
     private int id;
 
     //TODO: import reference to tables.
+
 }

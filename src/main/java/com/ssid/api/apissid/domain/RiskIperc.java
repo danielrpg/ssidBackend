@@ -34,6 +34,7 @@ public class RiskIperc implements Serializable {
     @JoinColumn(name = "enterprise_id")
     private Enterprise riskIpercDetail;*/
 
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }

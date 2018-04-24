@@ -48,4 +48,5 @@ public class RiskIpercDetail {
 
     //TODO: import reference to tables.
 
+
 }
