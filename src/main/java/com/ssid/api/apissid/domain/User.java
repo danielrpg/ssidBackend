@@ -6,7 +6,8 @@ import java.io.Serializable;
 /**
  * @author daniel fernandez
  */
-@Entity(name = "user")
+@Entity
+@Table(name = "users")
 public class User implements Serializable {
     private static final long serialVersionUID=1L;
 
