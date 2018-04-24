@@ -16,3 +16,16 @@ security:
     scope-read: read
     scope-write: write
     resource-ids: testjwtresourceid
+
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost
+    username: sa
+    password: P@55w0rd
+    platform: mssql
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database: SQL_SERVER
+    show-sql: true
