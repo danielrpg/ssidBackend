@@ -4,6 +4,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author Jesus David Piérola Alvarado
+ */
+
 @Entity
 @Table(name = "rich_iperc")
 public class RiskIperc implements Serializable {
@@ -25,6 +29,10 @@ public class RiskIperc implements Serializable {
 
     @Column(name = "risk_iperc_date",unique = true)
     private Date date;
+
+    /*@OneToOne(cascade = { CascadeType.ALL })
+    @JoinColumn(name = "enterprise_id")
+    private Enterprise riskIpercDetail;*/
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -69,5 +77,4 @@ public class RiskIperc implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
-    //TODO: import reference to Enterprise table.
 }

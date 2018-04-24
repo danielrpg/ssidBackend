@@ -2,6 +2,10 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 
+/**
+ * @author Jesus David Piérola Alvarado
+ */
+
 @Entity
 @Table(name = "rich_iperc_detail")
 public class RiskIpercDetail {
@@ -42,6 +46,6 @@ public class RiskIpercDetail {
     @Column(name = "risk_iperc_det_eva_insp", length = 50)
     private String contInsp;
 
-    //TODO: import reference to Enterprise table.
+    //TODO: import reference to tables.
 
 }
