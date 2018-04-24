@@ -14,7 +14,7 @@ public class PositionPersonal implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "function_personal_id")
+    @Column(name = "position_personal_id")
     private Long id;
 
     @OneToOne
