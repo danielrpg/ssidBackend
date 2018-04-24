@@ -3,7 +3,12 @@ package com.ssid.api.apissid.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+/**
+ * @author christian Tola
+ */
 @Entity
 public class Incident implements Serializable {
 
@@ -33,11 +38,19 @@ public class Incident implements Serializable {
     @Column
     private int incidentNumber;
 
-    public Long getId() {
+    @OneToOne(cascade = { CascadeType.ALL })
+    @JoinColumn(name = "incident_detail_id")
+    private IncidentDetail incidentDetail;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "incident_type_id")
+    private IncidentType incidentType;
+
+    public Long getIncidentId() {
         return incidentId;
     }
 
-    public void setId(Long incidentId) {
+    public void setIncidentId(Long incidentId) {
         this.incidentId = incidentId;
     }
 
@@ -95,5 +108,21 @@ public class Incident implements Serializable {
 
     public void setIncidentNumber(int incidentNumber) {
         this.incidentNumber = incidentNumber;
+    }
+
+    public IncidentDetail getIncidentDetail() {
+        return incidentDetail;
+    }
+
+    public void setIncidentDetail(IncidentDetail incidentDetail) {
+        this.incidentDetail = incidentDetail;
+    }
+
+    public IncidentType getIncidentType() {
+        return incidentType;
+    }
+
+    public void setIncidentType(IncidentType incidentType) {
+        this.incidentType = incidentType;
     }
 }

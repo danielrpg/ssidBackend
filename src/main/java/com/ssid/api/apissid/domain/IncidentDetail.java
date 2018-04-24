@@ -2,7 +2,9 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-
+/**
+ * @author christian Tola
+ */
 @Entity
 public class IncidentDetail implements Serializable {
 
@@ -22,6 +24,9 @@ public class IncidentDetail implements Serializable {
 
     @Column
     private String incidentDetailSubtype;
+
+    @OneToOne(mappedBy = "incidentDetail", fetch = FetchType.LAZY)
+    private Incident incident;
 
     public Long getIncidentDetailId() {
         return incidentDetailId;
@@ -61,5 +66,13 @@ public class IncidentDetail implements Serializable {
 
     public void setIncidentDetailSubtype(String incidentDetailSubtype) {
         this.incidentDetailSubtype = incidentDetailSubtype;
+    }
+
+    public Incident getIncident() {
+        return incident;
+    }
+
+    public void setIncident(Incident incident) {
+        this.incident = incident;
     }
 }
