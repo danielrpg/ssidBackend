@@ -19,9 +19,9 @@ security:
 
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost
+    url: jdbc:sqlserver://ASUS\SQL2012
     username: sa
-    password: P@55w0rd
+    password: control
     platform: mssql
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
