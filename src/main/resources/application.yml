@@ -17,16 +17,25 @@ security:
     scope-write: write
     resource-ids: testjwtresourceid
 
+# MariaDB or Mysql Server config
 spring:
-  datasource:
-    url: jdbc:sqlserver://localhost
-    username: sa
-    password: P@55w0rd
-    platform: mssql
-    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
     hibernate:
-      ddl-auto: update
-     #ddl-auto: create-drop
-    database: SQL_SERVER
-    show-sql: true
+#      ddl-auto: update
+      ddl-auto: create-drop
+      show-sql: true
+      dialect: org.hibernate.dialect.MySQL5Dialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/ssidev
+    username: root
+    password: root
+
+#      database: SQL_SERVER
+# for sql server
+#spring:
+#  datasource:
+#    url: jdbc:sqlserver://localhost
+#    username: sa
+#    password: P@55w0rd
+#    platform: mssql
+#    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
