@@ -1,6 +1,7 @@
 package com.ssid.api.apissid.services;
 
 import com.ssid.api.apissid.domain.IncidentDetail;
+import com.ssid.api.apissid.repositories.IncidentDetailRepository;
 import com.ssid.api.apissid.repositories.IncidentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,15 +10,15 @@ import java.util.List;
 @Component
 public class IncidentDetailServiceImpl implements IncidentDetailService {
 
-    private IncidentRepository incidentRepository;
+    private IncidentDetailRepository incidentDetailRepository;
 
     @Autowired
-    public IncidentDetailServiceImpl(IncidentRepository incidentRepository) {
-        this.incidentRepository = incidentRepository;
+    public IncidentDetailServiceImpl(IncidentDetailRepository incidentDetailRepository) {
+        this.incidentDetailRepository = incidentDetailRepository;
     }
 
     @Override
     public List<IncidentDetail> getAllIncidentDetail() {
-        return null;
+        return this.incidentDetailRepository.findAll();
     }
 }
