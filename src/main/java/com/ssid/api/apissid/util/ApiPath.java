@@ -26,4 +26,7 @@ public class ApiPath {
 
     //This are constants for RiskIperc
     public static final String  RISK_IPERC_PATH = VERSION_API + "/riskiperc";
+
+    // This is constants for incidents
+    public static final String INCIDENT_PATH = VERSION_API + "/incidents";
 }
