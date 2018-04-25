@@ -91,10 +91,6 @@ public class Equipament extends ModelBase implements Serializable {
         this.image = image;
     }
 
-    public String getEquipamentName() {
-        return equipamentName;
-    }
-
     public Set<Personal> getPersonals() {
         return personals;
     }
