@@ -2,6 +2,10 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 
+/**
+ * @author daniel fernandez
+ */
+
 @Entity
 @Table(name = "roles")
 public class Role {
