@@ -7,6 +7,9 @@ public class ApiPath {
 
     public static final String VERSION_API = "/api/v1";
 
+    //This are constants for personal
+    public static final String AREA_PATH = VERSION_API + "/area";
+
     //this path for login
     public static final String LOGIN_URL = VERSION_API + "/login";
 

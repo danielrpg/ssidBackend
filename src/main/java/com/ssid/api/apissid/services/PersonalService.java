@@ -5,9 +5,9 @@ import com.ssid.api.apissid.domain.Personal;
 import java.util.List;
 
 /**
- * @author daniel fernandez
+ * @author Jesús David Piérola Alvarado
  */
-public interface PersonalService {
+public interface PersonalService extends GenericService<Personal> {
 
-    List<Personal> getListPersonal();
+    List<Personal> findByName(String name);
 }

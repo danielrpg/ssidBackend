@@ -31,17 +31,15 @@ security:
 #    password: root
 
 
-# Coneccion de franz
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost:1433;database=grupod
+    url: jdbc:sqlserver://\PIERO-ASUS\SQL2012;database=ssid
     username: sa
-    password: P@55w0rd
+    password: control
     platform: mssql
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
     hibernate:
       ddl-auto: update
-      default_schema: dbo
     database: SQL_SERVER
     show-sql: true
