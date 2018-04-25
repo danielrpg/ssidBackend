@@ -19,16 +19,16 @@ public class Equipament extends ModelBase implements Serializable {
     @Column(name = "equipament_id")
     private Long id;
 
-    @Column(name = "equipament_name", length = 200,unique = true)
+    @Column(name = "equipament_name", length = 200)
     private String equipamentName;
 
-    @Column(name = "equipament_description", length = 200,unique = true)
+    @Column(name = "equipament_description", length = 200)
     private String equipamentDescription;
 
-    @Column(name = "equipament_status", length = 50)
+    @Column(name = "equipament_status")
     private Integer equipamenmtStatus;
 
-    @Column(name = "equipament_type", length = 50)
+    @Column(name = "equipament_type")
     private Integer equipamenmtType;
 
     @ManyToMany(mappedBy = "equipaments")
