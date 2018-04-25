@@ -10,9 +10,11 @@ public class PositionPersonal {
     @Column(name="position_personal_id")
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = { CascadeType.ALL })
+    @JoinColumn(name = "position_id")
     private Position position;
 
-    @OneToOne
+    @OneToOne(cascade = { CascadeType.ALL })
+    @JoinColumn(name = "personal_id")
     private Personal personal;
 }
