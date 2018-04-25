@@ -5,15 +5,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author daniel fernandez
+ * @author Marcos Bustos Jimenez
  */
+
 @RestController
-public class UserController {
-
-    @GetMapping(path = ApiPath.USER_PATH)
-    private String getUser(){
-        return "List user";
+public class RiskIpercController {
+    @GetMapping(path = ApiPath.RISK_IPERC_PATH)
+    private String getRiskIpercs(){
+        return "List riskIperc";
     }
-
-
 }
