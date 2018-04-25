@@ -25,7 +25,8 @@ public class IncidentDetail implements Serializable {
     @Column
     private String incidentDetailSubtype;
 
-    @OneToOne(mappedBy = "incidentDetail", fetch = FetchType.LAZY)
+    @OneToOne(cascade = { CascadeType.ALL })
+    @JoinColumn(name = "incident_id")
     private Incident incident;
 
     public Long getIncidentDetailId() {

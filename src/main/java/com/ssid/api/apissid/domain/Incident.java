@@ -38,8 +38,7 @@ public class Incident implements Serializable {
     @Column
     private int incidentNumber;
 
-    @OneToOne(cascade = { CascadeType.ALL })
-    @JoinColumn(name = "incident_detail_id")
+    @OneToOne(mappedBy = "incident", fetch = FetchType.LAZY)
     private IncidentDetail incidentDetail;
 
     @ManyToOne(fetch = FetchType.LAZY)
