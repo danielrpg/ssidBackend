@@ -11,20 +11,20 @@ import java.util.Date;
 @Entity
 @Table(name = "position")
 public class Position extends ModelBase implements Serializable {
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "position_id")
     private Long id;
 
-    @Column(name = "position_name", length = 50)
+    @Column(name = "position_name", length = 300, unique = true)
     private String name;
 
-    @Column(name = "position_description", length = 100)
-    private String email;
+    @Column(name = "position_description", length = 800)
+    private String description;
 
-    @Column(name = "position_function", length = 200)
+    @Column(name = "position_function")
     private String function;
 
     @Column(name = "position_level")
@@ -54,14 +54,6 @@ public class Position extends ModelBase implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getFunction() {

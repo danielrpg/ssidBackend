@@ -11,10 +11,10 @@ import java.util.Set;
 @Entity
 @Table(name = "personal")
 public class Personal extends ModelBase implements Serializable {
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "personal_id")
     private Long id;
 
@@ -48,8 +48,8 @@ public class Personal extends ModelBase implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "personal_assign",
-               joinColumns = @JoinColumn(name = "personal_id"),
-               inverseJoinColumns = @JoinColumn(name = "equipament_id") )
+            joinColumns = @JoinColumn(name = "personal_id"),
+            inverseJoinColumns = @JoinColumn(name = "equipament_id"))
     private Set<Equipament> equipaments;
 
     public static long getSerialVersionUID() {
