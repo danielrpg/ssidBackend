@@ -13,7 +13,7 @@ import java.util.List;
  * @author Jesus David Piérola Alvarado
  */
 @Service
-public class PersonalServiceImpl extends GenericServiceImpl<Personal> implements PersonalService{
+public class PersonalServiceImpl extends GenericServiceImpl<Personal> implements PersonalService {
 
     private PersonalRepository repository;
 
