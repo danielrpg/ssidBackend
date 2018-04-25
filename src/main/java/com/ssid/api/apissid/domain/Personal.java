@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "personal")
-public class Personal implements Serializable {
+public class Personal extends ModelBase implements Serializable {
     private static final long serialVersionUID=1L;
 
     @Id
@@ -19,6 +19,10 @@ public class Personal implements Serializable {
 
     @Column(name = "personal_name", length = 50)
     private String name;
+
+    @Lob
+    @Column(name = "personal_photo")
+    private Byte[] photo;
 
     @Column(name = "personal_email", length = 50)
     private String email;
@@ -38,7 +42,7 @@ public class Personal implements Serializable {
     @Column(name = "personal_year", length = 50)
     private String year;
 
-    @OneToOne
+    @OneToOne(optional = false)
     private Area area;
 
     public static long getSerialVersionUID() {
@@ -115,5 +119,13 @@ public class Personal implements Serializable {
 
     public void setArea(Area area) {
         this.area = area;
+    }
+
+    public Byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Byte[] photo) {
+        this.photo = photo;
     }
 }

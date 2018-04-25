@@ -20,16 +20,24 @@ public class Equipament extends ModelBase implements Serializable {
     private Long id;
 
     @Column(name = "equipament_name", length = 200,unique = true)
-    private String equipamentName;
+    private String name;
 
     @Column(name = "equipament_description", length = 200,unique = true)
-    private String equipamentDescription;
+    private String description;
 
     @Column(name = "equipament_status", length = 50)
-    private Integer equipamenmtStatus;
+    private Integer status;
 
     @Column(name = "equipament_type", length = 50)
-    private Integer equipamenmtType;
+    private Integer type;
+
+    @Lob
+    @Column(name = "equipament_image")
+    private Byte[] image;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public Long getId() {
         return id;
@@ -39,32 +47,43 @@ public class Equipament extends ModelBase implements Serializable {
         this.id = id;
     }
 
-
-    public void setEquipamentName(String equipamentName) {
-        this.equipamentName = equipamentName;
+    public String getName() {
+        return name;
     }
 
-    public String getEquipamentDescription() {
-        return equipamentDescription;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setEquipamentDescription(String equipamentDescription) {
-        this.equipamentDescription = equipamentDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public Integer getEquipamenmtStatus() {
-        return equipamenmtStatus;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setEquipamenmtStatus(Integer equipamenmtStatus) {
-        this.equipamenmtStatus = equipamenmtStatus;
+    public Integer getStatus() {
+        return status;
     }
 
-    public Integer getEquipamenmtType() {
-        return equipamenmtType;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public void setEquipamenmtType(Integer equipamenmtType) {
-        this.equipamenmtType = equipamenmtType;
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(Byte[] image) {
+        this.image = image;
     }
 }

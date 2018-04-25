@@ -2,14 +2,15 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Optional;
 
 /**
  * @author Jesus David Piérola Alvarado
  */
 
 @Entity
-@Table(name = "position_personal")
-public class PositionPersonal extends ModelBase implements Serializable {
+@Table(name = "user_role")
+public class UserRole extends ModelBase implements Serializable {
     private static final long serialVersionUID=1L;
 
     @Id
@@ -18,10 +19,10 @@ public class PositionPersonal extends ModelBase implements Serializable {
     private Long id;
 
     @OneToOne(optional = false)
-    private Personal personal;
+    private User user;
 
     @OneToOne(optional = false)
-    private Position position;
+    private Role role;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -35,19 +36,19 @@ public class PositionPersonal extends ModelBase implements Serializable {
         this.id = id;
     }
 
-    public Personal getPersonal() {
-        return personal;
+    public User getUser() {
+        return user;
     }
 
-    public void setPersonal(Personal personal) {
-        this.personal = personal;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Position getPosition() {
-        return position;
+    public Role getRole() {
+        return role;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
