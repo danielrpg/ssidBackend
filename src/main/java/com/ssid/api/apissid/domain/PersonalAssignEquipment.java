@@ -21,12 +21,12 @@ public class PersonalAssignEquipment {
     private Date assignEquipamentDate;
 
 
-    public Long getId() {
-        return id;
+    public Long getEquipamentId() {
+        return equipamentId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEquipamentId(Long id) {
+        this.equipamentId = id;
     }
 
     public Date getAssignEquipamentDate() {
