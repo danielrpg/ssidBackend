@@ -3,13 +3,16 @@ package com.ssid.api.apissid.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author daniel fernandez
+ * @author ivan misericordia
  */
 @Entity
 @Table(name = "program_sso_activities")
-public class ActivitiesSso implements Serializable{
+public class ActivitiesSso extends ModelBase implements Serializable{
 
     private static final long serialVersionUID=1L;
     @Id
@@ -35,6 +38,13 @@ public class ActivitiesSso implements Serializable{
     @Column(name = "sso_detail_responsable", length = 50)
     private String detailResponsable;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sso_id")
+    private ProgramSso programSso;
+
+    @OneToMany(mappedBy = "activitiesSso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<ResourceSso> resourceSsos= new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -42,6 +52,24 @@ public class ActivitiesSso implements Serializable{
     public void setId(Long id) {
         this.id = id;
     }
+
+
+    public ProgramSso getProgramSso() {
+        return programSso;
+    }
+
+    public void setProgramSso(ProgramSso programSso) {
+        this.programSso = programSso;
+    }
+
+    public Set<ResourceSso> getResourceSsos() {
+        return resourceSsos;
+    }
+
+    public void setResourceSsos(Set<ResourceSso> resourceSsos) {
+        this.resourceSsos = resourceSsos;
+    }
+
 
     public Integer getDetailNumber() {
         return detailNumber;
