@@ -17,11 +17,13 @@ public class PositionPersonal extends ModelBase implements Serializable {
     @Column(name = "position_personal_id")
     private Long id;
 
-    @OneToOne(optional = false)
-    private Personal personal;
-
-    @OneToOne(optional = false)
+    @OneToOne(cascade = { CascadeType.ALL })
+    @JoinColumn(name = "position_id")
     private Position position;
+
+    @OneToOne(cascade = { CascadeType.ALL })
+    @JoinColumn(name = "personal_id")
+    private Personal personal;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

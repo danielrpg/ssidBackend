@@ -13,6 +13,9 @@ import java.util.Date;
 public class Position extends ModelBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @OneToOne(mappedBy = "position", fetch = FetchType.LAZY)
+    private PositionPersonal positionPersonal;
+  
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "position_id")

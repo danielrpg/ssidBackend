@@ -5,6 +5,7 @@ import com.ssid.api.apissid.repositories.EquipamentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author daniel fernandez
@@ -26,5 +27,10 @@ public class EquipamentServiceImpl implements EquipamentService{
     @Override
     public void saveEquipament(Equipament equipament) {
         this.equipamentRepository.save(equipament);
+    }
+
+    @Override
+    public Optional<Equipament> getEquipamentById(Long id) {
+        return this.equipamentRepository.findById(id);
     }
 }
