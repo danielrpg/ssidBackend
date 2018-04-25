@@ -32,4 +32,7 @@ public class ApiPath {
     //This are constants for ResourceSso
     public static final String RESOURCES_SSO_PATH = VERSION_API + "/resourcessso";
 
+    //This are constants for ProgramSso
+    public static final String PROGRAM_SSO_PATH = VERSION_API + "/programssso";
+
 }
