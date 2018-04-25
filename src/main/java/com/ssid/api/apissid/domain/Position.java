@@ -1,11 +1,12 @@
 package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "position")
-public class Position {
+public class Position implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "position_id")
