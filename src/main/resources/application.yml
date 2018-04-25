@@ -31,9 +31,10 @@ security:
 #    password: root
 
 
+# Coneccion de franz
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost
+    url: jdbc:sqlserver://localhost:1433;database=grupod
     username: sa
     password: P@55w0rd
     platform: mssql
@@ -41,5 +42,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+      default_schema: dbo
     database: SQL_SERVER
     show-sql: true

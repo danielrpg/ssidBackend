@@ -10,7 +10,7 @@ public class ApiPath {
     //this path for login
     public static final String LOGIN_URL = VERSION_API + "/login";
 
-    //This are constants for User
+    //This are constants for UserSystem
     public static final String USER_PATH = VERSION_API + "/users";
 
     //This are constants for personal
@@ -18,6 +18,7 @@ public class ApiPath {
 
     //This are constants for Equipament
     public static final String EQUIPAMENT_PATH = VERSION_API + "/equipament";
+    public static final String EQUIPAMENT_BY_ID = EQUIPAMENT_PATH + "/{id}";
 
 
     //This are constants for RiskIpercDetail
