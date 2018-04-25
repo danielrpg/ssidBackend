@@ -2,6 +2,7 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 
 /**
@@ -38,6 +39,9 @@ public class Equipament extends ModelBase implements Serializable {
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
+
+    @ManyToMany(mappedBy = "equipaments")
+    private Set<Personal> personals;
 
     public Long getId() {
         return id;
@@ -85,5 +89,17 @@ public class Equipament extends ModelBase implements Serializable {
 
     public void setImage(Byte[] image) {
         this.image = image;
+    }
+
+    public String getEquipamentName() {
+        return equipamentName;
+    }
+
+    public Set<Personal> getPersonals() {
+        return personals;
+    }
+
+    public void setPersonals(Set<Personal> personals) {
+        this.personals = personals;
     }
 }
