@@ -18,16 +18,16 @@ public class Position extends ModelBase implements Serializable {
     @Column(name = "position_id")
     private Long id;
 
-    @Column(name = "position_name", length = 50)
+    @Column(name= "position_name", length = 300, unique=true)
     private String name;
 
-    @Column(name = "position_description", length = 100)
-    private String email;
+    @Column(name= "position_description", length = 800)
+    private String description;
 
-    @Column(name = "position_function", length = 200)
+    @Column(name = "position_function")
     private String function;
 
-    @Column(name = "position_level")
+    @Column(name= "position_level")
     private Integer level;
 
     @Column(name = "position_init_date")
