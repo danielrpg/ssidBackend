@@ -21,6 +21,7 @@ public class ApiPath {
 
     //This are constants for Equipament
     public static final String EQUIPAMENT_PATH = VERSION_API + "/equipament";
+    public static final String EQUIPAMENT_BY_ID = EQUIPAMENT_PATH + "/{id}";
 
 
     //This are constants for RiskIpercDetail
@@ -28,4 +29,14 @@ public class ApiPath {
 
     //This are constants for RiskIperc
     public static final String  RISK_IPERC_PATH = VERSION_API + "/riskiperc";
+
+    //This are constants for ActivitiesSso
+    public static final String ACTIVITIES_SSO_PATH = VERSION_API + "/activitiessso";
+
+    //This are constants for ResourceSso
+    public static final String RESOURCES_SSO_PATH = VERSION_API + "/resourcessso";
+
+    //This are constants for ProgramSso
+    public static final String PROGRAM_SSO_PATH = VERSION_API + "/programssso";
+
 }

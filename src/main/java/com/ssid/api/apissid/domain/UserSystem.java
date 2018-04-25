@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class UserSystem extends ModelBase implements Serializable {
     private static final long serialVersionUID=1L;
 
     @Id
