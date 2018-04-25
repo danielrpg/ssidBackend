@@ -20,4 +20,24 @@ public class RiskIpercServiceImpl implements RiskIpercService {
     public List<RiskIperc> getAllRiskIpercs() {
         return riskIpercRepository.findAll();
     }
+
+    @Override
+    public void saveRiskIperc(RiskIperc riskIperc) {
+        riskIpercRepository.save(riskIperc);
+    }
+
+    @Override
+    public void updateRiskIperc(RiskIperc riskIperc) {
+        
+    }
+
+    @Override
+    public void deleteRiskIperc(Long id) {
+
+    }
+
+    @Override
+    public void getRiskIperc(Long id) {
+
+    }
 }

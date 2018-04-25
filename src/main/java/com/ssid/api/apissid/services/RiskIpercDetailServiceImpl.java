@@ -1,5 +1,6 @@
 package com.ssid.api.apissid.services;
 
+import com.ssid.api.apissid.domain.RiskIperc;
 import com.ssid.api.apissid.domain.RiskIpercDetail;
 import com.ssid.api.apissid.repositories.RiskIpercDetailRepository;
 import com.ssid.api.apissid.repositories.RiskIpercRepository;
@@ -21,5 +22,25 @@ public class RiskIpercDetailServiceImpl implements RiskIpercDetailService {
     @Override
     public List<RiskIpercDetail> getAllRiskIpercDetails() {
         return riskIpercDetailRepository.findAll();
+    }
+
+    @Override
+    public void saveRiskIpercDetail(RiskIpercDetail riskIpercDetail) {
+        riskIpercDetailRepository.save(riskIpercDetail);
+    }
+
+    @Override
+    public void updateRiskIpercDetail(RiskIperc riskIperc) {
+
+    }
+
+    @Override
+    public void deleteRiskIpercDetail(Long id) {
+
+    }
+
+    @Override
+    public void getRiskIpercDetail(Long id) {
+
     }
 }
