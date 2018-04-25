@@ -13,9 +13,12 @@ public class Position {
 
     @Column(name= "position_name", length = 300, unique=true)
     private String name;
+
     @Column(name= "position_description", length = 800)
     private String description;
-    // private function
+
+    @Column(name = "position_function")
+    private String function;
 
     @Column(name= "position_level")
     private Integer level;
