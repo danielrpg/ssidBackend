@@ -2,14 +2,14 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 
 /**
  * @author Borisytu
  */
 @Entity
-
-@Table(name = "equipament")
+@Table(name = "equipaments")
 public class Equipament extends ModelBase implements Serializable {
 
     private static final long serialVersionUID=1L;
@@ -30,6 +30,9 @@ public class Equipament extends ModelBase implements Serializable {
 
     @Column(name = "equipament_type", length = 50)
     private Integer equipamenmtType;
+
+    @ManyToMany(mappedBy = "equipaments")
+    private Set<Personal> personals;
 
     public Long getId() {
         return id;
@@ -66,5 +69,17 @@ public class Equipament extends ModelBase implements Serializable {
 
     public void setEquipamenmtType(Integer equipamenmtType) {
         this.equipamenmtType = equipamenmtType;
+    }
+
+    public String getEquipamentName() {
+        return equipamentName;
+    }
+
+    public Set<Personal> getPersonals() {
+        return personals;
+    }
+
+    public void setPersonals(Set<Personal> personals) {
+        this.personals = personals;
     }
 }

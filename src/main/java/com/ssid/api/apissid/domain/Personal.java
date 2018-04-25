@@ -2,13 +2,14 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * @author Jesus David Piérola Alvarado
  */
 
 @Entity
-@Table(name = "personal")
+@Table(name = "personals")
 public class Personal implements Serializable {
     private static final long serialVersionUID=1L;
 
@@ -40,6 +41,12 @@ public class Personal implements Serializable {
 
     @OneToOne
     private Area area;
+
+    @ManyToMany
+    @JoinTable(name = "personal_assign",
+               joinColumns = @JoinColumn(name = "personal_id"),
+               inverseJoinColumns = @JoinColumn(name = "equipament_id") )
+    private Set<Equipament> equipaments;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -115,5 +122,13 @@ public class Personal implements Serializable {
 
     public void setArea(Area area) {
         this.area = area;
+    }
+
+    public Set<Equipament> getEquipaments() {
+        return equipaments;
+    }
+
+    public void setEquipaments(Set<Equipament> equipaments) {
+        this.equipaments = equipaments;
     }
 }
