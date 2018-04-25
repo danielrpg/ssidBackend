@@ -39,4 +39,7 @@ public class ApiPath {
     //This are constants for ProgramSso
     public static final String PROGRAM_SSO_PATH = VERSION_API + "/programssso";
 
+    // This is constants for incidents
+    public static final String INCIDENT_PATH = VERSION_API + "/incidents";
+
 }
