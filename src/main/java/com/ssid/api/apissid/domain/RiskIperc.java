@@ -3,9 +3,11 @@ package com.ssid.api.apissid.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * @author Jesus David Piérola Alvarado
+ * @author Marcos Bustos Jimenez
  */
 
 @Entity
@@ -16,7 +18,7 @@ public class RiskIperc implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "risk_iperc_id")
-    private int id;
+    private Long id;
 
     @Column(name = "risk_iperc_goal", length = 50,unique = true)
     private String goal;
@@ -30,20 +32,22 @@ public class RiskIperc implements Serializable {
     @Column(name = "risk_iperc_date",unique = true)
     private Date date;
 
-    /*@OneToOne(cascade = { CascadeType.ALL })
+    @ManyToOne(cascade = { CascadeType.ALL })
     @JoinColumn(name = "enterprise_id")
-    private Enterprise riskIpercDetail;*/
+    private Enterprise enterprise;
 
+    @OneToMany(mappedBy = "riskIperc", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<RiskIpercDetail> riskIpercDetails = new HashSet<>();
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -77,5 +81,21 @@ public class RiskIperc implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Enterprise getRiskIpercDetail() {
+        return enterprise;
+    }
+
+    public void setRiskIpercDetail(Enterprise enterprise) {
+        this.enterprise = enterprise;
+    }
+
+    public Set<RiskIpercDetail> getRiskIpercDetails() {
+        return riskIpercDetails;
+    }
+
+    public void setRiskIpercDetails(Set<RiskIpercDetail> riskIpercDetails) {
+        this.riskIpercDetails = riskIpercDetails;
     }
 }
