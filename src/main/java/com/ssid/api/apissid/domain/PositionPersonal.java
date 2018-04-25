@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "position_personal")
-public class PositionPersonal implements Serializable {
+public class PositionPersonal extends ModelBase implements Serializable {
     private static final long serialVersionUID=1L;
 
     @Id
@@ -17,11 +17,13 @@ public class PositionPersonal implements Serializable {
     @Column(name = "position_personal_id")
     private Long id;
 
-    @OneToOne
-    private Personal personal;
-
-    @OneToOne
+    @OneToOne(cascade = { CascadeType.ALL })
+    @JoinColumn(name = "position_id")
     private Position position;
+
+    @OneToOne(cascade = { CascadeType.ALL })
+    @JoinColumn(name = "personal_id")
+    private Personal personal;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

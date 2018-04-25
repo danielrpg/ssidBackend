@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "program_sso_resource")
-public class ResourceSso implements Serializable{
+public class ResourceSso extends ModelBase implements Serializable{
 
     private static final long serialVersionUID=1L;
     @Id
@@ -22,12 +22,24 @@ public class ResourceSso implements Serializable{
     @Column(name = "sso_resource_cost")
     private Double resourceCost;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sso_detail_id")
+    private ActivitiesSso activitiesSso;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public ActivitiesSso getActivitiesSso() {
+        return activitiesSso;
+    }
+
+    public void setActivitiesSso(ActivitiesSso activitiesSso) {
+        this.activitiesSso = activitiesSso;
     }
 
     public Integer getResourceDetail() {
