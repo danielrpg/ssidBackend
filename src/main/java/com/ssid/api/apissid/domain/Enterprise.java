@@ -1,6 +1,8 @@
 
 package com.ssid.api.apissid.domain;
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author vanessa alcocer
@@ -22,7 +24,8 @@ public class Enterprise {
     @Column(name = "enterprise_description", length = 50,unique = true)
     private String enterpriseDescription;
 
-
+    @OneToMany(mappedBy = "enterprise", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<RiskIperc> riskIpercs = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -48,5 +51,12 @@ public class Enterprise {
         this.enterpriseDescription = enterpriseDescription;
     }
 
+    public Set<RiskIperc> getRiskIpercs() {
+        return riskIpercs;
+    }
+
+    public void setRiskIpercs(Set<RiskIperc> riskIpercs) {
+        this.riskIpercs = riskIpercs;
+    }
 }
 

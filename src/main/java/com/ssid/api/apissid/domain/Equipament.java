@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Entity
 
 @Table(name = "equipament")
-public class Equipament implements Serializable {
+public class Equipament extends ModelBase implements Serializable {
 
     private static final long serialVersionUID=1L;
 

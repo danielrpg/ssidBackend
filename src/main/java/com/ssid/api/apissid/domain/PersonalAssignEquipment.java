@@ -15,7 +15,7 @@ public class PersonalAssignEquipment {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "personal_assign_equipament_id")
-    private Long equipamentId;
+    private Long id;
 
     @Column(name = "assign_equipament_date")
     private Date assignEquipamentDate;
