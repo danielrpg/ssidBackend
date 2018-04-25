@@ -12,6 +12,9 @@ public class Position implements Serializable {
     @Column(name = "position_id")
     private Long id;
 
+    @OneToOne(mappedBy = "position", fetch = FetchType.LAZY)
+    private PositionPersonal positionPersonal;
+
     @Column(name= "position_name", length = 300, unique=true)
     private String name;
 
