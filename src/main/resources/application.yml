@@ -31,6 +31,7 @@ security:
 #    password: root
 
 
+
 # Coneccion de franz
 #spring:
 #  datasource:
@@ -45,3 +46,4 @@ security:
 #      default_schema: dbo
 #    database: SQL_SERVER
 #    show-sql: true
+
