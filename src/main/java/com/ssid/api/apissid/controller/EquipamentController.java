@@ -35,4 +35,15 @@ public class EquipamentController {
     Optional<Equipament> findEquipamentById(@PathVariable(value = "id") Long id){
         return this.equipamentService.getEquipamentById(id);
     }
+
+    @RequestMapping(value = ApiPath.EQUIPAMENT_BY_ID, method = RequestMethod.DELETE)
+    public @ResponseBody
+    void deleteEquipamentById(@PathVariable(value = "id") Long id){
+        this.equipamentService.deleteEquipamentById(id);
+    }
+
+    @RequestMapping(value = ApiPath.EQUIPAMENT_PATH, method = RequestMethod.PUT)
+    public @ResponseBody Equipament updateEquipament(@RequestBody Equipament equipament, @PathVariable(value = "id") Long id){
+        return this.equipamentService.updateEquipament(equipament, id);
+    }
 }

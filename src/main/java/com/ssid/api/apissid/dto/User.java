@@ -1,4 +1,4 @@
-package com.ssid.api.apissid.domain;
+package com.ssid.api.apissid.dto;
 
 public class User {
     private String username;

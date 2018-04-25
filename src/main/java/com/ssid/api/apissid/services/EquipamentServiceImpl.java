@@ -33,4 +33,20 @@ public class EquipamentServiceImpl implements EquipamentService{
     public Optional<Equipament> getEquipamentById(Long id) {
         return this.equipamentRepository.findById(id);
     }
+
+    @Override
+    public void deleteEquipamentById(Long id) {
+        Optional<Equipament> equipament = this.equipamentRepository.findById(id);
+        this.equipamentRepository.delete(equipament.get());
+    }
+
+    @Override
+    public Equipament updateEquipament(Equipament equipament, Long id) {
+        Optional<Equipament> equipamentUpdate = this.equipamentRepository.findById(id);
+        if(!equipamentUpdate.isPresent())
+            return null;
+        equipament.setId(id);
+        this.equipamentRepository.save(equipament);
+        return equipament;
+    }
 }

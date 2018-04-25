@@ -18,6 +18,7 @@ public class ApiPath {
 
     //This are constants for Equipament
     public static final String EQUIPAMENT_PATH = VERSION_API + "/equipament";
+    public static final String EQUIPAMENT_BY_ID = EQUIPAMENT_PATH + "/{id}";
 
 
     //This are constants for RiskIpercDetail

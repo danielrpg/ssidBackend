@@ -11,6 +11,12 @@ import java.util.Optional;
 public interface EquipamentService {
 
     List<Equipament> getListEquipament();
+
     void saveEquipament(Equipament equipament);
+
     Optional<Equipament> getEquipamentById(Long id);
+
+    void deleteEquipamentById(Long id);
+
+    Equipament updateEquipament(Equipament equipament, Long id);
 }
