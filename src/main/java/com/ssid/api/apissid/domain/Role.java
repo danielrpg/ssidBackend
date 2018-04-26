@@ -23,6 +23,10 @@ public class Role extends ModelBase {
 
     @Column(name = "user_active")
     private Boolean userActive;
+    @ManyToMany(mappedBy = "roles")
+    private Set<UserSystem> userSystems;
+
+
 
     @ManyToMany(mappedBy = "roles")
     private Set<UserSystem> userSystems;
@@ -49,5 +53,12 @@ public class Role extends ModelBase {
 
     public void setUserActive(Boolean userActive) {
         this.userActive = userActive;
+    }
+    public Set<UserSystem> getUserSystems() {
+        return userSystems;
+    }
+
+    public void setUserSystems(Set<UserSystem> userSystems) {
+        this.userSystems = userSystems;
     }
 }
