@@ -9,7 +9,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "enterprise")
-public class Enterprise {
+public class Enterprise extends ModelBase{
 
     private static final long serialVersionUID=1L;
 
