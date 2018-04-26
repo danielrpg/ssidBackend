@@ -31,11 +31,13 @@ security:
 #    password: root
 
 
+
+# Coneccion de sql server
 spring:
   datasource:
-    url: jdbc:sqlserver://\ASUS\SQL2012;database=ssi_database
+    url: jdbc:sqlserver://localhost:1433
     username: sa
-    password: control
+    password: P@55w0rd
     platform: mssql
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:

@@ -10,7 +10,7 @@ import java.util.Set;
  */
 @Entity
 
-@Table(name = "equipament")
+@Table(name = "equipaments")
 public class Equipament extends ModelBase implements Serializable {
 
     private static final long serialVersionUID=1L;

@@ -1,6 +1,7 @@
 package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * @author daniel fernandez
@@ -22,6 +23,9 @@ public class Role extends ModelBase {
 
     @Column(name = "user_active")
     private Boolean userActive;
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<UserSystem> userSystems;
 
     public Long getId() {
         return id;
