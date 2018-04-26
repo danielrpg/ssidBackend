@@ -23,7 +23,7 @@ public class RiskIpercController {
     }
 
     @GetMapping(path = ApiPath.RISK_IPERC_PATH)
-    public List<RiskIperc> getListArea() {
+    public List<RiskIperc> getListRiskIperc() {
         return this.riskIpercService.findAll();
     }
 
