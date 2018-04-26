@@ -11,32 +11,33 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "rich_iperc")
-public class RiskIperc implements Serializable {
+@Table(name = "risk_iperc")
+public class RiskIperc extends ModelBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "risk_iperc_id")
     private Long id;
 
-    @Column(name = "risk_iperc_goal", length = 50,unique = true)
+    @Column(name = "risk_iperc_goal", length = 50, unique = true)
     private String goal;
 
-    @Column(name = "risk_iperc_area", length = 50,unique = true)
+    @Column(name = "risk_iperc_area", length = 50, unique = true)
     private String area;
 
-    @Column(name = "risk_iperc_resp", length = 50,unique = true)
+    @Column(name = "risk_iperc_resp", length = 50, unique = true)
     private String responsable;
 
-    @Column(name = "risk_iperc_date",unique = true)
+    @Column(name = "risk_iperc_date", unique = true)
     private Date date;
 
-    @ManyToOne(cascade = { CascadeType.ALL })
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "enterprise_id")
     private Enterprise enterprise;
 
-    @OneToMany(mappedBy = "riskIperc", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "risk_iperc_id", referencedColumnName = "risk_iperc_id")
     private Set<RiskIpercDetail> riskIpercDetails = new HashSet<>();
 
     public static long getSerialVersionUID() {
