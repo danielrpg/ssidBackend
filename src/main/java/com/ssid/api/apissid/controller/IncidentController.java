@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = ApiPath.INCIDENT_PATH)
+//@RequestMapping(value = ApiPath.INCIDENT_PATH)
 public class IncidentController {
 
     private IncidentService incidentService;
