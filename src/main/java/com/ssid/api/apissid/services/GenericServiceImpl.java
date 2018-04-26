@@ -52,7 +52,9 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 
     @Override
     public void deleteById(Long id) {
-        getRepository().deleteById(id);
+        if(getRepository().existsById(id)) {
+            getRepository().deleteById(id);
+        }
     }
 
     protected abstract JpaRepository<T, Long> getRepository();
