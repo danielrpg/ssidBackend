@@ -14,4 +14,6 @@ public interface GenericService<T> {
     T save(T model);
 
     void deleteById(Long id);
+
+    boolean update(T t, Long id);
 }

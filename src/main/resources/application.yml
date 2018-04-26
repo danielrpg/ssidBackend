@@ -32,18 +32,16 @@ security:
 
 
 
-# Coneccion de franz
-#spring:
-#  datasource:
-#    url: jdbc:sqlserver://localhost:1433;database=grupod
-#    username: sa
-#    password: P@55w0rd
-#    platform: mssql
-#    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-#      default_schema: dbo
-#    database: SQL_SERVER
-#    show-sql: true
-
+# Coneccion de sql server
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost:1433
+    username: sa
+    password: P@55w0rd
+    platform: mssql
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: SQL_SERVER
+    show-sql: true

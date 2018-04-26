@@ -29,10 +29,8 @@ public class UserSystem extends ModelBase implements Serializable {
     @ManyToMany
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id") )
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-
-
 
     public Long getId() {
         return id;
@@ -65,7 +63,8 @@ public class UserSystem extends ModelBase implements Serializable {
     public void setUserActive(Boolean userActive) {
         this.userActive = userActive;
     }
-    public Set<Role> getRoles() {
+
+  public Set<Role> getRoles() {
         return roles;
     }
 

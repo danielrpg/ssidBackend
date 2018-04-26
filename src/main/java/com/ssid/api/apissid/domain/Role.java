@@ -28,6 +28,9 @@ public class Role extends ModelBase {
 
 
 
+    @ManyToMany(mappedBy = "roles")
+    private Set<UserSystem> userSystems;
+
     public Long getId() {
         return id;
     }

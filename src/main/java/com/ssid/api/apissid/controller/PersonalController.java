@@ -41,10 +41,10 @@ public class PersonalController {
         this.personalService.save(personal);
     }
 
-    @RequestMapping(value = ApiPath.PERSONAL_PATH, method = RequestMethod.PATCH)
+    @RequestMapping(value = ApiPath.PERSONAL_PATH, method = RequestMethod.PUT)
     public @ResponseBody
-    void updatePersonal(@RequestBody Personal personal) {
-        this.personalService.save(personal);
+    void updatePersonal(@RequestBody Personal personal, @PathParam("id") long id) {
+        this.personalService.update(personal, id);
     }
 
     @RequestMapping(value = ApiPath.PERSONAL_PATH, method = RequestMethod.DELETE)

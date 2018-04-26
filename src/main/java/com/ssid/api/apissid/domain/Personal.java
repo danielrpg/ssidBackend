@@ -9,7 +9,7 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "personal")
+@Table(name = "personals")
 public class Personal extends ModelBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -51,6 +51,9 @@ public class Personal extends ModelBase implements Serializable {
             joinColumns = @JoinColumn(name = "personal_id"),
             inverseJoinColumns = @JoinColumn(name = "equipament_id"))
     private Set<Equipament> equipaments;
+
+    @ManyToMany(mappedBy = "personals")
+    private Set<Position> positions;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -142,5 +145,13 @@ public class Personal extends ModelBase implements Serializable {
 
     public void setPhoto(Byte[] photo) {
         this.photo = photo;
+    }
+
+    public Set<Position> getPositions() {
+        return positions;
+    }
+
+    public void setPositions(Set<Position> positions) {
+        this.positions = positions;
     }
 }
