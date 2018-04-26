@@ -6,6 +6,9 @@ import com.ssid.api.apissid.services.RiskIpercService;
 import com.ssid.api.apissid.util.ApiPath;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+import java.util.List;
+
 /**
  * @author Marcos Bustos Jimenez
  */
@@ -20,13 +23,30 @@ public class RiskIpercController {
     }
 
     @GetMapping(path = ApiPath.RISK_IPERC_PATH)
-    private String getRiskIpercs(){
-        return "List riskIperc";
+    public List<RiskIperc> getListArea() {
+        return this.riskIpercService.findAll();
     }
 
     @RequestMapping(value = ApiPath.RISK_IPERC_PATH, method = RequestMethod.POST)
     public @ResponseBody
-    void saveRiskIpercController(@RequestBody RiskIperc riskIperc) {
-        this.riskIpercService.(activitiesSso);
+    void saveRiskIperc(@RequestBody RiskIperc riskIperc) {
+        this.riskIpercService.save(riskIperc);
+    }
+
+    @GetMapping(value = ApiPath.RISK_IPERC_PATH + "/id/")
+    public RiskIperc findById(@PathParam("id") long id) {
+        return this.riskIpercService.findById(id);
+    }
+
+    @RequestMapping(value = ApiPath.RISK_IPERC_PATH, method = RequestMethod.PATCH)
+    public @ResponseBody
+    void updateRiskIperc(@RequestBody RiskIperc riskIperc, @PathParam("id") long id ) {
+        this.riskIpercService.update(riskIperc, id);
+    }
+
+    @RequestMapping(value = ApiPath.RISK_IPERC_PATH, method = RequestMethod.DELETE)
+    public @ResponseBody
+    void deleteRiskIperc(@PathParam("id") long id) {
+        this.riskIpercService.deleteById(id);
     }
 }
