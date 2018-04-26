@@ -3,18 +3,17 @@ package com.ssid.api.apissid.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @author Jesus David Piérola Alvarado
  */
 
 @Entity
-@Table(name = "position")
+@Table(name = "positions")
 public class Position extends ModelBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @OneToOne(mappedBy = "position", fetch = FetchType.LAZY)
-    private PositionPersonal positionPersonal;
   
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,9 +38,11 @@ public class Position extends ModelBase implements Serializable {
     @Column(name = "position_end_date")
     private Date endDate;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+    @ManyToMany
+    @JoinTable(name = "personal_position",
+            joinColumns = @JoinColumn(name = "position_id"),
+            inverseJoinColumns = @JoinColumn(name = "personal_id"))
+    private Set<Personal> personals;
 
     public Long getId() {
         return id;
@@ -89,5 +90,21 @@ public class Position extends ModelBase implements Serializable {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Set<Personal> getPersonals() {
+        return personals;
+    }
+
+    public void setPersonals(Set<Personal> personals) {
+        this.personals = personals;
     }
 }

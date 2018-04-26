@@ -2,6 +2,7 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * @author daniel fernandez
@@ -24,6 +25,12 @@ public class UserSystem extends ModelBase implements Serializable {
 
     @Column(name = "user_active")
     private Boolean userActive;
+
+    @ManyToMany
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     public Long getId() {
         return id;
@@ -55,5 +62,13 @@ public class UserSystem extends ModelBase implements Serializable {
 
     public void setUserActive(Boolean userActive) {
         this.userActive = userActive;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
