@@ -1,13 +1,16 @@
 package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author daniel fernandez
  */
 @Entity
 @Table(name = "program_sso")
-public class ProgramSso {
+public class ProgramSso extends ModelBase implements Serializable{
 
     private static final long serialVersionUID=1L;
 
@@ -33,6 +36,17 @@ public class ProgramSso {
 
     @Column(name = "sso_total_cost", length = 50,unique = true)
     private Double ssoTotalCost;
+
+    @OneToMany(mappedBy = "programSso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<ActivitiesSso> activitiesSsos= new HashSet<>();
+
+    public Set<ActivitiesSso> getActivitiesSsos() {
+        return activitiesSsos;
+    }
+
+    public void setActivitiesSsos(Set<ActivitiesSso> activitiesSsos) {
+        this.activitiesSsos = activitiesSsos;
+    }
 
     public Long getId() {
         return id;

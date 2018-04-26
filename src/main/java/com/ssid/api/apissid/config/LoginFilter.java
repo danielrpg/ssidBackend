@@ -1,7 +1,8 @@
 package com.ssid.api.apissid.config;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssid.api.apissid.domain.User;
+import com.ssid.api.apissid.dto.User;
 import com.ssid.api.apissid.util.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -48,7 +49,9 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
             throws AuthenticationException, IOException, ServletException {
 
         InputStream body = req.getInputStream();
-        User user = new ObjectMapper().readValue(body, User.class);
+
+        User user = new ObjectMapper()//.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                                      .readValue(body, User.class);
         return getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.getUsername(),

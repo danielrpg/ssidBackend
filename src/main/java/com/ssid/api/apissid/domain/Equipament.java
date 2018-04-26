@@ -9,7 +9,8 @@ import java.util.Set;
  * @author Borisytu
  */
 @Entity
-@Table(name = "equipaments")
+
+@Table(name = "equipament")
 public class Equipament extends ModelBase implements Serializable {
 
     private static final long serialVersionUID=1L;
@@ -19,17 +20,25 @@ public class Equipament extends ModelBase implements Serializable {
     @Column(name = "equipament_id")
     private Long id;
 
-    @Column(name = "equipament_name", length = 200)
-    private String equipamentName;
+    @Column(name = "equipament_name", length = 200,unique = true)
+    private String name;
 
-    @Column(name = "equipament_description", length = 200)
-    private String equipamentDescription;
+    @Column(name = "equipament_description", length = 200,unique = true)
+    private String description;
 
-    @Column(name = "equipament_status")
-    private Integer equipamenmtStatus;
+    @Column(name = "equipament_status", length = 50)
+    private Integer status;
 
-    @Column(name = "equipament_type")
-    private Integer equipamenmtType;
+    @Column(name = "equipament_type", length = 50)
+    private Integer type;
+
+    @Lob
+    @Column(name = "equipament_image")
+    private Byte[] image;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     @ManyToMany(mappedBy = "equipaments")
     private Set<Personal> personals;
@@ -42,37 +51,44 @@ public class Equipament extends ModelBase implements Serializable {
         this.id = id;
     }
 
-
-    public void setEquipamentName(String equipamentName) {
-        this.equipamentName = equipamentName;
+    public String getName() {
+        return name;
     }
 
-    public String getEquipamentDescription() {
-        return equipamentDescription;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setEquipamentDescription(String equipamentDescription) {
-        this.equipamentDescription = equipamentDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public Integer getEquipamenmtStatus() {
-        return equipamenmtStatus;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setEquipamenmtStatus(Integer equipamenmtStatus) {
-        this.equipamenmtStatus = equipamenmtStatus;
+    public Integer getStatus() {
+        return status;
     }
 
-    public Integer getEquipamenmtType() {
-        return equipamenmtType;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public void setEquipamenmtType(Integer equipamenmtType) {
-        this.equipamenmtType = equipamenmtType;
+    public Integer getType() {
+        return type;
     }
 
-    public String getEquipamentName() {
-        return equipamentName;
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(Byte[] image) {
+        this.image = image;
     }
 
     public Set<Personal> getPersonals() {

@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role extends ModelBase {
 
     private static final long serialVersionUID=1L;
 
