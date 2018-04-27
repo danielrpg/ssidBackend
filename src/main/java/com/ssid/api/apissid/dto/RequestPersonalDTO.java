@@ -12,6 +12,9 @@ public class RequestPersonalDTO {
     private String areaName;
     private String areaDescription;
 
+    public RequestPersonalDTO() {
+    }
+
     public RequestPersonalDTO(String name, byte[] photo, String email, String address, String cellphone,
                               String telephone, String year, boolean active, String areaName, String areaDescription) {
         this.name = name;
