@@ -32,11 +32,23 @@ public class ApiPath {
 
     //This are constants for ActivitiesSso
     public static final String ACTIVITIES_SSO_PATH = VERSION_API + "/activitiessso";
+    public static final String ACTIVITIE_BY_ID = ACTIVITIES_SSO_PATH + "/id";
 
     //This are constants for ResourceSso
     public static final String RESOURCES_SSO_PATH = VERSION_API + "/resourcessso";
+    public static final String RESOURCE_BY_ID = RESOURCES_SSO_PATH + "/id";
 
     //This are constants for ProgramSso
     public static final String PROGRAM_SSO_PATH = VERSION_API + "/programssso";
+    public static final String PROGRAM_BY_ID = PROGRAM_SSO_PATH + "/id";
+
+    // This is constants for incidents
+    public static final String INCIDENT_PATH = VERSION_API + "/incidents";
+
+    // This is constant for Enterprise
+    public static final String ENTERPRISE_PATH = VERSION_API + "/enterprise";
+
+    // This is constant for PersonalAssignEquipament
+    public static final String PERSONAL_ASSIGN_EQUIPAMENT_PATH = VERSION_API + "/personalassigequipament";
 
 }

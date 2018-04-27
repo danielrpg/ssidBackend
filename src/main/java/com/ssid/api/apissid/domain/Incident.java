@@ -13,7 +13,7 @@ import java.util.Set;
 public class Incident implements Serializable {
 
     @Id
-    @Column(nullable = false)
+    @Column(name = "incident_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long incidentId;
 
@@ -38,8 +38,8 @@ public class Incident implements Serializable {
     @Column
     private int incidentNumber;
 
-    @OneToOne(mappedBy = "incident", fetch = FetchType.LAZY)
-    private IncidentDetail incidentDetail;
+    @ManyToMany(mappedBy = "incidents")
+    private Set<RiskIpercDetail> riskIpercDetails;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "incident_type_id")
@@ -109,19 +109,19 @@ public class Incident implements Serializable {
         this.incidentNumber = incidentNumber;
     }
 
-    public IncidentDetail getIncidentDetail() {
-        return incidentDetail;
-    }
-
-    public void setIncidentDetail(IncidentDetail incidentDetail) {
-        this.incidentDetail = incidentDetail;
-    }
-
     public IncidentType getIncidentType() {
         return incidentType;
     }
 
     public void setIncidentType(IncidentType incidentType) {
         this.incidentType = incidentType;
+    }
+
+    public Set<RiskIpercDetail> getRiskIpercDetails() {
+        return riskIpercDetails;
+    }
+
+    public void setRiskIpercDetails(Set<RiskIpercDetail> riskIpercDetails) {
+        this.riskIpercDetails = riskIpercDetails;
     }
 }

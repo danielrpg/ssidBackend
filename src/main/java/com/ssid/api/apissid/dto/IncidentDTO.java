@@ -1,7 +1,5 @@
 package com.ssid.api.apissid.dto;
 
-import java.util.Date;
-
 public class IncidentDTO {
     private String code;
     private String reportedBy;
@@ -9,6 +7,8 @@ public class IncidentDTO {
     private boolean reincident;
     private boolean treatment;
     private int incidentNumber;
+
+    public IncidentDTO() {}
 
     public IncidentDTO(String code, String reportedBy, String area, boolean reincident, boolean treatment, int incidentNumber) {
         this.code = code;

@@ -8,6 +8,7 @@ import com.ssid.api.apissid.exceptions.NotFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
         return results;
     }
 
+    @Transactional
     @Override
     public T findById(Long id) {
 
@@ -36,6 +38,13 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
         return optional.get();
     }
 
+    @Transactional
+    @Override
+    public boolean update(T t, Long id) {
+        //TODO: completar funcionalidad
+        return false;
+    }
+
     @Override
     public T save(T model) {
         return getRepository().save(model);
@@ -43,7 +52,9 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 
     @Override
     public void deleteById(Long id) {
-        getRepository().deleteById(id);
+        if(getRepository().existsById(id)) {
+            getRepository().deleteById(id);
+        }
     }
 
     protected abstract JpaRepository<T, Long> getRepository();
