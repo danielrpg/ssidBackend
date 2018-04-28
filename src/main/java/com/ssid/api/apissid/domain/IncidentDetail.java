@@ -25,7 +25,7 @@ public class IncidentDetail implements Serializable {
     @Column
     private String incidentDetailSubtype;
 
-    @OneToOne(cascade = { CascadeType.ALL })
+    @ManyToOne(cascade = { CascadeType.ALL })
     @JoinColumn(name = "incident_id")
     private Incident incident;
 

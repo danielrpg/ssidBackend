@@ -42,8 +42,15 @@ public class Incident implements Serializable {
     private Set<RiskIpercDetail> riskIpercDetails;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "personal_id")
+    private Personal personal;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "incident_type_id")
     private IncidentType incidentType;
+
+    @OneToMany(mappedBy = "incident", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<IncidentDetail> incidentDetail;
 
     public Long getIncidentId() {
         return incidentId;
@@ -109,6 +116,22 @@ public class Incident implements Serializable {
         this.incidentNumber = incidentNumber;
     }
 
+    public Set<RiskIpercDetail> getRiskIpercDetails() {
+        return riskIpercDetails;
+    }
+
+    public void setRiskIpercDetails(Set<RiskIpercDetail> riskIpercDetails) {
+        this.riskIpercDetails = riskIpercDetails;
+    }
+
+    public Personal getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(Personal personal) {
+        this.personal = personal;
+    }
+
     public IncidentType getIncidentType() {
         return incidentType;
     }
@@ -117,11 +140,11 @@ public class Incident implements Serializable {
         this.incidentType = incidentType;
     }
 
-    public Set<RiskIpercDetail> getRiskIpercDetails() {
-        return riskIpercDetails;
+    public Set<IncidentDetail> getIncidentDetail() {
+        return incidentDetail;
     }
 
-    public void setRiskIpercDetails(Set<RiskIpercDetail> riskIpercDetails) {
-        this.riskIpercDetails = riskIpercDetails;
+    public void setIncidentDetail(Set<IncidentDetail> incidentDetail) {
+        this.incidentDetail = incidentDetail;
     }
 }
