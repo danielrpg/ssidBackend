@@ -16,8 +16,8 @@ public class ResourceSso extends ModelBase implements Serializable{
     @Column(name = "sso_resource_id")
     private Long id;
 
-    @Column(name = "sso_resource_detail", length = 50)
-    private Integer resourceDetail;
+    @Column(name = "sso_resource_detail", length = 200)
+    private String resourceDetail;
 
     @Column(name = "sso_resource_cost")
     private Double resourceCost;
@@ -42,11 +42,11 @@ public class ResourceSso extends ModelBase implements Serializable{
         this.activitiesSso = activitiesSso;
     }
 
-    public Integer getResourceDetail() {
+    public String getResourceDetail() {
         return resourceDetail;
     }
 
-    public void setResourceDetail(Integer resourceDetail) {
+    public void setResourceDetail(String resourceDetail) {
         this.resourceDetail = resourceDetail;
     }
 
