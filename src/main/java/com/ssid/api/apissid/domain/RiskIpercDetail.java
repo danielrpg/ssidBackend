@@ -1,7 +1,7 @@
 package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
-import java.util.HashSet;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -9,10 +9,10 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "rich_iperc_detail")
-public class RiskIpercDetail {
+@Table(name = "risk_iperc_detail")
+public class RiskIpercDetail extends ModelBase implements Serializable {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "risk_iperc_det_id")
     private Long id;
     @Column(name = "risk_iperc_det_ide_acti", length = 50)
@@ -48,12 +48,15 @@ public class RiskIpercDetail {
     @Column(name = "risk_iperc_det_eva_insp", length = 50)
     private String contInsp;
 
-    @ManyToOne(cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "risk_iperc_id")
     private RiskIperc riskIperc;
 
-    @OneToMany(mappedBy = "riskIpercDetail", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<RiskIpercIncident> riskIpercIncidents = new HashSet<>();
+    @ManyToMany
+    @JoinTable(name = "risk_iperc_incident",
+            joinColumns = @JoinColumn(name = "risk_iperc_det_id"),
+            inverseJoinColumns = @JoinColumn(name = "incident_id"))
+    private Set<Incident> incidents;
 
     public Long getId() {
         return id;
@@ -199,11 +202,11 @@ public class RiskIpercDetail {
         this.riskIperc = riskIperc;
     }
 
-    public Set<RiskIpercIncident> getRiskIpercIncidents() {
-        return riskIpercIncidents;
+    public Set<Incident> getIncidents() {
+        return incidents;
     }
 
-    public void setRiskIpercIncidents(Set<RiskIpercIncident> riskIpercIncidents) {
-        this.riskIpercIncidents = riskIpercIncidents;
+    public void setIncidents(Set<Incident> incidents) {
+        this.incidents = incidents;
     }
 }

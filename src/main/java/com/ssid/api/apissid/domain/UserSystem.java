@@ -64,7 +64,7 @@ public class UserSystem extends ModelBase implements Serializable {
         this.userActive = userActive;
     }
 
-    public Set<Role> getRoles() {
+  public Set<Role> getRoles() {
         return roles;
     }
 

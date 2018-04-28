@@ -45,4 +45,10 @@ public class ApiPath {
     // This is constants for incidents
     public static final String INCIDENT_PATH = VERSION_API + "/incidents";
 
+    // This is constant for Enterprise
+    public static final String ENTERPRISE_PATH = VERSION_API + "/enterprise";
+
+    // This is constant for PersonalAssignEquipament
+    public static final String PERSONAL_ASSIGN_EQUIPAMENT_PATH = VERSION_API + "/personalassigequipament";
+
 }
