@@ -16,13 +16,16 @@ public class TrainersSso {
     @Column(name = "sso_trainer_name", length = 50)
     private String name;
 
+    @Column(name = "sso_trainer_ci", length = 10)
+    private String ci;
+
     @Column(name = "sso_trainer_specialty")
     private String specialty;
 
     @Column(name = "sso_trainer_skills")
     private String SkillsDesciprtions;
 
-    @OneToMany(mappedBy = "activitiesSso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "trainersSso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<ActivitiesSso> activitiesSsos= new HashSet<>();
 
     public Long getId() {
@@ -39,6 +42,14 @@ public class TrainersSso {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCi() {
+        return ci;
+    }
+
+    public void setCi(String ci) {
+        this.ci = ci;
     }
 
     public String getSpecialty() {
