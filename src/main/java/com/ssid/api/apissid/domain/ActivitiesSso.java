@@ -45,6 +45,10 @@ public class ActivitiesSso extends ModelBase implements Serializable{
     @OneToMany(mappedBy = "activitiesSso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<ResourceSso> resourceSsos= new HashSet<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sso_trainer_id")
+    private TrainersSso trainersSso;
+
     public Long getId() {
         return id;
     }
@@ -113,6 +117,10 @@ public class ActivitiesSso extends ModelBase implements Serializable{
 
     public String getDetailResponsable() {
         return detailResponsable;
+    }
+
+    public void setTrainersSso(TrainersSso trainersSso) {
+        this.trainersSso = trainersSso;
     }
 
     public void setDetailResponsable(String detailResponsable) {
