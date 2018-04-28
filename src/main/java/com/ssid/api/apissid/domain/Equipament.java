@@ -2,6 +2,7 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -26,9 +27,6 @@ public class Equipament extends ModelBase implements Serializable {
     @Column(name = "equipament_description", length = 200,unique = true)
     private String description;
 
-    @Column(name = "equipament_status", length = 50)
-    private Integer status;
-
     @Column(name = "equipament_type", length = 50)
     private Integer type;
 
@@ -39,6 +37,9 @@ public class Equipament extends ModelBase implements Serializable {
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
+
+    @OneToMany(mappedBy = "equipament", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<KardexEquipament> kardexEquipaments= new HashSet<>();
 
     @ManyToMany(mappedBy = "equipaments")
     private Set<Personal> personals;
@@ -65,14 +66,6 @@ public class Equipament extends ModelBase implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public Integer getType() {
