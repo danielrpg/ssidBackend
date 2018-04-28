@@ -13,7 +13,7 @@ public class TrainersSso {
     @Column(name = "sso_trainer_id")
     private Long id;
 
-    @Column(name = "sso_trainer_name", length = 50)
+    @Column(name = "sso_trainer_name", length = 100)
     private String name;
 
     @Column(name = "sso_trainer_ci", length = 10)
