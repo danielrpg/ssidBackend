@@ -20,23 +20,20 @@ public class ActivitiesSso extends ModelBase implements Serializable{
     @Column(name = "sso_detail_id")
     private Long id;
 
-    @Column(name = "so_detail_number", length = 50)
+    @Column(name = "so_detail_number", length = 150)
     private Integer detailNumber;
 
-    @Column(name = "sso_detail_activities", length = 50)
+    @Column(name = "sso_detail_activities", length = 250)
     private String detailActivities;
 
-    @Column(name = "sso_detail_goal", length = 50)
+    @Column(name = "sso_detail_goal", length = 200)
     private String detailGoal;
 
     @Column(name = "sso_detail_time")
     private Date detailTime;
 
-    @Column(name = "soo_detail_type", length = 50)
+    @Column(name = "soo_detail_type", length = 250)
     private String detailType;
-
-    @Column(name = "sso_detail_responsable", length = 50)
-    private String detailResponsable;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sso_id")
@@ -44,6 +41,10 @@ public class ActivitiesSso extends ModelBase implements Serializable{
 
     @OneToMany(mappedBy = "activitiesSso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<ResourceSso> resourceSsos= new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sso_trainer_id")
+    private TrainersSso trainersSso;
 
     public Long getId() {
         return id;
@@ -111,11 +112,7 @@ public class ActivitiesSso extends ModelBase implements Serializable{
         this.detailType = detailType;
     }
 
-    public String getDetailResponsable() {
-        return detailResponsable;
-    }
-
-    public void setDetailResponsable(String detailResponsable) {
-        this.detailResponsable = detailResponsable;
+    public void setTrainersSso(TrainersSso trainersSso) {
+        this.trainersSso = trainersSso;
     }
 }
