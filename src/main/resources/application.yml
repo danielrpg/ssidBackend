@@ -1,22 +1,3 @@
-security:
-  oauth2:
-    resource:
-      filter-order: 3
-
-security:
-  signing-key: MaYzkSjmkzPC57L
-  encoding-strength: 256
-  security-realm: Team D
-
-security:
-  jwt:
-    client-id: testjwtclientid
-    client-secret: XY7kmzoNzl100
-    grant-type: password
-    scope-read: read
-    scope-write: write
-    resource-ids: testjwtresourceid
-
 # MariaDB or Mysql Server config
 #spring:
  # jpa:
@@ -35,9 +16,9 @@ security:
 # Coneccion de sql server
 spring:
   datasource:
-    url: jdbc:sqlserver://\ASUS\SQL2012;database=ssi_database
+    url: jdbc:sqlserver://localhost:1433
     username: sa
-    password: control
+    password: P@55w0rd
     platform: mssql
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
