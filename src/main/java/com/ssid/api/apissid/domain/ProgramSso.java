@@ -2,6 +2,7 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,22 +20,22 @@ public class ProgramSso extends ModelBase implements Serializable{
     @Column(name = "sso_id")
     private Long id;
 
-    @Column(name = "sso_objetive", length = 50,unique = true)
+    @Column(name = "sso_objetive", length = 250,unique = true)
     private String ssoObjetive;
 
-    @Column(name = "sso_indicator", length = 50,unique = true)
+    @Column(name = "sso_indicator", length = 250,unique = true)
     private String ssoIndicator;
 
-    @Column(name = "sso_goal", length = 50,unique = true)
+    @Column(name = "sso_goal", length = 250,unique = true)
     private String ssoGoal;
 
-    @Column(name = "sso_execution_time", length = 50,unique = true)
-    private String ssoExecutionTime;
+    @Column(name = "sso_execution_time", length = 250,unique = true)
+    private Date ssoExecutionTime;
 
-    @Column(name = "sso_responsable", length = 50,unique = true)
+    @Column(name = "sso_responsable", length = 250,unique = true)
     private String ssoResponsable;
 
-    @Column(name = "sso_total_cost", length = 50,unique = true)
+    @Column(name = "sso_total_cost")
     private Double ssoTotalCost;
 
     @OneToMany(mappedBy = "programSso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -80,11 +81,11 @@ public class ProgramSso extends ModelBase implements Serializable{
         this.ssoGoal = ssoGoal;
     }
 
-    public String getSsoExecutionTime() {
+    public Date getSsoExecutionTime() {
         return ssoExecutionTime;
     }
 
-    public void setSsoExecutionTime(String ssoExecutionTime) {
+    public void setSsoExecutionTime(Date ssoExecutionTime) {
         this.ssoExecutionTime = ssoExecutionTime;
     }
 

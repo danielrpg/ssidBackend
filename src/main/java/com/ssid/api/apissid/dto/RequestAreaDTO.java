@@ -4,6 +4,9 @@ public class RequestAreaDTO {
     private String name;
     private String description;
 
+    public RequestAreaDTO() {
+    }
+
     public RequestAreaDTO(String name, String description) {
         this.name = name;
         this.description = description;

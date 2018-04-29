@@ -2,6 +2,7 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -26,9 +27,6 @@ public class Equipament extends ModelBase implements Serializable {
     @Column(name = "equipament_description", length = 200,unique = true)
     private String description;
 
-    @Column(name = "equipament_status", length = 50)
-    private Integer status;
-
     @Column(name = "equipament_type", length = 50)
     private Integer type;
 
@@ -40,8 +38,11 @@ public class Equipament extends ModelBase implements Serializable {
         return serialVersionUID;
     }
 
-    @ManyToMany(mappedBy = "equipaments")
-    private Set<Personal> personals;
+    @OneToMany(mappedBy = "equipament", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<KardexEquipament> kardexEquipaments= new HashSet<>();
+
+    @OneToMany(mappedBy = "equipament", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Inventory> inventories= new HashSet<>();
 
     public Long getId() {
         return id;
@@ -67,14 +68,6 @@ public class Equipament extends ModelBase implements Serializable {
         this.description = description;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
     public Integer getType() {
         return type;
     }
@@ -91,11 +84,20 @@ public class Equipament extends ModelBase implements Serializable {
         this.image = image;
     }
 
-    public Set<Personal> getPersonals() {
-        return personals;
+    public Set<KardexEquipament> getKardexEquipaments() {
+        return kardexEquipaments;
     }
 
-    public void setPersonals(Set<Personal> personals) {
-        this.personals = personals;
+    public void setKardexEquipaments(Set<KardexEquipament> kardexEquipaments) {
+        this.kardexEquipaments = kardexEquipaments;
     }
+
+    public Set<Inventory> getInventories() {
+        return inventories;
+    }
+
+    public void setInventories(Set<Inventory> inventories) {
+        this.inventories = inventories;
+    }
+
 }

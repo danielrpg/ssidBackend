@@ -53,7 +53,7 @@ public class AreaController {
         }
     }
 
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> getAreaByName(@PathVariable String name) {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "ok");

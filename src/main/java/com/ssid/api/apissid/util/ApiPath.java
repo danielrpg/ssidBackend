@@ -42,6 +42,10 @@ public class ApiPath {
     public static final String PROGRAM_SSO_PATH = VERSION_API + "/programssso";
     public static final String PROGRAM_BY_ID = PROGRAM_SSO_PATH + "/id";
 
+    //This are constants for TrainerSso
+    public static final String TRAINER_SSO_PATH = VERSION_API + "/trainerssso";
+    public static final String TRAINER_BY_ID = TRAINER_SSO_PATH + "/id";
+
     // This is constants for incidents
     public static final String INCIDENT_PATH = VERSION_API + "/incidents";
 
@@ -50,5 +54,13 @@ public class ApiPath {
 
     // This is constant for PersonalAssignEquipament
     public static final String PERSONAL_ASSIGN_EQUIPAMENT_PATH = VERSION_API + "/personalassigequipament";
+
+    //this is constants for KardexEquipament
+    public static final String KARDEX_EQUIPAMENT_PATH = VERSION_API + "/kardexequipament";
+    public static final String KARDEX_BY_ID = KARDEX_EQUIPAMENT_PATH + "/id";
+
+    //this is constants for Inventory
+    public static final String INVENTORY_PATH = VERSION_API + "/inventory";
+    public static final String INVERTORY_BY_ID = INVENTORY_PATH + "/id";
 
 }
