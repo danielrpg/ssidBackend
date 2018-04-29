@@ -2,6 +2,7 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -46,11 +47,8 @@ public class Personal extends ModelBase implements Serializable {
     @OneToOne(optional = false)
     private Area area;
 
-    @ManyToMany
-    @JoinTable(name = "personal_assign",
-            joinColumns = @JoinColumn(name = "personal_id"),
-            inverseJoinColumns = @JoinColumn(name = "equipament_id"))
-    private Set<Equipament> equipaments;
+    @OneToMany(mappedBy = "personal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Inventory> inventories= new HashSet<>();
 
     @ManyToMany(mappedBy = "personals")
     private Set<Position> positions;
@@ -131,14 +129,6 @@ public class Personal extends ModelBase implements Serializable {
         this.area = area;
     }
 
-    public Set<Equipament> getEquipaments() {
-        return equipaments;
-    }
-
-    public void setEquipaments(Set<Equipament> equipaments) {
-        this.equipaments = equipaments;
-    }
-
     public Byte[] getPhoto() {
         return photo;
     }
@@ -153,5 +143,13 @@ public class Personal extends ModelBase implements Serializable {
 
     public void setPositions(Set<Position> positions) {
         this.positions = positions;
+    }
+
+    public Set<Inventory> getInventories() {
+        return inventories;
+    }
+
+    public void setInventories(Set<Inventory> inventories) {
+        this.inventories = inventories;
     }
 }
