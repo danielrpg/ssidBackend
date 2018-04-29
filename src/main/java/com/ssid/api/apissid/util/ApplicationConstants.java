@@ -6,7 +6,7 @@ package com.ssid.api.apissid.util;
 public class ApplicationConstants {
 
     public static final  String SSID_KEY= "SSID-2018"; // this is key for token generation
-    public static final int TIME_EXPIRE= 300000; // this is for 5 minutes
+    public static final int TIME_EXPIRE= 2147483647; // this is for 5 minutes
 
 
     // Spring Security

@@ -1,13 +1,7 @@
 package com.ssid.api.apissid.bootstrap;
 
-import com.ssid.api.apissid.domain.ActivitiesSso;
-import com.ssid.api.apissid.domain.ProgramSso;
-import com.ssid.api.apissid.domain.ResourceSso;
-import com.ssid.api.apissid.domain.TrainersSso;
-import com.ssid.api.apissid.repositories.ActivitiesSsoRepository;
-import com.ssid.api.apissid.repositories.ProgramSsoRepository;
-import com.ssid.api.apissid.repositories.ResourceSsoRepository;
-import com.ssid.api.apissid.repositories.TrainersSsoRepository;
+import com.ssid.api.apissid.domain.*;
+import com.ssid.api.apissid.repositories.*;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -21,13 +15,16 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private ProgramSsoRepository programSsoRepository;
     private ResourceSsoRepository resourceSsoRepository;
     private TrainersSsoRepository trainersSsoRepository;
+    private IncidentTypeRepository incidentTypeRepository;
 
     public DevBootstrap(ActivitiesSsoRepository activitiesSsoRepository, ProgramSsoRepository programSsoRepository,
-                        ResourceSsoRepository resourceSsoRepository, TrainersSsoRepository trainersSsoRepository){
+                        ResourceSsoRepository resourceSsoRepository, TrainersSsoRepository trainersSsoRepository,
+                        IncidentTypeRepository incidentTypeRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
         this.resourceSsoRepository = resourceSsoRepository;
         this.trainersSsoRepository = trainersSsoRepository;
+        this.incidentTypeRepository = incidentTypeRepository;
     }
 
     @Override
@@ -80,6 +77,14 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             activitiesSsoRepository.save(activitiesSso);
             trainersSsoRepository.save(trainersSso);
             programSsoRepository.save(programSso);
+
+
+
+            IncidentType incidentType = new IncidentType();
+            incidentType.setIncidentTypeName("Incident Type A");
+            incidentType.setIncidentTypeDescription("Incidentes de tipo A");
+            incidentTypeRepository.save(incidentType);
+
         }
 
 
