@@ -25,6 +25,10 @@ public class TrainersSso {
     @Column(name = "sso_trainer_skills")
     private String SkillsDesciprtions;
 
+    @Lob
+    @Column(name = "sso_trainer_image")
+    private Byte[] image;
+
     @OneToMany(mappedBy = "trainersSso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<ActivitiesSso> activitiesSsos= new HashSet<>();
 
@@ -58,6 +62,14 @@ public class TrainersSso {
 
     public void setSpecialty(String specialty) {
         this.specialty = specialty;
+    }
+
+    public Byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(Byte[] image) {
+        this.image = image;
     }
 
     public String getSkillsDesciprtions() {
