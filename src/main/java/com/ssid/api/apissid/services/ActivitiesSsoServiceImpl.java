@@ -29,13 +29,13 @@ public class ActivitiesSsoServiceImpl implements ActivitiesSsoService {
 
     @Override
     public Optional<ActivitiesSso> getActivitieById(Long id) {
-        return activitiesSsoRepository.findById(id);
+        return this.activitiesSsoRepository.findById(id);
     }
 
     @Override
     public void deleteActivitieById(Long id) {
         Optional<ActivitiesSso> activitiesSso = activitiesSsoRepository.findById(id);
-        activitiesSsoRepository.delete(activitiesSso.get());
+        this.activitiesSsoRepository.delete(activitiesSso.get());
     }
 
     @Override
