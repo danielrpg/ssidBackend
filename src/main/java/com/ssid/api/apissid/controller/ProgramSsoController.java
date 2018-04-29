@@ -1,25 +1,39 @@
 package com.ssid.api.apissid.controller;
 
+import com.ssid.api.apissid.command.ProgramSsoCommand;
 import com.ssid.api.apissid.domain.ProgramSso;
+import com.ssid.api.apissid.services.ActivitiesSsoService;
 import com.ssid.api.apissid.services.ProgramSsoService;
 import com.ssid.api.apissid.util.ApiPath;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 public class ProgramSsoController {
     private ProgramSsoService programSsoService;
+    private ActivitiesSsoService activitiesSsoService;
 
-    public ProgramSsoController(ProgramSsoService programSsoService) {
+    public ProgramSsoController(ProgramSsoService programSsoService, ActivitiesSsoService activitiesSsoService) {
         this.programSsoService = programSsoService;
+        this.activitiesSsoService = activitiesSsoService;
     }
 
     @GetMapping(path = ApiPath.PROGRAM_SSO_PATH)
-    public List<ProgramSso> getListActivities() {
-        return this.programSsoService.getProgramsSso();
+    public List<ProgramSsoCommand> getListActivities() {
+
+        List<ProgramSsoCommand> programSsoList = new ArrayList<>();
+        programSsoService.getProgramsSso().forEach(employee -> {
+            programSsoList.add(new ProgramSsoCommand(employee));
+        });
+
+       /* Response.ResponseBuilder responseBuilder = Response.ok(programSsoList);
+        addCorsHeader(responseBuilder);
+        return responseBuilder.build();*/
+
+        return programSsoList;
     }
 
     @RequestMapping(value = ApiPath.PROGRAM_SSO_PATH, method = RequestMethod.POST)
