@@ -9,24 +9,23 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "users")
-public class UserSystem extends ModelBase implements Serializable {
-    private static final long serialVersionUID=1L;
+public class UserSystem extends ModelBase  {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "user_id")
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "user_id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "user_name", length = 50,unique = true)
     private String username;
 
-    @Column(name = "user_password", length = 50)
+    @Column(name = "user_password", length = 200)
     private String password;
 
     @Column(name = "user_active")
     private Boolean userActive;
 
-    @ManyToMany
+    @ManyToMany( fetch=FetchType.EAGER )
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

@@ -17,40 +17,10 @@ security:
     scope-write: write
     resource-ids: testjwtresourceid
 
-# MariaDB or Mysql Server config
-#spring:
- # jpa:
-  #  hibernate:
-   #   ddl-auto: update
-    # ddl-auto: create-drop
-     # show-sql: true
-      #dialect: org.hibernate.dialect.MySQL5Dialect
-  #datasource:
-   # url: jdbc:mysql://localhost:3306/grupoD
-    #username: root
-    #password: root
-
-
-
-# Coneccion de sql server
-#spring:
-#  datasource:
-#    url: jdbc:sqlserver://\ASUS\SQL2012;database=ssi_database
-#    username: sa
-#    password: control
-#    platform: mssql
-#    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-#    database: SQL_SERVER
-#    show-sql: true
-
-
 # Franz configuracion
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost;database=grupod
+    url: jdbc:sqlserver://localhost:1433;database=grupod
     username: sa
     password: P@55w0rd
     platform: mssql

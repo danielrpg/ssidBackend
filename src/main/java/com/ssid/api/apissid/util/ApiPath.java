@@ -15,6 +15,7 @@ public class ApiPath {
 
     //This are constants for User
     public static final String USER_PATH = VERSION_API + "/users";
+    public static final String USER_BY_USERNAME = USER_PATH + "/{username}";
 
     //This are constants for personal
     public static final String PERSONAL_PATH = VERSION_API + "/personal";
@@ -45,6 +46,9 @@ public class ApiPath {
     //this is constants for KardexEquipament
     public static final String KARDEX_EQUIPAMENT_PATH = VERSION_API + "/kardexequipament";
     public static final String KARDEX_BY_ID = KARDEX_EQUIPAMENT_PATH + "/id";
+    //this is constants for Inventory
+    public static final String INVENTORY_PATH = VERSION_API + "/inventory";
+    public static final String INVERTORY_BY_ID = INVENTORY_PATH + "/id";
 
     // Accidents and Incidents CT_FL
     // This is constant for Enterprise
@@ -58,4 +62,5 @@ public class ApiPath {
     public static final String RISK_IPERC_PATH = VERSION_API + "/riskiperc";
     //This are constants for RiskIperc
     public static final String INCIDENT_TYPE_PATH = VERSION_API + "/incidenttype";
+
 }

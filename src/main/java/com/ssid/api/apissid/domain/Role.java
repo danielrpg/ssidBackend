@@ -1,5 +1,7 @@
 package com.ssid.api.apissid.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -11,19 +13,16 @@ import java.util.Set;
 @Table(name = "roles")
 public class Role extends ModelBase {
 
-    private static final long serialVersionUID=1L;
-
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "role_id")
     private Long id;
 
     @Column(name = "role_name", length = 200,unique = true)
-    private String username;
+    private String roleName;
 
-    @Column(name = "user_active")
-    private Boolean userActive;
-    @ManyToMany(mappedBy = "roles")
+    @JsonIgnore
+    @ManyToMany(mappedBy = "roles",   fetch=FetchType.EAGER)
     private Set<UserSystem> userSystems;
 
     public Long getId() {
@@ -34,21 +33,14 @@ public class Role extends ModelBase {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    public Boolean getUserActive() {
-        return userActive;
-    }
-
-    public void setUserActive(Boolean userActive) {
-        this.userActive = userActive;
-    }
     public Set<UserSystem> getUserSystems() {
         return userSystems;
     }
