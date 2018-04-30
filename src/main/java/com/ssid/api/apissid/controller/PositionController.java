@@ -1,8 +1,8 @@
 package com.ssid.api.apissid.controller;
 
-import com.ssid.api.apissid.command.AreaCommand;
-import com.ssid.api.apissid.domain.Area;
-import com.ssid.api.apissid.services.AreaService;
+import com.ssid.api.apissid.command.PositionCommand;
+import com.ssid.api.apissid.domain.Position;
+import com.ssid.api.apissid.services.PositionService;
 import com.ssid.api.apissid.util.ApiPath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,36 +18,36 @@ import java.util.Map;
  * @author Jesus David Piérola Alvarado
  */
 @RestController
-@RequestMapping(value = ApiPath.AREA_PATH)
-public class AreaController {
+@RequestMapping(value = ApiPath.POSITION_PATH)
+public class PositionController {
 
-    private AreaService areaService;
+    private PositionService positionService;
 
     @Autowired
-    public AreaController(AreaService areaService) {
-        this.areaService = areaService;
+    public PositionController(PositionService positionService) {
+        this.positionService = positionService;
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> getAllAreas() {
+    public ResponseEntity<Map<String, Object>> getListPosition() {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "ok");
-        List<AreaCommand> areaList = new ArrayList<>();
-        this.areaService.findAll().forEach(area -> {
-            areaList.add(new AreaCommand(area));
+        List<PositionCommand> positionList = new ArrayList<>();
+        this.positionService.findAll().forEach(position -> {
+            positionList.add(new PositionCommand(position));
         });
-        mapResponse.put("data", areaList);
+        mapResponse.put("data", positionList);
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> getAreaById(@PathVariable long id) {
+    public ResponseEntity<Map<String, Object>> getPositionById(@PathVariable long id) {
         Map<String, Object> mapResponse = new HashMap<>();
-        Area area = this.areaService.findById(id);
+        Position position = this.positionService.findById(id);
 
-        if (area != null) {
+        if (position != null) {
             mapResponse.put("status", "ok");
-            mapResponse.put("data", new AreaCommand(area));
+            mapResponse.put("data", new PositionCommand(position));
             return new ResponseEntity<>(mapResponse, HttpStatus.OK);
         } else {
             mapResponse.put("status", "not found");
@@ -56,39 +56,27 @@ public class AreaController {
         }
     }
 
-    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> getAreaByName(@PathVariable String name) {
-        Map<String, Object> mapResponse = new HashMap<>();
-        List<AreaCommand> areaList = new ArrayList<>();
-        this.areaService.findByName(name).forEach(area -> {
-            areaList.add(new AreaCommand(area));
-        });
-        mapResponse.put("status", "ok");
-        mapResponse.put("data", areaList);
-        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
-    }
-
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
-    public ResponseEntity<Map<String, Object>> createArea(@RequestBody AreaCommand areaCommand) {
+    public ResponseEntity<Map<String, Object>> createPosition(@RequestBody PositionCommand positionCommand) {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "created");
-        mapResponse.put("data", areaService.save(areaCommand.toArea()));
+        mapResponse.put("data", positionService.save(positionCommand.toPosition()));
         return new ResponseEntity<>(mapResponse, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Map<String, Object>> updateArea(@RequestBody AreaCommand areaCommand, @PathVariable int id) {
+    public ResponseEntity<Map<String, Object>> updatePosition(@RequestBody PositionCommand positionCommand, @PathVariable int id) {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "updated");
-        mapResponse.put("data", areaService.updateArea(areaCommand.toArea(), (long) id));
+        mapResponse.put("data", positionService.updatePosition(positionCommand.toPosition(), (long) id));
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Map<String, Object>> deleteArea(@PathVariable long id) {
+    public ResponseEntity<Map<String, Object>> deletePosition(@PathVariable long id) {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "deleted");
-        this.areaService.deleteById(id);
+        this.positionService.deleteById(id);
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 }
