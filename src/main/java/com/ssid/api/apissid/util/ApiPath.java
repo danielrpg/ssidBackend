@@ -7,8 +7,11 @@ public class ApiPath {
 
     public static final String VERSION_API = "/api/v1";
 
-    //This are constants for personal
+    //This are constants for area
     public static final String AREA_PATH = VERSION_API + "/area";
+
+    //This are constants for department
+    public static final String DEPARTMENT_PATH = VERSION_API + "/department";
 
     //this path for login
     public static final String LOGIN_URL = VERSION_API + "/login";
@@ -19,6 +22,9 @@ public class ApiPath {
 
     //This are constants for personal
     public static final String PERSONAL_PATH = VERSION_API + "/personal";
+
+    //This are constants for position
+    public static final String POSITION_PATH = VERSION_API + "/position";
 
     //This are constants for Equipament
     public static final String EQUIPAMENT_PATH = VERSION_API + "/equipament";

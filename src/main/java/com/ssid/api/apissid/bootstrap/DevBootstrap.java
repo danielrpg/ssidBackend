@@ -16,6 +16,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private ProgramSsoRepository programSsoRepository;
     private ResourceSsoRepository resourceSsoRepository;
     private TrainersSsoRepository trainersSsoRepository;
+    private DepartmentRepository departmentRepository;
 
     /**
      * Personal assignment Equipment repositories
@@ -30,12 +31,12 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                         ResourceSsoRepository resourceSsoRepository, TrainersSsoRepository trainersSsoRepository,
                         PersonalRepository personalRepository, EquipamentRepository equipamentRepository,
                         InventoryRepository inventoryRepository, KardexEquipamentRepository kardexEquipamentRepository,
-                        AreaRepository areaRepository){
+                        AreaRepository areaRepository, DepartmentRepository departmentRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
         this.resourceSsoRepository = resourceSsoRepository;
         this.trainersSsoRepository = trainersSsoRepository;
-        //
+        this.departmentRepository = departmentRepository;
         this.personalRepository = personalRepository;
         this.equipamentRepository = equipamentRepository;
         this.kardexEquipamentRepository = kardexEquipamentRepository;
@@ -164,6 +165,34 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
         }
 
+        //Organizational structure
+        if(departmentRepository.count() == 0){
+            Department department1 = new Department();
+            department1.setName("Dirección General");
+            department1.setDescription("El departamento de dirección general agrupa los cargos relacionados con gerencia.");
+
+            Department department2 = new Department();
+            department2.setName("Departamento técnico");
+            department2.setDescription("El departamento de dirección general agrupa los cargos relacionados con operaciones.");
+
+            Department department3 = new Department();
+            department3.setName("Departamento financiero");
+            department3.setDescription("El departamento financiero agrupa los cargos encargados de las finanzas de la empresa.");
+
+            Department department4 = new Department();
+            department4.setName("Departamento de recursos humanos");
+            department4.setDescription("El departamento de recursos humanos agrupa los cargos encargados del personal.");
+
+            Department department5 = new Department();
+            department5.setName("Departamento comercial");
+            department5.setDescription("El departamento comercial agrupa los cargos relacionados con las ventas de la empresa.");
+
+            departmentRepository.save(department1);
+            departmentRepository.save(department2);
+            departmentRepository.save(department3);
+            departmentRepository.save(department4);
+            departmentRepository.save(department5);
+        }
 
 
     }

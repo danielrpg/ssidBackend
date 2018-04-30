@@ -2,6 +2,7 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,17 +42,19 @@ public class Personal extends ModelBase implements Serializable {
     @Column(name = "personal_active")
     private Boolean active;
 
-    @Column(name = "personal_year", length = 50)
-    private String year;
+    @Column(name = "personal_birthdate")
+    private Date birthdate;
 
     @OneToOne(optional = false)
     private Area area;
 
     @OneToMany(mappedBy = "personal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Inventory> inventories= new HashSet<>();
+    private Set<Inventory> inventories = new HashSet<>();
 
-    @ManyToMany(mappedBy = "personals")
-    private Set<Position> positions;
+    @OneToMany(mappedBy = "personal",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            orphanRemoval = true)
+    private Set<PersonalPositionContract> personalPositionContracts;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -113,12 +116,12 @@ public class Personal extends ModelBase implements Serializable {
         this.active = active;
     }
 
-    public String getYear() {
-        return year;
+    public Date getBirthdate() {
+        return birthdate;
     }
 
-    public void setYear(String year) {
-        this.year = year;
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
     }
 
     public Area getArea() {
@@ -137,12 +140,12 @@ public class Personal extends ModelBase implements Serializable {
         this.photo = photo;
     }
 
-    public Set<Position> getPositions() {
-        return positions;
+    public Set<PersonalPositionContract> getPersonalPositionContracts() {
+        return personalPositionContracts;
     }
 
-    public void setPositions(Set<Position> positions) {
-        this.positions = positions;
+    public void setPersonalPositionContracts(Set<PersonalPositionContract> personalPositionContracts) {
+        this.personalPositionContracts = personalPositionContracts;
     }
 
     public Set<Inventory> getInventories() {
