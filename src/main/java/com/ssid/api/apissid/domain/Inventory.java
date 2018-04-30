@@ -7,7 +7,7 @@ import java.util.Date;
 @Table(name = "inventory")
 public class Inventory extends ModelBase {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "inventory_id")
     private Long id;
 
@@ -68,11 +68,11 @@ public class Inventory extends ModelBase {
         this.equipament = equipament;
     }
 
-   /* public Personal getPersonal() {
+    public Personal getPersonal() {
         return personal;
     }
 
     public void setPersonal(Personal personal) {
         this.personal = personal;
-    }*/
+    }
 }
