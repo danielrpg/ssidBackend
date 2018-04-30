@@ -18,7 +18,7 @@ public class KardexEquipamentController {
         this.kardexEquipamentService = kardexEquipamentService;
     }
 
-    @GetMapping(path = ApiPath.INVENTORY_PATH)
+    @GetMapping(path = ApiPath.KARDEX_EQUIPAMENT_PATH)
     public List<KardexEquipamentCommand> getListKardexEquipament(){
 
         List<KardexEquipamentCommand> kardexEquipamentCommadsList = new ArrayList<>();
@@ -29,12 +29,12 @@ public class KardexEquipamentController {
         return kardexEquipamentCommadsList;
     }
 
-    @RequestMapping(value = ApiPath.INVENTORY_PATH, method = RequestMethod.POST)
+    @RequestMapping(value = ApiPath.KARDEX_EQUIPAMENT_PATH, method = RequestMethod.POST)
     public @ResponseBody void saveKardexEquipament(@RequestBody KardexEquipamentCommand kardexEquipamentCommand){
         this.kardexEquipamentService.saveKardexEquipament(kardexEquipamentCommand.toKardexEquipament());
     }
 
-    @RequestMapping(value = ApiPath.INVERTORY_BY_ID, method = RequestMethod.GET)
+    @RequestMapping(value = ApiPath.KARDEX_BY_ID, method = RequestMethod.GET)
     public @ResponseBody
     KardexEquipamentCommand findKardexEquipamentById(@PathVariable(value = "id") Long id){
 
@@ -42,13 +42,13 @@ public class KardexEquipamentController {
         return new KardexEquipamentCommand(kardexEquipament.get());
     }
 
-    @RequestMapping(value = ApiPath.INVERTORY_BY_ID, method = RequestMethod.DELETE)
+    @RequestMapping(value = ApiPath.KARDEX_BY_ID, method = RequestMethod.DELETE)
     public @ResponseBody
     void deleteKardexEquipamentById(@PathVariable(value = "id") Long id){
         this.kardexEquipamentService.deleteKardexEquipamentById(id);
     }
 
-    @RequestMapping(value = ApiPath.INVENTORY_PATH, method = RequestMethod.PUT)
+    @RequestMapping(value = ApiPath.KARDEX_EQUIPAMENT_PATH, method = RequestMethod.PUT)
     public @ResponseBody
     KardexEquipamentCommand updateKardexEquipament(@RequestBody KardexEquipamentCommand kardexEquipamentCommand, @PathVariable(value = "id") Long id){
 
