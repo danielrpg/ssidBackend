@@ -20,11 +20,11 @@ public class Inventory extends ModelBase {
     @Column(name = "active_asignament")
     private boolean active;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne//(cascade = {CascadeType.ALL})
     @JoinColumn(name = "equipament_id")
     private Equipament equipament;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne//(cascade = {CascadeType.ALL})
     @JoinColumn(name = "personal_id")
     private Personal personal;
 
