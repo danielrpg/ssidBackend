@@ -15,6 +15,7 @@ public class ApiPath {
 
     //This are constants for User
     public static final String USER_PATH = VERSION_API + "/users";
+    public static final String USER_BY_USERNAME = USER_PATH + "/{username}";
 
     //This are constants for personal
     public static final String PERSONAL_PATH = VERSION_API + "/personal";
