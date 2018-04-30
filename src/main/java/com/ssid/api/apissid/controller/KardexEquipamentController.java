@@ -2,9 +2,11 @@ package com.ssid.api.apissid.controller;
 
 import com.ssid.api.apissid.domain.KardexEquipament;
 import com.ssid.api.apissid.services.KardexEquipamentService;
+import com.ssid.api.apissid.command.KardexEquipamentCommand;
 import com.ssid.api.apissid.util.ApiPath;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,32 +19,40 @@ public class KardexEquipamentController {
     }
 
     @GetMapping(path = ApiPath.KARDEX_EQUIPAMENT_PATH)
-    public List<KardexEquipament> getListkardex() {
+    public List<KardexEquipamentCommand> getListKardexEquipament(){
 
-        return kardexEquipamentService.getListKardexEquipament();
+        List<KardexEquipamentCommand> kardexEquipamentCommadsList = new ArrayList<>();
+
+        this.kardexEquipamentService.getListKardexEquipament().forEach(kardexEquipament -> {
+            kardexEquipamentCommadsList.add(new KardexEquipamentCommand(kardexEquipament));
+        });
+        return kardexEquipamentCommadsList;
     }
 
     @RequestMapping(value = ApiPath.KARDEX_EQUIPAMENT_PATH, method = RequestMethod.POST)
-    public @ResponseBody
-    void saveKardex(@RequestBody KardexEquipament kardexEquipament) {
-        this.kardexEquipamentService.saveKardexEquipament(kardexEquipament);
+    public @ResponseBody void saveKardexEquipament(@RequestBody KardexEquipamentCommand kardexEquipamentCommand){
+        this.kardexEquipamentService.saveKardexEquipament(kardexEquipamentCommand.toKardexEquipament());
     }
 
     @RequestMapping(value = ApiPath.KARDEX_BY_ID, method = RequestMethod.GET)
     public @ResponseBody
-    Optional<KardexEquipament> findKardexById(@PathVariable(value = "id") Long id){
-        return this.kardexEquipamentService.getKardexEquipamentById(id);
+    KardexEquipamentCommand findKardexEquipamentById(@PathVariable(value = "id") Long id){
+
+        Optional<KardexEquipament> kardexEquipament = kardexEquipamentService.getKardexEquipamentById(id);
+        return new KardexEquipamentCommand(kardexEquipament.get());
     }
 
     @RequestMapping(value = ApiPath.KARDEX_BY_ID, method = RequestMethod.DELETE)
     public @ResponseBody
-    void deleteKardexById(@PathVariable(value = "id") Long id){
+    void deleteKardexEquipamentById(@PathVariable(value = "id") Long id){
         this.kardexEquipamentService.deleteKardexEquipamentById(id);
     }
 
     @RequestMapping(value = ApiPath.KARDEX_EQUIPAMENT_PATH, method = RequestMethod.PUT)
     public @ResponseBody
-    KardexEquipament updateKardex(@RequestBody KardexEquipament kardexEquipament, @PathVariable(value = "id") Long id){
-        return this.kardexEquipamentService.updateKardexEquipament(kardexEquipament, id);
+    KardexEquipamentCommand updateKardexEquipament(@RequestBody KardexEquipamentCommand kardexEquipamentCommand, @PathVariable(value = "id") Long id){
+
+        KardexEquipament updateKardexEquipament =this.kardexEquipamentService.updateKardexEquipament(kardexEquipamentCommand.toKardexEquipament(), id);
+        return new KardexEquipamentCommand(updateKardexEquipament);
     }
 }
