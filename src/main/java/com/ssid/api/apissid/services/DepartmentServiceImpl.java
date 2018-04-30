@@ -1,7 +1,7 @@
 package com.ssid.api.apissid.services;
 
-import com.ssid.api.apissid.domain.Area;
-import com.ssid.api.apissid.repositories.AreaRepository;
+import com.ssid.api.apissid.domain.Department;
+import com.ssid.api.apissid.repositories.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -11,40 +11,41 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 
 @Service
-public class AreaServiceImpl extends GenericServiceImpl<Area> implements AreaService {
-    private AreaRepository repository;
+public class DepartmentServiceImpl extends GenericServiceImpl<Department> implements DepartmentService {
+    private DepartmentRepository repository;
 
     @Autowired
-    public AreaServiceImpl(AreaRepository repository) {
+    public DepartmentServiceImpl(DepartmentRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public List<Area> findByName(String name) {
+    public List<Department> findByName(String name) {
         return StringUtils.isEmpty(name) ? findAll() : repository.findByName(name).get();
     }
 
     @Override
-    public boolean updateArea(Area area, Long id) {
+    public boolean updateDepartment(Department department, Long id) {
         boolean isChanged = false;
 
         //si existe, actualizamos
         if (repository.existsById(id)) {
-            Area areaDB = findById(id);
+            Department departmentDB = findById(id);
 
-            if (areaDB.getName().compareTo(area.getName()) != 0) {
-                areaDB.setName(area.getName());
+            if (departmentDB.getName().compareTo(department.getName()) != 0) {
+                departmentDB.setName(department.getName());
                 isChanged = true;
             }
-            if (areaDB.getDescription().compareTo(area.getDescription()) != 0) {
-                areaDB.setDescription(area.getDescription());
+
+            if (departmentDB.getDescription().compareTo(department.getDescription()) != 0) {
+                departmentDB.setDescription(department.getDescription());
                 isChanged = true;
             }
 
             if (isChanged) {
-                Area areaSaved = save(areaDB);
+                Department departmentSaved = save(departmentDB);
 
-                if (areaSaved.getId() != null) {
+                if (departmentSaved.getId() != null) {
                     return true;
                 }
             } else {
@@ -54,14 +55,14 @@ public class AreaServiceImpl extends GenericServiceImpl<Area> implements AreaSer
             }
         } else {
             //insertamos como nuevo
-            save(area);
+            save(department);
         }
 
         return false;
     }
 
     @Override
-    protected JpaRepository<Area, Long> getRepository() {
+    protected JpaRepository<Department, Long> getRepository() {
         return repository;
     }
 }
