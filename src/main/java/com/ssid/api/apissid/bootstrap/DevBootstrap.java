@@ -7,6 +7,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
+import java.util.Date;
 
 @Component
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
@@ -17,14 +18,30 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private TrainersSsoRepository trainersSsoRepository;
     private DepartmentRepository departmentRepository;
 
+    /**
+     * Personal assignment Equipment repositories
+     **/
+    private PersonalRepository personalRepository;
+    private EquipamentRepository equipamentRepository;
+    private InventoryRepository inventoryRepository;
+    private KardexEquipamentRepository kardexEquipamentRepository;
+    private AreaRepository areaRepository;
+
     public DevBootstrap(ActivitiesSsoRepository activitiesSsoRepository, ProgramSsoRepository programSsoRepository,
                         ResourceSsoRepository resourceSsoRepository, TrainersSsoRepository trainersSsoRepository,
-                        DepartmentRepository departmentRepository){
+                        PersonalRepository personalRepository, EquipamentRepository equipamentRepository,
+                        InventoryRepository inventoryRepository, KardexEquipamentRepository kardexEquipamentRepository,
+                        AreaRepository areaRepository, DepartmentRepository departmentRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
         this.resourceSsoRepository = resourceSsoRepository;
         this.trainersSsoRepository = trainersSsoRepository;
         this.departmentRepository = departmentRepository;
+        this.personalRepository = personalRepository;
+        this.equipamentRepository = equipamentRepository;
+        this.kardexEquipamentRepository = kardexEquipamentRepository;
+        this.inventoryRepository = inventoryRepository;
+        this.areaRepository = areaRepository;
     }
 
     @Override
@@ -72,11 +89,80 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
             //activitiesSso.setProgramSso(programSso);
 
-            resourceSsoRepository.save(resourceSso1);
-            resourceSsoRepository.save(resourceSso2);
-            activitiesSsoRepository.save(activitiesSso);
-            trainersSsoRepository.save(trainersSso);
-            programSsoRepository.save(programSso);
+            this.resourceSsoRepository.save(resourceSso1);
+            this.resourceSsoRepository.save(resourceSso2);
+            this.activitiesSsoRepository.save(activitiesSso);
+            this.trainersSsoRepository.save(trainersSso);
+            this.programSsoRepository.save(programSso);
+
+            //Area
+            Area area = new Area();
+            area.setName("Construccion");
+            area.setDescription("Area de Construccion");
+            areaRepository.save(area);
+            //Personal
+            Personal personal = new Personal();
+            personal.setArea(area);
+            personal.setName("Jhon Doe");
+            personal.setAddress("Av. Villazon N° 2326");
+            personal.setCellphone("89632548");
+            personal.setEmail("jDoe@gmail.com");
+            personal.setYear("33");
+            personal.setActive(true);
+            personalRepository.save(personal);
+
+            //Equipment 1
+            Equipament equipament1 = new Equipament();
+            equipament1.setName("Helmmet");
+            equipament1.setType(1);
+            equipament1.setDescription("Casco tipo Jokey de ala Ancha");
+            equipament1.setImage(new Byte[0]);
+            equipamentRepository.save(equipament1);
+
+            //Equipment 2
+            Equipament equipament2 = new Equipament();
+            equipament2.setName("Electric Drill");
+            equipament2.setType(2);
+            equipament2.setDescription("Taladro electrico portatil bosch");
+            equipament2.setImage(new Byte[0]);
+            equipamentRepository.save(equipament2);
+
+            //KardexEquipment
+            KardexEquipament kardexEquipament = new KardexEquipament();
+            kardexEquipament.setEquipament(equipament2);
+            kardexEquipament.setDateKardex(new Date());
+            kardexEquipament.setEntryKardex(15);
+            kardexEquipament.setOutlayKardex(0);
+            kardexEquipament.setBalanceKardex(15);
+            kardexEquipamentRepository.save(kardexEquipament);
+
+            //KardexEquipment1
+            KardexEquipament kardexEquipament1 = new KardexEquipament();
+            kardexEquipament1.setEquipament(equipament2);
+            kardexEquipament1.setDateKardex(new Date());
+            kardexEquipament1.setEntryKardex(0);
+            kardexEquipament1.setOutlayKardex(5);
+            kardexEquipament1.setBalanceKardex(10);
+            kardexEquipamentRepository.save(kardexEquipament1);
+
+            //InventoryEquipment
+            Inventory inventory = new Inventory();
+            inventory.setPersonal(personal);
+            inventory.setEquipament(equipament2);
+            inventory.setDateAsignament(new Date());
+            inventory.setStatus("nuevo");
+            inventory.setActive(true);
+            inventoryRepository.save(inventory);
+
+            //InventoryEquipment1
+            Inventory inventory1 = new Inventory();
+            inventory1.setPersonal(personal);
+            inventory1.setEquipament(equipament1);
+            inventory1.setDateAsignament(new Date());
+            inventory1.setStatus("nuevo");
+            inventory1.setActive(true);
+            inventoryRepository.save(inventory1);
+
         }
 
         //Organizational structure
