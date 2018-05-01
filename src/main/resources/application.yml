@@ -35,13 +35,13 @@ security:
 # Coneccion de sql server
 spring:
   datasource:
-    url: jdbc:sqlserver://\PIERO-ASUS\SQL2012;database=ssid
+    url: jdbc:sqlserver://\ASUS\SQL2012;database=ssi_database
     username: sa
     password: control
     platform: mssql
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     database: SQL_SERVER
-    show-sql: true
+show-sql: true
