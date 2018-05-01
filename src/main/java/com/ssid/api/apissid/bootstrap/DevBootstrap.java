@@ -19,6 +19,9 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private TrainersSsoRepository trainersSsoRepository;
     private DepartmentRepository departmentRepository;
     private PositionRepository positionRepository;
+    private ContractRepository contractRepository;
+    private FunctionRepository functionRepository;
+    private RequirementRepository requirementRepository;
 
     /**
      * Personal assignment Equipment repositories
@@ -34,7 +37,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                         PersonalRepository personalRepository, EquipamentRepository equipamentRepository,
                         InventoryRepository inventoryRepository, KardexEquipamentRepository kardexEquipamentRepository,
                         AreaRepository areaRepository, DepartmentRepository departmentRepository,
-                        PositionRepository positionRepository){
+                        PositionRepository positionRepository,ContractRepository contractRepository, FunctionRepository functionRepository,RequirementRepository requirementRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
         this.resourceSsoRepository = resourceSsoRepository;
@@ -46,6 +49,9 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         this.inventoryRepository = inventoryRepository;
         this.areaRepository = areaRepository;
         this.positionRepository = positionRepository;
+        this.contractRepository = contractRepository;
+        this.functionRepository = functionRepository;
+        this.requirementRepository = requirementRepository;
     }
 
     @Override
@@ -313,6 +319,80 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             position17.setLevel(2);
             position17.setParentPosition(position4);
             position17 = positionRepository.save(position17);
+        }
+
+        //Contract
+        if(contractRepository.count() == 0){
+            Contract contract = new Contract();
+            contract.setCode("001");
+            contract.setCity("Cbba");
+            contract.setDate(new Date());
+            contract.setDescription("Contrato de pasantia universitaria");
+            contract.setSalary(1000.0);
+            contract.setType("Semestral");
+
+            Contract contract1 = new Contract();
+            contract1.setCode("002");
+            contract1.setCity("cbba");
+            contract1.setDate(new Date());
+            contract1.setDescription("contrato para evalucion de personal externo");
+            contract1.setSalary(3500.5);
+            contract1.setType("Indefinido");
+
+
+            contract = contractRepository.save(contract);
+            contract1 = contractRepository.save(contract1);
+
+        }
+        //Function datos
+        if(functionRepository.count() == 0){
+            Function function = new Function();
+            function.setName("Formulacion de Pryectos");
+            function.setDescription(" Formulación de proyectos de Ingeniería Civil de alta calidad, resistentes y seguros para los usuarios finales");
+
+            Function function1 = new Function();
+            function1.setName("Establecer procedimientos ");
+            function1.setDescription("  Establecer procedimientos para la operación de equipo y maquinaria para obtener la mejor calidad y productividad, teniendo en cuenta la protección del medio ambiente");
+
+            Function function2 = new Function();
+            function2.setName("Adiestrar al personal  ");
+            function2.setDescription("Adiestrar al personal dentro de una obra, desde los operativos, en el uso y manejo de los materiales y en la operación de la maquinaria y equipo de construcción");
+
+            Function function3 = new Function();
+            function3.setName("Establecer programas ");
+            function3.setDescription("Establecer programas en la ejecución de obras enfocados al mejor aprovechamiento de los recursos");
+
+            function = functionRepository.save(function);
+            function1 = functionRepository.save(function1);
+            function2 = functionRepository.save(function2);
+            function3 = functionRepository.save(function3);
+
+
+        }
+        //Requirement
+        if(requirementRepository.count() == 0){
+            Requirement requirement = new Requirement();
+            requirement.setName("Formación académica");
+            requirement.setDescription("Formación académica en Ingeniería Civil o Arquitectura.");
+
+            Requirement requirement1 = new Requirement();
+            requirement1.setName("Se valorará conocimientos  ");
+            requirement1.setDescription("Se valorará conocimientos de energía eléctrica y mantenimiento en general.");
+
+            Requirement requirement2 = new Requirement();
+            requirement2.setName("Experiencia ");
+            requirement2.setDescription("Experiencia mínima de 3 años en cargos similares de Jefatura dentro el área de mantenimiento, fiscalización de obras y administración de proyectos");
+
+            Requirement requirement3 = new Requirement();
+            requirement3.setName("manejo de programas ");
+            requirement3.setDescription(" Excelente manejo de programas como ser: AutoCAD, PRESCOM, ArchiCAD, Project, CYPE");
+
+            requirement = requirementRepository.save(requirement);
+            requirement1 = requirementRepository.save(requirement1);
+            requirement2 = requirementRepository.save(requirement2);
+            requirement3 = requirementRepository.save(requirement3);
+
+
         }
     }
 }
