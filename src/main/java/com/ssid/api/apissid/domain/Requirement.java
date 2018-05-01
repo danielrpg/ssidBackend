@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(name = "requirement")
+@Table(name = "requirements")
 public class Requirement extends ModelBase implements Serializable {
     private static final long serialVersionUID=1L;
 
@@ -19,6 +19,9 @@ public class Requirement extends ModelBase implements Serializable {
 
     @Column(name = "requiriment_description", length = 200)
     private String description;
+
+    @ManyToOne(optional = false)
+    private Position position;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -46,5 +49,13 @@ public class Requirement extends ModelBase implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }

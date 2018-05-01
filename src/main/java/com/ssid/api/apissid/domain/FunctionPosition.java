@@ -3,15 +3,13 @@ package com.ssid.api.apissid.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 
-
-
 @Entity
-@Table(name = "function")
-public class Function extends ModelBase implements Serializable {
-    private static final long serialVersionUID=1L;
+@Table(name = "functions")
+public class FunctionPosition extends ModelBase implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "func_id")
     private Long id;
 
@@ -20,6 +18,9 @@ public class Function extends ModelBase implements Serializable {
 
     @Column(name = "func_description", length = 200)
     private String description;
+
+    @ManyToOne(optional = false)
+    private Position position;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -47,5 +48,13 @@ public class Function extends ModelBase implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }
