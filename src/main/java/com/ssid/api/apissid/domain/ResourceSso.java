@@ -13,7 +13,7 @@ public class ResourceSso extends ModelBase implements Serializable{
 
     private static final long serialVersionUID=1L;
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "sso_resource_id")
     private Long id;
 

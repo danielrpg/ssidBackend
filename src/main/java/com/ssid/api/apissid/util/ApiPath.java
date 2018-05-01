@@ -77,4 +77,10 @@ public class ApiPath {
     public static final String INVENTORY_PATH = VERSION_API + "/inventory";
     public static final String INVERTORY_BY_ID = INVENTORY_PATH + "/id";
 
+
+    public static final String CONTRACT_PATH = VERSION_API + "/contract";
+    public static final String CONTRACT_BY_CODE = CONTRACT_PATH + "/code";
+
+    public static final String REQUIREMENT_PATH =  VERSION_API + "/requirement";
+    public static final String FUNCTION_PATH = VERSION_API + "/function" ;
 }

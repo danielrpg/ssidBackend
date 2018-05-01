@@ -9,7 +9,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "users")
-public class UserSystem extends ModelBase  {
+public class UserSystem extends ModelBase implements Serializable{
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -63,7 +63,7 @@ public class UserSystem extends ModelBase  {
         this.userActive = userActive;
     }
 
-  public Set<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 

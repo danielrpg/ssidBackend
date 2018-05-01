@@ -1,6 +1,8 @@
 package com.ssid.api.apissid.services;
 
+import com.ssid.api.apissid.domain.ProgramSso;
 import com.ssid.api.apissid.domain.TrainersSso;
+import com.ssid.api.apissid.exceptions.NotFoundException;
 import com.ssid.api.apissid.repositories.ActivitiesSsoRepository;
 import com.ssid.api.apissid.repositories.TrainersSsoRepository;
 import org.slf4j.Logger;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,8 +40,15 @@ public class TrainersSsoServiceImpl implements TrainersSsoService {
     }
 
     @Override
-    public Optional<TrainersSso> getTrainersSsoById(Long id) {
-        return trainersSsoRepository.findById(id);
+    public TrainersSso getTrainersSsoById(Long id) {
+        Optional<TrainersSso> optional = trainersSsoRepository.findById(id);
+        if (!optional.isPresent()) {
+            String typeName = (((ParameterizedType) getClass()
+                    .getGenericSuperclass()).getActualTypeArguments()[0]).getTypeName();
+            typeName = typeName.substring(typeName.lastIndexOf(".") + 1);
+            throw new NotFoundException(typeName + " id:" + id + " Not Found");
+        }
+        return optional.get();
     }
 
     @Override
