@@ -9,7 +9,7 @@ import java.util.Set;
 public class TrainersSso {
     private static final long serialVersionUID=1L;
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "sso_trainer_id")
     private Long id;
 

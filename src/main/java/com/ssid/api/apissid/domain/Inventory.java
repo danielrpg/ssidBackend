@@ -7,7 +7,7 @@ import java.util.Date;
 @Table(name = "inventory")
 public class Inventory extends ModelBase {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "inventory_id")
     private Long id;
 
@@ -20,11 +20,11 @@ public class Inventory extends ModelBase {
     @Column(name = "active_asignament")
     private boolean active;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne//(cascade = {CascadeType.ALL})
     @JoinColumn(name = "equipament_id")
     private Equipament equipament;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne//(cascade = {CascadeType.ALL})
     @JoinColumn(name = "personal_id")
     private Personal personal;
 
@@ -68,11 +68,11 @@ public class Inventory extends ModelBase {
         this.equipament = equipament;
     }
 
-   /* public Personal getPersonal() {
+    public Personal getPersonal() {
         return personal;
     }
 
     public void setPersonal(Personal personal) {
         this.personal = personal;
-    }*/
+    }
 }

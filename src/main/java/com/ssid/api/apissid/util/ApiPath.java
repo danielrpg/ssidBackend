@@ -7,8 +7,11 @@ public class ApiPath {
 
     public static final String VERSION_API = "/api/v1";
 
-    //This are constants for personal
+    //This are constants for area
     public static final String AREA_PATH = VERSION_API + "/area";
+
+    //This are constants for department
+    public static final String DEPARTMENT_PATH = VERSION_API + "/department";
 
     //this path for login
     public static final String LOGIN_URL = VERSION_API + "/login";
@@ -19,6 +22,9 @@ public class ApiPath {
 
     //This are constants for personal
     public static final String PERSONAL_PATH = VERSION_API + "/personal";
+
+    //This are constants for position
+    public static final String POSITION_PATH = VERSION_API + "/position";
 
     //This are constants for Equipament
     public static final String EQUIPAMENT_PATH = VERSION_API + "/equipament";
@@ -33,11 +39,17 @@ public class ApiPath {
 
     //This are constants for ActivitiesSso
     public static final String ACTIVITIES_SSO_PATH = VERSION_API + "/activitiessso";
-    public static final String ACTIVITIE_BY_ID = ACTIVITIES_SSO_PATH + "/id";
+    public static final String ACTIVITIES_SSO_PATH_SAVE = ACTIVITIES_SSO_PATH + "/activitiesssosave";
+    public static final String ACTIVITIES_BY_ID = ACTIVITIES_SSO_PATH + "/{id}";
+    public static final String ACTIVITIES_SSO_PATH_DELETE = ACTIVITIES_SSO_PATH + "/activitiesssodelete" + "/{id}";
+    public static final String ACTIVITIES_SSO_PATH_PUT = ACTIVITIES_SSO_PATH + "/activitiesssoput" + "/{id}";
 
     //This are constants for ResourceSso
     public static final String RESOURCES_SSO_PATH = VERSION_API + "/resourcessso";
-    public static final String RESOURCE_BY_ID = RESOURCES_SSO_PATH + "/id";
+    public static final String RESOURCE_BY_ID = RESOURCES_SSO_PATH + "/{id}";
+    public static final String RESOURCES_SSO_PATH_SAVE = RESOURCES_SSO_PATH + "/resourcesssosave";
+    public static final String RESOURCES_SSO_PATH_DELETE = RESOURCES_SSO_PATH + "/resourcesssodelete" + "/{id}";
+    public static final String RESOURCES_SSO_PATH_PUT = RESOURCES_SSO_PATH + "/resourcesssoput" + "/{id}";
 
     //This are constants for ProgramSso
     public static final String PROGRAM_SSO_PATH = VERSION_API + "/programssso";

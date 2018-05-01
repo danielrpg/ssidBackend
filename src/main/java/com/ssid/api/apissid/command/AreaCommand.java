@@ -1,30 +1,33 @@
-package com.ssid.api.apissid.domain;
+package com.ssid.api.apissid.command;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import com.ssid.api.apissid.domain.Area;
 
 /**
  * @author Jesus David Piérola Alvarado
  */
 
-@Entity
-@Table(name = "areas")
-public class Area extends ModelBase implements Serializable {
-    private static final long serialVersionUID=1L;
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "area_id")
+public class AreaCommand {
     private Long id;
-
-    @Column(name = "area_name", length = 50)
     private String name;
-
-    @Column(name = "area_description", length = 100)
     private String description;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public AreaCommand() {
+    }
+
+    public AreaCommand(Area area) {
+        setId(area.getId());
+        setName(area.getName());
+        setDescription(area.getDescription());
+    }
+
+    public Area toArea() {
+        Area area = new Area();
+
+        area.setId(getId());
+        area.setName(getName());
+        area.setDescription(getDescription());
+
+        return area;
     }
 
     public Long getId() {

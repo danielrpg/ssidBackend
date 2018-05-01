@@ -1,6 +1,7 @@
 package com.ssid.api.apissid.command;
 
 import com.ssid.api.apissid.domain.TrainersSso;
+
 //import com.sun.deploy.util.ArrayUtil;
 import org.apache.tomcat.util.codec.binary.Base64;
 //import sun.misc.BASE64Decoder;
