@@ -14,7 +14,7 @@ public class Enterprise extends ModelBase{
     private static final long serialVersionUID=1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "enterprise_id")
     private Long id;
 
