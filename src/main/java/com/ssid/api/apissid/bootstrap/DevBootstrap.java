@@ -12,6 +12,8 @@ import java.util.*;
 @Component
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
+    private UserSystemRepository userSystemRepository;
+    private RoleRepository roleRepository;
     private ActivitiesSsoRepository activitiesSsoRepository;
     private ProgramSsoRepository programSsoRepository;
     private ResourceSsoRepository resourceSsoRepository;
@@ -38,7 +40,9 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                         AreaRepository areaRepository, DepartmentRepository departmentRepository,
                         PositionRepository positionRepository,ContractRepository contractRepository,
                         FunctionPositionRepository functionPositionRepository,
-                        RequirementRepository requirementRepository){
+                        RequirementRepository requirementRepository,
+                        UserSystemRepository userSystemRepository,
+                        RoleRepository roleRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
         this.resourceSsoRepository = resourceSsoRepository;
@@ -53,10 +57,15 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         this.contractRepository = contractRepository;
         this.functionPositionRepository = functionPositionRepository;
         this.requirementRepository = requirementRepository;
+        this.userSystemRepository = userSystemRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+
+        //Cargando los datos iniciales de usuario
+        loadDefaulUser();
 
         //Cargando datos base de estructura organizacional
         loadDataStructureOrganizational();
@@ -69,6 +78,35 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
         //Cargando datos defecto de contratos
         loadDataContracts();
+    }
+
+    private void loadDefaulUser(){
+        Set<Role> listRoles = new HashSet<Role>();
+        if(this.roleRepository.count() == 0){
+            Role role = new Role();
+            role.setRoleName("ROLE_USER");
+            role.setVersion(1);
+            role.setCreatedOn(new Date());
+            this.roleRepository.save(role);
+            listRoles.add(role);
+            role.setRoleName("ROLE_ADMIN");
+            role.setVersion(1);
+            role.setCreatedOn(new Date());
+            this.roleRepository.save(role);
+            listRoles.add(role);
+        }
+        if(this.userSystemRepository.count() == 0){
+            UserSystem userSystem = new UserSystem();
+            userSystem.setUsername("admin");
+            userSystem.setPassword("$2a$10$XURPShQNCsLjp1ESc2laoObo9QZDhxz73hJPaEv7/cBha4pk0AgP.");
+            userSystem.setUserActive(Boolean.TRUE);
+            userSystem.setVersion(1);
+            userSystem.setCreatedOn(new Date());
+            userSystem.setRoles(listRoles);
+            this.userSystemRepository.save(userSystem);
+        }
+
+
     }
 
     private void loadDataContracts() {

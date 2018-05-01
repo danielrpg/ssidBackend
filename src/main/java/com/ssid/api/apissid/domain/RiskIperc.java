@@ -20,16 +20,16 @@ public class RiskIperc extends ModelBase implements Serializable {
     @Column(name = "risk_iperc_id")
     private Long id;
 
-    @Column(name = "risk_iperc_goal", length = 50, unique = true)
+    @Column(name = "risk_iperc_goal", length = 50)
     private String goal;
 
-    @Column(name = "risk_iperc_area", length = 50, unique = true)
+    @Column(name = "risk_iperc_area", length = 50)
     private String area;
 
-    @Column(name = "risk_iperc_resp", length = 50, unique = true)
+    @Column(name = "risk_iperc_resp", length = 50)
     private String responsable;
 
-    @Column(name = "risk_iperc_date", unique = true)
+    @Column(name = "risk_iperc_date")
     private Date date;
 
     @ManyToOne(cascade = {CascadeType.ALL})

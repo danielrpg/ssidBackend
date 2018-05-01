@@ -18,7 +18,7 @@ public class Position extends ModelBase implements Serializable {
     @Column(name = "position_id")
     private Long id;
 
-    @Column(name = "position_name", length = 300, unique = true)
+    @Column(name = "position_name", length = 300)
     private String name;
 
     @Column(name = "position_description", length = 800)

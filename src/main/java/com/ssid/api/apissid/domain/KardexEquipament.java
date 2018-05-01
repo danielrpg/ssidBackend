@@ -14,16 +14,16 @@ public class KardexEquipament extends ModelBase{
     @Column(name = "equipament_kardex_id")
     private Long Id;
 
-    @Column(name = "date_kardex", unique = true)
+    @Column(name = "date_kardex")
     private Date dateKardex;
 
-    @Column(name = "entry_kardex",unique = true)
+    @Column(name = "entry_kardex")
     private int entryKardex;
 
-    @Column(name = "outlay_kardex",unique = true)
+    @Column(name = "outlay_kardex")
     private int outlayKardex;
 
-    @Column(name = "balance_kardex",unique = true)
+    @Column(name = "balance_kardex")
     private int balanceKardex;
 
     @ManyToOne(fetch = FetchType.LAZY)
