@@ -2,59 +2,79 @@ package com.ssid.api.apissid.controller;
 
 import com.ssid.api.apissid.command.ProgramSsoCommand;
 import com.ssid.api.apissid.command.TrainersSsoCommand;
+import com.ssid.api.apissid.domain.ProgramSso;
 import com.ssid.api.apissid.domain.TrainersSso;
 import com.ssid.api.apissid.services.TrainersSsoService;
 import com.ssid.api.apissid.util.ApiPath;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 @RestController
+@RequestMapping(value = ApiPath.TRAINER_SSO_PATH)
 public class TrainersSsoController {
     private TrainersSsoService trainersSsoService;
 
+    @Autowired
     public TrainersSsoController(TrainersSsoService trainersSsoService) {
         this.trainersSsoService = trainersSsoService;
     }
 
-    @GetMapping(path = ApiPath.TRAINER_SSO_PATH)
-    public List<TrainersSsoCommand> getListTrainersSso() {
-        List<TrainersSsoCommand> trainersSsoList = new ArrayList<>();
-        trainersSsoService.getTrainerssSso().forEach(trainersSso -> {
-            trainersSsoList.add(new TrainersSsoCommand(trainersSso));
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> getListTrainersSso() {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "ok");
+        List<TrainersSsoCommand> trainersList = new ArrayList<>();
+        this.trainersSsoService.getTrainerssSso().forEach(trainersSso -> {
+            trainersList.add(new TrainersSsoCommand(trainersSso));
         });
-
-        return trainersSsoList;
+        mapResponse.put("data", trainersList);
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
-    @RequestMapping(value = ApiPath.TRAINER_SSO_PATH, method = RequestMethod.POST)
-    public @ResponseBody
-    TrainersSsoCommand saveTrainersSso(@RequestBody TrainersSsoCommand trainersSsoCommand) {
-         return new TrainersSsoCommand(this.trainersSsoService.saveTrainersSso(trainersSsoCommand.toTrainersSso()));
-    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> findTrainersSsoById(@PathVariable Long id) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        TrainersSso trainersSso = this.trainersSsoService.getTrainersSsoById(id);
 
-    @RequestMapping(value = ApiPath.TRAINER_BY_ID, method = RequestMethod.GET)
-    public @ResponseBody
-    TrainersSsoCommand findTrainersSsoById(@PathVariable(value = "id") Long id) {
-        if(this.trainersSsoService.getTrainersSsoById(id).isPresent()){
-            return new TrainersSsoCommand(this.trainersSsoService.getTrainersSsoById(id).get());
+        if (trainersSso != null) {
+            mapResponse.put("status", "ok");
+            mapResponse.put("data", new TrainersSsoCommand(trainersSso));
+            return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+        } else {
+            mapResponse.put("status", "not found");
+            mapResponse.put("data", null);
+            return new ResponseEntity<>(mapResponse, HttpStatus.NOT_FOUND);
         }
-        else {
-            return new TrainersSsoCommand();
-        }
     }
 
-    @RequestMapping(value = ApiPath.TRAINER_BY_ID, method = RequestMethod.DELETE)
-    public @ResponseBody
-    void deleteTrainersSsoById(@PathVariable(value = "id") Long id) {
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
+    public ResponseEntity<Map<String, Object>> saveTrainersSso(@RequestBody TrainersSsoCommand trainersSsoCommand) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "created");
+        mapResponse.put("data", trainersSsoService.saveTrainersSso(trainersSsoCommand.toTrainersSso()));
+        return new ResponseEntity<>(mapResponse, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Map<String, Object>> updateTrainersSso(@RequestBody TrainersSsoCommand trainersSsoCommand, @PathVariable int id) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "updated");
+        mapResponse.put("data", trainersSsoService.updateTrainersSso(trainersSsoCommand.toTrainersSso(), (long) id));
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Map<String, Object>> deleteTrainersSsoById(@PathVariable long id) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "deleted");
         this.trainersSsoService.deleteTrainersSsoById(id);
-    }
-
-    @RequestMapping(value = ApiPath.TRAINER_SSO_PATH, method = RequestMethod.PUT)
-    public @ResponseBody
-    TrainersSsoCommand updateTrainersSso(@RequestBody TrainersSsoCommand trainersSsoCommand, @PathVariable(value = "id") Long id) {
-        return new TrainersSsoCommand(this.trainersSsoService.updateTrainersSso(trainersSsoCommand.toTrainersSso(), id));
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 }
