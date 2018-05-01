@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name = "risk_iperc_detail")
 public class RiskIpercDetail extends ModelBase implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "risk_iperc_det_id")
     private Long id;
     @Column(name = "risk_iperc_det_ide_acti", length = 50)

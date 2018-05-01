@@ -14,14 +14,14 @@ public class Enterprise extends ModelBase{
     private static final long serialVersionUID=1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "enterprise_id")
     private Long id;
 
-    @Column(name = "enterprise_name", length = 50,unique = true)
+    @Column(name = "enterprise_name", length = 50)
     private String enterpriseName;
 
-    @Column(name = "enterprise_description", length = 50,unique = true)
+    @Column(name = "enterprise_description", length = 50)
     private String enterpriseDescription;
 
     @OneToMany(mappedBy = "enterprise", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

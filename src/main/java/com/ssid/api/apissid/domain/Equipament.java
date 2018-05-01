@@ -17,14 +17,14 @@ public class Equipament extends ModelBase implements Serializable {
     private static final long serialVersionUID=1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "equipament_id")
     private Long id;
 
-    @Column(name = "equipament_name", length = 200,unique = true)
+    @Column(name = "equipament_name", length = 200)
     private String name;
 
-    @Column(name = "equipament_description", length = 200,unique = true)
+    @Column(name = "equipament_description", length = 200)
     private String description;
 
     @Column(name = "equipament_type", length = 50)

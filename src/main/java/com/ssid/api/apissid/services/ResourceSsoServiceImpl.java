@@ -28,7 +28,7 @@ public class ResourceSsoServiceImpl implements ResourceSsoService {
 
     @Override
     public Optional<ResourceSso> getResourceById(Long id) {
-        return this.resourceSsoRepository.findById(id);
+        return resourceSsoRepository.findById(id);
     }
 
     @Override

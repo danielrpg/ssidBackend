@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "sso_detail_personal")
-public class DetailPersonalSso implements Serializable{
+public class DetailPersonalSso extends ModelBase implements Serializable{
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

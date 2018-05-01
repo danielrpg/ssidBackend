@@ -5,15 +5,22 @@ package com.ssid.api.apissid.services;
 import com.ssid.api.apissid.domain.UserSystem;
 import com.ssid.api.apissid.repositories.UserSystemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static java.util.Collections.emptyList;
+
 @Service
-public class UserSystemServiceImpl implements UserSystemService {
+public class UserSystemServiceImpl implements UserSystemService, UserDetailsService {
 
     private UserSystemRepository userSystemRepository;
 
-    @Autowired
+
     public UserSystemServiceImpl(UserSystemRepository userSystemRepository) {
         this.userSystemRepository = userSystemRepository;
     }
@@ -23,4 +30,22 @@ public class UserSystemServiceImpl implements UserSystemService {
         return  userSystemRepository.findAll();
     }
 
+    @Override
+    public void saveUser(UserSystem user) {
+        userSystemRepository.save(user);
+    }
+
+    @Override
+    public UserSystem findByUserName(String userName) {
+        return userSystemRepository.findByUsername(userName);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserSystem usuario = userSystemRepository.findByUsername(username);
+        if (usuario == null) {
+            throw new UsernameNotFoundException(username);
+        }
+        return new User(usuario.getUsername(), usuario.getPassword(), emptyList());
+    }
 }

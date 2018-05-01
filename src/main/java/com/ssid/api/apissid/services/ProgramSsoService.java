@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public interface ProgramSsoService {
     List<ProgramSso> getProgramsSso();
-    void saveProgramSso(ProgramSso programSso);
-    Optional<ProgramSso> getProgramById(Long id);
+    ProgramSso saveProgramSso(ProgramSso programSso);
+    ProgramSso getProgramById(Long id);
     void deleteProgramById(Long id);
     ProgramSso updateProgram(ProgramSso programSso, Long id);
 }

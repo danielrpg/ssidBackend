@@ -7,17 +7,24 @@ public class ApiPath {
 
     public static final String VERSION_API = "/api/v1";
 
-    //This are constants for personal
+    //This are constants for area
     public static final String AREA_PATH = VERSION_API + "/area";
+
+    //This are constants for department
+    public static final String DEPARTMENT_PATH = VERSION_API + "/department";
 
     //this path for login
     public static final String LOGIN_URL = VERSION_API + "/login";
 
     //This are constants for User
     public static final String USER_PATH = VERSION_API + "/users";
+    public static final String USER_BY_USERNAME = USER_PATH + "/{username}";
 
     //This are constants for personal
     public static final String PERSONAL_PATH = VERSION_API + "/personal";
+
+    //This are constants for position
+    public static final String POSITION_PATH = VERSION_API + "/position";
 
     //This are constants for Equipament
     public static final String EQUIPAMENT_PATH = VERSION_API + "/equipament";
@@ -32,11 +39,17 @@ public class ApiPath {
 
     //This are constants for ActivitiesSso
     public static final String ACTIVITIES_SSO_PATH = VERSION_API + "/activitiessso";
-    public static final String ACTIVITIE_BY_ID = ACTIVITIES_SSO_PATH + "/id";
+    public static final String ACTIVITIES_SSO_PATH_SAVE = ACTIVITIES_SSO_PATH + "/activitiesssosave";
+    public static final String ACTIVITIES_BY_ID = ACTIVITIES_SSO_PATH + "/{id}";
+    public static final String ACTIVITIES_SSO_PATH_DELETE = ACTIVITIES_SSO_PATH + "/activitiesssodelete" + "/{id}";
+    public static final String ACTIVITIES_SSO_PATH_PUT = ACTIVITIES_SSO_PATH + "/activitiesssoput" + "/{id}";
 
     //This are constants for ResourceSso
     public static final String RESOURCES_SSO_PATH = VERSION_API + "/resourcessso";
-    public static final String RESOURCE_BY_ID = RESOURCES_SSO_PATH + "/id";
+    public static final String RESOURCE_BY_ID = RESOURCES_SSO_PATH + "/{id}";
+    public static final String RESOURCES_SSO_PATH_SAVE = RESOURCES_SSO_PATH + "/resourcesssosave";
+    public static final String RESOURCES_SSO_PATH_DELETE = RESOURCES_SSO_PATH + "/resourcesssodelete" + "/{id}";
+    public static final String RESOURCES_SSO_PATH_PUT = RESOURCES_SSO_PATH + "/resourcesssoput" + "/{id}";
 
     //This are constants for ProgramSso
     public static final String PROGRAM_SSO_PATH = VERSION_API + "/programssso";
@@ -48,6 +61,7 @@ public class ApiPath {
 
     // This is constants for incidents
     public static final String INCIDENT_PATH = VERSION_API + "/incidents";
+    public static final String INCIDENT_TYPE_PATH = VERSION_API + "/incidenttype";
 
     // This is constant for Enterprise
     public static final String ENTERPRISE_PATH = VERSION_API + "/enterprise";
@@ -63,4 +77,10 @@ public class ApiPath {
     public static final String INVENTORY_PATH = VERSION_API + "/inventory";
     public static final String INVERTORY_BY_ID = INVENTORY_PATH + "/id";
 
+
+    public static final String CONTRACT_PATH = VERSION_API + "/contract";
+    public static final String CONTRACT_BY_CODE = CONTRACT_PATH + "/code";
+
+    public static final String REQUIREMENT_PATH =  VERSION_API + "/requirement";
+    public static final String FUNCTION_PATH = VERSION_API + "/function" ;
 }
