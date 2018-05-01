@@ -2,6 +2,7 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author daniel fernandez
@@ -19,6 +20,15 @@ public class ResourceSso extends ModelBase implements Serializable{
     @Column(name = "sso_resource_detail", length = 200)
     private String resourceDetail;
 
+    @Column(name = "sso_resource_created_on", length = 200)
+    private Date resourceCreatedOn;
+
+    @Column(name = "sso_resource_updated_on", length = 200)
+    private Date resourceUpdatedOn;
+
+    @Column(name = "sso_resource_version", length = 200)
+    private long resourceVersion;
+
     @Column(name = "sso_resource_cost")
     private Double resourceCost;
 
@@ -34,13 +44,33 @@ public class ResourceSso extends ModelBase implements Serializable{
         this.id = id;
     }
 
-    public ActivitiesSso getActivitiesSso() {
-        return activitiesSso;
+    public Date getResourceCreatedOn() { return resourceCreatedOn; }
+
+    public void setResourceCreatedOn(Date resourceCreatedOn) {
+        this.resourceCreatedOn = resourceCreatedOn;
     }
 
-    public void setActivitiesSso(ActivitiesSso activitiesSso) {
-        this.activitiesSso = activitiesSso;
+    public Date getResourceUpdatedOn() { return resourceUpdatedOn; }
+
+    public void setResourceUpdatedOn(Date resourceUpdatedOn) {
+        this.resourceUpdatedOn = resourceUpdatedOn;
     }
+
+    public long getVersion() { return resourceVersion; }
+
+    public void setVersion(long resourceVersion) {
+        this.resourceVersion = resourceVersion;
+    }
+
+
+
+   /* public ActivitiesSso getActivitiesSso() {
+        return activitiesSso;
+    }*/
+
+    /*public void setActivitiesSso(ActivitiesSso activitiesSso) {
+        this.activitiesSso = activitiesSso;
+    }*/
 
     public String getResourceDetail() {
         return resourceDetail;
