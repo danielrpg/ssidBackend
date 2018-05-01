@@ -1,12 +1,13 @@
 package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "program_sso_trainer")
-public class TrainersSso {
+public class TrainersSso extends ModelBase implements Serializable {
     private static final long serialVersionUID=1L;
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
