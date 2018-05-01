@@ -10,7 +10,7 @@ public class KardexEquipament extends ModelBase{
     private static final long serialVersionUID=1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "equipament_kardex_id")
     private Long Id;
 

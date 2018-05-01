@@ -35,7 +35,7 @@ security:
 # Coneccion de sql server
 spring:
   datasource:
-    url: jdbc:sqlserver://\ASUS\SQL2012;database=ssi_database
+    url: jdbc:sqlserver://DESKTOP-H9C76UV;database=sssi_db2;
     username: sa
     password: control
     platform: mssql
