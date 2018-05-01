@@ -1,62 +1,73 @@
-package com.ssid.api.apissid.domain;
+package com.ssid.api.apissid.command;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Set;
+import com.ssid.api.apissid.domain.RiskIpercDetail;
 
-/**
- * @author Marcos Bustos Jimenez
- */
-
-@Entity
-@Table(name = "risk_iperc_detail")
-public class RiskIpercDetail extends ModelBase implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "risk_iperc_det_id")
+public class RiskIpercDetailCommand {
     private Long id;
-    @Column(name = "risk_iperc_det_ide_acti", length = 50)
     private String activity;
-    @Column(name = "risk_iperc_det_ide_cond", length = 50)
     private String condition;
-    @Column(name = "risk_iperc_det_ide_act", length = 50)
     private String act;
-    @Column(name = "risk_iperc_det_ide_dan", length = 50)
     private String danger;
-    @Column(name = "risk_iperc_det_ide_risk", length = 50)
     private String risk;
-    @Column(name = "risk_iperc_det_ide_cons", length = 50)
     private String consequence;
-    @Column(name = "risk_iperc_det_eva_c")
     private int evaC;
-    @Column(name = "risk_iperc_det_eva_p")
     private int evaP;
-    @Column(name = "risk_iperc_det_eva_e")
     private int evaE;
-    @Column(name = "risk_iperc_det_eva_val")
     private int evaVal;
-    @Column(name = "risk_iperc_det_eva_type", length = 10)
     private String evaType;
-    @Column(name = "risk_iperc_det_eva_desc", length = 200)
     private String evaDesc;
-    @Column(name = "risk_iperc_det_eva_lev", length = 50)
     private String evaLev;
-    @Column(name = "risk_iperc_det_eva_ing", length = 50)
     private String contIng;
-    @Column(name = "risk_iperc_det_eva_adm", length = 50)
     private String contAdm;
-    @Column(name = "risk_iperc_det_eva_insp", length = 50)
     private String contInsp;
+    private RiskIpercCommand riskIperc;
+    private Object[] incidents;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "risk_iperc_id")
-    private RiskIperc riskIperc;
+    public RiskIpercDetailCommand(){}
 
-    @ManyToMany
-    @JoinTable(name = "risk_iperc_incident",
-            joinColumns = @JoinColumn(name = "risk_iperc_det_id"),
-            inverseJoinColumns = @JoinColumn(name = "incident_id"))
-    private Set<Incident> incidents;
+    public RiskIpercDetailCommand(RiskIpercDetail riskIpercDetail){
+        setId(riskIpercDetail.getId());
+        setActivity(riskIpercDetail.getActivity());
+        setCondition(riskIpercDetail.getCondition());
+        setAct(riskIpercDetail.getAct());
+        setDanger(riskIpercDetail.getDanger());
+        setRisk(riskIpercDetail.getRisk());
+        setConsequence(riskIpercDetail.getConsequence());
+        setEvaC(riskIpercDetail.getEvaC());
+        setEvaP(riskIpercDetail.getEvaP());
+        setEvaE(riskIpercDetail.getEvaE());
+        setEvaVal(riskIpercDetail.getEvaVal());
+        setEvaType(riskIpercDetail.getEvaType());
+        setEvaDesc(riskIpercDetail.getEvaDesc());
+        setEvaLev(riskIpercDetail.getEvaLev());
+        setContIng(riskIpercDetail.getContIng());
+        setContAdm(riskIpercDetail.getContAdm());
+        setContInsp(riskIpercDetail.getContInsp());
+    }
+
+    public RiskIpercDetail toRiskIpercDetail(){
+        RiskIpercDetail riskIpercDetail = new RiskIpercDetail();
+
+        riskIpercDetail.setId(getId());
+        riskIpercDetail.setActivity(getActivity());
+        riskIpercDetail.setCondition(getCondition());
+        riskIpercDetail.setAct(getAct());
+        riskIpercDetail.setDanger(getDanger());
+        riskIpercDetail.setRisk(getRisk());
+        riskIpercDetail.setConsequence(getConsequence());
+        riskIpercDetail.setEvaC(getEvaC());
+        riskIpercDetail.setEvaP(getEvaP());
+        riskIpercDetail.setEvaE(getEvaE());
+        riskIpercDetail.setEvaVal(getEvaVal());
+        riskIpercDetail.setEvaType(getEvaType());
+        riskIpercDetail.setEvaDesc(getEvaDesc());
+        riskIpercDetail.setEvaLev(getEvaLev());
+        riskIpercDetail.setContIng(getContIng());
+        riskIpercDetail.setContAdm(getContAdm());
+        riskIpercDetail.setContInsp(getContInsp());
+
+        return riskIpercDetail;
+    }
 
     public Long getId() {
         return id;
@@ -194,19 +205,19 @@ public class RiskIpercDetail extends ModelBase implements Serializable {
         this.contInsp = contInsp;
     }
 
-    public RiskIperc getRiskIperc() {
+    public RiskIpercCommand getRiskIperc() {
         return riskIperc;
     }
 
-    public void setRiskIperc(RiskIperc riskIperc) {
+    public void setRiskIperc(RiskIpercCommand riskIperc) {
         this.riskIperc = riskIperc;
     }
 
-    public Set<Incident> getIncidents() {
+    public Object[] getIncidents() {
         return incidents;
     }
 
-    public void setIncidents(Set<Incident> incidents) {
+    public void setIncidents(Object[] incidents) {
         this.incidents = incidents;
     }
 }
