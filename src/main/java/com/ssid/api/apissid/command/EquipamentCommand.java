@@ -10,7 +10,7 @@ public class EquipamentCommand {
     private String description;
     private Integer type;
     private String image;
-    private Object[] kardexs;
+    private Object[] kardexs = new Object[0];
     private Object[] inventories = new Object[0];
 
     public EquipamentCommand() {
