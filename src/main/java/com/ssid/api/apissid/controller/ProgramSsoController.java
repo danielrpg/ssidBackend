@@ -25,27 +25,28 @@ public class ProgramSsoController {
     public List<ProgramSsoCommand> getListActivities() {
 
         List<ProgramSsoCommand> programSsoList = new ArrayList<>();
-        programSsoService.getProgramsSso().forEach(employee -> {
-            programSsoList.add(new ProgramSsoCommand(employee));
+        programSsoService.getProgramsSso().forEach(programSso -> {
+            programSsoList.add(new ProgramSsoCommand(programSso));
         });
-
-       /* Response.ResponseBuilder responseBuilder = Response.ok(programSsoList);
-        addCorsHeader(responseBuilder);
-        return responseBuilder.build();*/
 
         return programSsoList;
     }
 
     @RequestMapping(value = ApiPath.PROGRAM_SSO_PATH, method = RequestMethod.POST)
     public @ResponseBody
-    void saveActivities(@RequestBody ProgramSso programSso) {
-        this.programSsoService.saveProgramSso(programSso);
+    void saveActivities(@RequestBody ProgramSsoCommand programSsoCommand) {
+        this.programSsoService.saveProgramSso(programSsoCommand.toProgramSso());
     }
 
     @RequestMapping(value = ApiPath.PROGRAM_BY_ID, method = RequestMethod.GET)
     public @ResponseBody
-    Optional<ProgramSso> findProgramById(@PathVariable(value = "id") Long id){
-        return this.programSsoService.getProgramById(id);
+    ProgramSsoCommand findProgramById(@PathVariable(value = "id") Long id){
+        if(this.programSsoService.getProgramById(id).isPresent()){
+            return new ProgramSsoCommand(this.programSsoService.getProgramById(id).get());
+        }
+        else {
+            return new ProgramSsoCommand();
+        }
     }
 
     @RequestMapping(value = ApiPath.PROGRAM_BY_ID, method = RequestMethod.DELETE)
@@ -57,7 +58,7 @@ public class ProgramSsoController {
 
     @RequestMapping(value = ApiPath.PROGRAM_SSO_PATH, method = RequestMethod.PUT)
     public @ResponseBody
-    ProgramSso updateProgram(@RequestBody ProgramSso programSso, @PathVariable(value = "id") Long id){
-        return this.programSsoService.updateProgram(programSso, id);
+    ProgramSso updateProgram(@RequestBody ProgramSsoCommand programSsoCommand, @PathVariable(value = "id") Long id){
+        return this.programSsoService.updateProgram(programSsoCommand.toProgramSso(), id);
     }
 }

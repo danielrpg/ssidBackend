@@ -1,0 +1,47 @@
+security:
+  oauth2:
+    resource:
+      filter-order: 3
+
+security:
+  signing-key: MaYzkSjmkzPC57L
+  encoding-strength: 256
+  security-realm: Team D
+
+security:
+  jwt:
+    client-id: testjwtclientid
+    client-secret: XY7kmzoNzl100
+    grant-type: password
+    scope-read: read
+    scope-write: write
+    resource-ids: testjwtresourceid
+
+# MariaDB or Mysql Server config
+#spring:
+ # jpa:
+  #  hibernate:
+   #   ddl-auto: update
+    # ddl-auto: create-drop
+     # show-sql: true
+      #dialect: org.hibernate.dialect.MySQL5Dialect
+  #datasource:
+   # url: jdbc:mysql://localhost:3306/grupoD
+    #username: root
+    #password: root
+
+
+
+# Coneccion de sql server
+spring:
+  datasource:
+    url: jdbc:sqlserver://\ASUS\SQL2012;database=ssi_database
+    username: sa
+    password: control
+    platform: mssql
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: SQL_SERVER
+show-sql: true

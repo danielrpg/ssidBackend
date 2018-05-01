@@ -107,7 +107,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             personal.setAddress("Av. Villazon N° 2326");
             personal.setCellphone("89632548");
             personal.setEmail("jDoe@gmail.com");
-            personal.setYear("33");
+            //personal.setYear("33");
             personal.setActive(true);
             personalRepository.save(personal);
 
