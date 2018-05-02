@@ -11,7 +11,8 @@ import java.util.Date;
 
 public class PersonalCommand {
     private Long id;
-    private String name;
+    private String firstname;
+    private String lastname;
     private Byte[] photo;
     private String email;
     private String address;
@@ -28,7 +29,8 @@ public class PersonalCommand {
 
     public PersonalCommand(Personal personal) {
         setId(personal.getId());
-        setName(personal.getName());
+        setFirstname(personal.getName());
+        setLastname(personal.getLastName());
         setPhoto(personal.getPhoto());
         setEmail(personal.getEmail());
         setAddress(personal.getAddress());
@@ -39,18 +41,19 @@ public class PersonalCommand {
 
         Area area = personal.getArea();
 
-        if (area != null) {
-            setAreaId(area.getId());
-            setAreaName(area.getName());
-            setAreaDescription(area.getDescription());
-        }
+//        if (area != null && personal.getArea().getId() != null) {
+//            setAreaId(area.getId());
+//            setAreaName(area.getName());
+//            setAreaDescription(area.getDescription());
+//        }
     }
 
     public Personal toPersonal() {
         Personal personal = new Personal();
 
         personal.setId(getId());
-        personal.setName(getName());
+        personal.setName(getFirstname());
+        personal.setLastName(getLastname());
         personal.setPhoto(getPhoto());
         personal.setEmail(getEmail());
         personal.setAddress(getAddress());
@@ -78,12 +81,20 @@ public class PersonalCommand {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public Byte[] getPhoto() {

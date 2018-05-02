@@ -48,7 +48,7 @@ public class Personal extends ModelBase implements Serializable {
     @Column(name = "personal_birthdate")
     private Date birthdate;
 
-    @OneToOne(optional = false)
+    @OneToOne(fetch = FetchType.LAZY)
     private Area area;
 
     @OneToMany(mappedBy = "personal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
