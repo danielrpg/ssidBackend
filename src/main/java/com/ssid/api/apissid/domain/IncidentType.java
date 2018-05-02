@@ -1,5 +1,7 @@
 package com.ssid.api.apissid.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -28,8 +30,9 @@ public class IncidentType implements Serializable {
     @Column
     private String incidentSubType;
 
-    @OneToMany(mappedBy = "incidentType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Incident> incident = new HashSet<>();
+    @OneToOne(mappedBy = "incidentType", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Incident incident;
 
     public Long getIncidentTypeId() {
         return incidentTypeId;
@@ -71,11 +74,11 @@ public class IncidentType implements Serializable {
         this.incidentSubType = incidentSubType;
     }
 
-    public Set<Incident> getIncident() {
+    public Incident getIncident() {
         return incident;
     }
 
-    public void setIncident(Set<Incident> incident) {
+    public void setIncident(Incident incident) {
         this.incident = incident;
     }
 }

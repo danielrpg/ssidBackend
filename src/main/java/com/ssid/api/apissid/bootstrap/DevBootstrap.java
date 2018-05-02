@@ -14,6 +14,7 @@ import java.util.GregorianCalendar;
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private ActivitiesSsoRepository activitiesSsoRepository;
+    private IncidentTypeRepository incidentTypeRepository;
     private ProgramSsoRepository programSsoRepository;
     private ResourceSsoRepository resourceSsoRepository;
     private TrainersSsoRepository trainersSsoRepository;
@@ -37,7 +38,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                         PersonalRepository personalRepository, EquipamentRepository equipamentRepository,
                         InventoryRepository inventoryRepository, KardexEquipamentRepository kardexEquipamentRepository,
                         AreaRepository areaRepository, DepartmentRepository departmentRepository,
-                        PositionRepository positionRepository,ContractRepository contractRepository, FunctionRepository functionRepository,RequirementRepository requirementRepository){
+                        PositionRepository positionRepository,ContractRepository contractRepository, FunctionRepository functionRepository,RequirementRepository requirementRepository
+                        , IncidentTypeRepository incidentTypeRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
         this.resourceSsoRepository = resourceSsoRepository;
@@ -52,6 +54,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         this.contractRepository = contractRepository;
         this.functionRepository = functionRepository;
         this.requirementRepository = requirementRepository;
+        this.incidentTypeRepository = incidentTypeRepository;
     }
 
     @Override
@@ -153,7 +156,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             kardexEquipament1.setEntryKardex(0);
             kardexEquipament1.setOutlayKardex(5);
             kardexEquipament1.setBalanceKardex(10);
-            kardexEquipamentRepository.save(kardexEquipament1);
+//            kardexEquipamentRepository.save(kardexEquipament1);
 
             //InventoryEquipment
             Inventory inventory = new Inventory();
@@ -393,6 +396,34 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             requirement3 = requirementRepository.save(requirement3);
 
 
+        }
+
+        // IncidentType data
+        if(incidentTypeRepository.count() == 0) {
+            IncidentType incidentType = new IncidentType();
+            incidentType.setIncidentTypeDescription("this is a success type description");
+            incidentType.setIncidentTypeName("success");
+            incidentType.setIncidentSubType("");
+
+            IncidentType incidentType1 = new IncidentType();
+            incidentType1.setIncidentTypeDescription("this is a failed desription");
+            incidentType1.setIncidentTypeName("failed");
+            incidentType1.setIncidentSubType("");
+
+            IncidentType incidentType2 = new IncidentType();
+            incidentType2.setIncidentTypeDescription("this is a warning description");
+            incidentType2.setIncidentTypeName("warning");
+            incidentType2.setIncidentSubType("");
+
+            IncidentType incidentType3 = new IncidentType();
+            incidentType3.setIncidentTypeDescription("this is a danger description");
+            incidentType3.setIncidentTypeName("danger");
+            incidentType3.setIncidentSubType("");
+
+            incidentTypeRepository.save(incidentType);
+            incidentTypeRepository.save(incidentType1);
+            incidentTypeRepository.save(incidentType2);
+            incidentTypeRepository.save(incidentType3);
         }
     }
 }
