@@ -7,20 +7,40 @@ public class IncidentDTO {
     private boolean reincident;
     private boolean treatment;
     private int incidentNumber;
-    private String incidentType;
+    private String incidentTypeName;
     private String description;
+    private String incidentSubType;
+    private String status;
 
     public IncidentDTO() {}
 
-    public IncidentDTO(String code, String reportedBy, String area, boolean reincident, boolean treatment, int incidentNumber, String incidentType, String description) {
+    public IncidentDTO(String code, String reportedBy, String area, boolean reincident, boolean treatment, int incidentNumber, String incidentTypeName, String description, String incidentSubType, String status) {
         this.code = code;
         this.reportedBy = reportedBy;
         this.area = area;
         this.reincident = reincident;
         this.treatment = treatment;
         this.incidentNumber = incidentNumber;
-        this.incidentType = incidentType;
+        this.incidentTypeName = incidentTypeName;
         this.description = description;
+        this.incidentSubType = incidentSubType;
+        this.status = status;
+    }
+
+    public String getIncidentTypeName() {
+        return incidentTypeName;
+    }
+
+    public void setIncidentTypeName(String incidentTypeName) {
+        this.incidentTypeName = incidentTypeName;
+    }
+
+    public String getIncidentSubType() {
+        return incidentSubType;
+    }
+
+    public void setIncidentSubType(String incidentSubType) {
+        this.incidentSubType = incidentSubType;
     }
 
     public String getCode() {
@@ -71,19 +91,19 @@ public class IncidentDTO {
         this.incidentNumber = incidentNumber;
     }
 
-    public String getIncidentType() {
-        return incidentType;
-    }
-
-    public void setIncidentType(String incidentType) {
-        this.incidentType = incidentType;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -30,9 +32,10 @@ public class IncidentType implements Serializable {
     @Column
     private String incidentSubType;
 
-    @OneToOne(mappedBy = "incidentType", fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "incidentType", cascade = CascadeType.ALL)
     @JsonIgnore
-    private Incident incident;
+    private List<Incident> incident = new ArrayList<>();
 
     public Long getIncidentTypeId() {
         return incidentTypeId;
@@ -74,11 +77,11 @@ public class IncidentType implements Serializable {
         this.incidentSubType = incidentSubType;
     }
 
-    public Incident getIncident() {
+    public List<Incident> getIncident() {
         return incident;
     }
 
-    public void setIncident(Incident incident) {
+    public void setIncident(List<Incident> incident) {
         this.incident = incident;
     }
 }
