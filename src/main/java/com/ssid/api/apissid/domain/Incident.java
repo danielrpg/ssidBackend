@@ -2,9 +2,7 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author christian Tola
@@ -41,7 +39,7 @@ public class Incident implements Serializable {
 //    @ManyToMany(mappedBy = "incidents", fetch = FetchType.LAZY)
 //    private Set<RiskIpercDetail> riskIpercDetails;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "incident_type_id")
     private IncidentType incidentType;
 
@@ -121,7 +119,7 @@ public class Incident implements Serializable {
         this.incidentType = incidentType;
     }
 
-//    public Set<RiskIpercDetail> getRiskIpercDetails() {
+    //    public Set<RiskIpercDetail> getRiskIpercDetails() {
 //        return riskIpercDetails;
 //    }
 //

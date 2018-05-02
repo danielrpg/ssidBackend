@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class IncidentTypeController {
 
     @RequestMapping(path = ApiPath.INCIDENT_TYPE_PATH, method = RequestMethod.GET)
-    private String getUser(){
+    private String getIncidentsType(){
         String res ="List Incident Type";
         return res;
     }

@@ -45,9 +45,11 @@ public class IncidentServiceImpl implements IncidentService {
     @Transactional
     @Override
     public Incident createIncident(IncidentDTO incidentDTO) {
-        IncidentType incidentType = incidentTypeRepository.findByIncidentTypeName(incidentDTO.getIncidentType());
+        IncidentType incidentType = incidentTypeRepository.findByIncidentTypeName(incidentDTO.getIncidentTypeName());
         IncidentDetail incidentDetail = new IncidentDetail();
         incidentDetail.setIncidentDetailName(incidentDTO.getDescription());
+        incidentDetail.setIncidentDetailStatus(incidentDTO.getStatus());
+        incidentDetail.setIncidentDetailSubtype(incidentDTO.getIncidentSubType());
 
         Incident incident = new Incident();
         incident.setArea(incidentDTO.getArea());
@@ -56,6 +58,7 @@ public class IncidentServiceImpl implements IncidentService {
         incident.setIncidentNumber(incidentDTO.getIncidentNumber());
         incident.setReincident(incidentDTO.isReincident());
         incident.setReportedBy(incidentDTO.getReportedBy());
+        incident.setIncidentNumber(incidentDTO.getIncidentNumber());
         incident.setTreatment(incidentDTO.isTreatment());
         incident.setIncidentType(incidentType);
         incident.setIncidentDetail(incidentDetail);
@@ -68,7 +71,7 @@ public class IncidentServiceImpl implements IncidentService {
     @Transactional
     @Override
     public boolean updateIncident(IncidentDTO incidentDTO, int id) {
-        IncidentType incidentType = incidentTypeRepository.findByIncidentTypeName(incidentDTO.getIncidentType());
+        IncidentType incidentType = incidentTypeRepository.findByIncidentTypeName(incidentDTO.getIncidentTypeName());
         Incident incident = incidentRepository.findById((long)id).get();
         IncidentDetail incidentDetail = incident.getIncidentDetail();
         incidentDetail.setIncidentDetailName(incidentDTO.getDescription());
