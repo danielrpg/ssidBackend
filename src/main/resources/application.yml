@@ -1,16 +1,15 @@
 
 # MariaDB or Mysql Server config
 #spring:
- # jpa:
-  #  hibernate:
-   #   ddl-auto: update
-    # ddl-auto: create-drop
-     # show-sql: true
-      #dialect: org.hibernate.dialect.MySQL5Dialect
-  #datasource:
-   # url: jdbc:mysql://localhost:3306/grupoD
-    #username: root
-    #password: root
+#  jpa:
+#    hibernate:
+#      ddl-auto: create-drop
+#      show-sql: true
+#      dialect: org.hibernate.dialect.MySQL5Dialect
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/ssidev
+#    username: root
+#    password: root
 
 
 
