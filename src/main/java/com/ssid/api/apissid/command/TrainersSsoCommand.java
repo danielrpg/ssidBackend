@@ -33,7 +33,8 @@ public class TrainersSsoCommand {
         trainersSso.setCi(getCi());
         trainersSso.setSpecialty(getSpeciality());
         trainersSso.setSkillsDesciprtions(getSkillsDescriptions());
-        trainersSso.setImage(ImageUtilsCommand.decodeToImage(getImage()));
+        if(getImage() != null && getImage() != "")
+            trainersSso.setImage(ImageUtilsCommand.decodeToImage(getImage()));
 
         return trainersSso;
     }
