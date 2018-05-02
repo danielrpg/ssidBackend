@@ -2,12 +2,13 @@ package com.ssid.api.apissid.services;
 
 import com.ssid.api.apissid.domain.Enterprise;
 import com.ssid.api.apissid.repositories.EnterpriseRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class EnterpriseServiceImpl implements EnterpriseService {
+public class EnterpriseServiceImpl extends GenericServiceImpl<Enterprise> implements EnterpriseService {
     private EnterpriseRepository enterpriseRepository;
 
     public EnterpriseServiceImpl(EnterpriseRepository enterpriseRepository) {
@@ -15,12 +16,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     }
 
     @Override
-    public List<Enterprise> getEnterprise() {
-        return this.enterpriseRepository.findAll();
-    }
-
-    @Override
-    public void setEnterprise(Enterprise enterprise) {
-        this.enterpriseRepository.save(enterprise);
+    protected JpaRepository<Enterprise, Long> getRepository() {
+        return this.getRepository();
     }
 }

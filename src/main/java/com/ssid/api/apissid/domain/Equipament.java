@@ -21,10 +21,10 @@ public class Equipament extends ModelBase implements Serializable {
     @Column(name = "equipament_id")
     private Long id;
 
-    @Column(name = "equipament_name", length = 200,unique = true)
+    @Column(name = "equipament_name", length = 200)
     private String name;
 
-    @Column(name = "equipament_description", length = 200,unique = true)
+    @Column(name = "equipament_description", length = 200)
     private String description;
 
     @Column(name = "equipament_type", length = 50)

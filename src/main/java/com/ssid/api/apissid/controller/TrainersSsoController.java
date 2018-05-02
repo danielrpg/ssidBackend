@@ -1,8 +1,6 @@
 package com.ssid.api.apissid.controller;
 
-import com.ssid.api.apissid.command.ProgramSsoCommand;
 import com.ssid.api.apissid.command.TrainersSsoCommand;
-import com.ssid.api.apissid.domain.ProgramSso;
 import com.ssid.api.apissid.domain.TrainersSso;
 import com.ssid.api.apissid.services.TrainersSsoService;
 import com.ssid.api.apissid.util.ApiPath;

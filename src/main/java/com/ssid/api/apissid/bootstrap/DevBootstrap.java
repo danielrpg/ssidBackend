@@ -1,27 +1,27 @@
 package com.ssid.api.apissid.bootstrap;
 
 import com.ssid.api.apissid.domain.*;
+import com.ssid.api.apissid.dto.RequestAreaDTO;
 import com.ssid.api.apissid.repositories.*;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 @Component
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
+    private UserSystemRepository userSystemRepository;
+    private RoleRepository roleRepository;
     private ActivitiesSsoRepository activitiesSsoRepository;
-    private IncidentTypeRepository incidentTypeRepository;
     private ProgramSsoRepository programSsoRepository;
     private ResourceSsoRepository resourceSsoRepository;
     private TrainersSsoRepository trainersSsoRepository;
     private DepartmentRepository departmentRepository;
     private PositionRepository positionRepository;
     private ContractRepository contractRepository;
-    private FunctionRepository functionRepository;
+    private FunctionPositionRepository functionPositionRepository;
     private RequirementRepository requirementRepository;
 
     /**
@@ -38,8 +38,11 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                         PersonalRepository personalRepository, EquipamentRepository equipamentRepository,
                         InventoryRepository inventoryRepository, KardexEquipamentRepository kardexEquipamentRepository,
                         AreaRepository areaRepository, DepartmentRepository departmentRepository,
-                        PositionRepository positionRepository,ContractRepository contractRepository, FunctionRepository functionRepository,RequirementRepository requirementRepository
-                        , IncidentTypeRepository incidentTypeRepository){
+                        PositionRepository positionRepository,ContractRepository contractRepository,
+                        FunctionPositionRepository functionPositionRepository,
+                        RequirementRepository requirementRepository,
+                        UserSystemRepository userSystemRepository,
+                        RoleRepository roleRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
         this.resourceSsoRepository = resourceSsoRepository;
@@ -52,14 +55,155 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         this.areaRepository = areaRepository;
         this.positionRepository = positionRepository;
         this.contractRepository = contractRepository;
-        this.functionRepository = functionRepository;
+        this.functionPositionRepository = functionPositionRepository;
         this.requirementRepository = requirementRepository;
-        this.incidentTypeRepository = incidentTypeRepository;
+        this.userSystemRepository = userSystemRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 
+        //Cargando los datos iniciales de usuario
+        loadDefaulUser();
+
+        //Cargando datos base de estructura organizacional
+        loadDataStructureOrganizational();
+
+        //Cargando datos base de SSO
+        loadDataSSO();
+
+        //Cargando datos de Inventarios
+        loadDataEquipamentInventary();
+
+        //Cargando datos defecto de contratos
+        loadDataContracts();
+    }
+
+    private void loadDefaulUser(){
+        Set<Role> listRoles = new HashSet<Role>();
+        if(this.roleRepository.count() == 0){
+            Role role = new Role();
+            role.setRoleName("ROLE_USER");
+            role.setVersion(1);
+            role.setCreatedOn(new Date());
+            this.roleRepository.save(role);
+            listRoles.add(role);
+            role.setRoleName("ROLE_ADMIN");
+            role.setVersion(1);
+            role.setCreatedOn(new Date());
+            this.roleRepository.save(role);
+            listRoles.add(role);
+        }
+        if(this.userSystemRepository.count() == 0){
+            UserSystem userSystem = new UserSystem();
+            userSystem.setUsername("admin");
+            userSystem.setPassword("$2a$10$XURPShQNCsLjp1ESc2laoObo9QZDhxz73hJPaEv7/cBha4pk0AgP.");
+            userSystem.setUserActive(Boolean.TRUE);
+            userSystem.setVersion(1);
+            userSystem.setCreatedOn(new Date());
+            userSystem.setRoles(listRoles);
+            this.userSystemRepository.save(userSystem);
+        }
+
+
+    }
+
+    private void loadDataContracts() {
+        //Contract
+        if(contractRepository.count() == 0){
+            Contract contract = new Contract();
+            contract.setCode("001");
+            contract.setCity("Cbba");
+            contract.setDate(new Date());
+            contract.setDescription("Contrato de pasantia universitaria");
+            contract.setSalary(1000.0);
+            contract.setType("Semestral");
+
+            Contract contract1 = new Contract();
+            contract1.setCode("002");
+            contract1.setCity("cbba");
+            contract1.setDate(new Date());
+            contract1.setDescription("contrato para evalucion de personal externo");
+            contract1.setSalary(3500.5);
+            contract1.setType("Indefinido");
+
+            contract = contractRepository.save(contract);
+            contract1 = contractRepository.save(contract1);
+        }
+    }
+
+    private void loadDataEquipamentInventary() {
+        //Area
+        Area area = new Area();
+        area.setName("Construcción");
+        area.setDescription("Area de Construcción");
+        areaRepository.save(area);
+        //Personal
+        Personal personal = new Personal();
+        personal.setArea(area);
+        personal.setName("Jhon Doe");
+        personal.setAddress("Av. Villazon N° 2326");
+        personal.setCellphone("89632548");
+        personal.setEmail("jDoe@gmail.com");
+        personal.setBirthdate(new GregorianCalendar(1987,05, 15).getTime());
+        personal.setActive(true);
+        personalRepository.save(personal);
+
+        //Equipment 1
+        Equipament equipament1 = new Equipament();
+        equipament1.setName("Helmmet");
+        equipament1.setType(1);
+        equipament1.setDescription("Casco tipo Jokey de ala Ancha");
+        equipament1.setImage(new Byte[0]);
+        equipamentRepository.save(equipament1);
+
+        //Equipment 2
+        Equipament equipament2 = new Equipament();
+        equipament2.setName("Electric Drill");
+        equipament2.setType(2);
+        equipament2.setDescription("Taladro electrico portatil bosch");
+        equipament2.setImage(new Byte[0]);
+        equipamentRepository.save(equipament2);
+
+        //KardexEquipment
+        KardexEquipament kardexEquipament = new KardexEquipament();
+        kardexEquipament.setEquipament(equipament2);
+        kardexEquipament.setDateKardex(new Date());
+        kardexEquipament.setEntryKardex(15);
+        kardexEquipament.setOutlayKardex(0);
+        kardexEquipament.setBalanceKardex(15);
+        kardexEquipamentRepository.save(kardexEquipament);
+
+        //KardexEquipment1
+        KardexEquipament kardexEquipament1 = new KardexEquipament();
+        kardexEquipament1.setEquipament(equipament2);
+        kardexEquipament1.setDateKardex(new Date());
+        kardexEquipament1.setEntryKardex(0);
+        kardexEquipament1.setOutlayKardex(5);
+        kardexEquipament1.setBalanceKardex(10);
+        kardexEquipamentRepository.save(kardexEquipament1);
+
+        //InventoryEquipment
+        Inventory inventory = new Inventory();
+        inventory.setPersonal(personal);
+        inventory.setEquipament(equipament2);
+        inventory.setDateAsignament(new Date());
+        inventory.setStatus("nuevo");
+        inventory.setActive(true);
+        inventoryRepository.save(inventory);
+
+        //InventoryEquipment1
+        Inventory inventory1 = new Inventory();
+        inventory1.setPersonal(personal);
+        inventory1.setEquipament(equipament1);
+        inventory1.setDateAsignament(new Date());
+        inventory1.setStatus("nuevo");
+        inventory1.setActive(true);
+        inventoryRepository.save(inventory1);
+    }
+
+    private void loadDataSSO() {
         if(programSsoRepository.count() == 0) {
             //Resources SSO
             ResourceSso resourceSso1 = new ResourceSso();
@@ -107,77 +251,10 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             this.activitiesSsoRepository.save(activitiesSso);
             this.trainersSsoRepository.save(trainersSso);
             this.programSsoRepository.save(programSso);
-
-            //Area
-            Area area = new Area();
-            area.setName("Construccion");
-            area.setDescription("Area de Construccion");
-            areaRepository.save(area);
-            //Personal
-            Personal personal = new Personal();
-            personal.setArea(area);
-            personal.setName("Jhon Doe");
-            personal.setAddress("Av. Villazon N° 2326");
-            personal.setCellphone("89632548");
-            personal.setEmail("jDoe@gmail.com");
-            personal.setBirthdate(new GregorianCalendar(1987,05, 15).getTime());
-            personal.setActive(true);
-            personalRepository.save(personal);
-
-            //Equipment 1
-            Equipament equipament1 = new Equipament();
-            equipament1.setName("Helmmet");
-            equipament1.setType(1);
-            equipament1.setDescription("Casco tipo Jokey de ala Ancha");
-            equipament1.setImage(new Byte[0]);
-            equipamentRepository.save(equipament1);
-
-            //Equipment 2
-            Equipament equipament2 = new Equipament();
-            equipament2.setName("Electric Drill");
-            equipament2.setType(2);
-            equipament2.setDescription("Taladro electrico portatil bosch");
-            equipament2.setImage(new Byte[0]);
-            equipamentRepository.save(equipament2);
-
-            //KardexEquipment
-            KardexEquipament kardexEquipament = new KardexEquipament();
-            kardexEquipament.setEquipament(equipament2);
-            kardexEquipament.setDateKardex(new Date());
-            kardexEquipament.setEntryKardex(15);
-            kardexEquipament.setOutlayKardex(0);
-            kardexEquipament.setBalanceKardex(15);
-            kardexEquipamentRepository.save(kardexEquipament);
-
-            //KardexEquipment1
-            KardexEquipament kardexEquipament1 = new KardexEquipament();
-            kardexEquipament1.setEquipament(equipament2);
-            kardexEquipament1.setDateKardex(new Date());
-            kardexEquipament1.setEntryKardex(0);
-            kardexEquipament1.setOutlayKardex(5);
-            kardexEquipament1.setBalanceKardex(10);
-//            kardexEquipamentRepository.save(kardexEquipament1);
-
-            //InventoryEquipment
-            Inventory inventory = new Inventory();
-            inventory.setPersonal(personal);
-            inventory.setEquipament(equipament2);
-            inventory.setDateAsignament(new Date());
-            inventory.setStatus("nuevo");
-            inventory.setActive(true);
-            inventoryRepository.save(inventory);
-
-            //InventoryEquipment1
-            Inventory inventory1 = new Inventory();
-            inventory1.setPersonal(personal);
-            inventory1.setEquipament(equipament1);
-            inventory1.setDateAsignament(new Date());
-            inventory1.setStatus("nuevo");
-            inventory1.setActive(true);
-            inventoryRepository.save(inventory1);
-
         }
+    }
 
+    private void loadDataStructureOrganizational() {
         //Organizational structure
         if(departmentRepository.count() == 0){
             Department department1 = new Department();
@@ -215,6 +292,9 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             position1.setDescription("Gerente general.");
             position1.setLevel(0);
             position1 = positionRepository.save(position1);
+
+            loadDataRequirementsPosition(position1);
+            loadDataFunctionsPosition(position1);
 
             //level 1
             Position position2 = new Position();
@@ -322,108 +402,137 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             position17.setLevel(2);
             position17.setParentPosition(position4);
             position17 = positionRepository.save(position17);
+
+            //Organizational structure
+            if (departmentRepository.count() == 0) {
+                Department department1 = new Department();
+                department1.setName("Dirección General");
+                department1.setDescription("El departamento de dirección general agrupa los cargos relacionados con gerencia.");
+//                Set<Position> positionsLst1 = new HashSet<>();
+//                positionsLst1.add(position1);
+//                department1.setPositions(positionsLst1);
+
+                Department department2 = new Department();
+                department2.setName("Departamento técnico");
+                department2.setDescription("El departamento de dirección general agrupa los cargos relacionados con operaciones.");
+//                Set<Position> positionsLst2 = new HashSet<>();
+//                positionsLst2.add(position2);
+//                positionsLst2.add(position8);
+//                positionsLst2.add(position9);
+//                positionsLst2.add(position10);
+//                positionsLst2.add(position11);
+//                positionsLst2.add(position12);
+//                department2.setPositions(positionsLst2);
+
+                Department department3 = new Department();
+                department3.setName("Departamento financiero");
+                department3.setDescription("El departamento financiero agrupa los cargos encargados de las finanzas de la empresa.");
+//                Set<Position> positionsLst3 = new HashSet<>();
+//                positionsLst3.add(position7);
+//                department3.setPositions(positionsLst3);
+
+                Department department4 = new Department();
+                department4.setName("Departamento de recursos humanos");
+                department4.setDescription("El departamento de recursos humanos agrupa los cargos encargados del personal.");
+//                Set<Position> positionsLst4 = new HashSet<>();
+//                positionsLst4.add(position4);
+//                positionsLst4.add(position5);
+//                positionsLst4.add(position13);
+//                positionsLst4.add(position14);
+//                positionsLst4.add(position15);
+//                positionsLst4.add(position16);
+//                positionsLst4.add(position17);
+//                department4.setPositions(positionsLst4);
+
+                Department department5 = new Department();
+                department5.setName("Departamento comercial");
+                department5.setDescription("El departamento comercial agrupa los cargos relacionados con las ventas de la empresa.");
+//                Set<Position> positionsLst5 = new HashSet<>();
+//                positionsLst5.add(position3);
+//                department5.setPositions(positionsLst5);
+
+                departmentRepository.save(department1);
+                departmentRepository.save(department2);
+                departmentRepository.save(department3);
+                departmentRepository.save(department4);
+                departmentRepository.save(department5);
+            }
         }
+    }
 
-        //Contract
-        if(contractRepository.count() == 0){
-            Contract contract = new Contract();
-            contract.setCode("001");
-            contract.setCity("Cbba");
-            contract.setDate(new Date());
-            contract.setDescription("Contrato de pasantia universitaria");
-            contract.setSalary(1000.0);
-            contract.setType("Semestral");
+    private void loadDataFunctionsPosition(Position position1) {
+        FunctionPosition function = new FunctionPosition();
+        function.setName("Genenciar la empresa");
+        function.setDescription("Debe encargarse de Genenciar la empresa de la mejor manera posible");
+        function.setPosition(position1);
+        functionPositionRepository.save(function);
 
-            Contract contract1 = new Contract();
-            contract1.setCode("002");
-            contract1.setCity("cbba");
-            contract1.setDate(new Date());
-            contract1.setDescription("contrato para evalucion de personal externo");
-            contract1.setSalary(3500.5);
-            contract1.setType("Indefinido");
+        FunctionPosition function1 = new FunctionPosition();
+        function1.setName("Administración de recursos");
+        function1.setDescription("Debe encargarse de la Administración de todos los recursos de la empresa");
+        function1.setPosition(position1);
+        functionPositionRepository.save(function1);
 
-
-            contract = contractRepository.save(contract);
-            contract1 = contractRepository.save(contract1);
-
-        }
         //Function datos
-        if(functionRepository.count() == 0){
-            Function function = new Function();
-            function.setName("Formulacion de Pryectos");
-            function.setDescription(" Formulación de proyectos de Ingeniería Civil de alta calidad, resistentes y seguros para los usuarios finales");
+//        if(functionRepository.count() == 0){
+//            Function function = new Function();
+//            function.setName("Formulación de Proyectos");
+//            function.setDescription(" Formulación de proyectos de Ingeniería Civil de alta calidad, resistentes y seguros para los usuarios finales");
+//
+//            Function function1 = new Function();
+//            function1.setName("Establecer procedimientos ");
+//            function1.setDescription("  Establecer procedimientos para la operación de equipo y maquinaria para obtener la mejor calidad y productividad, teniendo en cuenta la protección del medio ambiente");
+//
+//            Function function2 = new Function();
+//            function2.setName("Adiestrar al personal  ");
+//            function2.setDescription("Adiestrar al personal dentro de una obra, desde los operativos, en el uso y manejo de los materiales y en la operación de la maquinaria y equipo de construcción");
+//
+//            Function function3 = new Function();
+//            function3.setName("Establecer programas");
+//            function3.setDescription("Establecer programas en la ejecución de obras enfocados al mejor aprovechamiento de los recursos");
+//
+//            function = functionRepository.save(function);
+//            function1 = functionRepository.save(function1);
+//            function2 = functionRepository.save(function2);
+//            function3 = functionRepository.save(function3);
+//        }
+    }
 
-            Function function1 = new Function();
-            function1.setName("Establecer procedimientos ");
-            function1.setDescription("  Establecer procedimientos para la operación de equipo y maquinaria para obtener la mejor calidad y productividad, teniendo en cuenta la protección del medio ambiente");
+    private void loadDataRequirementsPosition(Position position1) {
+        Requirement requirement = new Requirement();
+        requirement.setName("Administrador de empresas");
+        requirement.setDescription("Titulo en Administrador de empresas");
+        requirement.setPosition(position1);
+        requirementRepository.save(requirement);
 
-            Function function2 = new Function();
-            function2.setName("Adiestrar al personal  ");
-            function2.setDescription("Adiestrar al personal dentro de una obra, desde los operativos, en el uso y manejo de los materiales y en la operación de la maquinaria y equipo de construcción");
+        Requirement requirement1 = new Requirement();
+        requirement1.setName("Administrador de empresas");
+        requirement1.setDescription("Titulo en Administrador de empresas");
+        requirement1.setPosition(position1);
+        requirementRepository.save(requirement1);
 
-            Function function3 = new Function();
-            function3.setName("Establecer programas ");
-            function3.setDescription("Establecer programas en la ejecución de obras enfocados al mejor aprovechamiento de los recursos");
-
-            function = functionRepository.save(function);
-            function1 = functionRepository.save(function1);
-            function2 = functionRepository.save(function2);
-            function3 = functionRepository.save(function3);
-
-
-        }
         //Requirement
-        if(requirementRepository.count() == 0){
-            Requirement requirement = new Requirement();
-            requirement.setName("Formación académica");
-            requirement.setDescription("Formación académica en Ingeniería Civil o Arquitectura.");
-
-            Requirement requirement1 = new Requirement();
-            requirement1.setName("Se valorará conocimientos  ");
-            requirement1.setDescription("Se valorará conocimientos de energía eléctrica y mantenimiento en general.");
-
-            Requirement requirement2 = new Requirement();
-            requirement2.setName("Experiencia ");
-            requirement2.setDescription("Experiencia mínima de 3 años en cargos similares de Jefatura dentro el área de mantenimiento, fiscalización de obras y administración de proyectos");
-
-            Requirement requirement3 = new Requirement();
-            requirement3.setName("manejo de programas ");
-            requirement3.setDescription(" Excelente manejo de programas como ser: AutoCAD, PRESCOM, ArchiCAD, Project, CYPE");
-
-            requirement = requirementRepository.save(requirement);
-            requirement1 = requirementRepository.save(requirement1);
-            requirement2 = requirementRepository.save(requirement2);
-            requirement3 = requirementRepository.save(requirement3);
-
-
-        }
-
-        // IncidentType data
-        if(incidentTypeRepository.count() == 0) {
-            IncidentType incidentType = new IncidentType();
-            incidentType.setIncidentTypeDescription("this is a success type description");
-            incidentType.setIncidentTypeName("success");
-            incidentType.setIncidentSubType("");
-
-            IncidentType incidentType1 = new IncidentType();
-            incidentType1.setIncidentTypeDescription("this is a failed desription");
-            incidentType1.setIncidentTypeName("failed");
-            incidentType1.setIncidentSubType("");
-
-            IncidentType incidentType2 = new IncidentType();
-            incidentType2.setIncidentTypeDescription("this is a warning description");
-            incidentType2.setIncidentTypeName("warning");
-            incidentType2.setIncidentSubType("");
-
-            IncidentType incidentType3 = new IncidentType();
-            incidentType3.setIncidentTypeDescription("this is a danger description");
-            incidentType3.setIncidentTypeName("danger");
-            incidentType3.setIncidentSubType("");
-
-            incidentTypeRepository.save(incidentType);
-            incidentTypeRepository.save(incidentType1);
-            incidentTypeRepository.save(incidentType2);
-            incidentTypeRepository.save(incidentType3);
-        }
+//        if(requirementRepository.count() == 0){
+//            Requirement requirement = new Requirement();
+//            requirement.setName("Formación académica");
+//            requirement.setDescription("Formación académica en Ingeniería Civil o Arquitectura.");
+//
+//            Requirement requirement1 = new Requirement();
+//            requirement1.setName("Se valorará conocimientos  ");
+//            requirement1.setDescription("Se valorará conocimientos de energía eléctrica y mantenimiento en general.");
+//
+//            Requirement requirement2 = new Requirement();
+//            requirement2.setName("Experiencia ");
+//            requirement2.setDescription("Experiencia mínima de 3 años en cargos similares de Jefatura dentro el área de mantenimiento, fiscalización de obras y administración de proyectos");
+//
+//            Requirement requirement3 = new Requirement();
+//            requirement3.setName("manejo de programas ");
+//            requirement3.setDescription(" Excelente manejo de programas como ser: AutoCAD, PRESCOM, ArchiCAD, Project, CYPE");
+//
+//            requirement = requirementRepository.save(requirement);
+//            requirement1 = requirementRepository.save(requirement1);
+//            requirement2 = requirementRepository.save(requirement2);
+//            requirement3 = requirementRepository.save(requirement3);
+//        }
     }
 }
