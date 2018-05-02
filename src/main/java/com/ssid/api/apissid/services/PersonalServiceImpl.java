@@ -116,6 +116,11 @@ public class PersonalServiceImpl extends GenericServiceImpl<Personal> implements
     }
 
     @Override
+    public void savePersonal(Personal personal) {
+        this.repository.save(personal);
+    }
+
+    @Override
     protected JpaRepository<Personal, Long> getRepository() {
         return repository;
     }
