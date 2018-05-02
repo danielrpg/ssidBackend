@@ -23,6 +23,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private ContractRepository contractRepository;
     private FunctionPositionRepository functionPositionRepository;
     private RequirementRepository requirementRepository;
+    private IncidentTypeRepository incidentTypeRepository;
 
     /**
      * Personal assignment Equipment repositories
@@ -42,7 +43,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                         FunctionPositionRepository functionPositionRepository,
                         RequirementRepository requirementRepository,
                         UserSystemRepository userSystemRepository,
-                        RoleRepository roleRepository){
+                        RoleRepository roleRepository,
+                        IncidentTypeRepository incidentTypeRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
         this.resourceSsoRepository = resourceSsoRepository;
@@ -59,6 +61,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         this.requirementRepository = requirementRepository;
         this.userSystemRepository = userSystemRepository;
         this.roleRepository = roleRepository;
+        this.incidentTypeRepository = incidentTypeRepository;
     }
 
     @Override
@@ -78,6 +81,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
         //Cargando datos defecto de contratos
         loadDataContracts();
+
+        loadDataIncidents();
     }
 
     private void loadDefaulUser(){
@@ -534,5 +539,34 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 //            requirement2 = requirementRepository.save(requirement2);
 //            requirement3 = requirementRepository.save(requirement3);
 //        }
+    }
+
+    private void loadDataIncidents() {
+        if(incidentTypeRepository.count() == 0) {
+            IncidentType incidentType = new IncidentType();
+            incidentType.setIncidentTypeDescription("this is a success type description");
+            incidentType.setIncidentTypeName("success");
+            incidentType.setIncidentSubType("");
+
+            IncidentType incidentType1 = new IncidentType();
+            incidentType1.setIncidentTypeDescription("this is a failed desription");
+            incidentType1.setIncidentTypeName("failed");
+            incidentType1.setIncidentSubType("");
+
+            IncidentType incidentType2 = new IncidentType();
+            incidentType2.setIncidentTypeDescription("this is a warning description");
+            incidentType2.setIncidentTypeName("warning");
+            incidentType2.setIncidentSubType("");
+
+            IncidentType incidentType3 = new IncidentType();
+            incidentType3.setIncidentTypeDescription("this is a danger description");
+            incidentType3.setIncidentTypeName("danger");
+            incidentType3.setIncidentSubType("");
+
+            incidentTypeRepository.save(incidentType);
+            incidentTypeRepository.save(incidentType1);
+            incidentTypeRepository.save(incidentType2);
+            incidentTypeRepository.save(incidentType3);
+        }
     }
 }
