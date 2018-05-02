@@ -3,20 +3,15 @@ package com.ssid.api.apissid.command;
 import com.ssid.api.apissid.domain.TrainersSso;
 
 //import com.sun.deploy.util.ArrayUtil;
-import org.apache.tomcat.util.codec.binary.Base64;
 //import sun.misc.BASE64Decoder;
-import org.apache.tomcat.util.codec.binary.Base64;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 
 public class TrainersSsoCommand {
     private Long id;
     private String name;
     private String ci;
-    private String specialty;
-    private String skillsDesciprtions;
+    private String speciality;
+    private String skillsDescriptions;
     private String image;
     private Object[] activitiesSsos= new Object[0];
 
@@ -26,8 +21,8 @@ public class TrainersSsoCommand {
         setId(trainersSso.getId());
         setName(trainersSso.getName());
         setCi(trainersSso.getCi());
-        setSpecialty(trainersSso.getSpecialty());
-        setSkillsDesciprtions(trainersSso.getSkillsDesciprtions());
+        setSpeciality(trainersSso.getSpecialty());
+        setSkillsDescriptions(trainersSso.getSkillsDesciprtions());
         setImage(ImageUtilsCommand.setImageBase64(trainersSso.getImage()));
     }
 
@@ -36,8 +31,8 @@ public class TrainersSsoCommand {
         trainersSso.setId(getId());
         trainersSso.setName(getName());
         trainersSso.setCi(getCi());
-        trainersSso.setSpecialty(getSpecialty());
-        trainersSso.setSkillsDesciprtions(getSkillsDesciprtions());
+        trainersSso.setSpecialty(getSpeciality());
+        trainersSso.setSkillsDesciprtions(getSkillsDescriptions());
         trainersSso.setImage(ImageUtilsCommand.decodeToImage(getImage()));
 
         return trainersSso;
@@ -67,20 +62,20 @@ public class TrainersSsoCommand {
         this.ci = ci;
     }
 
-    public String getSpecialty() {
-        return specialty;
+    public String getSpeciality() {
+        return speciality;
     }
 
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
     }
 
-    public String getSkillsDesciprtions() {
-        return skillsDesciprtions;
+    public String getSkillsDescriptions() {
+        return skillsDescriptions;
     }
 
-    public void setSkillsDesciprtions(String skillsDesciprtions) {
-        this.skillsDesciprtions = skillsDesciprtions;
+    public void setSkillsDescriptions(String skillsDescriptions) {
+        this.skillsDescriptions = skillsDescriptions;
     }
 
     public String getImage() {
