@@ -1,11 +1,12 @@
 package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "inventory")
-public class Inventory extends ModelBase {
+public class Inventory extends ModelBase implements Serializable{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "inventory_id")
