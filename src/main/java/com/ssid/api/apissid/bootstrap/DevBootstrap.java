@@ -216,7 +216,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     }
 
     private void loadDataSSO() {
-        if(programSsoRepository.count() == 0) {
+        //if(programSsoRepository.count() == 0) {
             //Resources SSO
             ResourceSso resourceSso1 = new ResourceSso();
             resourceSso1.setResourceCost(200.0);
@@ -243,6 +243,13 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             trainersSso.setName("Juan Perez");
             trainersSso.setSkillsDesciprtions("Experto en seguridad industrial");
             trainersSso.setSpecialty("Ing. Industrial");
+
+
+            TrainersSso trainersSso1 = new TrainersSso();
+            trainersSso1.setCi("987465651");
+            trainersSso1.setName("Mario Padilla");
+            trainersSso1.setSkillsDesciprtions("Experto en seguridad industrial");
+            trainersSso1.setSpecialty("Ing. Industrial");
             //trainersSso.getActivitiesSsos().add(activitiesSso);
 
             //activitiesSso.setTrainersSso(trainersSso);
@@ -262,8 +269,9 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             this.resourceSsoRepository.save(resourceSso2);
             this.activitiesSsoRepository.save(activitiesSso);
             this.trainersSsoRepository.save(trainersSso);
+            this.trainersSsoRepository.save(trainersSso1);
             this.programSsoRepository.save(programSso);
-        }
+        //}
     }
 
     private void loadDataStructureOrganizational() {
