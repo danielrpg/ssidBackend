@@ -1,5 +1,6 @@
 package com.ssid.api.apissid.controller;
 
+import com.ssid.api.apissid.command.AccidentCommand;
 import com.ssid.api.apissid.domain.Accident;
 import com.ssid.api.apissid.services.AccidentService;
 import com.ssid.api.apissid.util.ApiPath;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +30,10 @@ public class AccidentController {
     public ResponseEntity<Map<String, Object>> getAllAccidents() {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "ok");
-        List<Accident> accidents = accidentService.getAllAccidents();
+        List<AccidentCommand> accidents = new ArrayList<>();
+        this.accidentService.getAllAccidents().forEach(accident -> {
+            accidents.add(new AccidentCommand(accident));
+        });
         mapResponse.put("data", accidents);
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
