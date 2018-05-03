@@ -12,6 +12,8 @@ import java.util.*;
 @Component
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
+    private UserSystemRepository userSystemRepository;
+    private RoleRepository roleRepository;
     private ActivitiesSsoRepository activitiesSsoRepository;
     private ProgramSsoRepository programSsoRepository;
     private ResourceSsoRepository resourceSsoRepository;
@@ -21,7 +23,9 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private ContractRepository contractRepository;
     private FunctionPositionRepository functionPositionRepository;
     private RequirementRepository requirementRepository;
-
+    private IncidentTypeRepository incidentTypeRepository;
+    private IncidentDetailRepository incidentDetailRepository;
+    private IncidentRepository incidentRepository;
     /**
      * Personal assignment Equipment repositories
      **/
@@ -38,7 +42,12 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                         AreaRepository areaRepository, DepartmentRepository departmentRepository,
                         PositionRepository positionRepository,ContractRepository contractRepository,
                         FunctionPositionRepository functionPositionRepository,
-                        RequirementRepository requirementRepository){
+                        RequirementRepository requirementRepository,
+                        UserSystemRepository userSystemRepository,
+                        RoleRepository roleRepository,
+                        IncidentTypeRepository incidentTypeRepository,
+                        IncidentDetailRepository incidentDetailRepository,
+                        IncidentRepository incidentRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
         this.resourceSsoRepository = resourceSsoRepository;
@@ -53,10 +62,18 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         this.contractRepository = contractRepository;
         this.functionPositionRepository = functionPositionRepository;
         this.requirementRepository = requirementRepository;
+        this.userSystemRepository = userSystemRepository;
+        this.roleRepository = roleRepository;
+        this.incidentTypeRepository = incidentTypeRepository;
+        this.incidentDetailRepository = incidentDetailRepository;
+        this.incidentRepository = incidentRepository;
     }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+
+        //Cargando los datos iniciales de usuario
+        loadDefaulUser();
 
         //Cargando datos base de estructura organizacional
         loadDataStructureOrganizational();
@@ -69,6 +86,37 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
         //Cargando datos defecto de contratos
         loadDataContracts();
+
+        loadDataIncidents();
+    }
+
+    private void loadDefaulUser(){
+        Set<Role> listRoles = new HashSet<Role>();
+        if(this.roleRepository.count() == 0){
+            Role role = new Role();
+            role.setRoleName("ROLE_USER");
+            role.setVersion(1);
+            role.setCreatedOn(new Date());
+            this.roleRepository.save(role);
+            listRoles.add(role);
+            role.setRoleName("ROLE_ADMIN");
+            role.setVersion(1);
+            role.setCreatedOn(new Date());
+            this.roleRepository.save(role);
+            listRoles.add(role);
+        }
+        if(this.userSystemRepository.count() == 0){
+            UserSystem userSystem = new UserSystem();
+            userSystem.setUsername("admin");
+            userSystem.setPassword("$2a$10$XURPShQNCsLjp1ESc2laoObo9QZDhxz73hJPaEv7/cBha4pk0AgP.");
+            userSystem.setUserActive(Boolean.TRUE);
+            userSystem.setVersion(1);
+            userSystem.setCreatedOn(new Date());
+            userSystem.setRoles(listRoles);
+            this.userSystemRepository.save(userSystem);
+        }
+
+
     }
 
     private void loadDataContracts() {
@@ -496,5 +544,82 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 //            requirement2 = requirementRepository.save(requirement2);
 //            requirement3 = requirementRepository.save(requirement3);
 //        }
+    }
+
+    private void loadDataIncidents() {
+        if(incidentTypeRepository.count() == 0) {
+            IncidentType incidentType = new IncidentType();
+            incidentType.setIncidentTypeDescription("Este es el registro de accidentes");
+            incidentType.setIncidentTypeName("accidente");
+            incidentType.setIncidentSubType("");
+
+            IncidentType incidentType1 = new IncidentType();
+            incidentType1.setIncidentTypeDescription("Enfermedad muy contagiosa");
+            incidentType1.setIncidentTypeName("enfermedad");
+            incidentType1.setIncidentSubType("gripe");
+
+            IncidentType incidentType2 = new IncidentType();
+            incidentType2.setIncidentTypeDescription("Perdida de material");
+            incidentType2.setIncidentTypeName("incidente");
+            incidentType2.setIncidentSubType("");
+
+            IncidentDetail incidentDetail = new IncidentDetail();
+            incidentDetail.setIncidentDetailName("En fecha 02 de Mayo el Ingeniero Perez sufrio un accidente");
+            incidentDetail.setIncidentDetailStatus("entregado");
+            incidentDetail.setIncidentDetailType("");
+
+            IncidentDetail incidentDetail1 = new IncidentDetail();
+            incidentDetail1.setIncidentDetailName("En fecha 02 de Mayo el cortador Gonzales reporto que tenia gripe");
+            incidentDetail1.setIncidentDetailStatus("pendiente");
+            incidentDetail1.setIncidentDetailType("");
+
+            IncidentDetail incidentDetail2 = new IncidentDetail();
+            incidentDetail2.setIncidentDetailName("En fecha 24 de Abril el Licenciado Maldonado reporto que el piso del sector 7 estaba mojado");
+            incidentDetail2.setIncidentDetailStatus("reportado");
+            incidentDetail2.setIncidentDetailType("");
+
+
+            Incident incident = new Incident();
+            incident.setCode("ACC-01");
+            incident.setDateAt(new Date());
+            incident.setReportedBy("admin");
+            incident.setArea("soldadura");
+            incident.setReincident(false);
+            incident.setTreatment(false);
+            incident.setIncidentType(incidentType);
+            incident.setIncidentDetail(incidentDetail);
+
+            Incident incident1 = new Incident();
+            incident1.setCode("ENF-01");
+            incident1.setDateAt(new Date());
+            incident1.setReportedBy("admin");
+            incident1.setArea("mecanica");
+            incident1.setReincident(false);
+            incident1.setTreatment(false);
+            incident1.setIncidentType(incidentType1);
+            incident1.setIncidentDetail(incidentDetail1);
+
+            Incident incident2 = new Incident();
+            incident2.setCode("INC-01");
+            incident2.setDateAt(new Date());
+            incident2.setReportedBy("admin");
+            incident2.setArea("finanzas");
+            incident2.setReincident(false);
+            incident2.setTreatment(false);
+            incident2.setIncidentType(incidentType2);
+            incident2.setIncidentDetail(incidentDetail2);
+
+            incidentTypeRepository.save(incidentType);
+            incidentTypeRepository.save(incidentType1);
+            incidentTypeRepository.save(incidentType2);
+
+//            incidentDetailRepository.save(incidentDetail);
+//            incidentDetailRepository.save(incidentDetail1);
+//            incidentDetailRepository.save(incidentDetail2);
+//
+            incidentRepository.save(incident);
+            incidentRepository.save(incident1);
+            incidentRepository.save(incident2);
+        }
     }
 }
