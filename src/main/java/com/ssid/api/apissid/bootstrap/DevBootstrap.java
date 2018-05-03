@@ -26,6 +26,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private IncidentTypeRepository incidentTypeRepository;
     private IncidentDetailRepository incidentDetailRepository;
     private IncidentRepository incidentRepository;
+    private AccidentRepository accidentRepository;
     /**
      * Personal assignment Equipment repositories
      **/
@@ -47,7 +48,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                         RoleRepository roleRepository,
                         IncidentTypeRepository incidentTypeRepository,
                         IncidentDetailRepository incidentDetailRepository,
-                        IncidentRepository incidentRepository){
+                        IncidentRepository incidentRepository,
+                        AccidentRepository accidentRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
         this.resourceSsoRepository = resourceSsoRepository;
@@ -67,6 +69,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         this.incidentTypeRepository = incidentTypeRepository;
         this.incidentDetailRepository = incidentDetailRepository;
         this.incidentRepository = incidentRepository;
+        this.accidentRepository = accidentRepository;
     }
 
     @Override
@@ -88,6 +91,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         loadDataContracts();
 
         loadDataIncidents();
+
+        loadDataAccidents();
     }
 
     private void loadDefaulUser(){
@@ -628,6 +633,20 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             incidentRepository.save(incident);
             incidentRepository.save(incident1);
             incidentRepository.save(incident2);
+        }
+    }
+
+    private void loadDataAccidents() {
+        if (accidentRepository.count() == 0) {
+            Accident accident = new Accident();
+            accident.setDateAt(new Date());
+            accident.setDescription("Leccion en la espalda al tropezar");
+            accidentRepository.save(accident);
+
+            Accident accident2 = new Accident();
+            accident2.setDateAt(new Date());
+            accident2.setDescription("Lesion en la cabeza por no usar casco");
+            accidentRepository.save(accident2);
         }
     }
 }
