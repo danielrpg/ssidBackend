@@ -649,20 +649,41 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             lugares[7] = "CAJA PETROLERA DE SALUD – ADMINISTRACIÓN DEPARTAMENTAL COCHABAMBA";
             lugares[8] = "CAJA PETROLERA DE SALUD – HOSPITAL ELIZABETH SETON";
             lugares[9] = "CENTRO MEDICO QUIR. BOLIVIANO BELGA S.R.L.";
+
+            String[] nombres = new String[10];
+            nombres[0] = "Isaac Newton";
+            nombres[1] = "Cristóbal Colón";
+            nombres[2] = "Albert Einstein";
+            nombres[3] = "Louis Pasteur";
+            nombres[4] = "James Watt";
+            nombres[5] = "Adam Smith";
+            nombres[6] = "Ernest Rutherford";
+            nombres[7] = "Thomas Jefferson";
+            nombres[8] = "Zoroastro";
+            nombres[9] = "Carlomagno";
+
+
+
             int max = 8;
             int min = 0;
             int range = (max - min) + 1;
 
-            for (int i=65; i< 91; i++){
+            for (int i=0; i<100; i++){
                 Accident accident = new Accident();
-                accident.setPersonal(""+(char)(i));
+                int nm =  (int)(Math.random() * range) + min;
+                accident.setPersonal(nombres[nm]);
+
                 accident.setDateAt(new Date());
+
                 int bm =  (int)(Math.random() * range) + min;
                 accident.setBajamedica((long) bm);
+
                 int lg = (int)(Math.random() * range) + min;
                 accident.setLugaratencion(lugares[lg]);
                 accident.setDescription("Leccion en la espalda al tropezar");
+
                 accidentRepository.save(accident);
+
             }
         }
     }
