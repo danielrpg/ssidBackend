@@ -42,7 +42,7 @@ public class ContractController {
         if (StringUtils.isEmpty(contractCommand.getId())) {
             this.contractService.saveContract(contractCommand.toContract());
         } else {
-            // se busca el objeto existente
+            // se busca el objeto existente para cargar los datos al formulario
             Contract contract = this.contractService.findById(contractCommand.getId());
             contract.setCode(contractCommand.getCode());
             contract.setCity(contractCommand.getCity());

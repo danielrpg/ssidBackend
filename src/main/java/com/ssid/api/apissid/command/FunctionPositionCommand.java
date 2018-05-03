@@ -27,7 +27,6 @@ public class FunctionPositionCommand {
 
         return functionPosition;
     }
-
     public Long getId() {
         return id;
     }
