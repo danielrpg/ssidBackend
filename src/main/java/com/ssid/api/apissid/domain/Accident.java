@@ -16,10 +16,43 @@ public class Accident implements Serializable {
     private Long accidentId;
 
     @Column
+    private String personal;
+
+    @Column
     private Date dateAt;
 
     @Column
+    private Long bajamedica;
+
+    @Column
+    private String lugaratencion;
+
+    @Column
     private String description;
+
+    public String getLugaratencion() {
+        return lugaratencion;
+    }
+
+    public void setLugaratencion(String lugaratencion) {
+        this.lugaratencion = lugaratencion;
+    }
+
+    public Long getBajamedica() {
+        return bajamedica;
+    }
+
+    public void setBajamedica(Long bajamedica) {
+        this.bajamedica = bajamedica;
+    }
+
+    public String getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(String personal) {
+        this.personal = personal;
+    }
 
     public Long getAccidentId(){
         return this.accidentId;

@@ -638,15 +638,32 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
     private void loadDataAccidents() {
         if (accidentRepository.count() == 0) {
-            Accident accident = new Accident();
-            accident.setDateAt(new Date());
-            accident.setDescription("Leccion en la espalda al tropezar");
-            accidentRepository.save(accident);
+            String[] lugares = new String[10];
+            lugares[0] = "HOSPITAL ANOCARAIRE – VINTO BOLIVIA";
+            lugares[1] = "HOSPITAL UNIVALLE";
+            lugares[2] = "HOSPITAL HARRY WILLIAMS";
+            lugares[3] = "HOSPITAL SAN VICENTE DE PAUL";
+            lugares[4] = "EMERGENCIAS HOSPITAL VIEDMA";
+            lugares[5] = "CAJA INTEGRAL CORDES";
+            lugares[6] = "CAJA DE SALUD DE LA BANCA PRIVADA";
+            lugares[7] = "CAJA PETROLERA DE SALUD – ADMINISTRACIÓN DEPARTAMENTAL COCHABAMBA";
+            lugares[8] = "CAJA PETROLERA DE SALUD – HOSPITAL ELIZABETH SETON";
+            lugares[9] = "CENTRO MEDICO QUIR. BOLIVIANO BELGA S.R.L.";
+            int max = 8;
+            int min = 0;
+            int range = (max - min) + 1;
 
-            Accident accident2 = new Accident();
-            accident2.setDateAt(new Date());
-            accident2.setDescription("Lesion en la cabeza por no usar casco");
-            accidentRepository.save(accident2);
+            for (int i=65; i< 91; i++){
+                Accident accident = new Accident();
+                accident.setPersonal(""+(char)(i));
+                accident.setDateAt(new Date());
+                int bm =  (int)(Math.random() * range) + min;
+                accident.setBajamedica((long) bm);
+                int lg = (int)(Math.random() * range) + min;
+                accident.setLugaratencion(lugares[lg]);
+                accident.setDescription("Leccion en la espalda al tropezar");
+                accidentRepository.save(accident);
+            }
         }
     }
 }
