@@ -8,6 +8,7 @@ import com.ssid.api.apissid.services.ContractService;
 import com.ssid.api.apissid.util.ApiPath;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -38,7 +39,19 @@ public class ContractController {
     @RequestMapping(value = ApiPath.CONTRACT_PATH, method = RequestMethod.POST)
     public @ResponseBody
     void saveContract(@RequestBody ContractCommand contractCommand) {
-        this.contractService.saveContract(contractCommand.toContract());
+        if (StringUtils.isEmpty(contractCommand.getId())) {
+            this.contractService.saveContract(contractCommand.toContract());
+        } else {
+            // se busca el objeto existente
+            Contract contract = this.contractService.findById(contractCommand.getId());
+            contract.setCode(contractCommand.getCode());
+            contract.setCity(contractCommand.getCity());
+            contract.setDate(contractCommand.getDate());
+            contract.setSalary(contractCommand.getSalary());
+            contract.setDescription(contractCommand.getDescription());
+            contract.setType(contractCommand.getType());
+            this.contractService.saveContract(contract);
+        }
     }
 
     @RequestMapping(value = ApiPath.CONTRACT_BY_CODE, method = RequestMethod.GET)

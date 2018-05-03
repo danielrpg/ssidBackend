@@ -2,14 +2,11 @@ package com.ssid.api.apissid.command;
 
 import com.ssid.api.apissid.domain.FunctionPosition;
 
-/**
- * @author Jesus David Piérola Alvarado
- */
-
 public class FunctionPositionCommand {
     private Long id;
     private String name;
     private String description;
+    private String position;
 
     public FunctionPositionCommand() {
     }
@@ -18,6 +15,7 @@ public class FunctionPositionCommand {
         setId(functionPosition.getId());
         setName(functionPosition.getName());
         setDescription(functionPosition.getDescription());
+        setPosition(functionPosition.getPosition().getName());
     }
 
     public FunctionPosition toFunctionPosition() {
@@ -52,5 +50,13 @@ public class FunctionPositionCommand {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 }
