@@ -10,7 +10,6 @@ public class FunctionPositionCommand {
 
     public FunctionPositionCommand() {
     }
-
     public FunctionPositionCommand(FunctionPosition functionPosition) {
         setId(functionPosition.getId());
         setName(functionPosition.getName());

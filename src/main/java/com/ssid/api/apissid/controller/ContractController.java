@@ -53,7 +53,6 @@ public class ContractController {
             this.contractService.saveContract(contract);
         }
     }
-
     @RequestMapping(value = ApiPath.CONTRACT_BY_CODE, method = RequestMethod.GET)
     public @ResponseBody
     ContractCommand findContractByCode(@PathVariable(value = "code") String code){
