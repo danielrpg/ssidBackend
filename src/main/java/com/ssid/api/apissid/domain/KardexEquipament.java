@@ -1,11 +1,12 @@
 package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "kardex_equipaments")
 @Entity
-public class KardexEquipament extends ModelBase{
+public class KardexEquipament extends ModelBase implements Serializable{
 
     private static final long serialVersionUID=1L;
 
