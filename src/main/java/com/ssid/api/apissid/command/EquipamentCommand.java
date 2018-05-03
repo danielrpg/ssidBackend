@@ -77,15 +77,12 @@ public class EquipamentCommand {
    /* public Object[] getKardexs() {
         return kardexs;
     }
-
     public void setKardexs(Object[] kardexs) {
         this.kardexs = kardexs;
     }
-
     public Object[] getInventories() {
         return inventories;
     }
-
     public void setInventories(Object[] inventories) {
         this.inventories = inventories;
     }*/
