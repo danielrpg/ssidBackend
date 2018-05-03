@@ -16,23 +16,23 @@ public class ProgramSso extends ModelBase implements Serializable{
     private static final long serialVersionUID=1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "sso_id")
     private Long id;
 
-    @Column(name = "sso_objetive", length = 250,unique = true)
+    @Column(name = "sso_objetive", length = 250)
     private String ssoObjetive;
 
-    @Column(name = "sso_indicator", length = 250,unique = true)
+    @Column(name = "sso_indicator", length = 250)
     private String ssoIndicator;
 
-    @Column(name = "sso_goal", length = 250,unique = true)
+    @Column(name = "sso_goal", length = 250)
     private String ssoGoal;
 
-    @Column(name = "sso_execution_time", length = 250,unique = true)
+    @Column(name = "sso_execution_time", length = 250)
     private Date ssoExecutionTime;
 
-    @Column(name = "sso_responsable", length = 250,unique = true)
+    @Column(name = "sso_responsable", length = 250)
     private String ssoResponsable;
 
     @Column(name = "sso_total_cost")

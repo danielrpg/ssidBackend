@@ -2,7 +2,6 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Set;
 
 /**
@@ -14,35 +13,34 @@ import java.util.Set;
 public class Position extends ModelBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
-  
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "position_id")
     private Long id;
 
-    @Column(name = "position_name", length = 300, unique = true)
+    @Column(name = "position_name", length = 300)
     private String name;
 
     @Column(name = "position_description", length = 800)
     private String description;
 
-    @Column(name = "position_function")
-    private String function;
-
     @Column(name = "position_level")
     private Integer level;
 
-    @Column(name = "position_init_date")
-    private Date initDate;
+    @ManyToMany(mappedBy = "positions")
+    private Set<Department> departments;
 
-    @Column(name = "position_end_date")
-    private Date endDate;
+    @OneToMany(mappedBy = "position",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            orphanRemoval = true)
+    private Set<PersonalPositionContract> personalPositionContracts;
 
-    @ManyToMany
-    @JoinTable(name = "personal_position",
-            joinColumns = @JoinColumn(name = "position_id"),
-            inverseJoinColumns = @JoinColumn(name = "personal_id"))
-    private Set<Personal> personals;
+    @OneToOne(optional = true)
+    private Position parentPosition;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public Long getId() {
         return id;
@@ -60,12 +58,12 @@ public class Position extends ModelBase implements Serializable {
         this.name = name;
     }
 
-    public String getFunction() {
-        return function;
+    public String getDescription() {
+        return description;
     }
 
-    public void setFunction(String function) {
-        this.function = function;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getLevel() {
@@ -76,35 +74,27 @@ public class Position extends ModelBase implements Serializable {
         this.level = level;
     }
 
-    public Date getInitDate() {
-        return initDate;
+    public Set<Department> getDepartments() {
+        return departments;
     }
 
-    public void setInitDate(Date initDate) {
-        this.initDate = initDate;
+    public void setDepartments(Set<Department> departments) {
+        this.departments = departments;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Set<PersonalPositionContract> getPersonalPositionContracts() {
+        return personalPositionContracts;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setPersonalPositionContracts(Set<PersonalPositionContract> personalPositionContracts) {
+        this.personalPositionContracts = personalPositionContracts;
     }
 
-    public String getDescription() {
-        return description;
+    public Position getParentPosition() {
+        return parentPosition;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Set<Personal> getPersonals() {
-        return personals;
-    }
-
-    public void setPersonals(Set<Personal> personals) {
-        this.personals = personals;
+    public void setParentPosition(Position parentPosition) {
+        this.parentPosition = parentPosition;
     }
 }

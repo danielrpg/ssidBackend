@@ -3,6 +3,8 @@ package com.ssid.api.apissid.config;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -21,6 +23,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import static com.ssid.api.apissid.util.ApplicationConstants.*;
 
@@ -49,10 +53,23 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
 
+        Map<String, String> responseMap =
+                new HashMap<String, String>();
         String token = Jwts.builder().setIssuedAt(new Date()).setIssuer(ISSUER_INFO)
                 .setSubject(((User)auth.getPrincipal()).getUsername())
                 .setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SUPER_SECRET_KEY).compact();
+        response.setContentType("application/json");
+        response.setHeader("Cache-Control", "no-cache");
         response.addHeader(HEADER_AUTHORIZACION_KEY, TOKEN_BEARER_PREFIX + " " + token);
+        response.setStatus(HttpServletResponse.SC_OK);
+        responseMap.put("token", TOKEN_BEARER_PREFIX + " " + token);
+        responseMap.put("success", Boolean.TRUE.toString());
+        Gson gson = new GsonBuilder().setPrettyPrinting()
+                .create();
+        String json = gson.toJson(responseMap);
+        response.getWriter().write(json);
+        response.getWriter().flush();
+        response.getWriter().close();
     }
 }

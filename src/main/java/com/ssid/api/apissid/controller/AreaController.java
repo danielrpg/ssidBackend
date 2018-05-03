@@ -1,7 +1,7 @@
 package com.ssid.api.apissid.controller;
 
+import com.ssid.api.apissid.command.AreaCommand;
 import com.ssid.api.apissid.domain.Area;
-import com.ssid.api.apissid.dto.RequestAreaDTO;
 import com.ssid.api.apissid.services.AreaService;
 import com.ssid.api.apissid.util.ApiPath;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +32,11 @@ public class AreaController {
     public ResponseEntity<Map<String, Object>> getAllAreas() {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "ok");
-        List<Area> areas = this.areaService.findAll();
-        mapResponse.put("data", areas);
+        List<AreaCommand> areaList = new ArrayList<>();
+        this.areaService.findAll().forEach(area -> {
+            areaList.add(new AreaCommand(area));
+        });
+        mapResponse.put("data", areaList);
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
@@ -44,7 +47,7 @@ public class AreaController {
 
         if (area != null) {
             mapResponse.put("status", "ok");
-            mapResponse.put("data", area);
+            mapResponse.put("data", new AreaCommand(area));
             return new ResponseEntity<>(mapResponse, HttpStatus.OK);
         } else {
             mapResponse.put("status", "not found");
@@ -56,24 +59,28 @@ public class AreaController {
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> getAreaByName(@PathVariable String name) {
         Map<String, Object> mapResponse = new HashMap<>();
+        List<AreaCommand> areaList = new ArrayList<>();
+        this.areaService.findByName(name).forEach(area -> {
+            areaList.add(new AreaCommand(area));
+        });
         mapResponse.put("status", "ok");
-        mapResponse.put("data", this.areaService.findByName(name));
+        mapResponse.put("data", areaList);
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
-    public ResponseEntity<Map<String, Object>> createArea(@RequestBody RequestAreaDTO requestAreaDTO) {
+    public ResponseEntity<Map<String, Object>> createArea(@RequestBody AreaCommand areaCommand) {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "created");
-        mapResponse.put("data", areaService.createArea(requestAreaDTO));
+        mapResponse.put("data", areaService.save(areaCommand.toArea()));
         return new ResponseEntity<>(mapResponse, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Map<String, Object>> updateArea(@RequestBody RequestAreaDTO requestAreaDTO, @PathVariable int id) {
+    public ResponseEntity<Map<String, Object>> updateArea(@RequestBody AreaCommand areaCommand, @PathVariable int id) {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "updated");
-        mapResponse.put("data", areaService.updateArea(requestAreaDTO, (long) id));
+        mapResponse.put("data", areaService.updateArea(areaCommand.toArea(), (long) id));
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 

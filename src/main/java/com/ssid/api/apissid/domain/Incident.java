@@ -2,9 +2,7 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author christian Tola
@@ -38,19 +36,16 @@ public class Incident implements Serializable {
     @Column
     private int incidentNumber;
 
-    @ManyToMany(mappedBy = "incidents")
-    private Set<RiskIpercDetail> riskIpercDetails;
+//    @ManyToMany(mappedBy = "incidents", fetch = FetchType.LAZY)
+//    private Set<RiskIpercDetail> riskIpercDetails;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "personal_id")
-    private Personal personal;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "incident_type_id")
     private IncidentType incidentType;
 
-    @OneToMany(mappedBy = "incident", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<IncidentDetail> incidentDetail;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "incident_detail_id")
+    private IncidentDetail incidentDetail;
 
     public Long getIncidentId() {
         return incidentId;
@@ -116,22 +111,6 @@ public class Incident implements Serializable {
         this.incidentNumber = incidentNumber;
     }
 
-    public Set<RiskIpercDetail> getRiskIpercDetails() {
-        return riskIpercDetails;
-    }
-
-    public void setRiskIpercDetails(Set<RiskIpercDetail> riskIpercDetails) {
-        this.riskIpercDetails = riskIpercDetails;
-    }
-
-    public Personal getPersonal() {
-        return personal;
-    }
-
-    public void setPersonal(Personal personal) {
-        this.personal = personal;
-    }
-
     public IncidentType getIncidentType() {
         return incidentType;
     }
@@ -140,11 +119,19 @@ public class Incident implements Serializable {
         this.incidentType = incidentType;
     }
 
-    public Set<IncidentDetail> getIncidentDetail() {
+    //    public Set<RiskIpercDetail> getRiskIpercDetails() {
+//        return riskIpercDetails;
+//    }
+//
+//    public void setRiskIpercDetails(Set<RiskIpercDetail> riskIpercDetails) {
+//        this.riskIpercDetails = riskIpercDetails;
+//    }
+
+    public IncidentDetail getIncidentDetail() {
         return incidentDetail;
     }
 
-    public void setIncidentDetail(Set<IncidentDetail> incidentDetail) {
+    public void setIncidentDetail(IncidentDetail incidentDetail) {
         this.incidentDetail = incidentDetail;
     }
 }

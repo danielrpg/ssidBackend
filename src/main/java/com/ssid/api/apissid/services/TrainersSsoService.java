@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface TrainersSsoService {
     List<TrainersSso> getTrainerssSso();
     TrainersSso saveTrainersSso(TrainersSso trainersSso);
-    Optional<TrainersSso> getTrainersSsoById(Long id);
+    TrainersSso getTrainersSsoById(Long id);
     void deleteTrainersSsoById(Long id);
     TrainersSso updateTrainersSso(TrainersSso trainersSso, Long id);
     void saveImage(Long id, InputStream inputStream);

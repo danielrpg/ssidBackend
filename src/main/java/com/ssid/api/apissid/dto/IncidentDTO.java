@@ -7,16 +7,40 @@ public class IncidentDTO {
     private boolean reincident;
     private boolean treatment;
     private int incidentNumber;
+    private String incidentTypeName;
+    private String description;
+    private String incidentSubType;
+    private String status;
 
     public IncidentDTO() {}
 
-    public IncidentDTO(String code, String reportedBy, String area, boolean reincident, boolean treatment, int incidentNumber) {
+    public IncidentDTO(String code, String reportedBy, String area, boolean reincident, boolean treatment, int incidentNumber, String incidentTypeName, String description, String incidentSubType, String status) {
         this.code = code;
         this.reportedBy = reportedBy;
         this.area = area;
         this.reincident = reincident;
         this.treatment = treatment;
         this.incidentNumber = incidentNumber;
+        this.incidentTypeName = incidentTypeName;
+        this.description = description;
+        this.incidentSubType = incidentSubType;
+        this.status = status;
+    }
+
+    public String getIncidentTypeName() {
+        return incidentTypeName;
+    }
+
+    public void setIncidentTypeName(String incidentTypeName) {
+        this.incidentTypeName = incidentTypeName;
+    }
+
+    public String getIncidentSubType() {
+        return incidentSubType;
+    }
+
+    public void setIncidentSubType(String incidentSubType) {
+        this.incidentSubType = incidentSubType;
     }
 
     public String getCode() {
@@ -65,5 +89,21 @@ public class IncidentDTO {
 
     public void setIncidentNumber(int incidentNumber) {
         this.incidentNumber = incidentNumber;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

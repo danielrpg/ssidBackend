@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name = "risk_iperc_detail")
 public class RiskIpercDetail extends ModelBase implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "risk_iperc_det_id")
     private Long id;
     @Column(name = "risk_iperc_det_ide_acti", length = 50)
@@ -52,11 +52,11 @@ public class RiskIpercDetail extends ModelBase implements Serializable {
     @JoinColumn(name = "risk_iperc_id")
     private RiskIperc riskIperc;
 
-    @ManyToMany
-    @JoinTable(name = "risk_iperc_incident",
-            joinColumns = @JoinColumn(name = "risk_iperc_det_id"),
-            inverseJoinColumns = @JoinColumn(name = "incident_id"))
-    private Set<Incident> incidents;
+//    @ManyToMany
+//    @JoinTable(name = "risk_iperc_incident",
+//            joinColumns = @JoinColumn(name = "risk_iperc_det_id"),
+//            inverseJoinColumns = @JoinColumn(name = "incident_id"))
+//    private Set<Incident> incidents;
 
     public Long getId() {
         return id;
@@ -202,11 +202,11 @@ public class RiskIpercDetail extends ModelBase implements Serializable {
         this.riskIperc = riskIperc;
     }
 
-    public Set<Incident> getIncidents() {
-        return incidents;
-    }
-
-    public void setIncidents(Set<Incident> incidents) {
-        this.incidents = incidents;
-    }
+//    public Set<Incident> getIncidents() {
+//        return incidents;
+//    }
+//
+//    public void setIncidents(Set<Incident> incidents) {
+//        this.incidents = incidents;
+//    }
 }

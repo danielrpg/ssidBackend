@@ -1,13 +1,10 @@
 package com.ssid.api.apissid.services;
 
 import com.ssid.api.apissid.domain.Area;
-import com.ssid.api.apissid.dto.RequestAreaDTO;
 import com.ssid.api.apissid.repositories.AreaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -26,35 +23,24 @@ public class AreaServiceImpl extends GenericServiceImpl<Area> implements AreaSer
         return StringUtils.isEmpty(name) ? findAll() : repository.findByName(name).get();
     }
 
-    @Transactional
     @Override
-    public Area createArea(RequestAreaDTO requestAreaDTO) {
-        Area area = new Area();
-        area.setName(requestAreaDTO.getName());
-        area.setDescription(requestAreaDTO.getDescription());
-
-        area = save(area);
-        return area;
-    }
-
-    @Override
-    public boolean updateArea(RequestAreaDTO requestAreaDTO, Long id) {
+    public boolean updateArea(Area area, Long id) {
         boolean isChanged = false;
 
         //si existe, actualizamos
-        if(repository.existsById(id)){
+        if (repository.existsById(id)) {
             Area areaDB = findById(id);
 
-            if(areaDB.getName().compareTo(requestAreaDTO.getName()) != 0) {
-                areaDB.setName(requestAreaDTO.getName());
+            if (areaDB.getName().compareTo(area.getName()) != 0) {
+                areaDB.setName(area.getName());
                 isChanged = true;
             }
-            if(areaDB.getDescription().compareTo(requestAreaDTO.getDescription()) != 0) {
-                areaDB.setDescription(requestAreaDTO.getDescription());
+            if (areaDB.getDescription().compareTo(area.getDescription()) != 0) {
+                areaDB.setDescription(area.getDescription());
                 isChanged = true;
             }
 
-            if(isChanged) {
+            if (isChanged) {
                 Area areaSaved = save(areaDB);
 
                 if (areaSaved.getId() != null) {
@@ -67,7 +53,7 @@ public class AreaServiceImpl extends GenericServiceImpl<Area> implements AreaSer
             }
         } else {
             //insertamos como nuevo
-            createArea(requestAreaDTO);
+            save(area);
         }
 
         return false;

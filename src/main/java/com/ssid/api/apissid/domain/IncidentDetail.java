@@ -1,5 +1,7 @@
 package com.ssid.api.apissid.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 /**
@@ -25,8 +27,8 @@ public class IncidentDetail implements Serializable {
     @Column
     private String incidentDetailSubtype;
 
-    @ManyToOne(cascade = { CascadeType.ALL })
-    @JoinColumn(name = "incident_id")
+    @OneToOne(mappedBy = "incidentDetail", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Incident incident;
 
     public Long getIncidentDetailId() {
