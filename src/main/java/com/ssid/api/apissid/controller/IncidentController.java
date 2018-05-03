@@ -19,12 +19,10 @@ import java.util.Map;
 public class IncidentController {
 
     private IncidentService incidentService;
-    private IncidentDetailService incidentDetailService;
 
     @Autowired
-    public IncidentController(IncidentService incidentService, IncidentDetailService incidentDetailService) {
+    public IncidentController(IncidentService incidentService) {
         this.incidentService = incidentService;
-        this.incidentDetailService = incidentDetailService;
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)

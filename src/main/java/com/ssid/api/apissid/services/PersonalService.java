@@ -15,4 +15,6 @@ public interface PersonalService extends GenericService<Personal> {
     boolean updatePersonal(Personal personal, Long id);
 
     void saveImage(Long id, InputStream inputStream);
+
+    void savePersonal(Personal personal);
 }

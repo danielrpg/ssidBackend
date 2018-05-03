@@ -2,9 +2,7 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author christian Tola
@@ -38,12 +36,16 @@ public class Incident implements Serializable {
     @Column
     private int incidentNumber;
 
-    @ManyToMany(mappedBy = "incidents")
-    private Set<RiskIpercDetail> riskIpercDetails;
+//    @ManyToMany(mappedBy = "incidents", fetch = FetchType.LAZY)
+//    private Set<RiskIpercDetail> riskIpercDetails;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "incident_type_id")
     private IncidentType incidentType;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "incident_detail_id")
+    private IncidentDetail incidentDetail;
 
     public Long getIncidentId() {
         return incidentId;
@@ -117,11 +119,19 @@ public class Incident implements Serializable {
         this.incidentType = incidentType;
     }
 
-    public Set<RiskIpercDetail> getRiskIpercDetails() {
-        return riskIpercDetails;
+    //    public Set<RiskIpercDetail> getRiskIpercDetails() {
+//        return riskIpercDetails;
+//    }
+//
+//    public void setRiskIpercDetails(Set<RiskIpercDetail> riskIpercDetails) {
+//        this.riskIpercDetails = riskIpercDetails;
+//    }
+
+    public IncidentDetail getIncidentDetail() {
+        return incidentDetail;
     }
 
-    public void setRiskIpercDetails(Set<RiskIpercDetail> riskIpercDetails) {
-        this.riskIpercDetails = riskIpercDetails;
+    public void setIncidentDetail(IncidentDetail incidentDetail) {
+        this.incidentDetail = incidentDetail;
     }
 }

@@ -109,4 +109,11 @@ public class PersonalController {
         personalService.saveImage(Long.valueOf(id), file);
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public Personal savePersonal(@RequestBody PersonalCommand personalCommand){
+        Personal personal = personalCommand.toPersonal();
+        personalService.savePersonal(personal);
+        return personal;
+    }
 }
