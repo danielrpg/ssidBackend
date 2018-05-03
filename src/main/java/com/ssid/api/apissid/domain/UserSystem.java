@@ -9,7 +9,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "users")
-public class UserSystem extends ModelBase  {
+public class UserSystem extends ModelBase implements Serializable{
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
