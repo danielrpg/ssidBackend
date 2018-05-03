@@ -23,6 +23,9 @@ public class Personal extends ModelBase implements Serializable {
     @Column(name = "personal_name", length = 50)
     private String name;
 
+    @Column(name = "personal_last_name", length = 50)
+    private String lastName;
+
     @Lob
     @Column(name = "personal_photo")
     private Byte[] photo;
@@ -45,7 +48,7 @@ public class Personal extends ModelBase implements Serializable {
     @Column(name = "personal_birthdate")
     private Date birthdate;
 
-    @OneToOne(optional = false)
+    @OneToOne(fetch = FetchType.LAZY)
     private Area area;
 
     @OneToMany(mappedBy = "personal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -154,5 +157,13 @@ public class Personal extends ModelBase implements Serializable {
 
     public void setInventories(Set<Inventory> inventories) {
         this.inventories = inventories;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

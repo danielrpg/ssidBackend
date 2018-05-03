@@ -1,16 +1,15 @@
 
 # MariaDB or Mysql Server config
 #spring:
- # jpa:
-  #  hibernate:
-   #   ddl-auto: update
-    # ddl-auto: create-drop
-     # show-sql: true
-      #dialect: org.hibernate.dialect.MySQL5Dialect
-  #datasource:
-   # url: jdbc:mysql://localhost:3306/grupoD
-    #username: root
-    #password: root
+#  jpa:
+#    hibernate:
+#      ddl-auto: create-drop
+#      show-sql: true
+#      dialect: org.hibernate.dialect.MySQL5Dialect
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/ssidev
+#    username: root
+#    password: root
 
 
 
@@ -26,4 +25,6 @@ spring:
     hibernate:
       ddl-auto: update
     database: SQL_SERVER
-show-sql: true
+    show-sql: true
+
+#spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true

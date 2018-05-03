@@ -3,6 +3,7 @@ package com.ssid.api.apissid.services;
 import com.ssid.api.apissid.domain.Personal;
 import com.ssid.api.apissid.domain.Position;
 
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -12,4 +13,8 @@ public interface PersonalService extends GenericService<Personal> {
     List<Personal> findByName(String name);
 
     boolean updatePersonal(Personal personal, Long id);
+
+    void saveImage(Long id, InputStream inputStream);
+
+    void savePersonal(Personal personal);
 }

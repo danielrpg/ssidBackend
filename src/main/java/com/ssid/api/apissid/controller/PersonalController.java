@@ -4,15 +4,21 @@ import com.ssid.api.apissid.command.PersonalCommand;
 import com.ssid.api.apissid.domain.Personal;
 import com.ssid.api.apissid.services.PersonalService;
 import com.ssid.api.apissid.util.ApiPath;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 /**
  * @author Jesus David Piérola Alvarado
@@ -90,5 +96,24 @@ public class PersonalController {
         mapResponse.put("status", "deleted");
         this.personalService.deleteById(id);
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}/image", method = RequestMethod.POST)
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseEntity<Map<String, Object>> uploadFile(@PathVariable long id,
+                               @FormDataParam("file") InputStream file,
+                               @FormDataParam("file") FormDataContentDisposition fileDisposition) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "uploaded");
+        personalService.saveImage(Long.valueOf(id), file);
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public Personal savePersonal(@RequestBody PersonalCommand personalCommand){
+        Personal personal = personalCommand.toPersonal();
+        personalService.savePersonal(personal);
+        return personal;
     }
 }

@@ -2,18 +2,24 @@ package com.ssid.api.apissid.services;
 
 import com.ssid.api.apissid.domain.Personal;
 import com.ssid.api.apissid.repositories.PersonalRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Jesus David Piérola Alvarado
  */
 @Service
 public class PersonalServiceImpl extends GenericServiceImpl<Personal> implements PersonalService {
+    private static Logger logger = LoggerFactory.getLogger(PersonalServiceImpl.class);
 
     private PersonalRepository repository;
 
@@ -69,7 +75,7 @@ public class PersonalServiceImpl extends GenericServiceImpl<Personal> implements
                 isChanged = true;
             }
 
-            if(personalDB.getArea() != personal.getArea()){
+            if (personalDB.getArea() != personal.getArea()) {
                 personalDB.setArea(personal.getArea());
                 isChanged = true;
             }
@@ -91,6 +97,27 @@ public class PersonalServiceImpl extends GenericServiceImpl<Personal> implements
         }
 
         return false;
+    }
+
+    @Override
+    public void saveImage(Long id, InputStream file) {
+        Optional<Personal> personalPersisted = this.repository.findById(id);
+
+        if (personalPersisted.isPresent()) {
+            try {
+                Byte[] bytes = ImageUtils.inputStreamToByteArray(file);
+                personalPersisted.get().setPhoto(bytes);
+                repository.save(personalPersisted.get());
+            } catch (IOException e) {
+                logger.error("Error reading file", e);
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void savePersonal(Personal personal) {
+        this.repository.save(personal);
     }
 
     @Override
