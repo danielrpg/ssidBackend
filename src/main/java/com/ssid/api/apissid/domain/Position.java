@@ -9,7 +9,7 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "positions")
+@Table(name = "position")
 public class Position extends ModelBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -27,12 +27,11 @@ public class Position extends ModelBase implements Serializable {
     @Column(name = "position_level")
     private Integer level;
 
-    @ManyToMany(mappedBy = "positions")
+    @ManyToMany(mappedBy = "positions", fetch = FetchType.EAGER)
     private Set<Department> departments;
 
     @OneToMany(mappedBy = "position",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            orphanRemoval = true)
+            cascade = {CascadeType.ALL})
     private Set<PersonalPositionContract> personalPositionContracts;
 
     @OneToOne(optional = true)
