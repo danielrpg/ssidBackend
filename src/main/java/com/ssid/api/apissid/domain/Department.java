@@ -2,6 +2,7 @@ package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "departments")
+@Table(name = "department")
 public class Department extends ModelBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -24,11 +25,11 @@ public class Department extends ModelBase implements Serializable {
     @Column(name = "department_description", length = 100)
     private String description;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(name = "department_position",
             joinColumns = @JoinColumn(name = "department_id"),
             inverseJoinColumns = @JoinColumn(name = "position_id"))
-    private Set<Position> positions;
+    private Set<Position> positions = new HashSet<Position>();
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

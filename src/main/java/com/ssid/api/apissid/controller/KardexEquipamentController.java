@@ -1,6 +1,10 @@
 package com.ssid.api.apissid.controller;
 
+import com.ssid.api.apissid.domain.Equipament;
 import com.ssid.api.apissid.domain.KardexEquipament;
+import com.ssid.api.apissid.domain.Personal;
+import com.ssid.api.apissid.repositories.EquipamentRepository;
+import com.ssid.api.apissid.repositories.PersonalRepository;
 import com.ssid.api.apissid.services.KardexEquipamentService;
 import com.ssid.api.apissid.command.KardexEquipamentCommand;
 import com.ssid.api.apissid.util.ApiPath;
@@ -13,9 +17,11 @@ import java.util.Optional;
 @RestController
 public class KardexEquipamentController {
     private KardexEquipamentService kardexEquipamentService;
+    private EquipamentRepository equipamentRepository;
 
-    public KardexEquipamentController(KardexEquipamentService kardexEquipamentService) {
+    public KardexEquipamentController(KardexEquipamentService kardexEquipamentService, EquipamentRepository equipamentRepository) {
         this.kardexEquipamentService = kardexEquipamentService;
+        this.equipamentRepository = equipamentRepository;
     }
 
     @GetMapping(path = ApiPath.KARDEX_EQUIPAMENT_PATH)
@@ -31,7 +37,8 @@ public class KardexEquipamentController {
 
     @RequestMapping(value = ApiPath.KARDEX_EQUIPAMENT_PATH, method = RequestMethod.POST)
     public @ResponseBody void saveKardexEquipament(@RequestBody KardexEquipamentCommand kardexEquipamentCommand){
-        this.kardexEquipamentService.saveKardexEquipament(kardexEquipamentCommand.toKardexEquipament());
+        Optional<Equipament> auxEquip = equipamentRepository.findById(kardexEquipamentCommand.getIdEquipament());
+        this.kardexEquipamentService.saveKardexEquipament(kardexEquipamentCommand.toKardexEquipament(auxEquip.get()));
     }
 
     @RequestMapping(value = ApiPath.KARDEX_BY_ID, method = RequestMethod.GET)
@@ -51,8 +58,8 @@ public class KardexEquipamentController {
     @RequestMapping(value = ApiPath.KARDEX_EQUIPAMENT_PATH, method = RequestMethod.PUT)
     public @ResponseBody
     KardexEquipamentCommand updateKardexEquipament(@RequestBody KardexEquipamentCommand kardexEquipamentCommand, @PathVariable(value = "id") Long id){
-
-        KardexEquipament updateKardexEquipament =this.kardexEquipamentService.updateKardexEquipament(kardexEquipamentCommand.toKardexEquipament(), id);
+        Optional<Equipament> auxEquip = equipamentRepository.findById(kardexEquipamentCommand.getIdEquipament());
+        KardexEquipament updateKardexEquipament =this.kardexEquipamentService.updateKardexEquipament(kardexEquipamentCommand.toKardexEquipament(auxEquip.get()), id);
         return new KardexEquipamentCommand(updateKardexEquipament);
     }
 }

@@ -83,4 +83,7 @@ public class ApiPath {
 
     public static final String REQUIREMENT_PATH =  VERSION_API + "/requirement";
     public static final String FUNCTION_PATH = VERSION_API + "/function" ;
+
+    public static final String ACCIDENT_PATH = VERSION_API + "/accident" ;
+
 }

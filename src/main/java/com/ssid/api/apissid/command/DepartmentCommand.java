@@ -1,6 +1,9 @@
 package com.ssid.api.apissid.command;
 
 import com.ssid.api.apissid.domain.Department;
+import com.ssid.api.apissid.domain.Position;
+
+import java.util.ArrayList;
 
 /**
  * @author Jesus David Piérola Alvarado
@@ -10,7 +13,7 @@ public class DepartmentCommand {
     private Long id;
     private String name;
     private String description;
-    private Object[] positions = new Object[0];
+    private ArrayList<PositionCommand> positions = new ArrayList<>();
 
     public DepartmentCommand() {
     }
@@ -19,6 +22,17 @@ public class DepartmentCommand {
         setId(department.getId());
         setName(department.getName());
         setDescription(department.getDescription());
+        positions = new ArrayList<PositionCommand>();
+
+        if(department.getPositions() != null &&
+                !department.getPositions().isEmpty() &&
+                department.getPositions().size() > 0) {
+            for (Position pos : department.getPositions()) {
+                positions.add(new PositionCommand(pos));
+            }
+
+            setPositions(positions);
+        }
     }
 
     public Department toDepartment() {
@@ -55,11 +69,11 @@ public class DepartmentCommand {
         this.description = description;
     }
 
-    public Object[] getPositions() {
+    public ArrayList<PositionCommand> getPositions() {
         return positions;
     }
 
-    public void setPositions(Object[] positions) {
+    public void setPositions(ArrayList<PositionCommand> positions) {
         this.positions = positions;
     }
 }

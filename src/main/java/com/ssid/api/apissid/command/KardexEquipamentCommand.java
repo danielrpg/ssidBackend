@@ -1,5 +1,6 @@
 package com.ssid.api.apissid.command;
 
+import com.ssid.api.apissid.domain.Equipament;
 import com.ssid.api.apissid.domain.KardexEquipament;
 
 import java.util.Date;
@@ -24,9 +25,10 @@ public class KardexEquipamentCommand {
         setBalanceKardex(kardexEquipament.getBalanceKardex());
     }
 
-    public KardexEquipament toKardexEquipament() {
+    public KardexEquipament toKardexEquipament(Equipament equip) {
         KardexEquipament kardexEquipament = new KardexEquipament();
         kardexEquipament.setId(getId());
+        kardexEquipament.setEquipament(equip);
         kardexEquipament.setDateKardex(new Date(getDateKardex()));
         kardexEquipament.setEntryKardex(getEntryKardex());
         kardexEquipament.setOutlayKardex(getOutlayKardex());

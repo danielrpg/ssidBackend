@@ -17,6 +17,7 @@ import java.util.Optional;
 @Service
 public abstract class GenericServiceImpl<T> implements GenericService<T> {
 
+    @Transactional
     @Override
     public List<T> findAll() {
         List<T> results = new ArrayList<>();
@@ -45,11 +46,13 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
         return false;
     }
 
+    @Transactional
     @Override
     public T save(T model) {
         return getRepository().save(model);
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         if(getRepository().existsById(id)) {
