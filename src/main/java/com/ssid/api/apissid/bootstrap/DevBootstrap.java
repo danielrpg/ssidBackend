@@ -93,6 +93,59 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         loadDataIncidents();
 
         loadDataAccidents();
+
+        //loadData
+        loadDataAreas();
+    }
+
+    private void loadDataAreas() {
+        if(areaRepository.count() < 1){
+            Area area1 = new Area();
+            area1.setName("Diseño");
+            area1.setDescription("Diseños de casas, habitaciones, otros ambientes.");
+            areaRepository.save(area1);
+
+            Area area2 = new Area();
+            area2.setName("Remodelaciones");
+            area2.setDescription("Remodelaciones de ambientes de casas, habitaciones, etc.");
+            areaRepository.save(area2);
+
+            Area area3 = new Area();
+            area3.setName("Ampliaciones");
+            area3.setDescription("Ampliaciones de habitaciones, espacios recreativos, " +
+                    "cocinas, areas comunes, etc.");
+            areaRepository.save(area3);
+
+            Area area4 = new Area();
+            area4.setName("Galpones  y Carpintería metálica");
+            area4.setDescription("Trabajos en metal para adaptación de Galpones  y Carpintería metálica" +
+                    " para puertas, barandas, otros.");
+            areaRepository.save(area4);
+
+            Area area5 = new Area();
+            area5.setName("Instalaciones hídricas");
+            area5.setDescription("Instalaciones hídricas para ambientes como cocinas, baños, lavandería, " +
+                    "duchas, piscinas, jardines, etc.");
+            areaRepository.save(area5);
+
+            Area area6 = new Area();
+            area6.setName("Instalaciones eléctricas");
+            area6.setDescription("Instalaciones eléctricas en los diferentes ambientes donde se trabaje.");
+            areaRepository.save(area6);
+
+            Area area7 = new Area();
+            area7.setName("Obra gruesa");
+            area7.setDescription("Trabajos relacionados a la obra gruesa en la construcción, " +
+                    "como ser estructura en las edificaciones, muros, pisos, pavimentos, techado, etc.");
+            areaRepository.save(area7);
+
+            Area area8 = new Area();
+            area8.setName("Obra fina");
+            area8.setDescription("Trabajos relacionados a la obra fina en la construcción, " +
+                    "como ser revoque de paredes, cielo raso, cerámica, etc." +
+                    " para puertas, barandas, otros.");
+            areaRepository.save(area8);
+        }
     }
 
     private void loadDefaulUser(){
@@ -120,8 +173,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             userSystem.setRoles(listRoles);
             this.userSystemRepository.save(userSystem);
         }
-
-
     }
 
     private void loadDataContracts() {
@@ -149,11 +200,11 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     }
 
     private void loadDataEquipamentInventary() {
-        if(areaRepository.count()==0) {
+        if(equipamentRepository.count()==0) {
             //Area
             Area area = new Area();
             area.setName("Construcción");
-            area.setDescription("Area de Construcción");
+            area.setDescription("Construcción de casas, habitaciones, departamentos, etc.");
             areaRepository.save(area);
             //Personal
             Personal personal = new Personal();
