@@ -99,7 +99,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     }
 
     private void loadDataAreas() {
-        if(areaRepository.count() < 1){
+        if(areaRepository.count() <= 2){
             Area area1 = new Area();
             area1.setName("Diseño");
             area1.setDescription("Diseños de casas, habitaciones, otros ambientes.");
