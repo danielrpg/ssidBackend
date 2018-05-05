@@ -701,6 +701,10 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
 
 
+
+
+
+
             int max = 8;
             int min = 0;
             int range = (max - min) + 1;
@@ -718,6 +722,13 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                 int lg = (int)(Math.random() * range) + min;
                 accident.setLugaratencion(lugares[lg]);
                 accident.setDescription("Leccion en la espalda al tropezar");
+
+                accident.setReportBy("Jorge Churme");
+                accident.setInjuryForm("Caida a nivel");
+                accident.setInjuryType("Heridas cortantes");
+                accident.setInjuryBody("Region craneana");
+                accident.setCausingAgent("Piso");
+                accident.setAccidentType("Accidente de personal");
 
                 accidentRepository.save(accident);
 
