@@ -20,7 +20,7 @@ public class Area extends ModelBase implements Serializable {
     @Column(name = "area_name", length = 50)
     private String name;
 
-    @Column(name = "area_description", length = 100)
+    @Column(name = "area_description", length = 200)
     private String description;
 
     public static long getSerialVersionUID() {
