@@ -1,48 +1,79 @@
+
 package com.ssid.api.apissid.controller;
 
+import com.ssid.api.apissid.command.ResourcesSsoCommand;
 import com.ssid.api.apissid.domain.ResourceSso;
-import com.ssid.api.apissid.domain.UserSystem;
 import com.ssid.api.apissid.services.ResourceSsoService;
 import com.ssid.api.apissid.util.ApiPath;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 @RestController
+@RequestMapping(value = ApiPath.RESOURCES_SSO_PATH)
 public class ResourceSsoController {
-
     private ResourceSsoService resourceSsoService;
 
+    @Autowired
     public ResourceSsoController(ResourceSsoService resourceSsoService) {
         this.resourceSsoService = resourceSsoService;
     }
 
-
-    @RequestMapping(value = ApiPath.RESOURCES_SSO_PATH,method = RequestMethod.GET)
-    public List<ResourceSso> getListResources() {
-        return resourceSsoService.getResourceSso();
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> getListResourcesSso() {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "ok");
+        List<ResourcesSsoCommand> resourcesList = new ArrayList<>();
+        this.resourceSsoService.getResource().forEach(resourceSso -> {
+            resourcesList.add(new ResourcesSsoCommand(resourceSso));
+        });
+        mapResponse.put("data", resourcesList);
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
-    @RequestMapping(value = ApiPath.RESOURCE_BY_ID, method = RequestMethod.GET)
-    public @ResponseBody
-    Optional<ResourceSso> findResourceById(@PathVariable(value = "id") Long id){
-        return this.resourceSsoService.getResourceById(id);}
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> findResourcesSsoById(@PathVariable Long id) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        ResourceSso resourceSso = this.resourceSsoService.getResourceById(id);
 
-    @RequestMapping(value = ApiPath.RESOURCES_SSO_PATH_SAVE, method = RequestMethod.POST)
-    public @ResponseBody
-    void saveResources(@RequestBody ResourceSso resourceSso) {
-        this.resourceSsoService.saveResourceSso(resourceSso);
+        if (resourceSso != null) {
+            mapResponse.put("status", "ok");
+            mapResponse.put("data", new ResourcesSsoCommand(resourceSso));
+            return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+        } else {
+            mapResponse.put("status", "not found");
+            mapResponse.put("data", null);
+            return new ResponseEntity<>(mapResponse, HttpStatus.NOT_FOUND);
+        }
     }
 
-    @RequestMapping(value = ApiPath.RESOURCES_SSO_PATH_DELETE, method = RequestMethod.DELETE)
-    public void deleteResourceById(@PathVariable(value = "id") Long id){
-        resourceSsoService.deleteResourceById(id);
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
+    public ResponseEntity<Map<String, Object>> saveResourcesSso(@RequestBody ResourcesSsoCommand resourcesSsoCommand) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "created");
+        mapResponse.put("data", resourceSsoService.saveResourceSso(resourcesSsoCommand.toResourcesSso()));
+        return new ResponseEntity<>(mapResponse, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = ApiPath.RESOURCES_SSO_PATH_PUT, method = RequestMethod.PUT)
-    public @ResponseBody
-    ResourceSso updateResource(@RequestBody ResourceSso resourceSso, @PathVariable(value = "id") Long id) {
-        return this.resourceSsoService.updateResource(resourceSso, id);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Map<String, Object>> updateResourcesSso(@RequestBody ResourcesSsoCommand resourcesSsoCommand, @PathVariable int id) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "updated");
+        mapResponse.put("data", resourceSsoService.updateResource(resourcesSsoCommand.toResourcesSso(), (long) id));
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Map<String, Object>> deleteResourcesSsoById(@PathVariable long id) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "deleted");
+        this.resourceSsoService.deleteResourceById(id);
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 }
