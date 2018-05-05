@@ -38,7 +38,7 @@ public class ApiPath {
     public static final String  RISK_IPERC_PATH = VERSION_API + "/riskiperc";
 
     //This are constants for ActivitiesSso
-    public static final String ACTIVITIES_SSO_PATH = VERSION_API + "/activitiessso";
+    public static final String ACTIVITIES_SSO_PATH = VERSION_API + "/activities";
     public static final String ACTIVITIES_SSO_PATH_SAVE = ACTIVITIES_SSO_PATH + "/activitiesssosave";
     public static final String ACTIVITIES_BY_ID = ACTIVITIES_SSO_PATH + "/{id}";
     public static final String ACTIVITIES_SSO_PATH_DELETE = ACTIVITIES_SSO_PATH + "/activitiesssodelete" + "/{id}";
@@ -47,9 +47,6 @@ public class ApiPath {
     //This are constants for ResourceSso
     public static final String RESOURCES_SSO_PATH = VERSION_API + "/resource";
     public static final String RESOURCE_BY_ID = RESOURCES_SSO_PATH + "/{id}";
-    public static final String RESOURCES_SSO_PATH_SAVE = RESOURCES_SSO_PATH + "/resource/save";
-    public static final String RESOURCES_SSO_PATH_DELETE = RESOURCES_SSO_PATH + "/resourcesssodelete" + "/{id}";
-    public static final String RESOURCES_SSO_PATH_PUT = RESOURCES_SSO_PATH + "/resourcesssoput" + "/{id}";
 
     //This are constants for ProgramSso
     public static final String PROGRAM_SSO_PATH = VERSION_API + "/programssso";
