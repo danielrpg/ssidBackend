@@ -1,24 +1,29 @@
 package com.ssid.api.apissid.command;
 
-import com.ssid.api.apissid.domain.Area;
+
 import com.ssid.api.apissid.domain.Requirement;
 
-/**
- * @author Jesus David Piérola Alvarado
- */
 
 public class RequirementCommand {
     private Long id;
     private String name;
     private String description;
+    private Long position_position_id;
+    private String positionName;
 
     public RequirementCommand() {
     }
 
     public RequirementCommand(Requirement requirement) {
+        //Position position;
         setId(requirement.getId());
         setName(requirement.getName());
         setDescription(requirement.getDescription());
+        setPosition_position_id(requirement.getPosition().getId());
+        setPositionName(requirement.getPosition().getName());
+
+
+
     }
 
     public Requirement toRequirement() {
@@ -27,6 +32,7 @@ public class RequirementCommand {
         requirement.setId(getId());
         requirement.setName(getName());
         requirement.setDescription(getDescription());
+
 
         return requirement;
     }
@@ -53,5 +59,21 @@ public class RequirementCommand {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getPosition_position_id() {
+        return position_position_id;
+    }
+
+    public void setPosition_position_id(Long position_position_id) {
+        this.position_position_id = position_position_id;
+    }
+
+    public String getPositionName() {
+        return positionName;
+    }
+
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
     }
 }
