@@ -45,9 +45,9 @@ public class ApiPath {
     public static final String ACTIVITIES_SSO_PATH_PUT = ACTIVITIES_SSO_PATH + "/activitiesssoput" + "/{id}";
 
     //This are constants for ResourceSso
-    public static final String RESOURCES_SSO_PATH = VERSION_API + "/resourcessso";
+    public static final String RESOURCES_SSO_PATH = VERSION_API + "/resource";
     public static final String RESOURCE_BY_ID = RESOURCES_SSO_PATH + "/{id}";
-    public static final String RESOURCES_SSO_PATH_SAVE = RESOURCES_SSO_PATH + "/resourcesssosave";
+    public static final String RESOURCES_SSO_PATH_SAVE = RESOURCES_SSO_PATH + "/resource/save";
     public static final String RESOURCES_SSO_PATH_DELETE = RESOURCES_SSO_PATH + "/resourcesssodelete" + "/{id}";
     public static final String RESOURCES_SSO_PATH_PUT = RESOURCES_SSO_PATH + "/resourcesssoput" + "/{id}";
 
@@ -83,4 +83,7 @@ public class ApiPath {
 
     public static final String REQUIREMENT_PATH =  VERSION_API + "/requirement";
     public static final String FUNCTION_PATH = VERSION_API + "/function" ;
+
+    public static final String ACCIDENT_PATH = VERSION_API + "/accident" ;
+
 }

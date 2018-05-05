@@ -116,4 +116,27 @@ public class PersonalController {
         personalService.savePersonal(personal);
         return personal;
     }
+
+    @RequestMapping(value = "/havePersonalByArea/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> getIfHavePersonalByArea(@PathVariable long id) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "ok");
+        List<Personal> list = new ArrayList<>();
+        this.personalService.findAll().stream()
+                .filter(res -> res.getArea() != null && res.getArea().getId() == id)
+                .forEach(personal -> {
+                    list.add(personal);
+                });
+        //si hay resultados, existe personal que tiene asignado el Area
+        if(list != null && !list.isEmpty() && list.size() > 0)
+        {
+            mapResponse.put("data", true);
+        }
+        else
+        {
+            mapResponse.put("data", false);
+        }
+
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+    }
 }

@@ -1,10 +1,11 @@
 package com.ssid.api.apissid.services;
 
 import com.ssid.api.apissid.domain.ResourceSso;
+import com.ssid.api.apissid.exceptions.NotFoundException;
 import com.ssid.api.apissid.repositories.ResourceSsoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,18 +18,24 @@ public class ResourceSsoServiceImpl implements ResourceSsoService {
     }
 
     @Override
-    public List<ResourceSso> getResourceSso() {
-        return this.resourceSsoRepository.findAll();
+    public List<ResourceSso> getResource() {return this.resourceSsoRepository.findAll();
     }
 
     @Override
-    public void saveResourceSso(ResourceSso resourceSso) {
-        this.resourceSsoRepository.save(resourceSso);
+    public ResourceSso saveResourceSso(ResourceSso resourceSso) {
+        return resourceSsoRepository.save(resourceSso);
     }
 
     @Override
-    public Optional<ResourceSso> getResourceById(Long id) {
-        return resourceSsoRepository.findById(id);
+    public ResourceSso getResourceById(Long id) {
+        Optional<ResourceSso> optional = resourceSsoRepository.findById(id);
+        if (!optional.isPresent()) {
+            String typeName = (((ParameterizedType) getClass()
+                    .getGenericSuperclass()).getActualTypeArguments()[0]).getTypeName();
+            typeName = typeName.substring(typeName.lastIndexOf(".") + 1);
+            throw new NotFoundException(typeName + " id:" + id + " Not Found");
+        }
+        return optional.get();
     }
 
     @Override
