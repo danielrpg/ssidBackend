@@ -9,4 +9,6 @@ public interface RequirementService extends GenericService<Requirement> {
     List<Requirement> findByName(String name);
     Requirement createRequirement(RequirementCommand requirementCommand);
     boolean updateRequirement(RequirementCommand requirementCommand, Long id);
+    void saveRequirements(Requirement requirement);
+
 }

@@ -2,19 +2,24 @@ package com.ssid.api.apissid.command;
 
 import com.ssid.api.apissid.domain.FunctionPosition;
 
+
 public class FunctionPositionCommand {
     private Long id;
     private String name;
     private String description;
     private String position;
+    private Long position_position_id;
+    private String positionName;
 
     public FunctionPositionCommand() {
     }
+
     public FunctionPositionCommand(FunctionPosition functionPosition) {
         setId(functionPosition.getId());
         setName(functionPosition.getName());
         setDescription(functionPosition.getDescription());
-        setPosition(functionPosition.getPosition().getName());
+        setPositionName(functionPosition.getPosition().getName());
+        setPosition_position_id(functionPosition.getPosition().getId());
     }
 
     public FunctionPosition toFunctionPosition() {
@@ -26,6 +31,7 @@ public class FunctionPositionCommand {
 
         return functionPosition;
     }
+
     public Long getId() {
         return id;
     }
@@ -56,5 +62,21 @@ public class FunctionPositionCommand {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public Long getPosition_position_id() {
+        return position_position_id;
+    }
+
+    public void setPosition_position_id(Long position_position_id) {
+        this.position_position_id = position_position_id;
+    }
+
+    public String getPositionName() {
+        return positionName;
+    }
+
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
     }
 }

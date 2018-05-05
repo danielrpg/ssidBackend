@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping(value = ApiPath.CONTRACT_PATH)
 public class ContractController {
     private ContractService contractService;
 
@@ -24,7 +25,7 @@ public class ContractController {
         this.contractService = contractService;
     }
 
-    @RequestMapping(value = ApiPath.CONTRACT_PATH, method = RequestMethod.GET)
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> getAllContracts() {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "ok");
@@ -36,24 +37,38 @@ public class ContractController {
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
-    @RequestMapping(value = ApiPath.CONTRACT_PATH, method = RequestMethod.POST)
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
     public @ResponseBody
     void saveContract(@RequestBody ContractCommand contractCommand) {
+
         if (StringUtils.isEmpty(contractCommand.getId())) {
             this.contractService.saveContract(contractCommand.toContract());
         } else {
-            // se busca el objeto existente para cargar los datos al formulario
+            // se busca el objeto existente
             Contract contract = this.contractService.findById(contractCommand.getId());
+
             contract.setCode(contractCommand.getCode());
             contract.setCity(contractCommand.getCity());
             contract.setDate(contractCommand.getDate());
             contract.setSalary(contractCommand.getSalary());
             contract.setDescription(contractCommand.getDescription());
             contract.setType(contractCommand.getType());
+
+
             this.contractService.saveContract(contract);
         }
+
+
     }
-    @RequestMapping(value = ApiPath.CONTRACT_BY_CODE, method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Map<String, Object>> deleteRequirement(@PathVariable long id) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "deleted");
+        this.contractService.deleteById(id);
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{code}", method = RequestMethod.GET)
     public @ResponseBody
     ContractCommand findContractByCode(@PathVariable(value = "code") String code){
 
