@@ -2,7 +2,9 @@ package com.ssid.api.apissid.controller;
 
 import com.ssid.api.apissid.domain.Equipament;
 import com.ssid.api.apissid.domain.KardexEquipament;
+import com.ssid.api.apissid.domain.Personal;
 import com.ssid.api.apissid.repositories.EquipamentRepository;
+import com.ssid.api.apissid.repositories.PersonalRepository;
 import com.ssid.api.apissid.services.KardexEquipamentService;
 import com.ssid.api.apissid.command.KardexEquipamentCommand;
 import com.ssid.api.apissid.util.ApiPath;

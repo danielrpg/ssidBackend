@@ -6,9 +6,7 @@ import com.ssid.api.apissid.domain.Contract;
 import javax.persistence.Column;
 import java.util.Date;
 
-/**
- * @author Jesus David Piérola Alvarado
- */
+
 
 public class ContractCommand {
     private Long id;
@@ -21,7 +19,6 @@ public class ContractCommand {
 
     public ContractCommand() {
     }
-
     public ContractCommand(Contract contract) {
         this.setId(contract.getId());
         this.setCode(contract.getCode());
@@ -44,7 +41,6 @@ public class ContractCommand {
 
         return contract;
     }
-
     public Long getId() {
         return id;
     }
