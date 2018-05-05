@@ -1,6 +1,7 @@
 package com.ssid.api.apissid.command;
 
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.reflections.util.Utils;
 //import sun.misc.BASE64Decoder;
 
 import javax.imageio.ImageIO;
@@ -11,9 +12,9 @@ import java.io.ByteArrayInputStream;
 public class ImageUtilsCommand {
 
     public static Byte[] decodeToImage(String imageString) {
-
-        BufferedImage image = null;
-        byte[] imageByte;
+        if (!Utils.isEmpty(imageString)) {
+            BufferedImage image = null;
+            byte[] imageByte;
 //        try {
 //            BASE64Decoder decoder = new BASE64Decoder();
 //            imageByte = decoder.decodeBuffer(imageString);
@@ -23,17 +24,23 @@ public class ImageUtilsCommand {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-        return byteToByte(((DataBufferByte)image.getData().getDataBuffer()).getData());
+            return byteToByte(((DataBufferByte) image.getData().getDataBuffer()).getData());
+        } else {
+            return null;
+        }
     }
 
-    private static Byte[] byteToByte(byte[] bytesChange)
-    {
-        Byte[] bytes = new Byte[bytesChange.length];
+    private static Byte[] byteToByte(byte[] bytesChange) {
+        if(bytesChange != null) {
+            Byte[] bytes = new Byte[bytesChange.length];
 
-        int i = 0;
-        for (byte b : bytesChange) bytes[i++] = b; // Autoboxing
+            int i = 0;
+            for (byte b : bytesChange) bytes[i++] = b; // Autoboxing
 
-        return bytes;
+            return bytes;
+        }else{
+            return null;
+        }
     }
 
     public static String setImageBase64(Byte[] image) {
