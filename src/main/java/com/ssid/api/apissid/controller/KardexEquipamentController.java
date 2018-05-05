@@ -62,4 +62,21 @@ public class KardexEquipamentController {
         KardexEquipament updateKardexEquipament =this.kardexEquipamentService.updateKardexEquipament(kardexEquipamentCommand.toKardexEquipament(auxEquip.get()), id);
         return new KardexEquipamentCommand(updateKardexEquipament);
     }
+
+    @RequestMapping(value = ApiPath.KARDEX_BY_ID_EQUIPMENT, method = RequestMethod.GET)
+    public @ResponseBody
+    List<KardexEquipamentCommand> findKardexsByIdEquipment(@PathVariable(value = "id") Long id){
+
+        List<KardexEquipamentCommand> kardexEquipamentCommadsList = new ArrayList<>();
+        List<KardexEquipament> auxList = this.kardexEquipamentService.getListKardexEquipament();
+        List<Long> listIds = new ArrayList<>();
+        auxList.forEach(kardexEquipament -> listIds.add(kardexEquipament.getEquipament().getId()));
+        for(int i=0; i<=listIds.size(); i++)
+        {
+            if(listIds.get(i).intValue() == id.intValue()){
+                kardexEquipamentCommadsList.add(new KardexEquipamentCommand(auxList.get(i)));
+            }
+        }
+        return kardexEquipamentCommadsList;
+    }
 }
