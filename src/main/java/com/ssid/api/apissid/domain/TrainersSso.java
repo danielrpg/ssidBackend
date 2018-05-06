@@ -1,5 +1,7 @@
 package com.ssid.api.apissid.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -30,7 +32,8 @@ public class TrainersSso extends ModelBase implements Serializable {
     @Column(name = "sso_trainer_image")
     private Byte[] image;
 
-    @OneToMany(mappedBy = "trainersSso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trainersSso", fetch = FetchType.LAZY)
     private Set<ActivitiesSso> activitiesSsos= new HashSet<>();
 
     public Long getId() {
