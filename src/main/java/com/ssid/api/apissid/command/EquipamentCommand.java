@@ -10,8 +10,8 @@ public class EquipamentCommand {
     private String description;
     private Integer type;
     private String image;
-    private Object[] kardexs;
-    private Object[] inventories = new Object[0];
+    /*private Object[] kardexs;
+    private Object[] inventories = new Object[0];*/
 
     public EquipamentCommand() {
     }
@@ -74,7 +74,7 @@ public class EquipamentCommand {
         this.image = image;
     }
 
-    public Object[] getKardexs() {
+    /*public Object[] getKardexs() {
         return kardexs;
     }
 
@@ -88,5 +88,5 @@ public class EquipamentCommand {
 
     public void setInventories(Object[] inventories) {
         this.inventories = inventories;
-    }
+    }*/
 }
