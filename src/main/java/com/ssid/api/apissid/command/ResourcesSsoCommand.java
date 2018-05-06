@@ -18,8 +18,9 @@ public class ResourcesSsoCommand {
     public ResourceSso toResourcesSso(){
         ResourceSso resourcesSso = new ResourceSso();
         resourcesSso.setId(getId());
-        resourcesSso.setResourceDetail(getSsoDetail());
         resourcesSso.setResourceCost(getSsoCost());
+        resourcesSso.setResourceDetail(getSsoDetail());
+
 
         return resourcesSso;
     }

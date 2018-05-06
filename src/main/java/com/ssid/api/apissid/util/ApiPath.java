@@ -45,7 +45,7 @@ public class ApiPath {
     public static final String ACTIVITIES_SSO_PATH_PUT = ACTIVITIES_SSO_PATH + "/activitiesssoput" + "/{id}";
 
     //This are constants for ResourceSso
-    public static final String RESOURCES_SSO_PATH = VERSION_API + "/resource";
+    public static final String RESOURCES_SSO_PATH = VERSION_API + "/resources";
     public static final String RESOURCE_BY_ID = RESOURCES_SSO_PATH + "/{id}";
 
     //This are constants for ProgramSso
