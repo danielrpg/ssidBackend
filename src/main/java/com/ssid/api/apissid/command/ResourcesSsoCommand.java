@@ -4,7 +4,7 @@ import com.ssid.api.apissid.domain.ResourceSso;
 
 
 public class ResourcesSsoCommand {
-    private Long id;
+    private Long resourceId;
     private Double resourceCost;
     private String resourceDetail;
     private Object[] activitiesSsos = new Object[0];
@@ -18,18 +18,19 @@ public class ResourcesSsoCommand {
     public ResourceSso toResourcesSso(){
         ResourceSso resourcesSso = new ResourceSso();
         resourcesSso.setId(getId());
-        resourcesSso.setResourceDetail(getSsoDetail());
         resourcesSso.setResourceCost(getSsoCost());
+        resourcesSso.setResourceDetail(getSsoDetail());
+
 
         return resourcesSso;
     }
 
     public Long getId() {
-        return id;
+        return resourceId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long resourceId) {
+        this.resourceId = resourceId;
     }
 
 

@@ -30,7 +30,7 @@ public class ProgramSso extends ModelBase implements Serializable{
     private String ssoGoal;
 
     @Column(name = "sso_execution_time", length = 250)
-    private Date ssoExecutionTime;
+    private String ssoExecutionTime;
 
     @Column(name = "sso_responsable", length = 250)
     private String ssoResponsable;
@@ -81,11 +81,11 @@ public class ProgramSso extends ModelBase implements Serializable{
         this.ssoGoal = ssoGoal;
     }
 
-    public Date getSsoExecutionTime() {
+    public String getSsoExecutionTime() {
         return ssoExecutionTime;
     }
 
-    public void setSsoExecutionTime(Date ssoExecutionTime) {
+    public void setSsoExecutionTime(String ssoExecutionTime) {
         this.ssoExecutionTime = ssoExecutionTime;
     }
 

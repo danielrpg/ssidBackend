@@ -68,6 +68,9 @@ public class Personal extends ModelBase implements Serializable{
             orphanRemoval = true)
     private Set<PersonalPositionContract> personalPositionContracts;
 
+    @ManyToMany(mappedBy = "personals", fetch = FetchType.EAGER)
+    private Set<ActivitiesSso> activitiesSsos;
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -174,5 +177,13 @@ public class Personal extends ModelBase implements Serializable{
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Set<ActivitiesSso> getActivitiesSsos() {
+        return activitiesSsos;
+    }
+
+    public void setActivitiesSsos(Set<ActivitiesSso> activitiesSsos) {
+        this.activitiesSsos = activitiesSsos;
     }
 }

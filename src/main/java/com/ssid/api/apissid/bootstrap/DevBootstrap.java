@@ -1,7 +1,6 @@
 package com.ssid.api.apissid.bootstrap;
 
 import com.ssid.api.apissid.domain.*;
-import com.ssid.api.apissid.dto.RequestAreaDTO;
 import com.ssid.api.apissid.repositories.*;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -303,7 +302,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             //activitiesSso.setTrainersSso(trainersSso);
 
             ProgramSso programSso = new ProgramSso();
-            programSso.setSsoExecutionTime(Calendar.getInstance().getTime());
+            programSso.setSsoExecutionTime("2 semanas");
             programSso.setSsoGoal("Mejorar los conocimientos de los empleados en seguridad industrial");
             programSso.setSsoIndicator("Mejora en uso de material de seguridad");
             programSso.setSsoObjetive("Capacitar a todos los trabajadores");
