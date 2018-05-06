@@ -16,7 +16,7 @@
 # Coneccion de sql server
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost:1433
+    url: jdbc:sqlserver://localhost:1433;database=grupod
     username: sa
     password: P@55w0rd
     platform: mssql

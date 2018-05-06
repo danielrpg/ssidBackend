@@ -27,6 +27,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private IncidentDetailRepository incidentDetailRepository;
     private IncidentRepository incidentRepository;
     private AccidentRepository accidentRepository;
+    private InjuryFormRepository injuryFormRepository;
     /**
      * Personal assignment Equipment repositories
      **/
@@ -49,7 +50,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                         IncidentTypeRepository incidentTypeRepository,
                         IncidentDetailRepository incidentDetailRepository,
                         IncidentRepository incidentRepository,
-                        AccidentRepository accidentRepository){
+                        AccidentRepository accidentRepository,
+                        InjuryFormRepository injuryFormRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
         this.resourceSsoRepository = resourceSsoRepository;
@@ -70,6 +72,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         this.incidentDetailRepository = incidentDetailRepository;
         this.incidentRepository = incidentRepository;
         this.accidentRepository = accidentRepository;
+        this.injuryFormRepository = injuryFormRepository;
     }
 
     @Override
@@ -675,6 +678,11 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
     private void loadDataAccidents() {
         if (accidentRepository.count() == 0) {
+            InjuryForm injuryForm = new InjuryForm();
+            injuryForm.setName("Caida super peligrosa");
+            injuryFormRepository.save(injuryForm);
+
+
             String[] lugares = new String[10];
             lugares[0] = "HOSPITAL ANOCARAIRE – VINTO BOLIVIA";
             lugares[1] = "HOSPITAL UNIVALLE";
@@ -699,12 +707,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             nombres[8] = "Zoroastro";
             nombres[9] = "Carlomagno";
 
-
-
-
-
-
-
             int max = 8;
             int min = 0;
             int range = (max - min) + 1;
@@ -724,7 +726,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                 accident.setDescription("Leccion en la espalda al tropezar");
 
                 accident.setReportBy("Jorge Churme");
-                accident.setInjuryForm("Caida a nivel");
+                accident.setInjuryForm(injuryForm);
                 accident.setInjuryType("Heridas cortantes");
                 accident.setInjuryBody("Region craneana");
                 accident.setCausingAgent("Piso");
