@@ -128,6 +128,11 @@ public class PersonalController {
         return this.personalService.updatePersonalArea(personalAreaCommand, id);
     }
 
+    @RequestMapping( value = "/listPersonal", method = RequestMethod.GET)
+    public List<Personal> listPersonals(){
+        return this.personalService.getListPersonals();
+    }
+
 
     @RequestMapping(value = "/havePersonalByArea/{id}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> getIfHavePersonalByArea(@PathVariable long id) {

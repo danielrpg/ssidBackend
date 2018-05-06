@@ -22,4 +22,6 @@ public interface PersonalService extends GenericService<Personal> {
     PersonalResponseCommand getPersonalById(Long id);
 
     Personal updatePersonalArea(PersonalAreaCommand personalResponseCommand, Long id);
+
+    List<Personal> getListPersonals();
 }
