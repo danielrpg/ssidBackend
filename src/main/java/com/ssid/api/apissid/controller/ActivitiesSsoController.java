@@ -1,52 +1,81 @@
+
 package com.ssid.api.apissid.controller;
 
+import com.ssid.api.apissid.command.ActivitySsoCommand;
 import com.ssid.api.apissid.domain.ActivitiesSso;
-import com.ssid.api.apissid.domain.ResourceSso;
 import com.ssid.api.apissid.services.ActivitiesSsoService;
 import com.ssid.api.apissid.util.ApiPath;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 @RestController
+@RequestMapping(value = ApiPath.ACTIVITIES_SSO_PATH)
 public class ActivitiesSsoController {
-
     private ActivitiesSsoService activitiesSsoService;
 
+    @Autowired
     public ActivitiesSsoController(ActivitiesSsoService activitiesSsoService) {
         this.activitiesSsoService = activitiesSsoService;
     }
 
-
-    @RequestMapping(value = ApiPath.ACTIVITIES_SSO_PATH, method = RequestMethod.GET)
-    public List<ActivitiesSso> getListActivities() {
-        return activitiesSsoService.getActivitiesSso();
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> getListActivitiesSso() {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "ok");
+        List<ActivitySsoCommand> activitiesList = new ArrayList<>();
+        this.activitiesSsoService.getActivitiesSso().forEach(activitiesSso -> {
+            activitiesList.add(new ActivitySsoCommand(activitiesSso));
+        });
+        mapResponse.put("data", activitiesList);
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> findActivitiesById(@PathVariable Long id) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        ActivitiesSso activitiesSso = this.activitiesSsoService.getActivityById(id);
 
-    @RequestMapping(value = ApiPath.ACTIVITIES_SSO_PATH_SAVE, method = RequestMethod.POST)
-    public @ResponseBody
-    void saveActivities(@RequestBody ActivitiesSso activitiesSso) {
-        this.activitiesSsoService.saveActivitiesSso(activitiesSso);
+
+
+        if (activitiesSso != null) {
+            mapResponse.put("status", "ok");
+            mapResponse.put("data", new ActivitySsoCommand(activitiesSso));
+            return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+        } else {
+            mapResponse.put("status", "not found");
+            mapResponse.put("data", null);
+            return new ResponseEntity<>(mapResponse, HttpStatus.NOT_FOUND);
+        }
     }
 
-    @RequestMapping(value = ApiPath.ACTIVITIES_BY_ID, method = RequestMethod.GET)
-    public @ResponseBody
-    Optional<ActivitiesSso> findActivitieById(@PathVariable(value = "id") Long id){
-        return this.activitiesSsoService.getActivitieById(id);
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
+    public ResponseEntity<Map<String, Object>> saveActivitySso(@RequestBody ActivitySsoCommand activitySsoCommand) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "created");
+        mapResponse.put("data", activitiesSsoService.saveActivitiesSso(activitySsoCommand.toActivitiesSso()));
+        return new ResponseEntity<>(mapResponse, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = ApiPath.ACTIVITIES_SSO_PATH_DELETE, method = RequestMethod.DELETE)
-    public @ResponseBody
-    void deleteActivitieById(@PathVariable(value = "id") Long id){
-        this.activitiesSsoService.deleteActivitieById(id);
-
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Map<String, Object>> updateActivitySso(@RequestBody ActivitySsoCommand activitySsoCommand, @PathVariable int id) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "updated");
+        mapResponse.put("data", activitiesSsoService.updateActivity(activitySsoCommand.toActivitiesSso(), (long) id));
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
-    @RequestMapping(value = ApiPath.ACTIVITIES_SSO_PATH_PUT, method = RequestMethod.PUT)
-    public @ResponseBody
-    ActivitiesSso updateActivitie(@RequestBody ActivitiesSso activitiesSso, @PathVariable(value = "id") Long id){
-        return this.activitiesSsoService.updateActivitie(activitiesSso, id);
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Map<String, Object>> deleteActivitySsoById(@PathVariable long id) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "deleted");
+        this.activitiesSsoService.deleteActivityById(id);
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 }

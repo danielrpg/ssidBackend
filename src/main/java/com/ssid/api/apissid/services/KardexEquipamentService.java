@@ -15,4 +15,6 @@ public interface KardexEquipamentService{
     void deleteKardexEquipamentById(Long id);
 
     KardexEquipament updateKardexEquipament(KardexEquipament kardexEquipament, Long id);
+
+    List<KardexEquipament> getKardexByIdEquipment(Long id);
 }

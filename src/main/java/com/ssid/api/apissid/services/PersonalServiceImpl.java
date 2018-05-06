@@ -146,6 +146,12 @@ public class PersonalServiceImpl extends GenericServiceImpl<Personal> implements
         return personal;
     }
 
+
+    @Override
+    public List<Personal> getListPersonals(){
+        return this.repository.findAll();
+    }
+
     @Override
     protected JpaRepository<Personal, Long> getRepository() {
         return repository;
