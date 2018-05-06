@@ -1,18 +1,19 @@
 package com.ssid.api.apissid.services;
 
+import com.ssid.api.apissid.command.PersonalAreaCommand;
+import com.ssid.api.apissid.command.PersonalResponseCommand;
+import com.ssid.api.apissid.domain.Area;
 import com.ssid.api.apissid.domain.Personal;
 import com.ssid.api.apissid.repositories.PersonalRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Jesus David Piérola Alvarado
@@ -116,8 +117,39 @@ public class PersonalServiceImpl extends GenericServiceImpl<Personal> implements
     }
 
     @Override
-    public void savePersonal(Personal personal) {
+    public Personal savePersonal(PersonalAreaCommand personalAreaCommand) {
+        Personal personal = personalAreaCommand.toPersonalAndArea(personalAreaCommand);
+        personal.setArea(personalAreaCommand.toArea(personalAreaCommand));
         this.repository.save(personal);
+        return personal;
+    }
+
+    @Override
+    public PersonalResponseCommand getPersonalById(Long id) {
+        Personal personal = this.repository.findById(id).get();
+        Map<String, Object> area = new HashMap<>();
+        area.put("area", personal.getArea());
+        PersonalResponseCommand responseCommand = new PersonalResponseCommand();
+        return responseCommand.toPersonalResponseCommand(personal);
+    }
+
+    @Override
+    public Personal updatePersonalArea(PersonalAreaCommand personalAreaCommand, Long id) {
+        Personal personal = this.repository.findById(id).get();
+        personal.setName(personalAreaCommand.getName());
+        personal.setLastName(personalAreaCommand.getLastName());
+        personal.setArea(personalAreaCommand.getArea());
+        personal.setAddress(personalAreaCommand.getAddress());
+        personal.setCellphone(personalAreaCommand.getCellphone());
+        personal.setEmail(personalAreaCommand.getEmail());
+        this.repository.save(personal);
+        return personal;
+    }
+
+
+    @Override
+    public List<Personal> getListPersonals(){
+        return this.repository.findAll();
     }
 
     @Override

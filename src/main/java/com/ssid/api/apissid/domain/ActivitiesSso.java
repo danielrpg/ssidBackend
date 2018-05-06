@@ -1,5 +1,7 @@
 package com.ssid.api.apissid.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -35,16 +37,23 @@ public class ActivitiesSso extends ModelBase implements Serializable{
     @Column(name = "soo_detail_type", length = 250)
     private String detailType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "sso_id")
     private ProgramSso programSso;
 
-    @OneToMany(mappedBy = "activitiesSso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "activitiesSso", fetch = FetchType.LAZY)
     private Set<ResourceSso> resourceSsos= new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "sso_trainer_id")
     private TrainersSso trainersSso;
+
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "DetailPersonalSso",
+            joinColumns = @JoinColumn(name = "sso_detail_id"),
+            inverseJoinColumns = @JoinColumn(name = "personal_id"))
+    private Set<Personal> personals = new HashSet<Personal>();
 
     public Long getId() {
         return id;
@@ -54,23 +63,21 @@ public class ActivitiesSso extends ModelBase implements Serializable{
         this.id = id;
     }
 
-
-   /* public ProgramSso getProgramSso() {
+    public ProgramSso getProgramSso() {
         return programSso;
-    }*/
+    }
 
-   /* public void setProgramSso(ProgramSso programSso) {
+    public void setProgramSso(ProgramSso programSso) {
         this.programSso = programSso;
-    }*/
+    }
 
-   /* public Set<ResourceSso> getResourceSsos() {
+    public Set<ResourceSso> getResourceSsos() {
         return resourceSsos;
     }
 
     public void setResourceSsos(Set<ResourceSso> resourceSsos) {
         this.resourceSsos = resourceSsos;
-    }*/
-
+    }
 
     public Integer getDetailNumber() {
         return detailNumber;
@@ -112,7 +119,15 @@ public class ActivitiesSso extends ModelBase implements Serializable{
         this.detailType = detailType;
     }
 
-   /* public void setTrainersSso(TrainersSso trainersSso) {
+    public void setTrainersSso(TrainersSso trainersSso) {
         this.trainersSso = trainersSso;
-    }*/
+    }
+
+    public Set<Personal> getPersonals() {
+        return personals;
+    }
+
+    public void setPersonals(Set<Personal> personals) {
+        this.personals = personals;
+    }
 }

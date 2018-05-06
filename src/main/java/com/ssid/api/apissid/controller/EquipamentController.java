@@ -52,7 +52,7 @@ public class EquipamentController {
         this.equipamentService.deleteEquipamentById(id);
     }
 
-    @RequestMapping(value = ApiPath.EQUIPAMENT_PATH, method = RequestMethod.PUT)
+    @RequestMapping(path = ApiPath.EQUIPAMENT_PATH, method = RequestMethod.PUT)
     public @ResponseBody
     EquipamentCommand updateEquipament(@RequestBody EquipamentCommand equipament, @PathVariable(value = "id") Long id){
 

@@ -1,7 +1,6 @@
 package com.ssid.api.apissid.bootstrap;
 
 import com.ssid.api.apissid.domain.*;
-import com.ssid.api.apissid.dto.RequestAreaDTO;
 import com.ssid.api.apissid.repositories.*;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -94,7 +93,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         loadDataContracts();
 
         loadDataIncidents();
-
         loadDataAccidents();
 
         //loadData
@@ -275,7 +273,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     }
 
     private void loadDataSSO() {
-        //if(programSsoRepository.count() == 0) {
+        if(programSsoRepository.count() == 0) {
             //Resources SSO
             ResourceSso resourceSso1 = new ResourceSso();
             resourceSso1.setResourceCost(200.0);
@@ -302,19 +300,12 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             trainersSso.setName("Juan Perez");
             trainersSso.setSkillsDesciprtions("Experto en seguridad industrial");
             trainersSso.setSpecialty("Ing. Industrial");
-
-
-            TrainersSso trainersSso1 = new TrainersSso();
-            trainersSso1.setCi("987465651");
-            trainersSso1.setName("Mario Padilla");
-            trainersSso1.setSkillsDesciprtions("Experto en seguridad industrial");
-            trainersSso1.setSpecialty("Ing. Industrial");
             //trainersSso.getActivitiesSsos().add(activitiesSso);
 
             //activitiesSso.setTrainersSso(trainersSso);
 
             ProgramSso programSso = new ProgramSso();
-            programSso.setSsoExecutionTime(Calendar.getInstance().getTime());
+            programSso.setSsoExecutionTime("2 semanas");
             programSso.setSsoGoal("Mejorar los conocimientos de los empleados en seguridad industrial");
             programSso.setSsoIndicator("Mejora en uso de material de seguridad");
             programSso.setSsoObjetive("Capacitar a todos los trabajadores");
@@ -328,9 +319,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             this.resourceSsoRepository.save(resourceSso2);
             this.activitiesSsoRepository.save(activitiesSso);
             this.trainersSsoRepository.save(trainersSso);
-            this.trainersSsoRepository.save(trainersSso1);
             this.programSsoRepository.save(programSso);
-        //}
+        }
     }
 
     private void loadDataStructureOrganizational() {
@@ -675,7 +665,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             incidentRepository.save(incident2);
         }
     }
-
     private void loadDataAccidents() {
         if (injuryFormRepository.count() == 0){
             ArrayList<String> formaDeaccidentes = new ArrayList<String>();
@@ -760,4 +749,3 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         }
     }
 }
-

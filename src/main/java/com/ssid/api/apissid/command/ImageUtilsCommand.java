@@ -12,6 +12,7 @@ import java.io.ByteArrayInputStream;
 public class ImageUtilsCommand {
 
     public static Byte[] decodeToImage(String imageString) {
+        imageString= null;
         if (!Utils.isEmpty(imageString)) {
             BufferedImage image = null;
             byte[] imageByte;
