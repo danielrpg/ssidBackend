@@ -4,6 +4,7 @@ import com.ssid.api.apissid.domain.KardexEquipament;
 import com.ssid.api.apissid.repositories.KardexEquipamentRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,5 +45,18 @@ public class KardexEquipamentServiceImpl implements KardexEquipamentService {
         kardexEquipament.setId(id);
         this.kardexEquipamentRepository.save(kardexEquipament);
         return kardexEquipament;
+    }
+
+    @Override
+    public List<KardexEquipament> getKardexByIdEquipment(Long id) {
+        List<KardexEquipament> neo = new ArrayList<>();
+        List<KardexEquipament> old = this.getListKardexEquipament();
+        for(int i = 0; i <= old.size(); i++) {
+            if(old.get(i).getEquipament().getId().intValue()==id.intValue())
+            {
+                neo.add(old.get(i));
+            }
+        }
+        return neo;
     }
 }

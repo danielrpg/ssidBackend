@@ -71,6 +71,7 @@ public class ApiPath {
 
     //this is constants for KardexEquipament
     public static final String KARDEX_EQUIPAMENT_PATH = VERSION_API + "/kardexequipament";
+    public static final String KARDEX_BY_ID_EQUIPMENT = KARDEX_EQUIPAMENT_PATH + "/equip/id";
     public static final String KARDEX_BY_ID = KARDEX_EQUIPAMENT_PATH + "/id";
 
     //this is constants for Inventory
