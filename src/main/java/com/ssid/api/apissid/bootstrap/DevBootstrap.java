@@ -311,7 +311,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             //activitiesSso.setTrainersSso(trainersSso);
 
             ProgramSso programSso = new ProgramSso();
-            programSso.setSsoExecutionTime(Calendar.getInstance().getTime());
+            programSso.setSsoExecutionTime("2 semanas");
             programSso.setSsoGoal("Mejorar los conocimientos de los empleados en seguridad industrial");
             programSso.setSsoIndicator("Mejora en uso de material de seguridad");
             programSso.setSsoObjetive("Capacitar a todos los trabajadores");
