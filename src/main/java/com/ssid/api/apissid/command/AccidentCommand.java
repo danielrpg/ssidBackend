@@ -15,6 +15,13 @@ public class AccidentCommand {
     private String lugaratencion;
     private String descripcion;
 
+    private String reportadopor;
+    private String formadeaccidente;
+    private String tipodelesion;
+    private String partedelcuerpolesionada;
+    private String agentecausante;
+    private String tipodeaccidente;
+
     public AccidentCommand(){
     }
 
@@ -25,6 +32,13 @@ public class AccidentCommand {
         setBajamedica(accident.getBajamedica());
         setLugaratencion(accident.getLugaratencion());
         setDescripcion(accident.getDescription());
+
+        setReportadopor(accident.getReportBy());
+        setFormadeaccidente(accident.getInjuryForm());
+        setTipodelesion(accident.getInjuryType());
+        setPartedelcuerpolesionada(accident.getInjuryBody());
+        setAgentecausante(accident.getCausingAgent());
+        setTipodeaccidente(accident.getAccidentType());
     }
 
     public Accident toAccident(){
@@ -35,6 +49,13 @@ public class AccidentCommand {
         accident.setBajamedica(getBajamedica());
         accident.setLugaratencion(getLugaratencion());
         accident.setDescription(getDescripcion());
+
+        accident.setReportBy(getReportadopor());
+        accident.setInjuryForm(getFormadeaccidente());
+        accident.setInjuryType(getTipodelesion());
+        accident.setInjuryBody(getPartedelcuerpolesionada());
+        accident.setCausingAgent(getAgentecausante());
+        accident.setAccidentType(getTipodeaccidente());
         return accident;
     }
 
@@ -84,5 +105,53 @@ public class AccidentCommand {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getReportadopor() {
+        return reportadopor;
+    }
+
+    public void setReportadopor(String reportadopor) {
+        this.reportadopor = reportadopor;
+    }
+
+    public String getFormadeaccidente() {
+        return formadeaccidente;
+    }
+
+    public void setFormadeaccidente(String formadeaccidente) {
+        this.formadeaccidente = formadeaccidente;
+    }
+
+    public String getTipodelesion() {
+        return tipodelesion;
+    }
+
+    public void setTipodelesion(String tipodelesion) {
+        this.tipodelesion = tipodelesion;
+    }
+
+    public String getPartedelcuerpolesionada() {
+        return partedelcuerpolesionada;
+    }
+
+    public void setPartedelcuerpolesionada(String partedelcuerpolesionada) {
+        this.partedelcuerpolesionada = partedelcuerpolesionada;
+    }
+
+    public String getAgentecausante() {
+        return agentecausante;
+    }
+
+    public void setAgentecausante(String agentecausante) {
+        this.agentecausante = agentecausante;
+    }
+
+    public String getTipodeaccidente() {
+        return tipodeaccidente;
+    }
+
+    public void setTipodeaccidente(String tipodeaccidente) {
+        this.tipodeaccidente = tipodeaccidente;
     }
 }

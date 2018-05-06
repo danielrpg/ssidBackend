@@ -1,5 +1,7 @@
 package com.ssid.api.apissid.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.ssid.api.apissid.command.PersonalAreaCommand;
 import com.ssid.api.apissid.command.PersonalCommand;
 import com.ssid.api.apissid.domain.Personal;
 import com.ssid.api.apissid.services.PersonalService;
@@ -111,11 +113,21 @@ public class PersonalController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public Personal savePersonal(@RequestBody PersonalCommand personalCommand){
-        Personal personal = personalCommand.toPersonal();
-        personalService.savePersonal(personal);
+    public Personal savePersonal(@RequestBody PersonalAreaCommand personal){
+        return personalService.savePersonal(personal);
+    }
+
+    @RequestMapping(value = "/getPersonalById/{id}", method = RequestMethod.GET)
+    public Personal getPersonalById(@PathVariable Long id) throws JsonProcessingException {
+        Personal personal = this.personalService.findById(id);
         return personal;
     }
+
+    @RequestMapping( value = "/update/{id}", method = RequestMethod.PUT)
+    public Personal updatePersonal(@RequestBody PersonalAreaCommand personalAreaCommand, @PathVariable Long id) {
+        return this.personalService.updatePersonalArea(personalAreaCommand, id);
+    }
+
 
     @RequestMapping(value = "/havePersonalByArea/{id}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> getIfHavePersonalByArea(@PathVariable long id) {

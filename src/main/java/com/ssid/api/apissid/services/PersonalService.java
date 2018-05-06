@@ -1,7 +1,8 @@
 package com.ssid.api.apissid.services;
 
+import com.ssid.api.apissid.command.PersonalAreaCommand;
+import com.ssid.api.apissid.command.PersonalResponseCommand;
 import com.ssid.api.apissid.domain.Personal;
-import com.ssid.api.apissid.domain.Position;
 
 import java.io.InputStream;
 import java.util.List;
@@ -16,5 +17,9 @@ public interface PersonalService extends GenericService<Personal> {
 
     void saveImage(Long id, InputStream inputStream);
 
-    void savePersonal(Personal personal);
+    Personal savePersonal(PersonalAreaCommand personal);
+
+    PersonalResponseCommand getPersonalById(Long id);
+
+    Personal updatePersonalArea(PersonalAreaCommand personalResponseCommand, Long id);
 }
