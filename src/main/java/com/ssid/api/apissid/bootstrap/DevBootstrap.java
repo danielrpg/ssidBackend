@@ -1,7 +1,6 @@
 package com.ssid.api.apissid.bootstrap;
 
 import com.ssid.api.apissid.domain.*;
-import com.ssid.api.apissid.dto.RequestAreaDTO;
 import com.ssid.api.apissid.repositories.*;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
