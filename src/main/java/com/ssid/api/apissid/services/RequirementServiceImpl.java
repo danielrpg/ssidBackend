@@ -3,8 +3,10 @@ package com.ssid.api.apissid.services;
 
 
 import com.ssid.api.apissid.command.RequirementCommand;
+import com.ssid.api.apissid.domain.Position;
 import com.ssid.api.apissid.domain.Requirement;
 
+import com.ssid.api.apissid.repositories.PositionRepository;
 import com.ssid.api.apissid.repositories.RequirementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,11 +19,19 @@ import java.util.List;
 @Service
 public class RequirementServiceImpl extends GenericServiceImpl<Requirement> implements RequirementService {
     private RequirementRepository requirementRepository;
+    private PositionRepository positionRepository;
 
     @Autowired
-    public RequirementServiceImpl(RequirementRepository repository) {
+    public RequirementServiceImpl(RequirementRepository repository, PositionRepository repositoryPosition) {
+
         this.requirementRepository = repository;
+        this.positionRepository = repositoryPosition;
     }
+
+//    @Autowired
+//    public PositionServiceImpl(PositionRepository repositoryPosition) {
+//        this.positionRepository = repositoryPosition;
+//    }
 
     @Override
     public List<Requirement> findByName(String name) {
@@ -31,17 +41,27 @@ public class RequirementServiceImpl extends GenericServiceImpl<Requirement> impl
     @Transactional
     @Override
     public Requirement createRequirement(RequirementCommand requirementCommand) {
+
+        Position position = positionRepository.findById(requirementCommand.getPosition_position_id()).get();
+
         Requirement requirement = new Requirement();
         requirement.setName(requirementCommand.getName());
         requirement.setDescription(requirementCommand.getDescription());
+        requirement.setPosition(position);
 
         requirement = save(requirement);
         return requirement;
     }
 
     @Override
+    public void saveRequirements(Requirement requirement) {
+        this.requirementRepository.save(requirement);
+    }
+
+    @Override
     public boolean updateRequirement(RequirementCommand requirementCommand, Long id) {
         boolean isChanged = false;
+        Position position = positionRepository.findById(requirementCommand.getPosition_position_id()).get();
 
         //si existe, actualizamos
         if(requirementRepository.existsById(id)){
@@ -52,11 +72,18 @@ public class RequirementServiceImpl extends GenericServiceImpl<Requirement> impl
                 isChanged = true;
             }
             if(requirementDB.getDescription().compareTo(requirementCommand.getDescription()) != 0) {
-                requirementDB.setDescription(requirementCommand.getDescription());
+                requirementDB. setDescription(requirementCommand.getDescription());
+                isChanged = true;
+            }
+            if(requirementDB.getPosition().getId().compareTo(requirementCommand.getPosition_position_id()) != 0) {
+
+                requirementDB.setPosition(position);
                 isChanged = true;
             }
 
+
             if(isChanged) {
+                requirementDB.setPosition(position);
                 Requirement requirementSaved = save(requirementDB);
 
                 if (requirementSaved.getId() != null) {
@@ -74,7 +101,6 @@ public class RequirementServiceImpl extends GenericServiceImpl<Requirement> impl
 
         return false;
     }
-
     @Override
     protected JpaRepository<Requirement, Long> getRepository() {
         return requirementRepository;

@@ -2,15 +2,19 @@ package com.ssid.api.apissid.controller;
 
 
 
+import com.ssid.api.apissid.command.ContractCommand;
 import com.ssid.api.apissid.command.RequirementCommand;
+import com.ssid.api.apissid.domain.Position;
 import com.ssid.api.apissid.domain.Requirement;
 import com.ssid.api.apissid.services.RequirementService;
 import com.ssid.api.apissid.util.ApiPath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,8 +34,13 @@ public class RequirementController {
     public ResponseEntity<Map<String, Object>> getAllRequirements() {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "ok");
-        List<Requirement> areas = this.requirementService.findAll();
-        mapResponse.put("data", areas);
+
+        List<RequirementCommand> requirementList = new ArrayList<>();
+        this.requirementService.findAll().forEach(requirement -> {
+            requirementList.add(new RequirementCommand(requirement));
+        });
+
+        mapResponse.put("data", requirementList);
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
@@ -42,7 +51,7 @@ public class RequirementController {
 
         if (requirement != null) {
             mapResponse.put("status", "ok");
-            mapResponse.put("data", requirement);
+            mapResponse.put("data", new RequirementCommand(requirement));
             return new ResponseEntity<>(mapResponse, HttpStatus.OK);
         } else {
             mapResponse.put("status", "not found");
@@ -62,16 +71,26 @@ public class RequirementController {
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
     public ResponseEntity<Map<String, Object>> createRequirement(@RequestBody RequirementCommand  requirementCommand) {
         Map<String, Object> mapResponse = new HashMap<>();
-        mapResponse.put("status", "created");
-        mapResponse.put("data", requirementService.createRequirement(requirementCommand));
-        return new ResponseEntity<>(mapResponse, HttpStatus.CREATED);
+       if(StringUtils.isEmpty(requirementCommand.getId())) {
+            mapResponse.put("status", "created");
+            requirementService.createRequirement(requirementCommand);
+            return new ResponseEntity<>(mapResponse, HttpStatus.CREATED);
+
+        }
+        else
+        {
+                mapResponse.put("status", "updated");
+                requirementService.updateRequirement(requirementCommand,requirementCommand.getId());
+                return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+        }
+
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Map<String, Object>> updateRequirement(@RequestBody RequirementCommand requirementCommand, @PathVariable int id) {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "updated");
-        mapResponse.put("data", requirementService.updateRequirement(requirementCommand, (long) id));
+        requirementService.updateRequirement(requirementCommand,requirementCommand.getId());
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
@@ -81,5 +100,21 @@ public class RequirementController {
         mapResponse.put("status", "deleted");
         this.requirementService.deleteById(id);
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = ApiPath.CONTRACT_PATH, method = RequestMethod.POST)
+    public @ResponseBody
+    void saveContract(@RequestBody RequirementCommand requirementCommand) {
+        if (StringUtils.isEmpty(requirementCommand.getId())) {
+            this.requirementService.saveRequirements(requirementCommand.toRequirement());
+        } else {
+            // se busca el objeto existente
+            Requirement requirement = this.requirementService.findById(requirementCommand.getId());
+            requirement.setName(requirementCommand.getName());
+            requirement.setDescription(requirementCommand.getDescription());
+            this.requirementService.saveRequirements(requirement);
+        }
+
+
     }
 }

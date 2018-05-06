@@ -1,15 +1,11 @@
 package com.ssid.api.apissid.services;
 
-import com.ssid.api.apissid.domain.Area;
 import com.ssid.api.apissid.domain.Contract;
-import com.ssid.api.apissid.repositories.AreaRepository;
 import com.ssid.api.apissid.repositories.ContractRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
-import java.util.List;
 
 @Service
 public class ContractServiceImpl extends GenericServiceImpl<Contract> implements ContractService {
@@ -30,7 +26,6 @@ public class ContractServiceImpl extends GenericServiceImpl<Contract> implements
     public void saveContract(Contract contract) {
         this.repository.save(contract);
     }
-
     @Override
     protected JpaRepository<Contract, Long> getRepository() {
         return repository;
