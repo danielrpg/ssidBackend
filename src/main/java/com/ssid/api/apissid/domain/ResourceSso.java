@@ -23,7 +23,7 @@ public class ResourceSso extends ModelBase implements Serializable{
     @Column(name = "sso_resource_cost")
     private Double costResource;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "sso_detail_id")
     private ActivitiesSso activitiesSso;
 

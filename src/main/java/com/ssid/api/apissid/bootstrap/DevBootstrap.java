@@ -26,6 +26,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private IncidentDetailRepository incidentDetailRepository;
     private IncidentRepository incidentRepository;
     private AccidentRepository accidentRepository;
+    private InjuryFormRepository injuryFormRepository;
     /**
      * Personal assignment Equipment repositories
      **/
@@ -48,7 +49,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                         IncidentTypeRepository incidentTypeRepository,
                         IncidentDetailRepository incidentDetailRepository,
                         IncidentRepository incidentRepository,
-                        AccidentRepository accidentRepository){
+                        AccidentRepository accidentRepository,
+                        InjuryFormRepository injuryFormRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
         this.resourceSsoRepository = resourceSsoRepository;
@@ -69,6 +71,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         this.incidentDetailRepository = incidentDetailRepository;
         this.incidentRepository = incidentRepository;
         this.accidentRepository = accidentRepository;
+        this.injuryFormRepository = injuryFormRepository;
     }
 
     @Override
@@ -669,7 +672,32 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         }
     }
     private void loadDataAccidents() {
+        if (injuryFormRepository.count() == 0){
+            ArrayList<String> formaDeaccidentes = new ArrayList<String>();
+            formaDeaccidentes.add("Caida de personal a nivel");
+            formaDeaccidentes.add("Caida de personal a altura");
+            formaDeaccidentes.add("Caida de personal al agua");
+            formaDeaccidentes.add("Derrumbe o desplome de instalaciones");
+            formaDeaccidentes.add("Caida de objetos");
+            formaDeaccidentes.add("Pisadas sobre objetos");
+            formaDeaccidentes.add("Choque con Objetos");
+            formaDeaccidentes.add("Golpes por objetos (excepto caidas)");
+            formaDeaccidentes.add("Aprisionamiento o atrapamiento");
+            formaDeaccidentes.add("Esfuerzos fisicos excesivos o falsos movimientos");
+            formaDeaccidentes.add("Exposicion al frio");
+            formaDeaccidentes.add("Exposicion al calor");
+
+            for (String formaDeaccidente : formaDeaccidentes){
+                InjuryForm injuryForm = new InjuryForm();
+                injuryForm.setName(formaDeaccidente);
+                injuryFormRepository.save(injuryForm);
+            }
+
+        }
+
         if (accidentRepository.count() == 0) {
+            List<InjuryForm> all = injuryFormRepository.findAll();
+
             String[] lugares = new String[10];
             lugares[0] = "HOSPITAL ANOCARAIRE – VINTO BOLIVIA";
             lugares[1] = "HOSPITAL UNIVALLE";
@@ -694,12 +722,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             nombres[8] = "Zoroastro";
             nombres[9] = "Carlomagno";
 
-
-
-
-
-
-
             int max = 8;
             int min = 0;
             int range = (max - min) + 1;
@@ -719,7 +741,9 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                 accident.setDescription("Leccion en la espalda al tropezar");
 
                 accident.setReportBy("Jorge Churme");
-                accident.setInjuryForm("Caida a nivel");
+
+                int iform = (int)(Math.random()(all.size()-1));
+                accident.setInjuryForm(all.get(iform));
                 accident.setInjuryType("Heridas cortantes");
                 accident.setInjuryBody("Region craneana");
                 accident.setCausingAgent("Piso");
