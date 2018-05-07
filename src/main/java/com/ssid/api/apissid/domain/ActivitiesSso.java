@@ -32,7 +32,7 @@ public class ActivitiesSso extends ModelBase implements Serializable{
     private String detailGoal;
 
     @Column(name = "sso_detail_time")
-    private Date detailTime;
+    private String detailTime;
 
     @Column(name = "soo_detail_type", length = 250)
     private String detailType;
@@ -42,8 +42,8 @@ public class ActivitiesSso extends ModelBase implements Serializable{
     private ProgramSso programSso;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "activitiesSso", fetch = FetchType.LAZY)
-    private Set<ResourceSso> resourceSsos= new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "activitiesSso", fetch = FetchType.EAGER)
+    private Set<ResourceSso> resourceSsos = new HashSet<ResourceSso>();
 
     @ManyToOne
     @JoinColumn(name = "sso_trainer_id")
@@ -103,11 +103,11 @@ public class ActivitiesSso extends ModelBase implements Serializable{
         this.detailGoal = detailGoal;
     }
 
-    public Date getDetailTime() {
+    public String getDetailTime() {
         return detailTime;
     }
 
-    public void setDetailTime(Date detailTime) {
+    public void setDetailTime(String detailTime) {
         this.detailTime = detailTime;
     }
 
@@ -129,5 +129,9 @@ public class ActivitiesSso extends ModelBase implements Serializable{
 
     public void setPersonals(Set<Personal> personals) {
         this.personals = personals;
+    }
+
+    public TrainersSso getTrainersSso() {
+        return trainersSso;
     }
 }
