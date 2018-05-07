@@ -1,17 +1,25 @@
 package com.ssid.api.apissid.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "kardex_equipaments")
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class KardexEquipament extends ModelBase implements Serializable{
 
     private static final long serialVersionUID=1L;
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @JsonProperty("id")
     @Column(name = "equipament_kardex_id")
     private Long Id;
 
@@ -27,8 +35,7 @@ public class KardexEquipament extends ModelBase implements Serializable{
     @Column(name = "balance_kardex")
     private int balanceKardex;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "equipament_id")
+    @ManyToOne
     private Equipament equipament;
 
     public Long getId() {

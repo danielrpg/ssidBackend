@@ -22,11 +22,11 @@ public class Inventory extends ModelBase implements Serializable{
     private boolean active;
 
     @ManyToOne//(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "equipament_id")
+    //@JoinColumn(name = "equipament_id")
     private Equipament equipament;
 
     @ManyToOne//(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "personal_id")
+    //@JoinColumn(name = "personal_id")
     private Personal personal;
 
     public Long getId() {
