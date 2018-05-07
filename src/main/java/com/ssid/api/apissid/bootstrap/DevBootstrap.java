@@ -1,7 +1,6 @@
 package com.ssid.api.apissid.bootstrap;
 
 import com.ssid.api.apissid.domain.*;
-import com.ssid.api.apissid.dto.RequestAreaDTO;
 import com.ssid.api.apissid.repositories.*;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -26,6 +25,12 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private IncidentTypeRepository incidentTypeRepository;
     private IncidentDetailRepository incidentDetailRepository;
     private IncidentRepository incidentRepository;
+    private AccidentRepository accidentRepository;
+    private InjuryFormRepository injuryFormRepository;
+    private AccidentTypeRepository accidentTypeRepository;
+    private InjuryTypeRepository injuryTypeRepository;
+    private InjuryBodyRepository injuryBodyRepository;
+    private CausingAgentRepository causingAgentRepository;
     /**
      * Personal assignment Equipment repositories
      **/
@@ -47,7 +52,13 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                         RoleRepository roleRepository,
                         IncidentTypeRepository incidentTypeRepository,
                         IncidentDetailRepository incidentDetailRepository,
-                        IncidentRepository incidentRepository){
+                        IncidentRepository incidentRepository,
+                        AccidentRepository accidentRepository,
+                        InjuryFormRepository injuryFormRepository,
+                        AccidentTypeRepository accidentTypeRepository,
+                        InjuryTypeRepository injuryTypeRepository,
+                        InjuryBodyRepository injuryBodyRepository,
+                        CausingAgentRepository causingAgentRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
         this.resourceSsoRepository = resourceSsoRepository;
@@ -67,6 +78,12 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         this.incidentTypeRepository = incidentTypeRepository;
         this.incidentDetailRepository = incidentDetailRepository;
         this.incidentRepository = incidentRepository;
+        this.accidentRepository = accidentRepository;
+        this.injuryFormRepository = injuryFormRepository;
+        this.accidentTypeRepository = accidentTypeRepository;
+        this.injuryTypeRepository = injuryTypeRepository;
+        this.injuryBodyRepository = injuryBodyRepository;
+        this.causingAgentRepository = causingAgentRepository;
     }
 
     @Override
@@ -88,6 +105,60 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         loadDataContracts();
 
         loadDataIncidents();
+        loadDataAccidents();
+
+        //loadData
+        loadDataAreas();
+    }
+
+    private void loadDataAreas() {
+        if(areaRepository.count() <= 2){
+            Area area1 = new Area();
+            area1.setName("Diseño");
+            area1.setDescription("Diseños de casas, habitaciones, otros ambientes.");
+            areaRepository.save(area1);
+
+            Area area2 = new Area();
+            area2.setName("Remodelaciones");
+            area2.setDescription("Remodelaciones de ambientes de casas, habitaciones, etc.");
+            areaRepository.save(area2);
+
+            Area area3 = new Area();
+            area3.setName("Ampliaciones");
+            area3.setDescription("Ampliaciones de habitaciones, espacios recreativos, " +
+                    "cocinas, areas comunes, etc.");
+            areaRepository.save(area3);
+
+            Area area4 = new Area();
+            area4.setName("Galpones  y Carpintería metálica");
+            area4.setDescription("Trabajos en metal para adaptación de Galpones  y Carpintería metálica" +
+                    " para puertas, barandas, otros.");
+            areaRepository.save(area4);
+
+            Area area5 = new Area();
+            area5.setName("Instalaciones hídricas");
+            area5.setDescription("Instalaciones hídricas para ambientes como cocinas, baños, lavandería, " +
+                    "duchas, piscinas, jardines, etc.");
+            areaRepository.save(area5);
+
+            Area area6 = new Area();
+            area6.setName("Instalaciones eléctricas");
+            area6.setDescription("Instalaciones eléctricas en los diferentes ambientes donde se trabaje.");
+            areaRepository.save(area6);
+
+            Area area7 = new Area();
+            area7.setName("Obra gruesa");
+            area7.setDescription("Trabajos relacionados a la obra gruesa en la construcción, " +
+                    "como ser estructura en las edificaciones, muros, pisos, pavimentos, techado, etc.");
+            areaRepository.save(area7);
+
+            Area area8 = new Area();
+            area8.setName("Obra fina");
+            area8.setDescription("Trabajos relacionados a la obra fina en la construcción, " +
+                    "como ser revoque de paredes, cielo raso, cerámica, etc." +
+                    " para puertas, barandas, otros.");
+            areaRepository.save(area8);
+        }
     }
 
     private void loadDefaulUser(){
@@ -115,8 +186,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             userSystem.setRoles(listRoles);
             this.userSystemRepository.save(userSystem);
         }
-
-
     }
 
     private void loadDataContracts() {
@@ -144,77 +213,79 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     }
 
     private void loadDataEquipamentInventary() {
-        //Area
-        Area area = new Area();
-        area.setName("Construcción");
-        area.setDescription("Area de Construcción");
-        areaRepository.save(area);
-        //Personal
-        Personal personal = new Personal();
-        personal.setArea(area);
-        personal.setName("Jhon Doe");
-        personal.setAddress("Av. Villazon N° 2326");
-        personal.setCellphone("89632548");
-        personal.setEmail("jDoe@gmail.com");
-        personal.setBirthdate(new GregorianCalendar(1987,05, 15).getTime());
-        personal.setActive(true);
-        personalRepository.save(personal);
+        if(equipamentRepository.count()==0) {
+            //Area
+            Area area = new Area();
+            area.setName("Construcción");
+            area.setDescription("Construcción de casas, habitaciones, departamentos, etc.");
+            areaRepository.save(area);
+            //Personal
+            Personal personal = new Personal();
+            personal.setArea(area);
+            personal.setName("Jhon Doe");
+            personal.setAddress("Av. Villazon N° 2326");
+            personal.setCellphone("89632548");
+            personal.setEmail("jDoe@gmail.com");
+            personal.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
+            personal.setActive(true);
+            personalRepository.save(personal);
 
-        //Equipment 1
-        Equipament equipament1 = new Equipament();
-        equipament1.setName("Helmmet");
-        equipament1.setType(1);
-        equipament1.setDescription("Casco tipo Jokey de ala Ancha");
-        equipament1.setImage(new Byte[0]);
-        equipamentRepository.save(equipament1);
+            //Equipment 1
+            Equipament equipament1 = new Equipament();
+            equipament1.setName("Helmmet");
+            equipament1.setType(1);
+            equipament1.setDescription("Casco tipo Jokey de ala Ancha");
+            equipament1.setImage(new Byte[0]);
+            equipamentRepository.save(equipament1);
 
-        //Equipment 2
-        Equipament equipament2 = new Equipament();
-        equipament2.setName("Electric Drill");
-        equipament2.setType(2);
-        equipament2.setDescription("Taladro electrico portatil bosch");
-        equipament2.setImage(new Byte[0]);
-        equipamentRepository.save(equipament2);
+            //Equipment 2
+            Equipament equipament2 = new Equipament();
+            equipament2.setName("Electric Drill");
+            equipament2.setType(2);
+            equipament2.setDescription("Taladro electrico portatil bosch");
+            equipament2.setImage(new Byte[0]);
+            equipamentRepository.save(equipament2);
 
-        //KardexEquipment
-        KardexEquipament kardexEquipament = new KardexEquipament();
-        kardexEquipament.setEquipament(equipament2);
-        kardexEquipament.setDateKardex(new Date());
-        kardexEquipament.setEntryKardex(15);
-        kardexEquipament.setOutlayKardex(0);
-        kardexEquipament.setBalanceKardex(15);
-        kardexEquipamentRepository.save(kardexEquipament);
+            //KardexEquipment
+            KardexEquipament kardexEquipament = new KardexEquipament();
+            kardexEquipament.setEquipament(equipament2);
+            kardexEquipament.setDateKardex(new Date());
+            kardexEquipament.setEntryKardex(15);
+            kardexEquipament.setOutlayKardex(0);
+            kardexEquipament.setBalanceKardex(15);
+            kardexEquipamentRepository.save(kardexEquipament);
 
-        //KardexEquipment1
-        KardexEquipament kardexEquipament1 = new KardexEquipament();
-        kardexEquipament1.setEquipament(equipament2);
-        kardexEquipament1.setDateKardex(new Date());
-        kardexEquipament1.setEntryKardex(0);
-        kardexEquipament1.setOutlayKardex(5);
-        kardexEquipament1.setBalanceKardex(10);
-        kardexEquipamentRepository.save(kardexEquipament1);
+            //KardexEquipment1
+            KardexEquipament kardexEquipament1 = new KardexEquipament();
+            kardexEquipament1.setEquipament(equipament2);
+            kardexEquipament1.setDateKardex(new Date());
+            kardexEquipament1.setEntryKardex(0);
+            kardexEquipament1.setOutlayKardex(5);
+            kardexEquipament1.setBalanceKardex(10);
+            kardexEquipamentRepository.save(kardexEquipament1);
 
-        //InventoryEquipment
-        Inventory inventory = new Inventory();
-        inventory.setPersonal(personal);
-        inventory.setEquipament(equipament2);
-        inventory.setDateAsignament(new Date());
-        inventory.setStatus("nuevo");
-        inventory.setActive(true);
-        inventoryRepository.save(inventory);
+            //InventoryEquipment
+            Inventory inventory = new Inventory();
+            inventory.setPersonal(personal);
+            inventory.setEquipament(equipament2);
+            inventory.setDateAsignament(new Date());
+            inventory.setStatus("nuevo");
+            inventory.setActive(true);
+            inventoryRepository.save(inventory);
 
-        //InventoryEquipment1
-        Inventory inventory1 = new Inventory();
-        inventory1.setPersonal(personal);
-        inventory1.setEquipament(equipament1);
-        inventory1.setDateAsignament(new Date());
-        inventory1.setStatus("nuevo");
-        inventory1.setActive(true);
-        inventoryRepository.save(inventory1);
+            //InventoryEquipment1
+            Inventory inventory1 = new Inventory();
+            inventory1.setPersonal(personal);
+            inventory1.setEquipament(equipament1);
+            inventory1.setDateAsignament(new Date());
+            inventory1.setStatus("nuevo");
+            inventory1.setActive(true);
+            inventoryRepository.save(inventory1);
+        }
     }
 
     private void loadDataSSO() {
-        //if(programSsoRepository.count() == 0) {
+        if(programSsoRepository.count() == 0) {
             //Resources SSO
             ResourceSso resourceSso1 = new ResourceSso();
             resourceSso1.setResourceCost(200.0);
@@ -224,17 +295,46 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             resourceSso2.setResourceCost(300.0);
             resourceSso2.setResourceDetail("Pliegos de cartulina");
 
+            ResourceSso resourceSso3 = new ResourceSso();
+            resourceSso3.setResourceCost(100.0);
+            resourceSso3.setResourceDetail("Marcadores");
+
+            ResourceSso resourceSso4 = new ResourceSso();
+            resourceSso4.setResourceCost(200.0);
+            resourceSso4.setResourceDetail("Pliegos de cartulina");
+
             ActivitiesSso activitiesSso = new ActivitiesSso();
             activitiesSso.setDetailActivities("Identificar los riesgos a los que estan expuestos los empleados");
             activitiesSso.setDetailGoal("Los empleados identifique por su cuenta los riesgos en sus areas de trabajo");
             activitiesSso.setDetailNumber(20);
-            activitiesSso.setDetailTime(Calendar.getInstance().getTime());
+            activitiesSso.setDetailTime("3 días");
             activitiesSso.setDetailType("Capacitación");
+
+            ActivitiesSso activitiesSso1 = new ActivitiesSso();
+            activitiesSso1.setDetailActivities("Identificar nuevas normas");
+            activitiesSso1.setDetailGoal("Los empleados deben estar actualizados con las nuevas normas");
+            activitiesSso1.setDetailNumber(20);
+            activitiesSso1.setDetailTime("1 día");
+            activitiesSso1.setDetailType("Capacitación");
+
+            ActivitiesSso activitiesSso2 = new ActivitiesSso();
+            activitiesSso2.setDetailActivities("Identificar acciones a tomar en caso de accidentes");
+            activitiesSso2.setDetailGoal("Los empleados deben estar conscientes de las acciones que deben ejecutar frente a un accidente");
+            activitiesSso2.setDetailNumber(20);
+            activitiesSso2.setDetailTime("2 día");
+            activitiesSso2.setDetailType("Capacitación");
+
+            /*Set<ResourceSso> resourceSsos = new HashSet<>();
+            resourceSsos.add(resourceSso1);
+            resourceSsos.add(resourceSso2);
+            activitiesSso.setResourceSsos(resourceSsos);*/
             //activitiesSso.getResourceSsos().add(resourceSso1);
             //activitiesSso.getResourceSsos().add(resourceSso2);
 
-            //resourceSso1.setActivitiesSso(activitiesSso);
-            //resourceSso2.setActivitiesSso(activitiesSso);
+            resourceSso1.setActivitiesSso(activitiesSso);
+            resourceSso2.setActivitiesSso(activitiesSso1);
+            resourceSso3.setActivitiesSso(activitiesSso2);
+            resourceSso4.setActivitiesSso(activitiesSso2);
 
             TrainersSso trainersSso = new TrainersSso();
             trainersSso.setCi("123456789");
@@ -242,18 +342,48 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             trainersSso.setSkillsDesciprtions("Experto en seguridad industrial");
             trainersSso.setSpecialty("Ing. Industrial");
 
-
             TrainersSso trainersSso1 = new TrainersSso();
-            trainersSso1.setCi("987465651");
-            trainersSso1.setName("Mario Padilla");
-            trainersSso1.setSkillsDesciprtions("Experto en seguridad industrial");
+            trainersSso1.setCi("343423456");
+            trainersSso1.setName("Gabriel Moreno");
+            trainersSso1.setSkillsDesciprtions("Experto en Accidentes maquinarios");
             trainersSso1.setSpecialty("Ing. Industrial");
+
+            TrainersSso trainersSso2 = new TrainersSso();
+            trainersSso2.setCi("545454545");
+            trainersSso2.setName("Rafael Terrazas");
+            trainersSso2.setSkillsDesciprtions("Experto en Accidentes con Maquinaria pesada");
+            trainersSso2.setSpecialty("Ing. Industrial");
+
+            TrainersSso trainersSso3 = new TrainersSso();
+            trainersSso3.setCi("323123434");
+            trainersSso3.setName("Nicolas Marquez");
+            trainersSso3.setSkillsDesciprtions("Experto ambiental en industrias");
+            trainersSso3.setSpecialty("Ing. Ambiental");
+
+            TrainersSso trainersSso4 = new TrainersSso();
+            trainersSso4.setCi("678987678");
+            trainersSso4.setName("Florinda Mesa");
+            trainersSso4.setSkillsDesciprtions("Experto en salud ocupacional");
+            trainersSso4.setSpecialty("Medico");
+
+            TrainersSso trainersSso5 = new TrainersSso();
+            trainersSso5.setCi("567876567");
+            trainersSso5.setName("Fernando Flores");
+            trainersSso5.setSkillsDesciprtions("Experto en accidentes");
+            trainersSso5.setSpecialty("Ing. Industrial");
+
+            TrainersSso trainersSso6 = new TrainersSso();
+            trainersSso6.setCi("6767676767");
+            trainersSso6.setName("Karina Marasi");
+            trainersSso6.setSkillsDesciprtions("Experto ambiental en industrias");
+            trainersSso6.setSpecialty("Ing. Industrial");
+
             //trainersSso.getActivitiesSsos().add(activitiesSso);
 
-            //activitiesSso.setTrainersSso(trainersSso);
+            activitiesSso.setTrainersSso(trainersSso);
 
             ProgramSso programSso = new ProgramSso();
-            programSso.setSsoExecutionTime(Calendar.getInstance().getTime());
+            programSso.setSsoExecutionTime("2 semanas");
             programSso.setSsoGoal("Mejorar los conocimientos de los empleados en seguridad industrial");
             programSso.setSsoIndicator("Mejora en uso de material de seguridad");
             programSso.setSsoObjetive("Capacitar a todos los trabajadores");
@@ -261,20 +391,70 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             programSso.setSsoTotalCost(500.50);
             // programSso.getActivitiesSsos().add(activitiesSso);
 
-            //activitiesSso.setProgramSso(programSso);
+            ProgramSso programSso1 = new ProgramSso();
+            programSso1.setSsoExecutionTime("3 semanas");
+            programSso1.setSsoGoal("Actualizar normas en seguridad industrial");
+            programSso1.setSsoIndicator("Mejora en actualizacion de normas");
+            programSso1.setSsoObjetive("Capacitar a todos los trabajadores");
+            programSso1.setSsoResponsable("Jorge Eduardo");
+            programSso1.setSsoTotalCost(300.50);
 
-            this.resourceSsoRepository.save(resourceSso1);
-            this.resourceSsoRepository.save(resourceSso2);
-            this.activitiesSsoRepository.save(activitiesSso);
+            ProgramSso programSso2 = new ProgramSso();
+            programSso2.setSsoExecutionTime("1 semana");
+            programSso2.setSsoGoal("Conocer accionar frente a un accidente");
+            programSso2.setSsoIndicator("Incrementar el conocimiento sobre accidentes");
+            programSso2.setSsoObjetive("Capacitar a todos los trabajadores");
+            programSso2.setSsoResponsable("Olga Mercado");
+            programSso2.setSsoTotalCost(100.50);
+
+            ProgramSso programSso3 = new ProgramSso();
+            programSso3.setSsoExecutionTime("2 semanas");
+            programSso3.setSsoGoal("Mejorar los conocimientos de los empleados en seguridad industrial");
+            programSso3.setSsoIndicator("Mejora en uso de material de seguridad");
+            programSso3.setSsoObjetive("Capacitar a todos los trabajadores");
+            programSso3.setSsoResponsable("Angela Perez");
+            programSso3.setSsoTotalCost(500.50);
+
+            ProgramSso programSso4 = new ProgramSso();
+            programSso4.setSsoExecutionTime("3 semanas");
+            programSso4.setSsoGoal("Incrementar el conocimiento sobre peligros maquinarios");
+            programSso4.setSsoIndicator("Mejora del uso de maquinarias");
+            programSso4.setSsoObjetive("Capacitar a todos los trabajadores");
+            programSso4.setSsoResponsable("Maria Fanola");
+            programSso4.setSsoTotalCost(540.50);
+
+            activitiesSso.setProgramSso(programSso);
+
             this.trainersSsoRepository.save(trainersSso);
             this.trainersSsoRepository.save(trainersSso1);
+            this.trainersSsoRepository.save(trainersSso2);
+            this.trainersSsoRepository.save(trainersSso3);
+            this.trainersSsoRepository.save(trainersSso4);
+            this.trainersSsoRepository.save(trainersSso5);
+            this.trainersSsoRepository.save(trainersSso6);
             this.programSsoRepository.save(programSso);
-        //}
+            this.programSsoRepository.save(programSso1);
+            this.programSsoRepository.save(programSso2);
+            this.programSsoRepository.save(programSso3);
+            this.programSsoRepository.save(programSso4);
+            this.activitiesSsoRepository.save(activitiesSso);
+            this.activitiesSsoRepository.save(activitiesSso1);
+            this.activitiesSsoRepository.save(activitiesSso2);
+            this.resourceSsoRepository.save(resourceSso1);
+            this.resourceSsoRepository.save(resourceSso2);
+            this.resourceSsoRepository.save(resourceSso3);
+            this.resourceSsoRepository.save(resourceSso4);
+        }
     }
 
     private void loadDataStructureOrganizational() {
         //Organizational structure
         if(departmentRepository.count() == 0){
+
+        }
+
+        //positions
+        if(positionRepository.count() == 0){
             Department department1 = new Department();
             department1.setName("Dirección General");
             department1.setDescription("El departamento de dirección general agrupa los cargos relacionados con gerencia.");
@@ -295,20 +475,33 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             department5.setName("Departamento comercial");
             department5.setDescription("El departamento comercial agrupa los cargos relacionados con las ventas de la empresa.");
 
-            department1 = departmentRepository.save(department1);
-            department2 = departmentRepository.save(department2);
-            department3 = departmentRepository.save(department3);
-            department4 = departmentRepository.save(department4);
-            department5 = departmentRepository.save(department5);
-        }
+            //Colecciones
+            Set<Department> departments1 = new HashSet<>();
+            departments1.add(department1);
 
-        //positions
-        if(positionRepository.count() == 0){
-            //level 0
+            Set<Department> departments2 = new HashSet<>();
+            departments2.add(department2);
+
+            Set<Department> departments3 = new HashSet<>();
+            departments3.add(department3);
+
+            Set<Department> departments4 = new HashSet<>();
+            departments4.add(department4);
+
+            Set<Department> departments5 = new HashSet<>();
+            departments5.add(department5);
+
+            //Positions
             Position position1 = new Position();
             position1.setName("Gerente general");
             position1.setDescription("Gerente general.");
             position1.setLevel(0);
+            position1.setDepartments(departments1);
+
+            Set<Position> positionsLst1 = new HashSet<>();
+            positionsLst1.add(position1);
+            department1.setPositions(positionsLst1);
+            departmentRepository.save(department1);
             position1 = positionRepository.save(position1);
 
             loadDataRequirementsPosition(position1);
@@ -320,161 +513,155 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             position2.setDescription("Administrador de obra.");
             position2.setLevel(1);
             position2.setParentPosition(position1);
-            position2 = positionRepository.save(position2);
+            position2.setDepartments(departments2);
 
-            Position position3 = new Position();
-            position3.setName("Jefe de vivienda");
-            position3.setDescription("Jefe de vivienda.");
-            position3.setLevel(1);
-            position3.setParentPosition(position1);
-            position3 = positionRepository.save(position3);
-
-            Position position4 = new Position();
-            position4.setName("Jefe de administración");
-            position4.setDescription("Jefe de administración.");
-            position4.setLevel(1);
-            position4.setParentPosition(position1);
-            position4 = positionRepository.save(position4);
-
-            Position position5 = new Position();
-            position5.setName("Jefe de departamento técnico");
-            position5.setDescription("Jefe de departamento técnico.");
-            position5.setLevel(1);
-            position5.setParentPosition(position1);
-            position5 = positionRepository.save(position5);
-
-            Position position7 = new Position();
-            position7.setName("Asesor contable");
-            position7.setDescription("Asesor contable.");
-            position7.setLevel(1);
-            position7.setParentPosition(position1);
-            position7 = positionRepository.save(position7);
-
-            //level 2
             Position position8 = new Position();
             position8.setName("Jefe de obras");
             position8.setDescription("Jefe de obras.");
             position8.setLevel(2);
             position8.setParentPosition(position2);
-            position8 = positionRepository.save(position8);
+            position8.setDepartments(departments2);
 
             Position position9 = new Position();
             position9.setName("Capataz");
             position9.setDescription("Capataz.");
             position9.setLevel(2);
             position9.setParentPosition(position2);
-            position9 = positionRepository.save(position9);
+            position9.setDepartments(departments2);
 
             Position position10 = new Position();
             position10.setName("Bodeguero de obras");
             position10.setDescription("Bodeguero de obras.");
             position10.setLevel(2);
             position10.setParentPosition(position2);
-            position8 = positionRepository.save(position10);
+            position10.setDepartments(departments2);
 
             Position position11 = new Position();
             position11.setName("Operarios");
             position11.setDescription("Operarios.");
             position11.setLevel(2);
             position11.setParentPosition(position2);
-            position11 = positionRepository.save(position11);
+            position11.setDepartments(departments2);
 
             Position position12 = new Position();
             position12.setName("Vigilantes");
             position12.setDescription("Vigilantes.");
             position12.setLevel(2);
             position12.setParentPosition(position2);
+            position12.setDepartments(departments2);
+
+            Set<Position> positionsLst2 = new HashSet<>();
+            positionsLst2.add(position2);
+            positionsLst2.add(position8);
+            positionsLst2.add(position9);
+            positionsLst2.add(position10);
+            positionsLst2.add(position11);
+            positionsLst2.add(position12);
+            department2.setPositions(positionsLst2);
+
+            departmentRepository.save(department2);
+            position2 = positionRepository.save(position2);
+            position8 = positionRepository.save(position8);
+            position9 = positionRepository.save(position9);
+            position10 = positionRepository.save(position10);
+            position11 = positionRepository.save(position11);
             position12 = positionRepository.save(position12);
+
+            Position position3 = new Position();
+            position3.setName("Jefe de vivienda");
+            position3.setDescription("Jefe de vivienda.");
+            position3.setLevel(1);
+            position3.setParentPosition(position1);
+            position3.setDepartments(departments5);
+
+            Set<Position> positionsLst5 = new HashSet<Position>();
+            positionsLst5.add(position3);
+            department5.setPositions(positionsLst5);
+
+            departmentRepository.save(department5);
+            position3 = positionRepository.save(position3);
+
+            Position position7 = new Position();
+            position7.setName("Asesor contable");
+            position7.setDescription("Asesor contable.");
+            position7.setLevel(1);
+            position7.setParentPosition(position1);
+            position7.setDepartments(departments3);
+
+            Set<Position> positionsLst3 = new HashSet<>();
+            positionsLst3.add(position7);
+            department3.setPositions(positionsLst3);
+
+            departmentRepository.save(department3);
+            position7 = positionRepository.save(position7);
+
+            Position position4 = new Position();
+            position4.setName("Jefe de administración");
+            position4.setDescription("Jefe de administración.");
+            position4.setLevel(1);
+            position4.setParentPosition(position1);
+            position4.setDepartments(departments4);
+
+            Position position5 = new Position();
+            position5.setName("Jefe de departamento técnico");
+            position5.setDescription("Jefe de departamento técnico.");
+            position5.setLevel(1);
+            position5.setParentPosition(position1);
+            position5.setDepartments(departments4);
 
             Position position13 = new Position();
             position13.setName("Secretaria");
             position13.setDescription("Secretaria.");
             position13.setLevel(2);
             position13.setParentPosition(position4);
-            position13 = positionRepository.save(position13);
+            position13.setDepartments(departments4);
 
             Position position14 = new Position();
             position14.setName("Mecánico");
             position14.setDescription("Mecánico.");
             position14.setLevel(2);
             position14.setParentPosition(position4);
-            position14 = positionRepository.save(position14);
+            position14.setDepartments(departments4);
 
             Position position15 = new Position();
             position15.setName("Operador de maquinaria");
             position15.setDescription("Operador de maquinaria.");
             position15.setLevel(2);
             position15.setParentPosition(position4);
-            position15 = positionRepository.save(position15);
+            position15.setDepartments(departments4);
 
             Position position16 = new Position();
             position16.setName("Informático");
             position16.setDescription("Informático.");
             position16.setLevel(2);
             position16.setParentPosition(position4);
-            position16 = positionRepository.save(position16);
+            position16.setDepartments(departments4);
 
             Position position17 = new Position();
             position17.setName("Jefe de bodega");
             position17.setDescription("Jefe de bodega.");
             position17.setLevel(2);
             position17.setParentPosition(position4);
+            position17.setDepartments(departments4);
+
+            Set<Position> positionsLst4 = new HashSet<>();
+            positionsLst4.add(position4);
+            positionsLst4.add(position5);
+            positionsLst4.add(position13);
+            positionsLst4.add(position14);
+            positionsLst4.add(position15);
+            positionsLst4.add(position16);
+            positionsLst4.add(position17);
+            department4.setPositions(positionsLst4);
+
+            departmentRepository.save(department4);
+            position4 = positionRepository.save(position4);
+            position5 = positionRepository.save(position5);
+            position13 = positionRepository.save(position13);
+            position14 = positionRepository.save(position14);
+            position15 = positionRepository.save(position15);
+            position16 = positionRepository.save(position16);
             position17 = positionRepository.save(position17);
-
-            //Organizational structure
-            if (departmentRepository.count() == 0) {
-                Department department1 = new Department();
-                department1.setName("Dirección General");
-                department1.setDescription("El departamento de dirección general agrupa los cargos relacionados con gerencia.");
-//                Set<Position> positionsLst1 = new HashSet<>();
-//                positionsLst1.add(position1);
-//                department1.setPositions(positionsLst1);
-
-                Department department2 = new Department();
-                department2.setName("Departamento técnico");
-                department2.setDescription("El departamento de dirección general agrupa los cargos relacionados con operaciones.");
-//                Set<Position> positionsLst2 = new HashSet<>();
-//                positionsLst2.add(position2);
-//                positionsLst2.add(position8);
-//                positionsLst2.add(position9);
-//                positionsLst2.add(position10);
-//                positionsLst2.add(position11);
-//                positionsLst2.add(position12);
-//                department2.setPositions(positionsLst2);
-
-                Department department3 = new Department();
-                department3.setName("Departamento financiero");
-                department3.setDescription("El departamento financiero agrupa los cargos encargados de las finanzas de la empresa.");
-//                Set<Position> positionsLst3 = new HashSet<>();
-//                positionsLst3.add(position7);
-//                department3.setPositions(positionsLst3);
-
-                Department department4 = new Department();
-                department4.setName("Departamento de recursos humanos");
-                department4.setDescription("El departamento de recursos humanos agrupa los cargos encargados del personal.");
-//                Set<Position> positionsLst4 = new HashSet<>();
-//                positionsLst4.add(position4);
-//                positionsLst4.add(position5);
-//                positionsLst4.add(position13);
-//                positionsLst4.add(position14);
-//                positionsLst4.add(position15);
-//                positionsLst4.add(position16);
-//                positionsLst4.add(position17);
-//                department4.setPositions(positionsLst4);
-
-                Department department5 = new Department();
-                department5.setName("Departamento comercial");
-                department5.setDescription("El departamento comercial agrupa los cargos relacionados con las ventas de la empresa.");
-//                Set<Position> positionsLst5 = new HashSet<>();
-//                positionsLst5.add(position3);
-//                department5.setPositions(positionsLst5);
-
-                departmentRepository.save(department1);
-                departmentRepository.save(department2);
-                departmentRepository.save(department3);
-                departmentRepository.save(department4);
-                departmentRepository.save(department5);
-            }
         }
     }
 
@@ -491,29 +678,19 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         function1.setPosition(position1);
         functionPositionRepository.save(function1);
 
-        //Function datos
-//        if(functionRepository.count() == 0){
-//            Function function = new Function();
-//            function.setName("Formulación de Proyectos");
-//            function.setDescription(" Formulación de proyectos de Ingeniería Civil de alta calidad, resistentes y seguros para los usuarios finales");
-//
-//            Function function1 = new Function();
-//            function1.setName("Establecer procedimientos ");
-//            function1.setDescription("  Establecer procedimientos para la operación de equipo y maquinaria para obtener la mejor calidad y productividad, teniendo en cuenta la protección del medio ambiente");
-//
-//            Function function2 = new Function();
-//            function2.setName("Adiestrar al personal  ");
-//            function2.setDescription("Adiestrar al personal dentro de una obra, desde los operativos, en el uso y manejo de los materiales y en la operación de la maquinaria y equipo de construcción");
-//
-//            Function function3 = new Function();
-//            function3.setName("Establecer programas");
-//            function3.setDescription("Establecer programas en la ejecución de obras enfocados al mejor aprovechamiento de los recursos");
-//
-//            function = functionRepository.save(function);
-//            function1 = functionRepository.save(function1);
-//            function2 = functionRepository.save(function2);
-//            function3 = functionRepository.save(function3);
-//        }
+        FunctionPosition function2 = new FunctionPosition();
+        function2.setName("Formulación de Proyectos");
+        function2.setDescription("Formulación de proyectos de Ingeniería Civil de alta calidad, resistentes y seguros " +
+                "para los usuarios finales");
+        function2.setPosition(position1);
+        functionPositionRepository.save(function2);
+
+        FunctionPosition function3 = new FunctionPosition();
+        function3.setName("Establecer programas");
+        function3.setDescription("Establecer programas en la ejecución de obras enfocados al mejor aprovechamiento " +
+                "de los recursos");
+        function3.setPosition(position1);
+        functionPositionRepository.save(function3);
     }
 
     private void loadDataRequirementsPosition(Position position1) {
@@ -524,36 +701,18 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         requirementRepository.save(requirement);
 
         Requirement requirement1 = new Requirement();
-        requirement1.setName("Administrador de empresas");
-        requirement1.setDescription("Titulo en Administrador de empresas");
+        requirement1.setName("Formación académica");
+        requirement1.setDescription("Formación académica en Administrador de empresas");
         requirement1.setPosition(position1);
         requirementRepository.save(requirement1);
 
-        //Requirement
-//        if(requirementRepository.count() == 0){
-//            Requirement requirement = new Requirement();
-//            requirement.setName("Formación académica");
-//            requirement.setDescription("Formación académica en Ingeniería Civil o Arquitectura.");
-//
-//            Requirement requirement1 = new Requirement();
-//            requirement1.setName("Se valorará conocimientos  ");
-//            requirement1.setDescription("Se valorará conocimientos de energía eléctrica y mantenimiento en general.");
-//
-//            Requirement requirement2 = new Requirement();
-//            requirement2.setName("Experiencia ");
-//            requirement2.setDescription("Experiencia mínima de 3 años en cargos similares de Jefatura dentro el área de mantenimiento, fiscalización de obras y administración de proyectos");
-//
-//            Requirement requirement3 = new Requirement();
-//            requirement3.setName("manejo de programas ");
-//            requirement3.setDescription(" Excelente manejo de programas como ser: AutoCAD, PRESCOM, ArchiCAD, Project, CYPE");
-//
-//            requirement = requirementRepository.save(requirement);
-//            requirement1 = requirementRepository.save(requirement1);
-//            requirement2 = requirementRepository.save(requirement2);
-//            requirement3 = requirementRepository.save(requirement3);
-//        }
+        Requirement requirement2 = new Requirement();
+        requirement2.setName("Experiencia");
+        requirement2.setDescription("Más de 3 años de experiencia  en cargos similares de Jefatura dentro el área de " +
+                "mantenimiento, fiscalización de obras y administración de proyectos.");
+        requirement2.setPosition(position1);
+        requirementRepository.save(requirement2);
     }
-
     private void loadDataIncidents() {
         if(incidentTypeRepository.count() == 0) {
             IncidentType incidentType = new IncidentType();
@@ -594,6 +753,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             incident.setArea("soldadura");
             incident.setReincident(false);
             incident.setTreatment(false);
+            incident.setRecurrence(40);
+            incident.setSeverity("alta");
             incident.setIncidentType(incidentType);
             incident.setIncidentDetail(incidentDetail);
 
@@ -604,6 +765,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             incident1.setArea("mecanica");
             incident1.setReincident(false);
             incident1.setTreatment(false);
+            incident1.setRecurrence(25);
+            incident1.setSeverity("baja");
             incident1.setIncidentType(incidentType1);
             incident1.setIncidentDetail(incidentDetail1);
 
@@ -614,6 +777,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             incident2.setArea("finanzas");
             incident2.setReincident(false);
             incident2.setTreatment(false);
+            incident2.setRecurrence(60);
+            incident2.setSeverity("media");
             incident2.setIncidentType(incidentType2);
             incident2.setIncidentDetail(incidentDetail2);
 
@@ -628,6 +793,196 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             incidentRepository.save(incident);
             incidentRepository.save(incident1);
             incidentRepository.save(incident2);
+        }
+    }
+    private void loadDataAccidents() {
+        loadDataInjuryForm();
+        loadDataAccidentType();
+        loadDataInjuryType();
+        loadDataInjuryBody();
+        loadDataCausingAgent();
+        
+        if (accidentRepository.count() == 0) {
+            String[] lugares = new String[10];
+            lugares[0] = "HOSPITAL ANOCARAIRE – VINTO BOLIVIA";
+            lugares[1] = "HOSPITAL UNIVALLE";
+            lugares[2] = "HOSPITAL HARRY WILLIAMS";
+            lugares[3] = "HOSPITAL SAN VICENTE DE PAUL";
+            lugares[4] = "EMERGENCIAS HOSPITAL VIEDMA";
+            lugares[5] = "CAJA INTEGRAL CORDES";
+            lugares[6] = "CAJA DE SALUD DE LA BANCA PRIVADA";
+            lugares[7] = "CAJA PETROLERA DE SALUD – ADMINISTRACIÓN DEPARTAMENTAL COCHABAMBA";
+            lugares[8] = "CAJA PETROLERA DE SALUD – HOSPITAL ELIZABETH SETON";
+            lugares[9] = "CENTRO MEDICO QUIR. BOLIVIANO BELGA S.R.L.";
+
+            List<InjuryForm> all = injuryFormRepository.findAll();
+            List<Personal> allPersonal = personalRepository.findAll();
+            List<AccidentType> accidentTypes = accidentTypeRepository.findAll();
+            List<InjuryType> injuryTypes = injuryTypeRepository.findAll();
+            List<InjuryBody> injuryBodies = injuryBodyRepository.findAll();
+            List<CausingAgent> causingAgents = causingAgentRepository.findAll();
+
+            for (int i=0; i<100; i++){
+                Accident accident = new Accident();
+                accident.setPersonal(allPersonal.get((int)(Math.random()*(allPersonal.size()-1))));
+                accident.setDateAt(new Date());
+                accident.setBajamedica((long) (Math.random() * 20));
+                accident.setLugaratencion(lugares[(int)(Math.random()*(lugares.length-1))]);
+                accident.setDescription("Leccion en la espalda al tropezar");
+                accident.setReportBy(allPersonal.get((int)(Math.random()*(allPersonal.size()-1))));
+                accident.setInjuryForm(all.get((int)(Math.random()*(all.size()-1))));
+                accident.setInjuryType(injuryTypes.get((int)(Math.random()*(injuryTypes.size()-1))));
+                accident.setInjuryBody(injuryBodies.get((int)(Math.random()*(injuryBodies.size()-1))));
+                accident.setCausingAgent(causingAgents.get((int)(Math.random()*(causingAgents.size()-1))));
+                accident.setAccidentType(accidentTypes.get((int)(Math.random()*(accidentTypes.size()-1))));
+                accidentRepository.save(accident);
+
+            }
+        }
+    }
+
+    private void loadDataCausingAgent() {
+        if (causingAgentRepository.count() == 0){
+            ArrayList<String> textos = new ArrayList<String>();
+            textos.add("Piso");
+            textos.add("Paredes");
+            textos.add("Techo");
+            textos.add("Escalera");
+            textos.add("Rampas");
+            textos.add("Pasarelas");
+            textos.add("Aberturas, puertas, portones, persianas");
+            textos.add("Columnas");
+            textos.add("Ventanas");
+            for (String texto : textos){
+                CausingAgent causingAgent = new CausingAgent();
+                causingAgent.setName(texto);
+                causingAgentRepository.save(causingAgent);
+            }
+        }
+    }
+
+    private void loadDataInjuryBody() {
+        if(injuryBodyRepository.count() == 0){
+            ArrayList<String> textos = new ArrayList<String>();
+            textos.add("Region graneana");
+            textos.add("Ojos");
+            textos.add("Boca");
+            textos.add("Cara");
+            textos.add("Nariz");
+            textos.add("Aparato auditivo");
+            textos.add("Cabeza");
+            textos.add("Cuello");
+            textos.add("Region cervical");
+            textos.add("Region lumbosacra");
+            textos.add("Region dorsal");
+            textos.add("Torax");
+            for (String texto : textos){
+                InjuryBody injuryBody = new InjuryBody();
+                injuryBody.setName(texto);
+                injuryBodyRepository.save(injuryBody);
+            }
+        }
+    }
+
+    private void loadDataInjuryType() {
+        if(injuryTypeRepository.count() == 0){
+            ArrayList<String> textos = new ArrayList<String>();
+            textos.add("Escoriaciones");
+            textos.add("Heridas punso cortantes");
+            textos.add("Heridas cortantes");
+            textos.add("Heridas contusas");
+            textos.add("Perdida de tejido");
+            textos.add("Contusiones");
+            textos.add("Luxacion");
+            textos.add("Fractura");
+            textos.add("Amputacion");
+            textos.add("Quemadura");
+            textos.add("Cuerpo extraño en el ojo");
+            textos.add("Perdida ocular");
+
+            for (String texto : textos){
+                InjuryType injuryType = new InjuryType();
+                injuryType.setName(texto);
+                injuryTypeRepository.save(injuryType);
+            }
+        }
+    }
+
+
+    private void loadDataInjuryForm() {
+        if (injuryFormRepository.count() == 0){
+            ArrayList<String> formaDeaccidentes = new ArrayList<String>();
+            formaDeaccidentes.add("Caida de personal a nivel");
+            formaDeaccidentes.add("Caida de personal a altura");
+            formaDeaccidentes.add("Caida de personal al agua");
+            formaDeaccidentes.add("Derrumbe o desplome de instalaciones");
+            formaDeaccidentes.add("Caida de objetos");
+            formaDeaccidentes.add("Pisadas sobre objetos");
+            formaDeaccidentes.add("Choque con Objetos");
+            formaDeaccidentes.add("Golpes por objetos (excepto caidas)");
+            formaDeaccidentes.add("Aprisionamiento o atrapamiento");
+            formaDeaccidentes.add("Esfuerzos fisicos excesivos o falsos movimientos");
+            formaDeaccidentes.add("Exposicion al frio");
+            formaDeaccidentes.add("Exposicion al calor");
+
+            for (String formaDeaccidente : formaDeaccidentes){
+                InjuryForm injuryForm = new InjuryForm();
+                injuryForm.setName(formaDeaccidente);
+                injuryFormRepository.save(injuryForm);
+            }
+
+            ArrayList<String> nombres = new ArrayList<String>();
+            nombres.add("Isaac Newton Zoto");
+            nombres.add("Cristóbal Colon Vargas");
+            nombres.add("Albert Einstein P");
+            nombres.add("Louis Pasteur O");
+            nombres.add("James Watt S");
+            nombres.add("Adam Smith M");
+            nombres.add("Ernest Rutherford P");
+            nombres.add("Thomas Jefferson J");
+            nombres.add("Zoroastro Montero Quijarro");
+            nombres.add("Carlomagno Vega Arteaga");
+            nombres.add("James Rodríguez Alba");
+            nombres.add("Angelina Jolie Ticona Vega");
+            nombres.add("Justin Timberlake Del Prado");
+            nombres.add("Carla Peterson Aguirre");
+            nombres.add("Martín Lousteau Guison");
+
+            for (String nombre: nombres){
+                Area area = new Area();
+                area.setName("Construcción" +(int)(Math.random() * 100) );
+                area.setDescription("Construcción de casas, habitaciones, departamentos, etc.");
+                areaRepository.save(area);
+
+                Personal personal = new Personal();
+                personal.setArea(area);
+                personal.setName(nombre);
+                personal.setAddress("Av. Villazon N° 2326");
+                personal.setCellphone("89632548");
+                personal.setEmail("jDoe@gmail.com");
+                personal.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
+                personal.setActive(true);
+                personalRepository.save(personal);
+
+            }
+
+        }
+
+
+    }
+    private void loadDataAccidentType() {
+        if(accidentTypeRepository.count() == 0){
+            ArrayList<String> formaDeaccidentes = new ArrayList<String>();
+            formaDeaccidentes.add("Accidente del personal");
+            formaDeaccidentes.add("Daños a propiedad equipos");
+            formaDeaccidentes.add("Medio ambiente");
+            formaDeaccidentes.add("Fatalidad");
+
+            for (String formaDeaccidente : formaDeaccidentes){
+                AccidentType accidentType = new AccidentType();
+                accidentType.setName(formaDeaccidente);
+                accidentTypeRepository.save(accidentType);
+            }
         }
     }
 }

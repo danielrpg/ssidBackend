@@ -150,4 +150,32 @@ public class PositionController {
         this.positionService.deleteById(id);
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/haveChildren/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> getIfHaveChildren(@PathVariable long id) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "ok");
+        List<PositionTreeCommand> positionList = new ArrayList<>();
+        this.positionService.findAll().stream().filter(pos -> pos.getParentPosition() != null)
+                .forEach(position -> {
+            positionList.add(new PositionTreeCommand(position));
+        });
+        //revisamos si de todos los que tienen padres, hay alguno que dependa de este cargo
+        List<PositionTreeCommand> positionReview = new ArrayList<>();
+        positionList.stream().filter(pos -> pos.getParentId() == id)
+                .forEach(position -> {
+            positionReview.add(position);
+        });
+
+        if(positionReview != null && !positionReview.isEmpty() && positionReview.size() > 0)
+        {
+            mapResponse.put("data", true);
+        }
+        else
+        {
+            mapResponse.put("data", false);
+        }
+
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+    }
 }

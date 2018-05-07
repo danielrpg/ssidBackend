@@ -1,5 +1,7 @@
 package com.ssid.api.apissid.domain;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -12,12 +14,16 @@ import java.util.Set;
 
 @Entity
 @Table(name = "personals")
-public class Personal extends ModelBase implements Serializable {
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
+public class Personal extends ModelBase implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "personal_id")
+    @JsonProperty("id")
     private Long id;
 
     @Column(name = "personal_name", length = 50)
@@ -46,18 +52,41 @@ public class Personal extends ModelBase implements Serializable {
     private Boolean active;
 
     @Column(name = "personal_birthdate")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
     private Date birthdate;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Area area;
 
-    @OneToMany(mappedBy = "personal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal", fetch = FetchType.LAZY)
+    private Set<Accident> accidents ;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reportBy", fetch = FetchType.LAZY)
+    private Set<Accident> accidentsReport ;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "personal", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Inventory> inventories = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "personal",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             orphanRemoval = true)
     private Set<PersonalPositionContract> personalPositionContracts;
+
+    @ManyToMany(mappedBy = "personals", fetch = FetchType.EAGER)
+    private Set<ActivitiesSso> activitiesSsos;
+
+
+    public Set<Accident> getAccidentsReport() {
+        return accidentsReport;
+    }
+
+    public void setAccidentsReport(Set<Accident> accidentsReport) {
+        this.accidentsReport = accidentsReport;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -166,4 +195,20 @@ public class Personal extends ModelBase implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-}
+
+    public Set<ActivitiesSso> getActivitiesSsos() {
+        return activitiesSsos;
+    }
+
+    public void setActivitiesSsos(Set<ActivitiesSso> activitiesSsos) {
+        this.activitiesSsos = activitiesSsos;
+    }
+
+    public Set<Accident> getAccidents() {
+        return accidents;
+    }
+
+    public void setAccidents(Set<Accident> accidents) {
+        this.accidents = accidents;
+    }
+    }

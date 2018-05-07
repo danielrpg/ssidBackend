@@ -1,5 +1,6 @@
 package com.ssid.api.apissid.command;
 
+import com.ssid.api.apissid.domain.Equipament;
 import com.ssid.api.apissid.domain.KardexEquipament;
 
 import java.util.Date;
@@ -7,7 +8,7 @@ import java.util.Date;
 public class KardexEquipamentCommand {
     private Long id;
     private Long idEquipament = new Long(0);
-    private String dateKardex;
+    private Date dateKardex;
     private int entryKardex;
     private int outlayKardex;
     private int balanceKardex;
@@ -18,16 +19,17 @@ public class KardexEquipamentCommand {
     public KardexEquipamentCommand(KardexEquipament kardexEquipament) {
         setId(kardexEquipament.getId());
         setIdEquipament(kardexEquipament.getEquipament().getId());
-        setDateKardex(kardexEquipament.getDateKardex().toString());
+        setDateKardex(kardexEquipament.getDateKardex());
         setEntryKardex(kardexEquipament.getEntryKardex());
         setOutlayKardex(kardexEquipament.getOutlayKardex());
         setBalanceKardex(kardexEquipament.getBalanceKardex());
     }
 
-    public KardexEquipament toKardexEquipament() {
+    public KardexEquipament toKardexEquipament(Equipament equip) {
         KardexEquipament kardexEquipament = new KardexEquipament();
         kardexEquipament.setId(getId());
-        kardexEquipament.setDateKardex(new Date(getDateKardex()));
+        kardexEquipament.setEquipament(equip);
+        kardexEquipament.setDateKardex(getDateKardex());
         kardexEquipament.setEntryKardex(getEntryKardex());
         kardexEquipament.setOutlayKardex(getOutlayKardex());
         kardexEquipament.setBalanceKardex(getBalanceKardex());
@@ -50,11 +52,11 @@ public class KardexEquipamentCommand {
         this.idEquipament = idEquipament;
     }
 
-    public String getDateKardex() {
+    public Date getDateKardex() {
         return dateKardex;
     }
 
-    public void setDateKardex(String dateKardex) {
+    public void setDateKardex(Date dateKardex) {
         this.dateKardex = dateKardex;
     }
 

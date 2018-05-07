@@ -1,6 +1,8 @@
 package com.ssid.api.apissid.command;
 
+import com.ssid.api.apissid.domain.Equipament;
 import com.ssid.api.apissid.domain.Inventory;
+import com.ssid.api.apissid.domain.Personal;
 
 import java.util.Date;
 
@@ -24,9 +26,11 @@ public class InventoryCommand {
         setActive(inventory.isActive());
     }
 
-    public Inventory toInventory() {
+    public Inventory toInventory(Equipament equi, Personal per) {
         Inventory inventory = new Inventory();
         inventory.setId(getId());
+        inventory.setEquipament(equi);
+        inventory.setPersonal(per);
         inventory.setDateAsignament(new Date(getDateAsignament()));
         inventory.setStatus(getStatus());
         inventory.setActive(isActive());

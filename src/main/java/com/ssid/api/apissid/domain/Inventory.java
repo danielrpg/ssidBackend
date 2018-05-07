@@ -1,11 +1,12 @@
 package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "inventory")
-public class Inventory extends ModelBase {
+public class Inventory extends ModelBase implements Serializable{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "inventory_id")
@@ -21,11 +22,11 @@ public class Inventory extends ModelBase {
     private boolean active;
 
     @ManyToOne//(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "equipament_id")
+    //@JoinColumn(name = "equipament_id")
     private Equipament equipament;
 
     @ManyToOne//(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "personal_id")
+    //@JoinColumn(name = "personal_id")
     private Personal personal;
 
     public Long getId() {

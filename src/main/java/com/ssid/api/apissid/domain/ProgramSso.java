@@ -1,5 +1,7 @@
 package com.ssid.api.apissid.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -30,7 +32,7 @@ public class ProgramSso extends ModelBase implements Serializable{
     private String ssoGoal;
 
     @Column(name = "sso_execution_time", length = 250)
-    private Date ssoExecutionTime;
+    private String ssoExecutionTime;
 
     @Column(name = "sso_responsable", length = 250)
     private String ssoResponsable;
@@ -38,7 +40,8 @@ public class ProgramSso extends ModelBase implements Serializable{
     @Column(name = "sso_total_cost")
     private Double ssoTotalCost;
 
-    @OneToMany(mappedBy = "programSso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "programSso", fetch = FetchType.LAZY)
     private Set<ActivitiesSso> activitiesSsos= new HashSet<>();
 
     public Set<ActivitiesSso> getActivitiesSsos() {
@@ -81,11 +84,11 @@ public class ProgramSso extends ModelBase implements Serializable{
         this.ssoGoal = ssoGoal;
     }
 
-    public Date getSsoExecutionTime() {
+    public String getSsoExecutionTime() {
         return ssoExecutionTime;
     }
 
-    public void setSsoExecutionTime(Date ssoExecutionTime) {
+    public void setSsoExecutionTime(String ssoExecutionTime) {
         this.ssoExecutionTime = ssoExecutionTime;
     }
 

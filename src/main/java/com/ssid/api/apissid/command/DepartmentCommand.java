@@ -22,17 +22,17 @@ public class DepartmentCommand {
         setId(department.getId());
         setName(department.getName());
         setDescription(department.getDescription());
-//        positions = new ArrayList<PositionCommand>();
-//
-//        if(department.getPositions() != null &&
-//                !department.getPositions().isEmpty() &&
-//                department.getPositions().size() > 0) {
-//            for (Position pos : department.getPositions()) {
-//                positions.add(new PositionCommand(pos));
-//            }
-//
-//            setPositions(positions);
-//        }
+        positions = new ArrayList<PositionCommand>();
+
+        if(department.getPositions() != null &&
+                !department.getPositions().isEmpty() &&
+                department.getPositions().size() > 0) {
+            for (Position pos : department.getPositions()) {
+                positions.add(new PositionCommand(pos));
+            }
+
+            setPositions(positions);
+        }
     }
 
     public Department toDepartment() {

@@ -7,8 +7,10 @@ import com.ssid.api.apissid.util.ApiPath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +30,13 @@ public class FunctionPositionController {
     public ResponseEntity<Map<String, Object>> getAllFunctionPositions() {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "ok");
-        List<FunctionPosition> functionPositions = this.functionPositionService.findAll();
-        mapResponse.put("data", functionPositions);
+
+        List<FunctionPositionCommand> requirementList = new ArrayList<>();
+        this.functionPositionService.findAll().forEach(funtionss -> {
+            requirementList.add(new FunctionPositionCommand(funtionss));
+        });
+
+        mapResponse.put("data", requirementList);
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
@@ -56,20 +63,29 @@ public class FunctionPositionController {
         mapResponse.put("data", this.functionPositionService.findByName(name));
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
-
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
-    public ResponseEntity<Map<String, Object>> createFunctionPosition(@RequestBody FunctionPositionCommand functionPositionCommand) {
+    public ResponseEntity<Map<String, Object>> createFunctions(@RequestBody FunctionPositionCommand functionPositionCommand) {
         Map<String, Object> mapResponse = new HashMap<>();
-        mapResponse.put("status", "created");
-        mapResponse.put("data", functionPositionService.createFunctionPosition(functionPositionCommand));
-        return new ResponseEntity<>(mapResponse, HttpStatus.CREATED);
-    }
+        if(StringUtils.isEmpty(functionPositionCommand.getId())) {
+            mapResponse.put("status", "created");
+    //           mapResponse.put("data", requirementService.createRequirement(requirementCommand));
+            functionPositionService.createFunctions(functionPositionCommand);
+            return new ResponseEntity<>(mapResponse, HttpStatus.CREATED);
 
+        }
+        else
+        {
+            mapResponse.put("status", "updated");
+            functionPositionService.updateFunction(functionPositionCommand, functionPositionCommand.getId());
+            return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+        }
+
+    }
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Map<String, Object>> updateFunctionPosition(@RequestBody FunctionPositionCommand functionPositionCommand, @PathVariable int id) {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "updated");
-        mapResponse.put("data", functionPositionService.updateFunctionPosition(functionPositionCommand, (long) id));
+        mapResponse.put("data", functionPositionService.updateFunction(functionPositionCommand, (long) id));
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
