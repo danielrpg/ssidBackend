@@ -26,6 +26,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private IncidentDetailRepository incidentDetailRepository;
     private IncidentRepository incidentRepository;
     private AccidentRepository accidentRepository;
+    private InjuryFormRepository injuryFormRepository;
     /**
      * Personal assignment Equipment repositories
      **/
@@ -48,7 +49,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                         IncidentTypeRepository incidentTypeRepository,
                         IncidentDetailRepository incidentDetailRepository,
                         IncidentRepository incidentRepository,
-                        AccidentRepository accidentRepository){
+                        AccidentRepository accidentRepository,
+                        InjuryFormRepository injuryFormRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
         this.resourceSsoRepository = resourceSsoRepository;
@@ -69,6 +71,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         this.incidentDetailRepository = incidentDetailRepository;
         this.incidentRepository = incidentRepository;
         this.accidentRepository = accidentRepository;
+        this.injuryFormRepository = injuryFormRepository;
     }
 
     @Override
@@ -280,26 +283,92 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             resourceSso2.setResourceCost(300.0);
             resourceSso2.setResourceDetail("Pliegos de cartulina");
 
+            ResourceSso resourceSso3 = new ResourceSso();
+            resourceSso3.setResourceCost(100.0);
+            resourceSso3.setResourceDetail("Marcadores");
+
+            ResourceSso resourceSso4 = new ResourceSso();
+            resourceSso4.setResourceCost(200.0);
+            resourceSso4.setResourceDetail("Pliegos de cartulina");
+
             ActivitiesSso activitiesSso = new ActivitiesSso();
             activitiesSso.setDetailActivities("Identificar los riesgos a los que estan expuestos los empleados");
             activitiesSso.setDetailGoal("Los empleados identifique por su cuenta los riesgos en sus areas de trabajo");
             activitiesSso.setDetailNumber(20);
-            activitiesSso.setDetailTime(Calendar.getInstance().getTime());
+            activitiesSso.setDetailTime("3 días");
             activitiesSso.setDetailType("Capacitación");
+
+            ActivitiesSso activitiesSso1 = new ActivitiesSso();
+            activitiesSso1.setDetailActivities("Identificar nuevas normas");
+            activitiesSso1.setDetailGoal("Los empleados deben estar actualizados con las nuevas normas");
+            activitiesSso1.setDetailNumber(20);
+            activitiesSso1.setDetailTime("1 día");
+            activitiesSso1.setDetailType("Capacitación");
+
+            ActivitiesSso activitiesSso2 = new ActivitiesSso();
+            activitiesSso2.setDetailActivities("Identificar acciones a tomar en caso de accidentes");
+            activitiesSso2.setDetailGoal("Los empleados deben estar conscientes de las acciones que deben ejecutar frente a un accidente");
+            activitiesSso2.setDetailNumber(20);
+            activitiesSso2.setDetailTime("2 día");
+            activitiesSso2.setDetailType("Capacitación");
+
+            /*Set<ResourceSso> resourceSsos = new HashSet<>();
+            resourceSsos.add(resourceSso1);
+            resourceSsos.add(resourceSso2);
+            activitiesSso.setResourceSsos(resourceSsos);*/
             //activitiesSso.getResourceSsos().add(resourceSso1);
             //activitiesSso.getResourceSsos().add(resourceSso2);
 
-            //resourceSso1.setActivitiesSso(activitiesSso);
-            //resourceSso2.setActivitiesSso(activitiesSso);
+            resourceSso1.setActivitiesSso(activitiesSso);
+            resourceSso2.setActivitiesSso(activitiesSso1);
+            resourceSso3.setActivitiesSso(activitiesSso2);
+            resourceSso4.setActivitiesSso(activitiesSso2);
 
             TrainersSso trainersSso = new TrainersSso();
             trainersSso.setCi("123456789");
             trainersSso.setName("Juan Perez");
             trainersSso.setSkillsDesciprtions("Experto en seguridad industrial");
             trainersSso.setSpecialty("Ing. Industrial");
+
+            TrainersSso trainersSso1 = new TrainersSso();
+            trainersSso1.setCi("343423456");
+            trainersSso1.setName("Gabriel Moreno");
+            trainersSso1.setSkillsDesciprtions("Experto en Accidentes maquinarios");
+            trainersSso1.setSpecialty("Ing. Industrial");
+
+            TrainersSso trainersSso2 = new TrainersSso();
+            trainersSso2.setCi("545454545");
+            trainersSso2.setName("Rafael Terrazas");
+            trainersSso2.setSkillsDesciprtions("Experto en Accidentes con Maquinaria pesada");
+            trainersSso2.setSpecialty("Ing. Industrial");
+
+            TrainersSso trainersSso3 = new TrainersSso();
+            trainersSso3.setCi("323123434");
+            trainersSso3.setName("Nicolas Marquez");
+            trainersSso3.setSkillsDesciprtions("Experto ambiental en industrias");
+            trainersSso3.setSpecialty("Ing. Ambiental");
+
+            TrainersSso trainersSso4 = new TrainersSso();
+            trainersSso4.setCi("678987678");
+            trainersSso4.setName("Florinda Mesa");
+            trainersSso4.setSkillsDesciprtions("Experto en salud ocupacional");
+            trainersSso4.setSpecialty("Medico");
+
+            TrainersSso trainersSso5 = new TrainersSso();
+            trainersSso5.setCi("567876567");
+            trainersSso5.setName("Fernando Flores");
+            trainersSso5.setSkillsDesciprtions("Experto en accidentes");
+            trainersSso5.setSpecialty("Ing. Industrial");
+
+            TrainersSso trainersSso6 = new TrainersSso();
+            trainersSso6.setCi("6767676767");
+            trainersSso6.setName("Karina Marasi");
+            trainersSso6.setSkillsDesciprtions("Experto ambiental en industrias");
+            trainersSso6.setSpecialty("Ing. Industrial");
+
             //trainersSso.getActivitiesSsos().add(activitiesSso);
 
-            //activitiesSso.setTrainersSso(trainersSso);
+            activitiesSso.setTrainersSso(trainersSso);
 
             ProgramSso programSso = new ProgramSso();
             programSso.setSsoExecutionTime("2 semanas");
@@ -310,13 +379,45 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             programSso.setSsoTotalCost(500.50);
             // programSso.getActivitiesSsos().add(activitiesSso);
 
-            //activitiesSso.setProgramSso(programSso);
+            ProgramSso programSso1 = new ProgramSso();
+            programSso1.setSsoExecutionTime("3 semanas");
+            programSso1.setSsoGoal("Actualizar normas en seguridad industrial");
+            programSso1.setSsoIndicator("Mejora en actualizacion de normas");
+            programSso1.setSsoObjetive("Capacitar a todos los trabajadores");
+            programSso1.setSsoResponsable("Jorge Eduardo");
+            programSso1.setSsoTotalCost(300.50);
 
-            this.resourceSsoRepository.save(resourceSso1);
-            this.resourceSsoRepository.save(resourceSso2);
-            this.activitiesSsoRepository.save(activitiesSso);
+            ProgramSso programSso2 = new ProgramSso();
+            programSso2.setSsoExecutionTime("1 semana");
+            programSso2.setSsoGoal("Conocer accionar frente a un accidente");
+            programSso2.setSsoIndicator("Incrementar el conocimiento sobre accidentes");
+            programSso2.setSsoObjetive("Capacitar a todos los trabajadores");
+            programSso2.setSsoResponsable("Olga Mercado");
+            programSso2.setSsoTotalCost(100.50);
+
+            ProgramSso programSso3 = new ProgramSso();
+            programSso3.setSsoExecutionTime("2 semanas");
+            programSso3.setSsoGoal("Mejorar los conocimientos de los empleados en seguridad industrial");
+            programSso3.setSsoIndicator("Mejora en uso de material de seguridad");
+            programSso3.setSsoObjetive("Capacitar a todos los trabajadores");
+            programSso3.setSsoResponsable("Angela Perez");
+            programSso3.setSsoTotalCost(500.50);
+
+            ProgramSso programSso4 = new ProgramSso();
+            programSso4.setSsoExecutionTime("3 semanas");
+            programSso4.setSsoGoal("Incrementar el conocimiento sobre peligros maquinarios");
+            programSso4.setSsoIndicator("Mejora del uso de maquinarias");
+            programSso4.setSsoObjetive("Capacitar a todos los trabajadores");
+            programSso4.setSsoResponsable("Maria Fanola");
+            programSso4.setSsoTotalCost(540.50);
+
+            activitiesSso.setProgramSso(programSso);
+
             this.trainersSsoRepository.save(trainersSso);
             this.programSsoRepository.save(programSso);
+            this.activitiesSsoRepository.save(activitiesSso);
+            this.resourceSsoRepository.save(resourceSso1);
+            this.resourceSsoRepository.save(resourceSso2);
         }
     }
 
@@ -626,6 +727,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             incident.setArea("soldadura");
             incident.setReincident(false);
             incident.setTreatment(false);
+            incident.setRecurrence(40);
+            incident.setSeverity("alta");
             incident.setIncidentType(incidentType);
             incident.setIncidentDetail(incidentDetail);
 
@@ -636,6 +739,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             incident1.setArea("mecanica");
             incident1.setReincident(false);
             incident1.setTreatment(false);
+            incident1.setRecurrence(25);
+            incident1.setSeverity("baja");
             incident1.setIncidentType(incidentType1);
             incident1.setIncidentDetail(incidentDetail1);
 
@@ -646,6 +751,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             incident2.setArea("finanzas");
             incident2.setReincident(false);
             incident2.setTreatment(false);
+            incident2.setRecurrence(60);
+            incident2.setSeverity("media");
             incident2.setIncidentType(incidentType2);
             incident2.setIncidentDetail(incidentDetail2);
 
@@ -663,7 +770,68 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         }
     }
     private void loadDataAccidents() {
+        if (injuryFormRepository.count() == 0){
+            ArrayList<String> formaDeaccidentes = new ArrayList<String>();
+            formaDeaccidentes.add("Caida de personal a nivel");
+            formaDeaccidentes.add("Caida de personal a altura");
+            formaDeaccidentes.add("Caida de personal al agua");
+            formaDeaccidentes.add("Derrumbe o desplome de instalaciones");
+            formaDeaccidentes.add("Caida de objetos");
+            formaDeaccidentes.add("Pisadas sobre objetos");
+            formaDeaccidentes.add("Choque con Objetos");
+            formaDeaccidentes.add("Golpes por objetos (excepto caidas)");
+            formaDeaccidentes.add("Aprisionamiento o atrapamiento");
+            formaDeaccidentes.add("Esfuerzos fisicos excesivos o falsos movimientos");
+            formaDeaccidentes.add("Exposicion al frio");
+            formaDeaccidentes.add("Exposicion al calor");
+
+            for (String formaDeaccidente : formaDeaccidentes){
+                InjuryForm injuryForm = new InjuryForm();
+                injuryForm.setName(formaDeaccidente);
+                injuryFormRepository.save(injuryForm);
+            }
+
+            ArrayList<String> nombres = new ArrayList<String>();
+            nombres.add("Isaac Newton Zoto");
+            nombres.add("Cristóbal Colon Vargas");
+            nombres.add("Albert Einstein P");
+            nombres.add("Louis Pasteur O");
+            nombres.add("James Watt S");
+            nombres.add("Adam Smith M");
+            nombres.add("Ernest Rutherford P");
+            nombres.add("Thomas Jefferson J");
+            nombres.add("Zoroastro Montero Quijarro");
+            nombres.add("Carlomagno Vega Arteaga");
+            nombres.add("James Rodríguez Alba");
+            nombres.add("Angelina Jolie Ticona Vega");
+            nombres.add("Justin Timberlake Del Prado");
+            nombres.add("Carla Peterson Aguirre");
+            nombres.add("Martín Lousteau Guison");
+
+            for (String nombre: nombres){
+                Area area = new Area();
+                area.setName("Construcción" +(int)(Math.random() * 100) );
+                area.setDescription("Construcción de casas, habitaciones, departamentos, etc.");
+                areaRepository.save(area);
+
+                Personal personal = new Personal();
+                personal.setArea(area);
+                personal.setName(nombre);
+                personal.setAddress("Av. Villazon N° 2326");
+                personal.setCellphone("89632548");
+                personal.setEmail("jDoe@gmail.com");
+                personal.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
+                personal.setActive(true);
+                personalRepository.save(personal);
+
+            }
+
+        }
+
         if (accidentRepository.count() == 0) {
+            List<InjuryForm> all = injuryFormRepository.findAll();
+            List<Personal> allPersonal = personalRepository.findAll();
+
             String[] lugares = new String[10];
             lugares[0] = "HOSPITAL ANOCARAIRE – VINTO BOLIVIA";
             lugares[1] = "HOSPITAL UNIVALLE";
@@ -676,22 +844,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             lugares[8] = "CAJA PETROLERA DE SALUD – HOSPITAL ELIZABETH SETON";
             lugares[9] = "CENTRO MEDICO QUIR. BOLIVIANO BELGA S.R.L.";
 
-            String[] nombres = new String[10];
-            nombres[0] = "Isaac Newton";
-            nombres[1] = "Cristóbal Colón";
-            nombres[2] = "Albert Einstein";
-            nombres[3] = "Louis Pasteur";
-            nombres[4] = "James Watt";
-            nombres[5] = "Adam Smith";
-            nombres[6] = "Ernest Rutherford";
-            nombres[7] = "Thomas Jefferson";
-            nombres[8] = "Zoroastro";
-            nombres[9] = "Carlomagno";
-
-
-
-
-
 
 
             int max = 8;
@@ -700,20 +852,23 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
             for (int i=0; i<100; i++){
                 Accident accident = new Accident();
-                int nm =  (int)(Math.random() * range) + min;
-                accident.setPersonal(nombres[nm]);
+                int nm = (int)(Math.random()*(allPersonal.size()-1));
+                accident.setPersonal(allPersonal.get(nm));
 
                 accident.setDateAt(new Date());
 
                 int bm =  (int)(Math.random() * range) + min;
                 accident.setBajamedica((long) bm);
 
-                int lg = (int)(Math.random() * range) + min;
+                int lg = (int)(Math.random()*(lugares.length-1));
                 accident.setLugaratencion(lugares[lg]);
                 accident.setDescription("Leccion en la espalda al tropezar");
 
-                accident.setReportBy("Jorge Churme");
-                accident.setInjuryForm("Caida a nivel");
+                int rb = (int)(Math.random()*(allPersonal.size()-1));
+                accident.setReportBy(allPersonal.get(rb));
+
+                int iform = (int)(Math.random()*(all.size()-1));
+                accident.setInjuryForm(all.get(iform));
                 accident.setInjuryType("Heridas cortantes");
                 accident.setInjuryBody("Region craneana");
                 accident.setCausingAgent("Piso");

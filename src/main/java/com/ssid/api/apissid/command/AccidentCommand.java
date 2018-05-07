@@ -1,6 +1,8 @@
 package com.ssid.api.apissid.command;
 
 import com.ssid.api.apissid.domain.Accident;
+import com.ssid.api.apissid.domain.Personal;
+
 import java.util.Date;
 
 /**
@@ -26,15 +28,15 @@ public class AccidentCommand {
     }
 
     public AccidentCommand(Accident accident){
-        setId(accident.getAccidentId());
-        setPersonal(accident.getPersonal());
+        setId(accident.getId());
+        setPersonal(accident.getPersonal().getName());
         setFecha(accident.getDateAt());
         setBajamedica(accident.getBajamedica());
         setLugaratencion(accident.getLugaratencion());
         setDescripcion(accident.getDescription());
 
-        setReportadopor(accident.getReportBy());
-        setFormadeaccidente(accident.getInjuryForm());
+        setReportadopor(accident.getReportBy().getName());
+        setFormadeaccidente(accident.getInjuryForm().getName());
         setTipodelesion(accident.getInjuryType());
         setPartedelcuerpolesionada(accident.getInjuryBody());
         setAgentecausante(accident.getCausingAgent());
@@ -43,20 +45,28 @@ public class AccidentCommand {
 
     public Accident toAccident(){
         Accident accident = new Accident();
-        accident.setAccidentId(getId());
-        accident.setPersonal(getPersonal());
+        accident.setId(getId());
+        // accident.setPersonal(getPersonal());
         accident.setDateAt(getFecha());
         accident.setBajamedica(getBajamedica());
         accident.setLugaratencion(getLugaratencion());
         accident.setDescription(getDescripcion());
 
-        accident.setReportBy(getReportadopor());
-        accident.setInjuryForm(getFormadeaccidente());
+        //accident.setReportBy(getReportadopor());
+        // accident.setInjuryForm(getFormadeaccidente());
         accident.setInjuryType(getTipodelesion());
         accident.setInjuryBody(getPartedelcuerpolesionada());
         accident.setCausingAgent(getAgentecausante());
         accident.setAccidentType(getTipodeaccidente());
         return accident;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getPersonal() {
@@ -65,6 +75,14 @@ public class AccidentCommand {
 
     public void setPersonal(String personal) {
         this.personal = personal;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public Long getBajamedica() {
@@ -81,22 +99,6 @@ public class AccidentCommand {
 
     public void setLugaratencion(String lugaratencion) {
         this.lugaratencion = lugaratencion;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
     }
 
     public String getDescripcion() {

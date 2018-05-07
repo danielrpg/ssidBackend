@@ -11,10 +11,12 @@ public class IncidentDTO {
     private String description;
     private String incidentSubType;
     private String status;
+    private int recurrence;
+    private String severity;
 
     public IncidentDTO() {}
 
-    public IncidentDTO(String code, String reportedBy, String area, boolean reincident, boolean treatment, int incidentNumber, String incidentTypeName, String description, String incidentSubType, String status) {
+    public IncidentDTO(String code, String reportedBy, String area, boolean reincident, boolean treatment, int incidentNumber, String incidentTypeName, String description, String incidentSubType, String status, int recurrence, String severity) {
         this.code = code;
         this.reportedBy = reportedBy;
         this.area = area;
@@ -25,6 +27,8 @@ public class IncidentDTO {
         this.description = description;
         this.incidentSubType = incidentSubType;
         this.status = status;
+        this.recurrence = recurrence;
+        this.severity = severity;
     }
 
     public String getIncidentTypeName() {
@@ -105,5 +109,21 @@ public class IncidentDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getRecurrence() {
+        return recurrence;
+    }
+
+    public void setRecurrence(int recurrence) {
+        this.recurrence = recurrence;
+    }
+
+    public String getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
     }
 }
