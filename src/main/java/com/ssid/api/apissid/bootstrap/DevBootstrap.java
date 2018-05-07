@@ -742,7 +742,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
                 accident.setReportBy("Jorge Churme");
 
-                int iform = (int)(Math.random()(all.size()-1));
+                int iform = (int)(Math.random()*(all.size()-1));
                 accident.setInjuryForm(all.get(iform));
                 accident.setInjuryType("Heridas cortantes");
                 accident.setInjuryBody("Region craneana");
