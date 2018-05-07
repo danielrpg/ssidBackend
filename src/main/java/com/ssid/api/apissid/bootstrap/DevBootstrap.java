@@ -629,6 +629,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             incident.setArea("soldadura");
             incident.setReincident(false);
             incident.setTreatment(false);
+            incident.setRecurrence(40);
+            incident.setSeverity("alta");
             incident.setIncidentType(incidentType);
             incident.setIncidentDetail(incidentDetail);
 
@@ -639,6 +641,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             incident1.setArea("mecanica");
             incident1.setReincident(false);
             incident1.setTreatment(false);
+            incident1.setRecurrence(25);
+            incident1.setSeverity("baja");
             incident1.setIncidentType(incidentType1);
             incident1.setIncidentDetail(incidentDetail1);
 
@@ -649,6 +653,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             incident2.setArea("finanzas");
             incident2.setReincident(false);
             incident2.setTreatment(false);
+            incident2.setRecurrence(60);
+            incident2.setSeverity("media");
             incident2.setIncidentType(incidentType2);
             incident2.setIncidentDetail(incidentDetail2);
 
@@ -736,7 +742,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
                 accident.setReportBy("Jorge Churme");
 
-                int iform = (int)(Math.random()(all.size()-1));
+                int iform = (int)(Math.random()*(all.size()-1));
                 accident.setInjuryForm(all.get(iform));
                 accident.setInjuryType("Heridas cortantes");
                 accident.setInjuryBody("Region craneana");
