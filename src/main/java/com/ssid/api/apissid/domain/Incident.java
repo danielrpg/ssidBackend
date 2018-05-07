@@ -1,6 +1,7 @@
 package com.ssid.api.apissid.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import java.io.Serializable;
 import java.util.*;
 
@@ -35,6 +36,12 @@ public class Incident implements Serializable {
 
     @Column
     private int incidentNumber;
+
+    @Column
+    private int recurrence;
+
+    @Column
+    private String severity;
 
 //    @ManyToMany(mappedBy = "incidents", fetch = FetchType.LAZY)
 //    private Set<RiskIpercDetail> riskIpercDetails;
@@ -133,5 +140,21 @@ public class Incident implements Serializable {
 
     public void setIncidentDetail(IncidentDetail incidentDetail) {
         this.incidentDetail = incidentDetail;
+    }
+
+    public int getRecurrence() {
+        return recurrence;
+    }
+
+    public void setRecurrence(int recurrence) {
+        this.recurrence = recurrence;
+    }
+
+    public String getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
     }
 }

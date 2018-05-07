@@ -17,6 +17,7 @@ public class InventoryServiceImpl implements InventoryService {
     public InventoryServiceImpl(InventoryRepository inventoryRepository) {
         this.inventoryRepository = inventoryRepository;
     }
+
     @Transactional
     @Override
     public List<Inventory> getInventories() {

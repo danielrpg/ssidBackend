@@ -21,7 +21,7 @@ public class ProgramSsoCommand {
         setSsoObjetive(programSso.getSsoObjetive());
         setSsoIndicator(programSso.getSsoIndicator());
         setSsoGoal(programSso.getSsoGoal());
-        setSsoExecutionTime(programSso.getSsoExecutionTime().toString());
+        setSsoExecutionTime(programSso.getSsoExecutionTime());
         setSsoResponsable(programSso.getSsoResponsable());
         setSsoTotalCost(programSso.getSsoTotalCost());
     }
@@ -33,7 +33,7 @@ public class ProgramSsoCommand {
         programSso.setSsoObjetive(getSsoObjetive());
         programSso.setSsoIndicator(getSsoIndicator());
         programSso.setSsoGoal(getSsoGoal());
-        //programSso.setSsoExecutionTime(new Date(getSsoExecutionTime()));
+        programSso.setSsoExecutionTime(getSsoExecutionTime());
         programSso.setSsoResponsable(getSsoResponsable());
         programSso.setSsoTotalCost(getSsoTotalCost());
 

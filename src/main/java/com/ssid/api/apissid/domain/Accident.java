@@ -1,5 +1,9 @@
 package com.ssid.api.apissid.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -8,16 +12,21 @@ import java.util.*;
  *@author Franz A. Lopez Choque
  */
 @Entity
-public class Accident implements Serializable {
+@Table(name = "accidents")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
+public class Accident extends ModelBase implements Serializable{
 
     @Id
-    @Column(name = "accident_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long accidentId;
+    @Column(name = "accident_id")
+    @JsonProperty("id")
+    private Long id;
 
     // Datos del accidentado
-    @Column
-    private String personal;
+    @ManyToOne
+    private Personal personal;
 
     @Column
     private Date dateAt;
@@ -34,12 +43,12 @@ public class Accident implements Serializable {
     private String description;
 
     // Reportado por
-    @Column
-    private String reportBy;
+    @ManyToOne
+    private Personal reportBy;
 
     // Forma de accidente
-    @Column
-    private String injuryForm;
+    @ManyToOne
+    private InjuryForm injuryForm;
 
     // tipo de lesion
     @Column
@@ -57,38 +66,20 @@ public class Accident implements Serializable {
     @Column
     private String accidentType;
 
-
-    public String getLugaratencion() {
-        return lugaratencion;
+    public Long getId() {
+        return id;
     }
 
-    public void setLugaratencion(String lugaratencion) {
-        this.lugaratencion = lugaratencion;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Long getBajamedica() {
-        return bajamedica;
-    }
-
-    public void setBajamedica(Long bajamedica) {
-        this.bajamedica = bajamedica;
-    }
-
-    public String getPersonal() {
+    public Personal getPersonal() {
         return personal;
     }
 
-    public void setPersonal(String personal) {
+    public void setPersonal(Personal personal) {
         this.personal = personal;
-    }
-
-    public Long getAccidentId(){
-        return this.accidentId;
-    }
-
-    public void setAccidentId(Long accidentId){
-        this.accidentId = accidentId;
-
     }
 
     public Date getDateAt() {
@@ -99,6 +90,22 @@ public class Accident implements Serializable {
         this.dateAt = dateAt;
     }
 
+    public Long getBajamedica() {
+        return bajamedica;
+    }
+
+    public void setBajamedica(Long bajamedica) {
+        this.bajamedica = bajamedica;
+    }
+
+    public String getLugaratencion() {
+        return lugaratencion;
+    }
+
+    public void setLugaratencion(String lugaratencion) {
+        this.lugaratencion = lugaratencion;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -107,19 +114,19 @@ public class Accident implements Serializable {
         this.description = description;
     }
 
-    public String getReportBy() {
+    public Personal getReportBy() {
         return reportBy;
     }
 
-    public void setReportBy(String reportBy) {
+    public void setReportBy(Personal reportBy) {
         this.reportBy = reportBy;
     }
 
-    public String getInjuryForm() {
+    public InjuryForm getInjuryForm() {
         return injuryForm;
     }
 
-    public void setInjuryForm(String injuryForm) {
+    public void setInjuryForm(InjuryForm injuryForm) {
         this.injuryForm = injuryForm;
     }
 
