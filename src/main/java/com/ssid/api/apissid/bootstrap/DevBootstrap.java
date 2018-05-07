@@ -298,6 +298,20 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             activitiesSso.setDetailTime("3 días");
             activitiesSso.setDetailType("Capacitación");
 
+            ActivitiesSso activitiesSso1 = new ActivitiesSso();
+            activitiesSso1.setDetailActivities("Identificar nuevas normas");
+            activitiesSso1.setDetailGoal("Los empleados deben estar actualizados con las nuevas normas");
+            activitiesSso1.setDetailNumber(20);
+            activitiesSso1.setDetailTime("1 día");
+            activitiesSso1.setDetailType("Capacitación");
+
+            ActivitiesSso activitiesSso2 = new ActivitiesSso();
+            activitiesSso2.setDetailActivities("Identificar acciones a tomar en caso de accidentes");
+            activitiesSso2.setDetailGoal("Los empleados deben estar conscientes de las acciones que deben ejecutar frente a un accidente");
+            activitiesSso2.setDetailNumber(20);
+            activitiesSso2.setDetailTime("2 día");
+            activitiesSso2.setDetailType("Capacitación");
+
             /*Set<ResourceSso> resourceSsos = new HashSet<>();
             resourceSsos.add(resourceSso1);
             resourceSsos.add(resourceSso2);
@@ -306,13 +320,52 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             //activitiesSso.getResourceSsos().add(resourceSso2);
 
             resourceSso1.setActivitiesSso(activitiesSso);
-            resourceSso2.setActivitiesSso(activitiesSso);
+            resourceSso2.setActivitiesSso(activitiesSso1);
+            resourceSso3.setActivitiesSso(activitiesSso2);
+            resourceSso4.setActivitiesSso(activitiesSso2);
 
             TrainersSso trainersSso = new TrainersSso();
             trainersSso.setCi("123456789");
             trainersSso.setName("Juan Perez");
             trainersSso.setSkillsDesciprtions("Experto en seguridad industrial");
             trainersSso.setSpecialty("Ing. Industrial");
+
+            TrainersSso trainersSso1 = new TrainersSso();
+            trainersSso1.setCi("343423456");
+            trainersSso1.setName("Gabriel Moreno");
+            trainersSso1.setSkillsDesciprtions("Experto en Accidentes maquinarios");
+            trainersSso1.setSpecialty("Ing. Industrial");
+
+            TrainersSso trainersSso2 = new TrainersSso();
+            trainersSso2.setCi("545454545");
+            trainersSso2.setName("Rafael Terrazas");
+            trainersSso2.setSkillsDesciprtions("Experto en Accidentes con Maquinaria pesada");
+            trainersSso2.setSpecialty("Ing. Industrial");
+
+            TrainersSso trainersSso3 = new TrainersSso();
+            trainersSso3.setCi("323123434");
+            trainersSso3.setName("Nicolas Marquez");
+            trainersSso3.setSkillsDesciprtions("Experto ambiental en industrias");
+            trainersSso3.setSpecialty("Ing. Ambiental");
+
+            TrainersSso trainersSso4 = new TrainersSso();
+            trainersSso4.setCi("678987678");
+            trainersSso4.setName("Florinda Mesa");
+            trainersSso4.setSkillsDesciprtions("Experto en salud ocupacional");
+            trainersSso4.setSpecialty("Medico");
+
+            TrainersSso trainersSso5 = new TrainersSso();
+            trainersSso5.setCi("567876567");
+            trainersSso5.setName("Fernando Flores");
+            trainersSso5.setSkillsDesciprtions("Experto en accidentes");
+            trainersSso5.setSpecialty("Ing. Industrial");
+
+            TrainersSso trainersSso6 = new TrainersSso();
+            trainersSso6.setCi("6767676767");
+            trainersSso6.setName("Karina Marasi");
+            trainersSso6.setSkillsDesciprtions("Experto ambiental en industrias");
+            trainersSso6.setSpecialty("Ing. Industrial");
+
             //trainersSso.getActivitiesSsos().add(activitiesSso);
 
             activitiesSso.setTrainersSso(trainersSso);
@@ -325,6 +378,38 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             programSso.setSsoResponsable("Pedro Fernandez");
             programSso.setSsoTotalCost(500.50);
             // programSso.getActivitiesSsos().add(activitiesSso);
+
+            ProgramSso programSso1 = new ProgramSso();
+            programSso1.setSsoExecutionTime("3 semanas");
+            programSso1.setSsoGoal("Actualizar normas en seguridad industrial");
+            programSso1.setSsoIndicator("Mejora en actualizacion de normas");
+            programSso1.setSsoObjetive("Capacitar a todos los trabajadores");
+            programSso1.setSsoResponsable("Jorge Eduardo");
+            programSso1.setSsoTotalCost(300.50);
+
+            ProgramSso programSso2 = new ProgramSso();
+            programSso2.setSsoExecutionTime("1 semana");
+            programSso2.setSsoGoal("Conocer accionar frente a un accidente");
+            programSso2.setSsoIndicator("Incrementar el conocimiento sobre accidentes");
+            programSso2.setSsoObjetive("Capacitar a todos los trabajadores");
+            programSso2.setSsoResponsable("Olga Mercado");
+            programSso2.setSsoTotalCost(100.50);
+
+            ProgramSso programSso3 = new ProgramSso();
+            programSso3.setSsoExecutionTime("2 semanas");
+            programSso3.setSsoGoal("Mejorar los conocimientos de los empleados en seguridad industrial");
+            programSso3.setSsoIndicator("Mejora en uso de material de seguridad");
+            programSso3.setSsoObjetive("Capacitar a todos los trabajadores");
+            programSso3.setSsoResponsable("Angela Perez");
+            programSso3.setSsoTotalCost(500.50);
+
+            ProgramSso programSso4 = new ProgramSso();
+            programSso4.setSsoExecutionTime("3 semanas");
+            programSso4.setSsoGoal("Incrementar el conocimiento sobre peligros maquinarios");
+            programSso4.setSsoIndicator("Mejora del uso de maquinarias");
+            programSso4.setSsoObjetive("Capacitar a todos los trabajadores");
+            programSso4.setSsoResponsable("Maria Fanola");
+            programSso4.setSsoTotalCost(540.50);
 
             activitiesSso.setProgramSso(programSso);
 
