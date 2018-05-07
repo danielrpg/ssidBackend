@@ -59,6 +59,14 @@ public class Personal extends ModelBase implements Serializable{
     private Area area;
 
     @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal", fetch = FetchType.LAZY)
+    private Set<Accident> accidents ;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reportBy", fetch = FetchType.LAZY)
+    private Set<Accident> accidentsReport ;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "personal", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Inventory> inventories = new HashSet<>();
 
@@ -70,6 +78,15 @@ public class Personal extends ModelBase implements Serializable{
 
     @ManyToMany(mappedBy = "personals", fetch = FetchType.EAGER)
     private Set<ActivitiesSso> activitiesSsos;
+
+
+    public Set<Accident> getAccidentsReport() {
+        return accidentsReport;
+    }
+
+    public void setAccidentsReport(Set<Accident> accidentsReport) {
+        this.accidentsReport = accidentsReport;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -186,4 +203,12 @@ public class Personal extends ModelBase implements Serializable{
     public void setActivitiesSsos(Set<ActivitiesSso> activitiesSsos) {
         this.activitiesSsos = activitiesSsos;
     }
-}
+
+    public Set<Accident> getAccidents() {
+        return accidents;
+    }
+
+    public void setAccidents(Set<Accident> accidents) {
+        this.accidents = accidents;
+    }
+    }

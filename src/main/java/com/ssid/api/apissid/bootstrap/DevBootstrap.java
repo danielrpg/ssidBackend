@@ -687,10 +687,46 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                 injuryFormRepository.save(injuryForm);
             }
 
+            ArrayList<String> nombres = new ArrayList<String>();
+            nombres.add("Isaac Newton Zoto");
+            nombres.add("Cristóbal Colon Vargas");
+            nombres.add("Albert Einstein P");
+            nombres.add("Louis Pasteur O");
+            nombres.add("James Watt S");
+            nombres.add("Adam Smith M");
+            nombres.add("Ernest Rutherford P");
+            nombres.add("Thomas Jefferson J");
+            nombres.add("Zoroastro Montero Quijarro");
+            nombres.add("Carlomagno Vega Arteaga");
+            nombres.add("James Rodríguez Alba");
+            nombres.add("Angelina Jolie Ticona Vega");
+            nombres.add("Justin Timberlake Del Prado");
+            nombres.add("Carla Peterson Aguirre");
+            nombres.add("Martín Lousteau Guison");
+
+            for (String nombre: nombres){
+                Area area = new Area();
+                area.setName("Construcción" +(int)(Math.random() * 100) );
+                area.setDescription("Construcción de casas, habitaciones, departamentos, etc.");
+                areaRepository.save(area);
+
+                Personal personal = new Personal();
+                personal.setArea(area);
+                personal.setName(nombre);
+                personal.setAddress("Av. Villazon N° 2326");
+                personal.setCellphone("89632548");
+                personal.setEmail("jDoe@gmail.com");
+                personal.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
+                personal.setActive(true);
+                personalRepository.save(personal);
+
+            }
+
         }
 
         if (accidentRepository.count() == 0) {
             List<InjuryForm> all = injuryFormRepository.findAll();
+            List<Personal> allPersonal = personalRepository.findAll();
 
             String[] lugares = new String[10];
             lugares[0] = "HOSPITAL ANOCARAIRE – VINTO BOLIVIA";
@@ -704,17 +740,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             lugares[8] = "CAJA PETROLERA DE SALUD – HOSPITAL ELIZABETH SETON";
             lugares[9] = "CENTRO MEDICO QUIR. BOLIVIANO BELGA S.R.L.";
 
-            String[] nombres = new String[10];
-            nombres[0] = "Isaac Newton";
-            nombres[1] = "Cristóbal Colón";
-            nombres[2] = "Albert Einstein";
-            nombres[3] = "Louis Pasteur";
-            nombres[4] = "James Watt";
-            nombres[5] = "Adam Smith";
-            nombres[6] = "Ernest Rutherford";
-            nombres[7] = "Thomas Jefferson";
-            nombres[8] = "Zoroastro";
-            nombres[9] = "Carlomagno";
+
 
             int max = 8;
             int min = 0;
@@ -722,21 +748,22 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
             for (int i=0; i<100; i++){
                 Accident accident = new Accident();
-                int nm =  (int)(Math.random() * range) + min;
-                accident.setPersonal(nombres[nm]);
+                int nm = (int)(Math.random()*(allPersonal.size()-1));
+                accident.setPersonal(allPersonal.get(nm));
 
                 accident.setDateAt(new Date());
 
                 int bm =  (int)(Math.random() * range) + min;
                 accident.setBajamedica((long) bm);
 
-                int lg = (int)(Math.random() * range) + min;
+                int lg = (int)(Math.random()*(lugares.length-1));
                 accident.setLugaratencion(lugares[lg]);
                 accident.setDescription("Leccion en la espalda al tropezar");
 
-                accident.setReportBy("Jorge Churme");
+                int rb = (int)(Math.random()*(allPersonal.size()-1));
+                accident.setReportBy(allPersonal.get(rb));
 
-                int iform = (int)(Math.random()(all.size()-1));
+                int iform = (int)(Math.random()*(all.size()-1));
                 accident.setInjuryForm(all.get(iform));
                 accident.setInjuryType("Heridas cortantes");
                 accident.setInjuryBody("Region craneana");

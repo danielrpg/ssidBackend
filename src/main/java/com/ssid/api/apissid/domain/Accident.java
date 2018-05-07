@@ -25,8 +25,8 @@ public class Accident extends ModelBase implements Serializable{
     private Long id;
 
     // Datos del accidentado
-    @Column
-    private String personal;
+    @ManyToOne
+    private Personal personal;
 
     @Column
     private Date dateAt;
@@ -43,8 +43,8 @@ public class Accident extends ModelBase implements Serializable{
     private String description;
 
     // Reportado por
-    @Column
-    private String reportBy;
+    @ManyToOne
+    private Personal reportBy;
 
     // Forma de accidente
     @ManyToOne
@@ -74,11 +74,11 @@ public class Accident extends ModelBase implements Serializable{
         this.id = id;
     }
 
-    public String getPersonal() {
+    public Personal getPersonal() {
         return personal;
     }
 
-    public void setPersonal(String personal) {
+    public void setPersonal(Personal personal) {
         this.personal = personal;
     }
 
@@ -114,11 +114,11 @@ public class Accident extends ModelBase implements Serializable{
         this.description = description;
     }
 
-    public String getReportBy() {
+    public Personal getReportBy() {
         return reportBy;
     }
 
-    public void setReportBy(String reportBy) {
+    public void setReportBy(Personal reportBy) {
         this.reportBy = reportBy;
     }
 
