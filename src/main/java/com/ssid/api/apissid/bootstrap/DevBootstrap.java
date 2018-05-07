@@ -283,17 +283,30 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             resourceSso2.setResourceCost(300.0);
             resourceSso2.setResourceDetail("Pliegos de cartulina");
 
+            ResourceSso resourceSso3 = new ResourceSso();
+            resourceSso3.setResourceCost(100.0);
+            resourceSso3.setResourceDetail("Marcadores");
+
+            ResourceSso resourceSso4 = new ResourceSso();
+            resourceSso4.setResourceCost(200.0);
+            resourceSso4.setResourceDetail("Pliegos de cartulina");
+
             ActivitiesSso activitiesSso = new ActivitiesSso();
             activitiesSso.setDetailActivities("Identificar los riesgos a los que estan expuestos los empleados");
             activitiesSso.setDetailGoal("Los empleados identifique por su cuenta los riesgos en sus areas de trabajo");
             activitiesSso.setDetailNumber(20);
-            activitiesSso.setDetailTime(Calendar.getInstance().getTime());
+            activitiesSso.setDetailTime("3 días");
             activitiesSso.setDetailType("Capacitación");
+
+            /*Set<ResourceSso> resourceSsos = new HashSet<>();
+            resourceSsos.add(resourceSso1);
+            resourceSsos.add(resourceSso2);
+            activitiesSso.setResourceSsos(resourceSsos);*/
             //activitiesSso.getResourceSsos().add(resourceSso1);
             //activitiesSso.getResourceSsos().add(resourceSso2);
 
-            //resourceSso1.setActivitiesSso(activitiesSso);
-            //resourceSso2.setActivitiesSso(activitiesSso);
+            resourceSso1.setActivitiesSso(activitiesSso);
+            resourceSso2.setActivitiesSso(activitiesSso);
 
             TrainersSso trainersSso = new TrainersSso();
             trainersSso.setCi("123456789");
@@ -302,7 +315,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             trainersSso.setSpecialty("Ing. Industrial");
             //trainersSso.getActivitiesSsos().add(activitiesSso);
 
-            //activitiesSso.setTrainersSso(trainersSso);
+            activitiesSso.setTrainersSso(trainersSso);
 
             ProgramSso programSso = new ProgramSso();
             programSso.setSsoExecutionTime("2 semanas");
@@ -313,13 +326,13 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             programSso.setSsoTotalCost(500.50);
             // programSso.getActivitiesSsos().add(activitiesSso);
 
-            //activitiesSso.setProgramSso(programSso);
+            activitiesSso.setProgramSso(programSso);
 
-            this.resourceSsoRepository.save(resourceSso1);
-            this.resourceSsoRepository.save(resourceSso2);
-            this.activitiesSsoRepository.save(activitiesSso);
             this.trainersSsoRepository.save(trainersSso);
             this.programSsoRepository.save(programSso);
+            this.activitiesSsoRepository.save(activitiesSso);
+            this.resourceSsoRepository.save(resourceSso1);
+            this.resourceSsoRepository.save(resourceSso2);
         }
     }
 
