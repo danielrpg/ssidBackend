@@ -414,10 +414,24 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             activitiesSso.setProgramSso(programSso);
 
             this.trainersSsoRepository.save(trainersSso);
+            this.trainersSsoRepository.save(trainersSso1);
+            this.trainersSsoRepository.save(trainersSso2);
+            this.trainersSsoRepository.save(trainersSso3);
+            this.trainersSsoRepository.save(trainersSso4);
+            this.trainersSsoRepository.save(trainersSso5);
+            this.trainersSsoRepository.save(trainersSso6);
             this.programSsoRepository.save(programSso);
+            this.programSsoRepository.save(programSso1);
+            this.programSsoRepository.save(programSso2);
+            this.programSsoRepository.save(programSso3);
+            this.programSsoRepository.save(programSso4);
             this.activitiesSsoRepository.save(activitiesSso);
+            this.activitiesSsoRepository.save(activitiesSso1);
+            this.activitiesSsoRepository.save(activitiesSso2);
             this.resourceSsoRepository.save(resourceSso1);
             this.resourceSsoRepository.save(resourceSso2);
+            this.resourceSsoRepository.save(resourceSso3);
+            this.resourceSsoRepository.save(resourceSso4);
         }
     }
 
