@@ -51,20 +51,20 @@ public class Accident extends ModelBase implements Serializable{
     private InjuryForm injuryForm;
 
     // tipo de lesion
-    @Column
-    private String injuryType;
+    @ManyToOne
+    private InjuryType injuryType;
 
     // Parte del cuerpo lesionada
-    @Column
-    private String injuryBody;
+    @ManyToOne
+    private InjuryBody injuryBody;
 
     // Agente Causante
-    @Column
-    private String causingAgent;
+    @ManyToOne
+    private CausingAgent causingAgent;
 
     // Tipo de Accidente
-    @Column
-    private String accidentType;
+    @ManyToOne
+    private AccidentType accidentType;
 
     public Long getId() {
         return id;
@@ -130,35 +130,35 @@ public class Accident extends ModelBase implements Serializable{
         this.injuryForm = injuryForm;
     }
 
-    public String getInjuryType() {
+    public InjuryType getInjuryType() {
         return injuryType;
     }
 
-    public void setInjuryType(String injuryType) {
+    public void setInjuryType(InjuryType injuryType) {
         this.injuryType = injuryType;
     }
 
-    public String getInjuryBody() {
+    public InjuryBody getInjuryBody() {
         return injuryBody;
     }
 
-    public void setInjuryBody(String injuryBody) {
+    public void setInjuryBody(InjuryBody injuryBody) {
         this.injuryBody = injuryBody;
     }
 
-    public String getCausingAgent() {
+    public CausingAgent getCausingAgent() {
         return causingAgent;
     }
 
-    public void setCausingAgent(String causingAgent) {
+    public void setCausingAgent(CausingAgent causingAgent) {
         this.causingAgent = causingAgent;
     }
 
-    public String getAccidentType() {
+    public AccidentType getAccidentType() {
         return accidentType;
     }
 
-    public void setAccidentType(String accidentType) {
+    public void setAccidentType(AccidentType accidentType) {
         this.accidentType = accidentType;
     }
 }
