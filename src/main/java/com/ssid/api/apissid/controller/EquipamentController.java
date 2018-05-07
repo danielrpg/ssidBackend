@@ -4,6 +4,7 @@ import com.ssid.api.apissid.domain.Equipament;
 import com.ssid.api.apissid.services.EquipamentService;
 import com.ssid.api.apissid.command.EquipamentCommand;
 import com.ssid.api.apissid.util.ApiPath;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.Optional;
 public class EquipamentController {
 
     private EquipamentService equipamentService;
-
+    @Autowired
     public EquipamentController(EquipamentService equipamentService) {
         this.equipamentService = equipamentService;
     }
@@ -52,7 +53,7 @@ public class EquipamentController {
         this.equipamentService.deleteEquipamentById(id);
     }
 
-    @RequestMapping(path = ApiPath.EQUIPAMENT_PATH, method = RequestMethod.PUT)
+    @RequestMapping(path = ApiPath.EQUIPAMENT_BY_ID, method = RequestMethod.PUT)
     public @ResponseBody
     EquipamentCommand updateEquipament(@RequestBody EquipamentCommand equipament, @PathVariable(value = "id") Long id){
 

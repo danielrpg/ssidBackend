@@ -71,12 +71,13 @@ public class ApiPath {
 
     //this is constants for KardexEquipament
     public static final String KARDEX_EQUIPAMENT_PATH = VERSION_API + "/kardexequipament";
-    public static final String KARDEX_BY_ID_EQUIPMENT = KARDEX_EQUIPAMENT_PATH + "/equip/id";
-    public static final String KARDEX_BY_ID = KARDEX_EQUIPAMENT_PATH + "/id";
+    public static final String KARDEX_BY_ID_EQUIPMENT = KARDEX_EQUIPAMENT_PATH + "/equip";
+    public static final String KARDEX_BY_ID_EQUIPMENT_ALL= KARDEX_BY_ID_EQUIPMENT + "/{id}";
+    public static final String KARDEX_BY_ID = KARDEX_EQUIPAMENT_PATH + "/{id}";
 
     //this is constants for Inventory
     public static final String INVENTORY_PATH = VERSION_API + "/inventory";
-    public static final String INVERTORY_BY_ID = INVENTORY_PATH + "/id";
+    public static final String INVERTORY_BY_ID = INVENTORY_PATH + "/{id}";
 
 
     public static final String CONTRACT_PATH = VERSION_API + "/contract";
