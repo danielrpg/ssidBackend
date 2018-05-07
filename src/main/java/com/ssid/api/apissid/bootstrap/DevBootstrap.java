@@ -92,6 +92,9 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         //Cargando los datos iniciales de usuario
         loadDefaulUser();
 
+        //loadData Areas
+        loadDataAreas();
+
         //Cargando datos base de estructura organizacional
         loadDataStructureOrganizational();
 
@@ -106,9 +109,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
         loadDataIncidents();
         loadDataAccidents();
-
-        //loadData
-        loadDataAreas();
     }
 
     private void loadDataAreas() {
