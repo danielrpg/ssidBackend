@@ -21,7 +21,6 @@ public class EquipamentServiceImpl implements EquipamentService{
     public EquipamentServiceImpl(EquipamentRepository equipamentRepository) {
         this.equipamentRepository = equipamentRepository;
     }
-
     @Transactional
     @Override
     public List<Equipament> getListEquipament() {

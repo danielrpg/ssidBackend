@@ -55,12 +55,18 @@ public class EquipamentController {
     void deleteEquipamentById(@PathVariable(value = "id") Long id) {
         this.equipamentService.deleteEquipamentById(id);
     }
-
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Map<String, Object>> updateEquipament(@RequestBody EquipamentCommand equipament, @PathVariable int id) {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "updated");
         mapResponse.put("data", this.equipamentService.updateEquipament(equipament.toEquipament(), (long) id));
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+    }
+    @RequestMapping(path = ApiPath.EQUIPAMENT_BY_ID, method = RequestMethod.PUT)
+    public @ResponseBody
+    EquipamentCommand updateEquipament(@RequestBody EquipamentCommand equipament, @PathVariable(value = "id") Long id){
+
+        Equipament update =this.equipamentService.updateEquipament(equipament.toEquipament(), id);
+        return new EquipamentCommand(update);
     }
 }

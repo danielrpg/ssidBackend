@@ -8,7 +8,7 @@ import java.util.Date;
 public class KardexEquipamentCommand {
     private Long id;
     private Long idEquipament = new Long(0);
-    private String dateKardex;
+    private Date dateKardex;
     private int entryKardex;
     private int outlayKardex;
     private int balanceKardex;
@@ -19,7 +19,7 @@ public class KardexEquipamentCommand {
     public KardexEquipamentCommand(KardexEquipament kardexEquipament) {
         setId(kardexEquipament.getId());
         setIdEquipament(kardexEquipament.getEquipament().getId());
-        setDateKardex(kardexEquipament.getDateKardex().toString());
+        setDateKardex(kardexEquipament.getDateKardex());
         setEntryKardex(kardexEquipament.getEntryKardex());
         setOutlayKardex(kardexEquipament.getOutlayKardex());
         setBalanceKardex(kardexEquipament.getBalanceKardex());
@@ -29,7 +29,7 @@ public class KardexEquipamentCommand {
         KardexEquipament kardexEquipament = new KardexEquipament();
         kardexEquipament.setId(getId());
         kardexEquipament.setEquipament(equip);
-        kardexEquipament.setDateKardex(new Date(getDateKardex()));
+        kardexEquipament.setDateKardex(getDateKardex());
         kardexEquipament.setEntryKardex(getEntryKardex());
         kardexEquipament.setOutlayKardex(getOutlayKardex());
         kardexEquipament.setBalanceKardex(getBalanceKardex());
@@ -52,11 +52,11 @@ public class KardexEquipamentCommand {
         this.idEquipament = idEquipament;
     }
 
-    public String getDateKardex() {
+    public Date getDateKardex() {
         return dateKardex;
     }
 
-    public void setDateKardex(String dateKardex) {
+    public void setDateKardex(Date dateKardex) {
         this.dateKardex = dateKardex;
     }
 
