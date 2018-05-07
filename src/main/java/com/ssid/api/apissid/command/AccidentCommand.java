@@ -37,10 +37,10 @@ public class AccidentCommand {
 
         setReportadopor(accident.getReportBy().getName());
         setFormadeaccidente(accident.getInjuryForm().getName());
-        setTipodelesion(accident.getInjuryType());
-        setPartedelcuerpolesionada(accident.getInjuryBody());
-        setAgentecausante(accident.getCausingAgent());
-        setTipodeaccidente(accident.getAccidentType());
+        setTipodelesion(accident.getInjuryType().getName());
+        setPartedelcuerpolesionada(accident.getInjuryBody().getName());
+        setAgentecausante(accident.getCausingAgent().getName());
+        setTipodeaccidente(accident.getAccidentType().getName());
     }
 
     public Accident toAccident(){
@@ -54,10 +54,10 @@ public class AccidentCommand {
 
         //accident.setReportBy(getReportadopor());
         // accident.setInjuryForm(getFormadeaccidente());
-        accident.setInjuryType(getTipodelesion());
-        accident.setInjuryBody(getPartedelcuerpolesionada());
-        accident.setCausingAgent(getAgentecausante());
-        accident.setAccidentType(getTipodeaccidente());
+        //accident.setInjuryType(getTipodelesion());
+        //accident.setInjuryBody(getPartedelcuerpolesionada());
+        //accident.setCausingAgent(getAgentecausante());
+        //accident.setAccidentType(getTipodeaccidente());
         return accident;
     }
 

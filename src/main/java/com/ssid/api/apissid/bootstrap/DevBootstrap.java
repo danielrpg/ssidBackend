@@ -27,6 +27,10 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private IncidentRepository incidentRepository;
     private AccidentRepository accidentRepository;
     private InjuryFormRepository injuryFormRepository;
+    private AccidentTypeRepository accidentTypeRepository;
+    private InjuryTypeRepository injuryTypeRepository;
+    private InjuryBodyRepository injuryBodyRepository;
+    private CausingAgentRepository causingAgentRepository;
     /**
      * Personal assignment Equipment repositories
      **/
@@ -50,7 +54,11 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                         IncidentDetailRepository incidentDetailRepository,
                         IncidentRepository incidentRepository,
                         AccidentRepository accidentRepository,
-                        InjuryFormRepository injuryFormRepository){
+                        InjuryFormRepository injuryFormRepository,
+                        AccidentTypeRepository accidentTypeRepository,
+                        InjuryTypeRepository injuryTypeRepository,
+                        InjuryBodyRepository injuryBodyRepository,
+                        CausingAgentRepository causingAgentRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
         this.resourceSsoRepository = resourceSsoRepository;
@@ -72,6 +80,10 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         this.incidentRepository = incidentRepository;
         this.accidentRepository = accidentRepository;
         this.injuryFormRepository = injuryFormRepository;
+        this.accidentTypeRepository = accidentTypeRepository;
+        this.injuryTypeRepository = injuryTypeRepository;
+        this.injuryBodyRepository = injuryBodyRepository;
+        this.causingAgentRepository = causingAgentRepository;
     }
 
     @Override
@@ -666,6 +678,120 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         }
     }
     private void loadDataAccidents() {
+        loadDataInjuryForm();
+        loadDataAccidentType();
+        loadDataInjuryType();
+        loadDataInjuryBody();
+        loadDataCausingAgent();
+        
+        if (accidentRepository.count() == 0) {
+            String[] lugares = new String[10];
+            lugares[0] = "HOSPITAL ANOCARAIRE – VINTO BOLIVIA";
+            lugares[1] = "HOSPITAL UNIVALLE";
+            lugares[2] = "HOSPITAL HARRY WILLIAMS";
+            lugares[3] = "HOSPITAL SAN VICENTE DE PAUL";
+            lugares[4] = "EMERGENCIAS HOSPITAL VIEDMA";
+            lugares[5] = "CAJA INTEGRAL CORDES";
+            lugares[6] = "CAJA DE SALUD DE LA BANCA PRIVADA";
+            lugares[7] = "CAJA PETROLERA DE SALUD – ADMINISTRACIÓN DEPARTAMENTAL COCHABAMBA";
+            lugares[8] = "CAJA PETROLERA DE SALUD – HOSPITAL ELIZABETH SETON";
+            lugares[9] = "CENTRO MEDICO QUIR. BOLIVIANO BELGA S.R.L.";
+
+            List<InjuryForm> all = injuryFormRepository.findAll();
+            List<Personal> allPersonal = personalRepository.findAll();
+            List<AccidentType> accidentTypes = accidentTypeRepository.findAll();
+            List<InjuryType> injuryTypes = injuryTypeRepository.findAll();
+            List<InjuryBody> injuryBodies = injuryBodyRepository.findAll();
+            List<CausingAgent> causingAgents = causingAgentRepository.findAll();
+
+            for (int i=0; i<100; i++){
+                Accident accident = new Accident();
+                accident.setPersonal(allPersonal.get((int)(Math.random()*(allPersonal.size()-1))));
+                accident.setDateAt(new Date());
+                accident.setBajamedica((long) (Math.random() * 20));
+                accident.setLugaratencion(lugares[(int)(Math.random()*(lugares.length-1))]);
+                accident.setDescription("Leccion en la espalda al tropezar");
+                accident.setReportBy(allPersonal.get((int)(Math.random()*(allPersonal.size()-1))));
+                accident.setInjuryForm(all.get((int)(Math.random()*(all.size()-1))));
+                accident.setInjuryType(injuryTypes.get((int)(Math.random()*(injuryTypes.size()-1))));
+                accident.setInjuryBody(injuryBodies.get((int)(Math.random()*(injuryBodies.size()-1))));
+                accident.setCausingAgent(causingAgents.get((int)(Math.random()*(causingAgents.size()-1))));
+                accident.setAccidentType(accidentTypes.get((int)(Math.random()*(accidentTypes.size()-1))));
+                accidentRepository.save(accident);
+
+            }
+        }
+    }
+
+    private void loadDataCausingAgent() {
+        if (causingAgentRepository.count() == 0){
+            ArrayList<String> textos = new ArrayList<String>();
+            textos.add("Piso");
+            textos.add("Paredes");
+            textos.add("Techo");
+            textos.add("Escalera");
+            textos.add("Rampas");
+            textos.add("Pasarelas");
+            textos.add("Aberturas, puertas, portones, persianas");
+            textos.add("Columnas");
+            textos.add("Ventanas");
+            for (String texto : textos){
+                CausingAgent causingAgent = new CausingAgent();
+                causingAgent.setName(texto);
+                causingAgentRepository.save(causingAgent);
+            }
+        }
+    }
+
+    private void loadDataInjuryBody() {
+        if(injuryBodyRepository.count() == 0){
+            ArrayList<String> textos = new ArrayList<String>();
+            textos.add("Region graneana");
+            textos.add("Ojos");
+            textos.add("Boca");
+            textos.add("Cara");
+            textos.add("Nariz");
+            textos.add("Aparato auditivo");
+            textos.add("Cabeza");
+            textos.add("Cuello");
+            textos.add("Region cervical");
+            textos.add("Region lumbosacra");
+            textos.add("Region dorsal");
+            textos.add("Torax");
+            for (String texto : textos){
+                InjuryBody injuryBody = new InjuryBody();
+                injuryBody.setName(texto);
+                injuryBodyRepository.save(injuryBody);
+            }
+        }
+    }
+
+    private void loadDataInjuryType() {
+        if(injuryTypeRepository.count() == 0){
+            ArrayList<String> textos = new ArrayList<String>();
+            textos.add("Escoriaciones");
+            textos.add("Heridas punso cortantes");
+            textos.add("Heridas cortantes");
+            textos.add("Heridas contusas");
+            textos.add("Perdida de tejido");
+            textos.add("Contusiones");
+            textos.add("Luxacion");
+            textos.add("Fractura");
+            textos.add("Amputacion");
+            textos.add("Quemadura");
+            textos.add("Cuerpo extraño en el ojo");
+            textos.add("Perdida ocular");
+
+            for (String texto : textos){
+                InjuryType injuryType = new InjuryType();
+                injuryType.setName(texto);
+                injuryTypeRepository.save(injuryType);
+            }
+        }
+    }
+
+
+    private void loadDataInjuryForm() {
         if (injuryFormRepository.count() == 0){
             ArrayList<String> formaDeaccidentes = new ArrayList<String>();
             formaDeaccidentes.add("Caida de personal a nivel");
@@ -724,54 +850,20 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
         }
 
-        if (accidentRepository.count() == 0) {
-            List<InjuryForm> all = injuryFormRepository.findAll();
-            List<Personal> allPersonal = personalRepository.findAll();
 
-            String[] lugares = new String[10];
-            lugares[0] = "HOSPITAL ANOCARAIRE – VINTO BOLIVIA";
-            lugares[1] = "HOSPITAL UNIVALLE";
-            lugares[2] = "HOSPITAL HARRY WILLIAMS";
-            lugares[3] = "HOSPITAL SAN VICENTE DE PAUL";
-            lugares[4] = "EMERGENCIAS HOSPITAL VIEDMA";
-            lugares[5] = "CAJA INTEGRAL CORDES";
-            lugares[6] = "CAJA DE SALUD DE LA BANCA PRIVADA";
-            lugares[7] = "CAJA PETROLERA DE SALUD – ADMINISTRACIÓN DEPARTAMENTAL COCHABAMBA";
-            lugares[8] = "CAJA PETROLERA DE SALUD – HOSPITAL ELIZABETH SETON";
-            lugares[9] = "CENTRO MEDICO QUIR. BOLIVIANO BELGA S.R.L.";
+    }
+    private void loadDataAccidentType() {
+        if(accidentTypeRepository.count() == 0){
+            ArrayList<String> formaDeaccidentes = new ArrayList<String>();
+            formaDeaccidentes.add("Accidente del personal");
+            formaDeaccidentes.add("Daños a propiedad equipos");
+            formaDeaccidentes.add("Medio ambiente");
+            formaDeaccidentes.add("Fatalidad");
 
-
-
-            int max = 8;
-            int min = 0;
-            int range = (max - min) + 1;
-
-            for (int i=0; i<100; i++){
-                Accident accident = new Accident();
-                int nm = (int)(Math.random()*(allPersonal.size()-1));
-                accident.setPersonal(allPersonal.get(nm));
-
-                accident.setDateAt(new Date());
-
-                int bm =  (int)(Math.random() * range) + min;
-                accident.setBajamedica((long) bm);
-
-                int lg = (int)(Math.random()*(lugares.length-1));
-                accident.setLugaratencion(lugares[lg]);
-                accident.setDescription("Leccion en la espalda al tropezar");
-
-                int rb = (int)(Math.random()*(allPersonal.size()-1));
-                accident.setReportBy(allPersonal.get(rb));
-
-                int iform = (int)(Math.random()*(all.size()-1));
-                accident.setInjuryForm(all.get(iform));
-                accident.setInjuryType("Heridas cortantes");
-                accident.setInjuryBody("Region craneana");
-                accident.setCausingAgent("Piso");
-                accident.setAccidentType("Accidente de personal");
-
-                accidentRepository.save(accident);
-
+            for (String formaDeaccidente : formaDeaccidentes){
+                AccidentType accidentType = new AccidentType();
+                accidentType.setName(formaDeaccidente);
+                accidentTypeRepository.save(accidentType);
             }
         }
     }
