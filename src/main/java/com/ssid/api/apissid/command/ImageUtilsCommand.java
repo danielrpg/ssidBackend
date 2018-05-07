@@ -2,6 +2,7 @@ package com.ssid.api.apissid.command;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.reflections.util.Utils;
+import sun.misc.BASE64Decoder;
 //import sun.misc.BASE64Decoder;
 
 import javax.imageio.ImageIO;
@@ -12,19 +13,19 @@ import java.io.ByteArrayInputStream;
 public class ImageUtilsCommand {
 
     public static Byte[] decodeToImage(String imageString) {
-        imageString= null;
+
         if (!Utils.isEmpty(imageString)) {
             BufferedImage image = null;
             byte[] imageByte;
-//        try {
-//            BASE64Decoder decoder = new BASE64Decoder();
-//            imageByte = decoder.decodeBuffer(imageString);
-//            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
-//            image = ImageIO.read(bis);
-//            bis.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            BASE64Decoder decoder = new BASE64Decoder();
+            imageByte = decoder.decodeBuffer(imageString);
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+            image = ImageIO.read(bis);
+            bis.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
             return byteToByte(((DataBufferByte) image.getData().getDataBuffer()).getData());
         } else {
             return null;

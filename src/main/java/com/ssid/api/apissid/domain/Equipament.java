@@ -1,5 +1,10 @@
 package com.ssid.api.apissid.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -10,14 +15,17 @@ import java.util.Set;
  * @author Borisytu
  */
 @Entity
-
 @Table(name = "equipaments")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Equipament extends ModelBase implements Serializable {
 
     private static final long serialVersionUID=1L;
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @JsonProperty("id")
     @Column(name = "equipament_id")
     private Long id;
 
@@ -38,11 +46,13 @@ public class Equipament extends ModelBase implements Serializable {
         return serialVersionUID;
     }
 
-    @OneToMany(mappedBy = "equipament", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<KardexEquipament> kardexEquipaments= new HashSet<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "equipament", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<KardexEquipament> kardexEquipaments;
 
-    @OneToMany(mappedBy = "equipament", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Inventory> inventories= new HashSet<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "equipament", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Inventory> inventories;
 
     public Long getId() {
         return id;
