@@ -228,15 +228,24 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             personal.setEmail("jDoe@gmail.com");
             personal.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
             personal.setActive(true);
+
+            Personal personal2 = new Personal();
+            personal2.setArea(area);
+            personal2.setName("valeria maza");
+            personal2.setAddress("Av. Villazon N° 2326");
+            personal2.setCellphone("89632548");
+            personal2.setEmail("jDoe@gmail.com");
+            personal2.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
+            personal2.setActive(true);
             personalRepository.save(personal);
 
             //Equipment 1
-            Equipament equipament1 = new Equipament();
-            equipament1.setName("Helmmet");
-            equipament1.setType(1);
-            equipament1.setDescription("Casco tipo Jokey de ala Ancha");
-            equipament1.setImage(new Byte[0]);
-            equipamentRepository.save(equipament1);
+            Equipament equipament11 = new Equipament();
+            equipament11.setName("Helmmet");
+            equipament11.setType(1);
+            equipament11.setDescription("Casco tipo Jokey de ala Ancha");
+            equipament11.setImage(new Byte[0]);
+            equipamentRepository.save(equipament11);
 
             //Equipment 2
             Equipament equipament2 = new Equipament();
@@ -246,27 +255,62 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             equipament2.setImage(new Byte[0]);
             equipamentRepository.save(equipament2);
 
+            //Equipment 1
+            Equipament equipament3 = new Equipament();
+            equipament3.setName("Helmmet");
+            equipament3.setType(1);
+            equipament3.setDescription("Casco tipo Jokey de ala Ancha");
+            equipament3.setImage(new Byte[0]);
+            equipamentRepository.save(equipament3);
+
+            //Equipment 2
+            Equipament equipament4 = new Equipament();
+            equipament4.setName("Electric Drill");
+            equipament4.setType(2);
+            equipament4.setDescription("Taladro electrico portatil bosch");
+            equipament4.setImage(new Byte[0]);
+            equipamentRepository.save(equipament4);
+
             //KardexEquipment
-            KardexEquipament kardexEquipament = new KardexEquipament();
-            kardexEquipament.setEquipament(equipament2);
-            kardexEquipament.setDateKardex(new Date());
-            kardexEquipament.setEntryKardex(15);
-            kardexEquipament.setOutlayKardex(0);
-            kardexEquipament.setBalanceKardex(15);
-            kardexEquipamentRepository.save(kardexEquipament);
+            KardexEquipament kardexEquipament5 = new KardexEquipament();
+            kardexEquipament5.setEquipament(equipament2);
+            kardexEquipament5.setDateKardex(new Date());
+            kardexEquipament5.setEntryKardex(15);
+            kardexEquipament5.setOutlayKardex(0);
+            kardexEquipament5.setBalanceKardex(15);
+            kardexEquipamentRepository.save(kardexEquipament5);
 
             //KardexEquipment1
-            KardexEquipament kardexEquipament1 = new KardexEquipament();
-            kardexEquipament1.setEquipament(equipament2);
-            kardexEquipament1.setDateKardex(new Date());
-            kardexEquipament1.setEntryKardex(0);
-            kardexEquipament1.setOutlayKardex(5);
-            kardexEquipament1.setBalanceKardex(10);
-            kardexEquipamentRepository.save(kardexEquipament1);
+            KardexEquipament kardexEquipament6 = new KardexEquipament();
+            kardexEquipament6.setEquipament(equipament3);
+            kardexEquipament6.setDateKardex(new Date());
+            kardexEquipament6.setEntryKardex(0);
+            kardexEquipament6.setOutlayKardex(5);
+            kardexEquipament6.setBalanceKardex(10);
+            kardexEquipamentRepository.save(kardexEquipament6);
+
+            //KardexEquipment
+            KardexEquipament kardexEquipament8 = new KardexEquipament();
+            kardexEquipament8.setEquipament(equipament11);
+            kardexEquipament8.setDateKardex(new Date());
+            kardexEquipament8.setEntryKardex(15);
+            kardexEquipament8.setOutlayKardex(0);
+            kardexEquipament8.setBalanceKardex(15);
+            kardexEquipamentRepository.save(kardexEquipament8);
+
+            //KardexEquipment1
+            KardexEquipament kardexEquipament9 = new KardexEquipament();
+            kardexEquipament9.setEquipament(equipament3);
+            kardexEquipament9.setDateKardex(new Date());
+            kardexEquipament9.setEntryKardex(0);
+            kardexEquipament9.setOutlayKardex(0);
+            kardexEquipament9.setBalanceKardex(10);
+            kardexEquipamentRepository.save(kardexEquipament9);
+
 
             //InventoryEquipment
             Inventory inventory = new Inventory();
-            inventory.setPersonal(personal);
+            inventory.setPersonal(personal2);
             inventory.setEquipament(equipament2);
             inventory.setDateAsignament(new Date());
             inventory.setStatus("nuevo");
@@ -276,11 +320,27 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             //InventoryEquipment1
             Inventory inventory1 = new Inventory();
             inventory1.setPersonal(personal);
-            inventory1.setEquipament(equipament1);
+            inventory1.setEquipament(equipament11);
             inventory1.setDateAsignament(new Date());
             inventory1.setStatus("nuevo");
             inventory1.setActive(true);
             inventoryRepository.save(inventory1);
+
+            Inventory inventory3 = new Inventory();
+            inventory3.setPersonal(personal);
+            inventory3.setEquipament(equipament4);
+            inventory3.setDateAsignament(new Date());
+            inventory3.setStatus("bueno");
+            inventory3.setActive(true);
+            inventoryRepository.save(inventory3);
+
+            Inventory inventory4 = new Inventory();
+            inventory4.setPersonal(personal2);
+            inventory4.setEquipament(equipament3);
+            inventory4.setDateAsignament(new Date());
+            inventory4.setStatus("malo");
+            inventory4.setActive(true);
+            inventoryRepository.save(inventory4);
         }
     }
 
