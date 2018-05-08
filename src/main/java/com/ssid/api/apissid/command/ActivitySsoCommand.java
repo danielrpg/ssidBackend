@@ -20,6 +20,7 @@ public class ActivitySsoCommand {
     private ProgramSsoCommand programSsoCommand;
     private TrainersSsoCommand trainersSsoCommand;
 
+
     public ActivitySsoCommand(ActivitiesSso activitiesSso){
         setId(activitiesSso.getId());
         setActivityNumber(activitiesSso.getDetailNumber());

@@ -21,7 +21,6 @@ public class ResourcesSsoCommand {
         resourcesSso.setResourceCost(getSsoCost());
         resourcesSso.setResourceDetail(getSsoDetail());
 
-
         return resourcesSso;
     }
 
