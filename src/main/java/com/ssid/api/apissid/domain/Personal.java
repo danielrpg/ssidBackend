@@ -21,7 +21,7 @@ public class Personal extends ModelBase implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "personal_id")
     @JsonProperty("id")
     private Long id;
@@ -79,6 +79,16 @@ public class Personal extends ModelBase implements Serializable{
     @ManyToMany(mappedBy = "personals", fetch = FetchType.EAGER)
     private Set<ActivitiesSso> activitiesSsos;
 
+    @OneToOne
+    private AssignEquipament assignEquipament;
+
+    public AssignEquipament getAssignEquipament() {
+        return assignEquipament;
+    }
+
+    public void setAssignEquipament(AssignEquipament assignEquipament) {
+        this.assignEquipament = assignEquipament;
+    }
 
     public Set<Accident> getAccidentsReport() {
         return accidentsReport;

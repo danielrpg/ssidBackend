@@ -23,6 +23,9 @@ public class ApiPath {
     //This are constants for personal
     public static final String PERSONAL_PATH = VERSION_API + "/personal";
 
+    //This is assignamente path value
+    public static final String ASSIGN_PATH = VERSION_API + "/assignEquipament";
+
     //This are constants for position
     public static final String POSITION_PATH = VERSION_API + "/position";
 
