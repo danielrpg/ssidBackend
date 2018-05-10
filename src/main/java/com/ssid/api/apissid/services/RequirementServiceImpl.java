@@ -1,11 +1,8 @@
 package com.ssid.api.apissid.services;
 
-
-
 import com.ssid.api.apissid.command.RequirementCommand;
 import com.ssid.api.apissid.domain.Position;
 import com.ssid.api.apissid.domain.Requirement;
-
 import com.ssid.api.apissid.repositories.PositionRepository;
 import com.ssid.api.apissid.repositories.RequirementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +34,11 @@ public class RequirementServiceImpl extends GenericServiceImpl<Requirement> impl
     public List<Requirement> findByName(String name) {
         return StringUtils.isEmpty(name) ? findAll() : requirementRepository.findByName(name).get();
     }
+    @Override
+    public List<Requirement> findByPosition(Position  position) {
+        return StringUtils.isEmpty(position) ? null : requirementRepository.findByPosition(position);
+    }
+
 
     @Transactional
     @Override
