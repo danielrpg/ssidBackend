@@ -6,6 +6,7 @@ import com.ssid.api.apissid.command.ContractCommand;
 import com.ssid.api.apissid.command.RequirementCommand;
 import com.ssid.api.apissid.domain.Position;
 import com.ssid.api.apissid.domain.Requirement;
+import com.ssid.api.apissid.services.PositionService;
 import com.ssid.api.apissid.services.RequirementService;
 import com.ssid.api.apissid.util.ApiPath;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,20 +15,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = ApiPath.REQUIREMENT_PATH)
 public class RequirementController {
 
     private RequirementService requirementService;
+    private PositionService positionService;
 
     @Autowired
-    public RequirementController(RequirementService requirementService) {
+    public RequirementController(RequirementService requirementService,PositionService positionService) {
         this.requirementService = requirementService;
+        this.positionService=positionService;
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
@@ -45,13 +45,19 @@ public class RequirementController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> getRequirementById(@PathVariable long id) {
+    public ResponseEntity<Map<String, Object>> getRequirementById(@PathVariable Long id) {
         Map<String, Object> mapResponse = new HashMap<>();
-        Requirement requirement = this.requirementService.findById(id);
 
-        if (requirement != null) {
+        Position position = this.positionService.findById(id);
+
+        List<RequirementCommand> requirementList = new ArrayList<>();
+        this.requirementService.findByPosition(position).forEach(requirement -> {
+            requirementList.add(new RequirementCommand(requirement));
+        });
+
+        if (!requirementList.isEmpty()) {
             mapResponse.put("status", "ok");
-            mapResponse.put("data", new RequirementCommand(requirement));
+            mapResponse.put("data", requirementList);
             return new ResponseEntity<>(mapResponse, HttpStatus.OK);
         } else {
             mapResponse.put("status", "not found");

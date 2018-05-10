@@ -29,7 +29,10 @@ public class FunctionPositionServiceImpl extends GenericServiceImpl<FunctionPosi
     public List<FunctionPosition> findByName(String name) {
         return StringUtils.isEmpty(name) ? findAll() : functionPositionRepository.findByName(name).get();
     }
-
+    @Override
+    public List<FunctionPosition> findByPosition(Position  position) {
+        return StringUtils.isEmpty(position) ? null : functionPositionRepository.findByPosition(position);
+    }
     @Transactional
     @Override
     public FunctionPosition createFunctions(FunctionPositionCommand functionPositionCommand) {

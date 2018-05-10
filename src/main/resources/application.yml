@@ -18,7 +18,7 @@ spring:
   datasource:
     url: jdbc:sqlserver://localhost:1433
     username: sa
-    password: P@55w0rd
+    password: root
     platform: mssql
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
