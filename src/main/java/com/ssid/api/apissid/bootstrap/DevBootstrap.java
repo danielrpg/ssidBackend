@@ -102,7 +102,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         loadDataSSO();
 
         //Cargando datos de Inventarios
-        loadDataEquipamentInventary();
+       // loadDataEquipamentInventary();
 
         //Cargando datos defecto de contratos
         loadDataContracts();
@@ -627,6 +627,20 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             position11 = positionRepository.save(position11);
             position12 = positionRepository.save(position12);
 
+            loadDataRequirementsPosition(position2);
+            loadDataFunctionsPosition(position2);
+            loadDataRequirementsPosition(position8);
+            loadDataFunctionsPosition(position8);
+            loadDataRequirementsPosition(position9);
+            loadDataFunctionsPosition(position9);
+            loadDataRequirementsPosition(position10);
+            loadDataFunctionsPosition(position10);
+            loadDataRequirementsPosition(position11);
+            loadDataFunctionsPosition(position11);
+            loadDataRequirementsPosition(position12);
+            loadDataFunctionsPosition(position12);
+
+
             Position position3 = new Position();
             position3.setName("Jefe de vivienda");
             position3.setDescription("Jefe de vivienda.");
@@ -640,6 +654,9 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
             departmentRepository.save(department5);
             position3 = positionRepository.save(position3);
+            loadDataRequirementsPosition(position3);
+            loadDataFunctionsPosition(position3);
+
 
             Position position7 = new Position();
             position7.setName("Asesor contable");
@@ -654,6 +671,9 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
             departmentRepository.save(department3);
             position7 = positionRepository.save(position7);
+            loadDataRequirementsPosition(position7);
+            loadDataFunctionsPosition(position7);
+
 
             Position position4 = new Position();
             position4.setName("Jefe de administración");
@@ -722,6 +742,27 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             position15 = positionRepository.save(position15);
             position16 = positionRepository.save(position16);
             position17 = positionRepository.save(position17);
+            loadDataRequirementsPosition(position4);
+            loadDataFunctionsPosition(position4);
+            loadDataRequirementsPosition(position5);
+            loadDataFunctionsPosition(position5);
+            loadDataRequirementsPosition(position13);
+            loadDataFunctionsPosition(position13);
+            loadDataRequirementsPosition(position14);
+            loadDataFunctionsPosition(position14);
+            loadDataRequirementsPosition(position15);
+            loadDataFunctionsPosition(position15);
+            loadDataRequirementsPosition(position16);
+            loadDataFunctionsPosition(position16);
+            loadDataRequirementsPosition(position17);
+            loadDataFunctionsPosition(position17);
+
+
+
+
+
+
+
         }
     }
 
