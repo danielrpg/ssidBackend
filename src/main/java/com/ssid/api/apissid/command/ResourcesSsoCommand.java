@@ -5,9 +5,8 @@ import com.ssid.api.apissid.domain.ResourceSso;
 
 public class ResourcesSsoCommand {
     private Long resourceId;
-    private Double resourceCost;
+    private float resourceCost;
     private String resourceDetail;
-    private Object[] activitiesSsos = new Object[0];
 
     public ResourcesSsoCommand(ResourceSso resourceSso){
         setId(resourceSso.getId());
@@ -21,6 +20,8 @@ public class ResourcesSsoCommand {
         resourcesSso.setResourceCost(getSsoCost());
         resourcesSso.setResourceDetail(getSsoDetail());
 
+
+
         return resourcesSso;
     }
 
@@ -33,11 +34,11 @@ public class ResourcesSsoCommand {
     }
 
 
-    public Double getSsoCost() {
+    public float getSsoCost() {
         return resourceCost;
     }
 
-    public void setSsoCost(Double ssoCost) {
+    public void setSsoCost(float ssoCost) {
         this.resourceCost = ssoCost;
     }
 
@@ -49,13 +50,6 @@ public class ResourcesSsoCommand {
         this.resourceDetail = resourceDetail;
     }
 
-    public Object[] getActivitiesSsos() {
-        return activitiesSsos;
-    }
-
-    public void setActivitiesSsos(Object[] activitiesSsos) {
-        this.activitiesSsos = activitiesSsos;
-    }
 }
 
 

@@ -21,9 +21,9 @@ public class ResourceSso extends ModelBase implements Serializable{
     private String resourceDetail;
 
     @Column(name = "sso_resource_cost")
-    private Double resourceCost;
+    private float resourceCost;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+   @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sso_detail_id")
     private ActivitiesSso activitiesSso;
 
@@ -52,11 +52,19 @@ public class ResourceSso extends ModelBase implements Serializable{
         this.resourceDetail = resourceDetail;
     }
 
-    public Double getResourceCost() {
+    public float getResourceCost() {
         return resourceCost;
     }
 
-    public void setResourceCost(Double resourceCost) {
+    public void setResourceCost(float resourceCost) {
         this.resourceCost = resourceCost;
+    }
+
+    public ActivitiesSso getActivity() {
+        return activitiesSso;
+    }
+
+    public void setActivity(ActivitiesSso activity) {
+        this.activitiesSso = activity;
     }
 }
