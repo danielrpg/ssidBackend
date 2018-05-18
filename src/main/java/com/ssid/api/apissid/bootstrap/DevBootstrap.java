@@ -348,19 +348,19 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         if(programSsoRepository.count() == 0) {
             //Resources SSO
             ResourceSso resourceSso1 = new ResourceSso();
-            resourceSso1.setResourceCost(200.0);
+            resourceSso1.setResourceCost(200);
             resourceSso1.setResourceDetail("Hojas tamaño carta");
 
             ResourceSso resourceSso2 = new ResourceSso();
-            resourceSso2.setResourceCost(300.0);
+            resourceSso2.setResourceCost(300);
             resourceSso2.setResourceDetail("Pliegos de cartulina");
 
             ResourceSso resourceSso3 = new ResourceSso();
-            resourceSso3.setResourceCost(100.0);
+            resourceSso3.setResourceCost(100);
             resourceSso3.setResourceDetail("Marcadores");
 
             ResourceSso resourceSso4 = new ResourceSso();
-            resourceSso4.setResourceCost(200.0);
+            resourceSso4.setResourceCost(200);
             resourceSso4.setResourceDetail("Pliegos de cartulina");
 
             ActivitiesSso activitiesSso = new ActivitiesSso();

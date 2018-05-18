@@ -15,24 +15,26 @@ public class ResourceSso extends ModelBase implements Serializable{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "sso_resource_id")
-    private Long idResource;
+    private Long resourceId;
 
-    @Column(name = "sso_resource_detail", length = 200)
-    private String detailResource;
 
     @Column(name = "sso_resource_cost")
-    private Double costResource;
+    private float resourceCost;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "sso_resource_detail", length = 200)
+    private String resourceDetail;
+
+
+ @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sso_detail_id")
     private ActivitiesSso activitiesSso;
 
     public Long getId() {
-        return idResource;
+        return resourceId;
     }
 
     public void setId(Long idResource) {
-        this.idResource = idResource;
+        this.resourceId = idResource;
     }
 
 
@@ -45,18 +47,20 @@ public class ResourceSso extends ModelBase implements Serializable{
     }
 
     public String getResourceDetail() {
-        return detailResource;
+        return resourceDetail;
     }
 
-    public void setResourceDetail(String detailResource) {
-        this.detailResource = detailResource;
+    public void setResourceDetail(String resourceDetail) {
+        this.resourceDetail = resourceDetail;
     }
 
-    public Double getResourceCost() {
-        return costResource;
+    public float getResourceCost() {
+        return resourceCost;
     }
 
-    public void setResourceCost(Double costResource) {
-        this.costResource = costResource;
+    public void setResourceCost(float resourceCost) {
+        this.resourceCost = resourceCost;
     }
+
+
 }
