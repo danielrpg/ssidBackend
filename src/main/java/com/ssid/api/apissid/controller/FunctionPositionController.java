@@ -1,8 +1,11 @@
 package com.ssid.api.apissid.controller;
 
 import com.ssid.api.apissid.command.FunctionPositionCommand;
+import com.ssid.api.apissid.command.RequirementCommand;
 import com.ssid.api.apissid.domain.FunctionPosition;
+import com.ssid.api.apissid.domain.Position;
 import com.ssid.api.apissid.services.FunctionPositionService;
+import com.ssid.api.apissid.services.PositionService;
 import com.ssid.api.apissid.util.ApiPath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,10 +23,11 @@ import java.util.Map;
 public class FunctionPositionController {
 
     private FunctionPositionService functionPositionService;
-
+    private PositionService positionService;
     @Autowired
-    public FunctionPositionController(FunctionPositionService functionPositionService) {
+    public FunctionPositionController(FunctionPositionService functionPositionService,PositionService positionService) {
         this.functionPositionService = functionPositionService;
+        this.positionService = positionService;
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
@@ -41,13 +45,17 @@ public class FunctionPositionController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> getFunctionPositionById(@PathVariable long id) {
+    public ResponseEntity<Map<String, Object>> getFunctionById(@PathVariable long id) {
         Map<String, Object> mapResponse = new HashMap<>();
-        FunctionPosition functionPosition = this.functionPositionService.findById(id);
+        Position position = this.positionService.findById(id);
+        List<FunctionPositionCommand> functionsList = new ArrayList<>();
+        this.functionPositionService.findByPosition(position).forEach(functions -> {
+            functionsList.add(new FunctionPositionCommand(functions));
+        });
 
-        if (functionPosition != null) {
+        if (!functionsList.isEmpty()) {
             mapResponse.put("status", "ok");
-            mapResponse.put("data", functionPosition);
+            mapResponse.put("data", functionsList);
             return new ResponseEntity<>(mapResponse, HttpStatus.OK);
         } else {
             mapResponse.put("status", "not found");
