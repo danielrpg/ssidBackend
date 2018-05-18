@@ -56,13 +56,15 @@ public class ResourceSsoServiceImpl implements ResourceSsoService {
     }
 
     @Override
-    public ResourceSso updateResource(ResourceSso resourceSso, Long id) {
-        Optional<ResourceSso> updateResource = this.resourceSsoRepository.findById(id);
-        if (!updateResource.isPresent())
+    public ResourceSso updateResourceSso(ResourceSso resourceSso, Long id) {
+        Optional<ResourceSso> resourceSsoUpdate = this.resourceSsoRepository.findById(id);
+        if (!resourceSsoUpdate.isPresent())
             return null;
         resourceSso.setId(id);
         this.resourceSsoRepository.save(resourceSso);
         return resourceSso;
     }
+
+
 
 }

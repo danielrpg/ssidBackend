@@ -9,25 +9,27 @@ import java.util.Date;
 
 
 public class ActivitySsoCommand {
-    private Long activityId;
-    private int activityNumber;
-    private String activityDetail;
-    private String activityGoal;
-    private String activityTime;
-    private String activityType;
-    private ArrayList<PersonalCommand> personalCommands = new ArrayList<>();
-    private ArrayList<ResourcesSsoCommand> resourcesSsoCommands = new ArrayList<>();
+    private Long id;
+    private String detailActivities;
+    private String detailGoal;
+    private int detailNumber;
+    private String detailTime;
+    private String detailType;
     private ProgramSsoCommand programSsoCommand;
     private TrainersSsoCommand trainersSsoCommand;
+    private ArrayList<PersonalCommand> personalCommands = new ArrayList<>();
+    private ArrayList<ResourcesSsoCommand> resourcesSsoCommands = new ArrayList<>();
 
+    public ActivitySsoCommand(){}
 
     public ActivitySsoCommand(ActivitiesSso activitiesSso){
         setId(activitiesSso.getId());
-        setActivityNumber(activitiesSso.getDetailNumber());
         setActivityDetail(activitiesSso.getDetailActivities());
         setActivityGoal(activitiesSso.getDetailGoal());
-        setActivityTime(activitiesSso.getDetailTime());
+        //setActivityNumber(activitiesSso.getDetailNumber());
         setActivityType(activitiesSso.getDetailType());
+       // setActivityTime(activitiesSso.getDetailTime());
+
 
         if(activitiesSso.getPersonals() != null &&
                 !activitiesSso.getPersonals().isEmpty() &&
@@ -37,11 +39,11 @@ public class ActivitySsoCommand {
             }
         }
 
-        if(activitiesSso.getResourceSsos() != null &&
+       if(activitiesSso.getResourceSsos() != null &&
                 !activitiesSso.getResourceSsos().isEmpty() &&
                 activitiesSso.getResourceSsos().size() > 0) {
             for (ResourceSso resourceSso : activitiesSso.getResourceSsos()) {
-                resourcesSsoCommands.add(new ResourcesSsoCommand(resourceSso));
+                 resourcesSsoCommands.add(new ResourcesSsoCommand(resourceSso));
             }
         }
 
@@ -57,58 +59,58 @@ public class ActivitySsoCommand {
     public ActivitiesSso toActivitiesSso(){
         ActivitiesSso activitiesSso = new ActivitiesSso();
         activitiesSso.setId(getId());
-        activitiesSso.setDetailNumber(getActivityNumber());
         activitiesSso.setDetailActivities(getActivityDetail());
         activitiesSso.setDetailGoal(getActivityGoal());
-        activitiesSso.setDetailTime(getActivityTime());
+        //activitiesSso.setDetailNumber(getActivityNumber());
+        //activitiesSso.setDetailTime(getActivityTime());
         activitiesSso.setDetailType(getActivityType());
+
 
         return activitiesSso;
     }
 
     public Long getId() {
-        return activityId;
+        return id;
     }
 
     public void setId(Long activityId) {
-        this.activityId = activityId;
+        this.id = activityId;
     }
 
+    public String getActivityDetail() {return detailActivities;}
 
-    public int getActivityNumber() {
-        return activityNumber;
-    }
+    public void setActivityDetail(String detailActivities) {this.detailActivities = detailActivities;}
 
-    public void setActivityNumber(int number) {
-        this.activityNumber = number;
-    }
-
-    public String getActivityDetail() {return activityDetail;}
-
-    public void setActivityDetail(String activityDetail) {this.activityDetail = activityDetail;}
 
     public String getActivityTime() {
-        return activityTime;
+        return detailTime;
     }
 
-    public void setActivityTime(String activityTime) {
-        this.activityTime = activityTime;
+    public void setActivityTime(String detailTime) {
+        this.detailTime = detailTime;
     }
-
     public String getActivityType() {
-        return activityType;
+        return detailType;
     }
 
-    public void setActivityType(String activityType) {
-        this.activityType = activityType;
+    public void setActivityType(String detailType) {
+        this.detailType = detailType;
     }
 
     public String getActivityGoal() {
-        return activityGoal;
+        return detailGoal;
     }
 
-    public void setActivityGoal(String activityGoal) {
-        this.activityGoal = activityGoal;
+    public void setActivityGoal(String detailGoal) {
+        this.detailGoal = detailGoal;
+    }
+
+   public int getActivityNumber() {
+        return detailNumber;
+    }
+
+    public void setActivityNumber(int detailNumber) {
+        this.detailNumber = detailNumber;
     }
 
     public ArrayList<PersonalCommand> getPersonalCommands() {

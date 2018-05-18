@@ -17,13 +17,15 @@ public class ResourceSso extends ModelBase implements Serializable{
     @Column(name = "sso_resource_id")
     private Long resourceId;
 
-    @Column(name = "sso_resource_detail", length = 200)
-    private String resourceDetail;
 
     @Column(name = "sso_resource_cost")
     private float resourceCost;
 
-   @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "sso_resource_detail", length = 200)
+    private String resourceDetail;
+
+
+ @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sso_detail_id")
     private ActivitiesSso activitiesSso;
 
@@ -60,11 +62,5 @@ public class ResourceSso extends ModelBase implements Serializable{
         this.resourceCost = resourceCost;
     }
 
-    public ActivitiesSso getActivity() {
-        return activitiesSso;
-    }
 
-    public void setActivity(ActivitiesSso activity) {
-        this.activitiesSso = activity;
-    }
 }

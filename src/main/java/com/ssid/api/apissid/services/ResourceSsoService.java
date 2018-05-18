@@ -9,5 +9,5 @@ public interface ResourceSsoService {
     ResourceSso saveResourceSso(ResourceSso resourceSso);
     ResourceSso getResourceById(Long id);
     void deleteResourceById(Long id);
-    ResourceSso updateResource(ResourceSso resourceSso, Long id);
+    ResourceSso updateResourceSso(ResourceSso resourceSso, Long id);
 }

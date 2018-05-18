@@ -4,9 +4,11 @@ import com.ssid.api.apissid.domain.ResourceSso;
 
 
 public class ResourcesSsoCommand {
-    private Long resourceId;
+    private Long id;
     private float resourceCost;
     private String resourceDetail;
+
+    public ResourcesSsoCommand(){}
 
     public ResourcesSsoCommand(ResourceSso resourceSso){
         setId(resourceSso.getId());
@@ -26,11 +28,11 @@ public class ResourcesSsoCommand {
     }
 
     public Long getId() {
-        return resourceId;
+        return id;
     }
 
-    public void setId(Long resourceId) {
-        this.resourceId = resourceId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
 

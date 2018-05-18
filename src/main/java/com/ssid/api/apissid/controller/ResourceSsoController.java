@@ -3,6 +3,7 @@ package com.ssid.api.apissid.controller;
 
 
 import com.ssid.api.apissid.command.ResourcesSsoCommand;
+import com.ssid.api.apissid.command.TrainersSsoCommand;
 import com.ssid.api.apissid.domain.ResourceSso;
 import com.ssid.api.apissid.services.ResourceSsoService;
 import com.ssid.api.apissid.util.ApiPath;
@@ -38,7 +39,7 @@ public class ResourceSsoController {
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> findResocuresSsoById(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> findResourcesSsoById(@PathVariable Long id) {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "ok");
         ResourceSso resourceSso = this.resourceSsoService.getResourceById(id);
@@ -59,9 +60,10 @@ public class ResourceSsoController {
     public ResponseEntity<Map<String, Object>> updateResourceSso(@RequestBody ResourcesSsoCommand resourcesSsoCommand, @PathVariable int id) {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "updated");
-        mapResponse.put("data", resourceSsoService.updateResource(resourcesSsoCommand.toResourcesSso(), (long) id));
+        mapResponse.put("data", resourceSsoService.updateResourceSso(resourcesSsoCommand.toResourcesSso(), (long) id));
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
+
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Map<String, Object>> deleteResourceSsoById(@PathVariable long id) {
