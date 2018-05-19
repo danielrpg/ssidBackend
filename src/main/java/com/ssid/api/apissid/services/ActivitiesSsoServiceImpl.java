@@ -1,8 +1,10 @@
 package com.ssid.api.apissid.services;
 
 import com.ssid.api.apissid.domain.ActivitiesSso;
+import com.ssid.api.apissid.domain.ResourceSso;
 import com.ssid.api.apissid.exceptions.NotFoundException;
-import com.ssid.api.apissid.repositories.ActivitiesSsoRepository;
+import com.ssid.api.apissid.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.ParameterizedType;
@@ -12,9 +14,16 @@ import java.util.Optional;
 @Service
 public class ActivitiesSsoServiceImpl implements ActivitiesSsoService{
     private ActivitiesSsoRepository activitiesSsoRepository;
+    private ProgramSsoRepository programSsoRepository;
+    private TrainersSsoRepository trainersSsoRepository;
+    @Autowired
+    public ActivitiesSsoServiceImpl( ActivitiesSsoRepository activitiesSsoRepository,
+                                     ProgramSsoRepository programSsoRepository,
+                                     TrainersSsoRepository trainersSsoRepository) {
 
-    public ActivitiesSsoServiceImpl( ActivitiesSsoRepository activitiesSsoRepository) {
         this.activitiesSsoRepository = activitiesSsoRepository;
+        this.programSsoRepository = programSsoRepository;
+        this.trainersSsoRepository = trainersSsoRepository;
     }
 
     @Override
@@ -46,11 +55,13 @@ public class ActivitiesSsoServiceImpl implements ActivitiesSsoService{
 
     @Override
     public ActivitiesSso updateActivity(ActivitiesSso activitiesSso, Long id) {
-        Optional<ActivitiesSso> updateActivity = this.activitiesSsoRepository.findById(id);
-        if(!updateActivity.isPresent())
+        Optional<ActivitiesSso> activityUpdate = this.activitiesSsoRepository.findById(id);
+        if(!activityUpdate.isPresent())
             return null;
         activitiesSso.setId(id);
         this.activitiesSsoRepository.save(activitiesSso);
         return activitiesSso;
     }
+
+
 }

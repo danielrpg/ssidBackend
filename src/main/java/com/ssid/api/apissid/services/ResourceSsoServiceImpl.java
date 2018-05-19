@@ -1,8 +1,14 @@
 package com.ssid.api.apissid.services;
 
 import com.ssid.api.apissid.domain.ResourceSso;
+import com.ssid.api.apissid.domain.TrainersSso;
 import com.ssid.api.apissid.exceptions.NotFoundException;
+import com.ssid.api.apissid.repositories.ActivitiesSsoRepository;
 import com.ssid.api.apissid.repositories.ResourceSsoRepository;
+import com.ssid.api.apissid.repositories.TrainersSsoRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.ParameterizedType;
@@ -11,14 +17,20 @@ import java.util.Optional;
 
 @Service
 public class ResourceSsoServiceImpl implements ResourceSsoService {
+    private static Logger logger = LoggerFactory.getLogger(ResourceSsoServiceImpl.class);
     private ResourceSsoRepository resourceSsoRepository;
+    private ActivitiesSsoRepository activitiesSsoRepository;
 
-    public ResourceSsoServiceImpl(ResourceSsoRepository resourceSsoRepository) {
+    @Autowired
+    public ResourceSsoServiceImpl(ResourceSsoRepository resourceSsoRepository,
+                                  ActivitiesSsoRepository activitiesSsoRepository) {
         this.resourceSsoRepository = resourceSsoRepository;
+        this.activitiesSsoRepository = activitiesSsoRepository;
     }
 
     @Override
-    public List<ResourceSso> getResource() {return this.resourceSsoRepository.findAll();
+    public List<ResourceSso> getResource() {
+        return this.resourceSsoRepository.findAll();
     }
 
     @Override
@@ -40,17 +52,19 @@ public class ResourceSsoServiceImpl implements ResourceSsoService {
 
     @Override
     public void deleteResourceById(Long id) {
-        Optional<ResourceSso> resourceSso = this.resourceSsoRepository.findById(id);
-        this.resourceSsoRepository.delete(resourceSso.get());
+        resourceSsoRepository.deleteById(id);
     }
 
     @Override
-    public ResourceSso updateResource(ResourceSso resourceSso, Long id) {
-        Optional<ResourceSso> updateResource = this.resourceSsoRepository.findById(id);
-        if(!updateResource.isPresent())
+    public ResourceSso updateResourceSso(ResourceSso resourceSso, Long id) {
+        Optional<ResourceSso> resourceSsoUpdate = this.resourceSsoRepository.findById(id);
+        if (!resourceSsoUpdate.isPresent())
             return null;
         resourceSso.setId(id);
         this.resourceSsoRepository.save(resourceSso);
         return resourceSso;
     }
+
+
+
 }

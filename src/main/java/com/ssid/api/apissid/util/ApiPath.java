@@ -42,10 +42,6 @@ public class ApiPath {
 
     //This are constants for ActivitiesSso
     public static final String ACTIVITIES_SSO_PATH = VERSION_API + "/activities";
-    public static final String ACTIVITIES_SSO_PATH_SAVE = ACTIVITIES_SSO_PATH + "/activitiesssosave";
-    public static final String ACTIVITIES_BY_ID = ACTIVITIES_SSO_PATH + "/{id}";
-    public static final String ACTIVITIES_SSO_PATH_DELETE = ACTIVITIES_SSO_PATH + "/activitiesssodelete" + "/{id}";
-    public static final String ACTIVITIES_SSO_PATH_PUT = ACTIVITIES_SSO_PATH + "/activitiesssoput" + "/{id}";
 
     //This are constants for ResourceSso
     public static final String RESOURCES_SSO_PATH = VERSION_API + "/resources";
