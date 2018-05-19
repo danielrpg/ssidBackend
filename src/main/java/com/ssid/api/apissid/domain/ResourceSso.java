@@ -17,7 +17,7 @@ public class ResourceSso extends ModelBase implements Serializable{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "sso_resource_id")
-    private Long resourceId;
+    private Long id;
 
 
     @Column(name = "sso_resource_cost")
@@ -32,11 +32,11 @@ public class ResourceSso extends ModelBase implements Serializable{
     private ActivitiesSso activitiesSso;
 
     public Long getId() {
-        return resourceId;
+        return id;
     }
 
-    public void setId(Long idResource) {
-        this.resourceId = idResource;
+    public void setId(Long id) {
+        this.id = id;
     }
 
 

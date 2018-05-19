@@ -2,7 +2,6 @@
 package com.ssid.api.apissid.controller;
 
 
-import com.ssid.api.apissid.command.ActivitySsoCommand;
 import com.ssid.api.apissid.command.ResourcesSsoCommand;
 import com.ssid.api.apissid.domain.ResourceSso;
 import com.ssid.api.apissid.services.ResourceSsoService;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,12 +53,11 @@ public class ResourceSsoController {
         mapResponse.put("data", resourceSsoService.saveResourceSso(resourcesSsoCommand.toResourcesSso()));
         return new ResponseEntity<>(mapResponse, HttpStatus.CREATED);
     }
-
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Map<String, Object>> updateResourceSso(@RequestBody ResourcesSsoCommand resourcesSsoCommand, @PathVariable int id) {
+    public ResponseEntity<Map<String, Object>> updateResourceSso(@RequestBody ResourcesSsoCommand resourcesSsoCommand, @PathVariable Long id) {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "updated");
-        mapResponse.put("data", resourceSsoService.updateResourceSso(resourcesSsoCommand.toResourcesSso(), (long) id));
+        mapResponse.put("data", resourceSsoService.updateResourceSso(resourcesSsoCommand.toResourcesSso(), id));
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 

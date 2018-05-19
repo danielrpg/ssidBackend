@@ -5,7 +5,6 @@ import com.ssid.api.apissid.domain.Personal;
 import com.ssid.api.apissid.domain.ResourceSso;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class ActivitySsoCommand {
@@ -43,7 +42,7 @@ public class ActivitySsoCommand {
                 !activitiesSso.getResourceSsos().isEmpty() &&
                 activitiesSso.getResourceSsos().size() > 0) {
             for (ResourceSso resourceSso : activitiesSso.getResourceSsos()) {
-                resourcesSsoCommands.add(new ResourcesSsoCommand(resourceSso));
+                //  resourcesSsoCommands.add(new ResourcesSsoCommand(resourceSso));
             }
         }
 
