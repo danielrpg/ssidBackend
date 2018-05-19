@@ -1,5 +1,7 @@
 package com.ssid.api.apissid.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -15,7 +17,7 @@ public class ResourceSso extends ModelBase implements Serializable{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "sso_resource_id")
-    private Long resourceId;
+    private Long id;
 
 
     @Column(name = "sso_resource_cost")
@@ -24,21 +26,21 @@ public class ResourceSso extends ModelBase implements Serializable{
     @Column(name = "sso_resource_detail", length = 200)
     private String resourceDetail;
 
-
- @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sso_detail_id")
     private ActivitiesSso activitiesSso;
 
     public Long getId() {
-        return resourceId;
+        return id;
     }
 
-    public void setId(Long idResource) {
-        this.resourceId = idResource;
+    public void setId(Long id) {
+        this.id = id;
     }
 
 
-   public ActivitiesSso getActivitiesSso() {
+    public ActivitiesSso getActivitiesSso() {
         return activitiesSso;
     }
 
