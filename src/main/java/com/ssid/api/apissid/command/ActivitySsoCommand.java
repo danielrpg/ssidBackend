@@ -5,7 +5,6 @@ import com.ssid.api.apissid.domain.Personal;
 import com.ssid.api.apissid.domain.ResourceSso;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class ActivitySsoCommand {
@@ -28,7 +27,7 @@ public class ActivitySsoCommand {
         setActivityGoal(activitiesSso.getDetailGoal());
         //setActivityNumber(activitiesSso.getDetailNumber());
         setActivityType(activitiesSso.getDetailType());
-       // setActivityTime(activitiesSso.getDetailTime());
+        // setActivityTime(activitiesSso.getDetailTime());
 
 
         if(activitiesSso.getPersonals() != null &&
@@ -39,11 +38,11 @@ public class ActivitySsoCommand {
             }
         }
 
-       if(activitiesSso.getResourceSsos() != null &&
+        if(activitiesSso.getResourceSsos() != null &&
                 !activitiesSso.getResourceSsos().isEmpty() &&
                 activitiesSso.getResourceSsos().size() > 0) {
             for (ResourceSso resourceSso : activitiesSso.getResourceSsos()) {
-                 resourcesSsoCommands.add(new ResourcesSsoCommand(resourceSso));
+                //  resourcesSsoCommands.add(new ResourcesSsoCommand(resourceSso));
             }
         }
 
@@ -105,7 +104,7 @@ public class ActivitySsoCommand {
         this.detailGoal = detailGoal;
     }
 
-   public int getActivityNumber() {
+    public int getActivityNumber() {
         return detailNumber;
     }
 
