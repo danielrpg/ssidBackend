@@ -1,11 +1,10 @@
 package com.ssid.api.apissid.services;
 
+import com.ssid.api.apissid.domain.ActivitiesSso;
 import com.ssid.api.apissid.domain.ResourceSso;
-import com.ssid.api.apissid.domain.TrainersSso;
 import com.ssid.api.apissid.exceptions.NotFoundException;
 import com.ssid.api.apissid.repositories.ActivitiesSsoRepository;
 import com.ssid.api.apissid.repositories.ResourceSsoRepository;
-import com.ssid.api.apissid.repositories.TrainersSsoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +49,7 @@ public class ResourceSsoServiceImpl implements ResourceSsoService {
         return optional.get();
     }
 
+
     @Override
     public void deleteResourceById(Long id) {
         resourceSsoRepository.deleteById(id);
@@ -64,7 +64,6 @@ public class ResourceSsoServiceImpl implements ResourceSsoService {
         this.resourceSsoRepository.save(resourceSso);
         return resourceSso;
     }
-
 
 
 }

@@ -8,24 +8,24 @@ public class ResourcesSsoCommand {
     private float resourceCost;
     private String resourceDetail;
 
-    public ResourcesSsoCommand(){}
 
-    public ResourcesSsoCommand(ResourceSso resourceSso){
-        setId(resourceSso.getId());
-        setSsoCost(resourceSso.getResourceCost());
-        setSsoDetail(resourceSso.getResourceDetail());
-    }
+//    public ResourcesSsoCommand(ResourceSso resourceSso){
+//        setId(resourceSso.getId());
+//        setResourceCost(resourceSso.getResourceCost());
+//        setResourceDetail(resourceSso.getResourceDetail());
+//    }
 
     public ResourceSso toResourcesSso(){
         ResourceSso resourcesSso = new ResourceSso();
         resourcesSso.setId(getId());
-        resourcesSso.setResourceCost(getSsoCost());
-        resourcesSso.setResourceDetail(getSsoDetail());
+        resourcesSso.setResourceCost(getResourceCost());
+        resourcesSso.setResourceDetail(getResourceDetail());
 
 
 
         return resourcesSso;
     }
+
 
     public Long getId() {
         return id;
@@ -35,23 +35,21 @@ public class ResourcesSsoCommand {
         this.id = id;
     }
 
-
-    public float getSsoCost() {
+    public float getResourceCost() {
         return resourceCost;
     }
 
-    public void setSsoCost(float ssoCost) {
-        this.resourceCost = ssoCost;
+    public void setResourceCost(float resourceCost) {
+        this.resourceCost = resourceCost;
     }
 
-    public String getSsoDetail() {
+    public String getResourceDetail() {
         return resourceDetail;
     }
 
-    public void setSsoDetail(String resourceDetail) {
+    public void setResourceDetail(String resourceDetail) {
         this.resourceDetail = resourceDetail;
     }
-
 }
 
 
