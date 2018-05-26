@@ -43,11 +43,11 @@
             <version>0.9.0</version>
         </dependency>
 		 <!--H2 database-->
-		<!--<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>com.h2database</groupId>-->
+			<!--<artifactId>h2</artifactId>-->
+			<!--<scope>runtime</scope>-->
+		<!--</dependency>-->
 		 <!--SQL Server database-->
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>

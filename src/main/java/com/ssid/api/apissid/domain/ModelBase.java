@@ -26,9 +26,7 @@ public class ModelBase implements Serializable {
     @Column(insertable = false)
     private Date updatedOn;
 
-    @Version
-    @Column(nullable = false)
-    private long version;
+
 
 
     public Date getCreatedOn() {
@@ -47,11 +45,4 @@ public class ModelBase implements Serializable {
         this.updatedOn = updatedOn;
     }
 
-    public long getVersion() {
-        return version;
-    }
-
-    public void setVersion(long version) {
-        this.version = version;
-    }
 }
