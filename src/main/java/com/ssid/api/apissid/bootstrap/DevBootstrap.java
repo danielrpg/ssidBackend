@@ -26,10 +26,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private IncidentDetailRepository incidentDetailRepository;
     private IncidentRepository incidentRepository;
     private AccidentRepository accidentRepository;
-    private InjuryFormRepository injuryFormRepository;
     private AccidentTypeRepository accidentTypeRepository;
-    private InjuryTypeRepository injuryTypeRepository;
-    private InjuryBodyRepository injuryBodyRepository;
     private CausingAgentRepository causingAgentRepository;
     /**
      * Personal assignment Equipment repositories
@@ -54,10 +51,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                         IncidentDetailRepository incidentDetailRepository,
                         IncidentRepository incidentRepository,
                         AccidentRepository accidentRepository,
-                        InjuryFormRepository injuryFormRepository,
                         AccidentTypeRepository accidentTypeRepository,
-                        InjuryTypeRepository injuryTypeRepository,
-                        InjuryBodyRepository injuryBodyRepository,
                         CausingAgentRepository causingAgentRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
@@ -79,10 +73,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         this.incidentDetailRepository = incidentDetailRepository;
         this.incidentRepository = incidentRepository;
         this.accidentRepository = accidentRepository;
-        this.injuryFormRepository = injuryFormRepository;
         this.accidentTypeRepository = accidentTypeRepository;
-        this.injuryTypeRepository = injuryTypeRepository;
-        this.injuryBodyRepository = injuryBodyRepository;
         this.causingAgentRepository = causingAgentRepository;
     }
 
@@ -108,7 +99,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         loadDataContracts();
 
         loadDataIncidents();
-        loadDataAccidents();
+//        loadDataAccidents();
     }
 
     private void loadDataAreas() {
@@ -894,10 +885,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         }
     }
     private void loadDataAccidents() {
-        loadDataInjuryForm();
         loadDataAccidentType();
-        loadDataInjuryType();
-        loadDataInjuryBody();
         loadDataCausingAgent();
         
         if (accidentRepository.count() == 0) {
@@ -913,11 +901,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             lugares[8] = "CAJA PETROLERA DE SALUD – HOSPITAL ELIZABETH SETON";
             lugares[9] = "CENTRO MEDICO QUIR. BOLIVIANO BELGA S.R.L.";
 
-            List<InjuryForm> all = injuryFormRepository.findAll();
             List<Personal> allPersonal = personalRepository.findAll();
             List<AccidentType> accidentTypes = accidentTypeRepository.findAll();
-            List<InjuryType> injuryTypes = injuryTypeRepository.findAll();
-            List<InjuryBody> injuryBodies = injuryBodyRepository.findAll();
             List<CausingAgent> causingAgents = causingAgentRepository.findAll();
 
             for (int i=0; i<100; i++){
@@ -928,9 +913,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                 accident.setLugaratencion(lugares[(int)(Math.random()*(lugares.length-1))]);
                 accident.setDescription("Leccion en la espalda al tropezar");
                 accident.setReportBy(allPersonal.get((int)(Math.random()*(allPersonal.size()-1))));
-                accident.setInjuryForm(all.get((int)(Math.random()*(all.size()-1))));
-                accident.setInjuryType(injuryTypes.get((int)(Math.random()*(injuryTypes.size()-1))));
-                accident.setInjuryBody(injuryBodies.get((int)(Math.random()*(injuryBodies.size()-1))));
                 accident.setCausingAgent(causingAgents.get((int)(Math.random()*(causingAgents.size()-1))));
                 accident.setAccidentType(accidentTypes.get((int)(Math.random()*(accidentTypes.size()-1))));
                 accidentRepository.save(accident);
@@ -959,115 +941,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         }
     }
 
-    private void loadDataInjuryBody() {
-        if(injuryBodyRepository.count() == 0){
-            ArrayList<String> textos = new ArrayList<String>();
-            textos.add("Region graneana");
-            textos.add("Ojos");
-            textos.add("Boca");
-            textos.add("Cara");
-            textos.add("Nariz");
-            textos.add("Aparato auditivo");
-            textos.add("Cabeza");
-            textos.add("Cuello");
-            textos.add("Region cervical");
-            textos.add("Region lumbosacra");
-            textos.add("Region dorsal");
-            textos.add("Torax");
-            for (String texto : textos){
-                InjuryBody injuryBody = new InjuryBody();
-                injuryBody.setName(texto);
-                injuryBodyRepository.save(injuryBody);
-            }
-        }
-    }
-
-    private void loadDataInjuryType() {
-        if(injuryTypeRepository.count() == 0){
-            ArrayList<String> textos = new ArrayList<String>();
-            textos.add("Escoriaciones");
-            textos.add("Heridas punso cortantes");
-            textos.add("Heridas cortantes");
-            textos.add("Heridas contusas");
-            textos.add("Perdida de tejido");
-            textos.add("Contusiones");
-            textos.add("Luxacion");
-            textos.add("Fractura");
-            textos.add("Amputacion");
-            textos.add("Quemadura");
-            textos.add("Cuerpo extraño en el ojo");
-            textos.add("Perdida ocular");
-
-            for (String texto : textos){
-                InjuryType injuryType = new InjuryType();
-                injuryType.setName(texto);
-                injuryTypeRepository.save(injuryType);
-            }
-        }
-    }
 
 
-    private void loadDataInjuryForm() {
-        if (injuryFormRepository.count() == 0){
-            ArrayList<String> formaDeaccidentes = new ArrayList<String>();
-            formaDeaccidentes.add("Caida de personal a nivel");
-            formaDeaccidentes.add("Caida de personal a altura");
-            formaDeaccidentes.add("Caida de personal al agua");
-            formaDeaccidentes.add("Derrumbe o desplome de instalaciones");
-            formaDeaccidentes.add("Caida de objetos");
-            formaDeaccidentes.add("Pisadas sobre objetos");
-            formaDeaccidentes.add("Choque con Objetos");
-            formaDeaccidentes.add("Golpes por objetos (excepto caidas)");
-            formaDeaccidentes.add("Aprisionamiento o atrapamiento");
-            formaDeaccidentes.add("Esfuerzos fisicos excesivos o falsos movimientos");
-            formaDeaccidentes.add("Exposicion al frio");
-            formaDeaccidentes.add("Exposicion al calor");
-
-            for (String formaDeaccidente : formaDeaccidentes){
-                InjuryForm injuryForm = new InjuryForm();
-                injuryForm.setName(formaDeaccidente);
-                injuryFormRepository.save(injuryForm);
-            }
-
-            ArrayList<String> nombres = new ArrayList<String>();
-            nombres.add("Isaac Newton Zoto");
-            nombres.add("Cristóbal Colon Vargas");
-            nombres.add("Albert Einstein P");
-            nombres.add("Louis Pasteur O");
-            nombres.add("James Watt S");
-            nombres.add("Adam Smith M");
-            nombres.add("Ernest Rutherford P");
-            nombres.add("Thomas Jefferson J");
-            nombres.add("Zoroastro Montero Quijarro");
-            nombres.add("Carlomagno Vega Arteaga");
-            nombres.add("James Rodríguez Alba");
-            nombres.add("Angelina Jolie Ticona Vega");
-            nombres.add("Justin Timberlake Del Prado");
-            nombres.add("Carla Peterson Aguirre");
-            nombres.add("Martín Lousteau Guison");
-
-            for (String nombre: nombres){
-                Area area = new Area();
-                area.setName("Construcción" +(int)(Math.random() * 100) );
-                area.setDescription("Construcción de casas, habitaciones, departamentos, etc.");
-                areaRepository.save(area);
-
-                Personal personal = new Personal();
-                personal.setArea(area);
-                personal.setName(nombre);
-                personal.setAddress("Av. Villazon N° 2326");
-                personal.setCellphone("89632548");
-                personal.setEmail("jDoe@gmail.com");
-                personal.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
-                personal.setActive(true);
-                personalRepository.save(personal);
-
-            }
-
-        }
-
-
-    }
     private void loadDataAccidentType() {
         if(accidentTypeRepository.count() == 0){
             ArrayList<String> formaDeaccidentes = new ArrayList<String>();
