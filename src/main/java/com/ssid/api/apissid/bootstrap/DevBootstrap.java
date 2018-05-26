@@ -166,12 +166,10 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         if(this.roleRepository.count() == 0){
             Role role = new Role();
             role.setRoleName("ROLE_USER");
-            role.setVersion(1);
             role.setCreatedOn(new Date());
             this.roleRepository.save(role);
             listRoles.add(role);
             role.setRoleName("ROLE_ADMIN");
-            role.setVersion(1);
             role.setCreatedOn(new Date());
             this.roleRepository.save(role);
             listRoles.add(role);
@@ -180,8 +178,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             UserSystem userSystem = new UserSystem();
             userSystem.setUsername("admin");
             userSystem.setPassword("$2a$10$XURPShQNCsLjp1ESc2laoObo9QZDhxz73hJPaEv7/cBha4pk0AgP.");
-            userSystem.setUserActive(Boolean.TRUE);
-            userSystem.setVersion(1);
+            //userSystem.setUserActive(Boolean.TRUE);
             userSystem.setCreatedOn(new Date());
             userSystem.setRoles(listRoles);
             this.userSystemRepository.save(userSystem);
