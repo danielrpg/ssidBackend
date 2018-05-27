@@ -30,7 +30,7 @@ public class PersonalResponseCommand {
         personalResponseCommand.setName(personal.getName());
         personalResponseCommand.setLastName(personal.getLastName());
         personalResponseCommand.setAddress(personal.getAddress());
-        personalResponseCommand.setBirthdate(personal.getBirthdate());
+    //    personalResponseCommand.setBirthdate(personal.getBirthdate());
         personalResponseCommand.setArea(personal.getArea());
         return personalResponseCommand;
     }

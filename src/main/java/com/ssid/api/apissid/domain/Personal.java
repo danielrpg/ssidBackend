@@ -17,6 +17,57 @@ import java.util.Set;
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = "sp_getAllPersonal",
+                procedureName = "sp_get_all_personal",
+                resultClasses = Personal.class),
+        @NamedStoredProcedureQuery(
+                name = "sp_deletePersonal",
+                procedureName = "sp_delete_personal",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_createPersonal",
+                procedureName = "sp_create_personal",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_name", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_last_name", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_email", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_direction", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_cellphone", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_telephone", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_active", type = Boolean.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_editPersonal",
+                procedureName = "sp_edit_personal",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_name", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_last_name", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_email", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_direction", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_cellphone", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_telephone", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_active", type = Boolean.class)
+                },
+                resultClasses = Personal.class
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_personalById",
+                procedureName = "sp_personal_by_id",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_id", type = Long.class)
+                },
+                resultClasses = Personal.class
+        )
+})
 public class Personal extends ModelBase implements Serializable{
     private static final long serialVersionUID = 1L;
 
@@ -26,34 +77,34 @@ public class Personal extends ModelBase implements Serializable{
     @JsonProperty("id")
     private Long id;
 
-    @Column(name = "personal_name", length = 50)
+    @Column(name = "personal_name", length = 100)
     private String name;
 
-    @Column(name = "personal_last_name", length = 50)
+    @Column(name = "personal_last_name", length = 100)
     private String lastName;
 
     @Lob
     @Column(name = "personal_photo")
     private Byte[] photo;
 
-    @Column(name = "personal_email", length = 50)
+    @Column(name = "personal_email", length = 200)
     private String email;
 
-    @Column(name = "personal_direction", length = 50)
+    @Column(name = "personal_direction", length = 200)
     private String address;
 
-    @Column(name = "personal_cellphone", length = 50)
+    @Column(name = "personal_cellphone", length = 100)
     private String cellphone;
 
-    @Column(name = "personal_telephone", length = 50)
+    @Column(name = "personal_telephone", length = 100)
     private String telephone;
 
     @Column(name = "personal_active")
     private Boolean active;
 
-    @Column(name = "personal_birthdate")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
-    private Date birthdate;
+//    @Column(name = "personal_birthdate")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/mm/dd")
+//    private Date birthdate;
 
     @ManyToOne
     private Area area;
@@ -158,13 +209,13 @@ public class Personal extends ModelBase implements Serializable{
         this.active = active;
     }
 
-    public Date getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
-    }
+//    public Date getBirthdate() {
+//        return birthdate;
+//    }
+//
+//    public void setBirthdate(Date birthdate) {
+//        this.birthdate = birthdate;
+//    }
 
     public Area getArea() {
         return area;

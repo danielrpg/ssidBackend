@@ -214,7 +214,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             personal.setAddress("Av. Villazon N° 2326");
             personal.setCellphone("89632548");
             personal.setEmail("jDoe@gmail.com");
-            personal.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
+        //    personal.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
             personal.setActive(true);
 
             Personal personal2 = new Personal();
@@ -223,7 +223,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             personal2.setAddress("Av. Villazon N° 2326");
             personal2.setCellphone("89632548");
             personal2.setEmail("jDoe@gmail.com");
-            personal2.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
+        //    personal2.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
             personal2.setActive(true);
             personalRepository.save(personal);
 
