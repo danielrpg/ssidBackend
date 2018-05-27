@@ -5,6 +5,7 @@ import com.ssid.api.apissid.command.PersonalAreaCommand;
 import com.ssid.api.apissid.command.PersonalCommand;
 import com.ssid.api.apissid.domain.Personal;
 import com.ssid.api.apissid.services.PersonalService;
+import com.ssid.api.apissid.services.SPSerives.SPPersonalService;
 import com.ssid.api.apissid.util.ApiPath;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
@@ -31,9 +32,12 @@ public class PersonalController {
 
     private PersonalService personalService;
 
+    private SPPersonalService spPersonalService;
+
     @Autowired
-    public PersonalController(PersonalService personalService) {
+    public PersonalController(PersonalService personalService, SPPersonalService spPersonalService) {
         this.personalService = personalService;
+        this.spPersonalService = spPersonalService;
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
@@ -92,13 +96,6 @@ public class PersonalController {
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Map<String, Object>> deletePersonal(@PathVariable long id) {
-        Map<String, Object> mapResponse = new HashMap<>();
-        mapResponse.put("status", "deleted");
-        this.personalService.deleteById(id);
-        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
-    }
 
     @RequestMapping(value = "/{id}/image", method = RequestMethod.POST)
     @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -111,28 +108,6 @@ public class PersonalController {
         personalService.saveImage(Long.valueOf(id), file);
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public Personal savePersonal(@RequestBody PersonalAreaCommand personal){
-        return personalService.savePersonal(personal);
-    }
-
-    @RequestMapping(value = "/getPersonalById/{id}", method = RequestMethod.GET)
-    public Personal getPersonalById(@PathVariable Long id) throws JsonProcessingException {
-        Personal personal = this.personalService.findById(id);
-        return personal;
-    }
-
-    @RequestMapping( value = "/update/{id}", method = RequestMethod.PUT)
-    public Personal updatePersonal(@RequestBody PersonalAreaCommand personalAreaCommand, @PathVariable Long id) {
-        return this.personalService.updatePersonalArea(personalAreaCommand, id);
-    }
-
-    @RequestMapping( value = "/listPersonal", method = RequestMethod.GET)
-    public List<Personal> listPersonals(){
-        return this.personalService.getListPersonals();
-    }
-
 
     @RequestMapping(value = "/havePersonalByArea/{id}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> getIfHavePersonalByArea(@PathVariable long id) {
@@ -154,6 +129,38 @@ public class PersonalController {
             mapResponse.put("data", false);
         }
 
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ResponseEntity<Map<String, Object>> savePersonal(@RequestBody Personal personal){
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("success", this.spPersonalService.createPersonal(personal));
+                   return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getPersonalById/{id}", method = RequestMethod.GET)
+    public Personal getPersonalById(@PathVariable Long id) throws JsonProcessingException {
+        return spPersonalService.getPersonalById(id);
+    }
+
+    @RequestMapping( value = "/update/{id}", method = RequestMethod.PUT)
+    public Personal updatePersonal(@RequestBody Personal personal, @PathVariable Long id) {
+        return  this.spPersonalService.updatePersonal(id, personal);
+    }
+
+    @RequestMapping( value = "/listPersonal", method = RequestMethod.GET)
+    public List<Personal> listPersonals(){
+        return this.spPersonalService.getAllPersonals();
+    }
+
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Map<String, Object>> deletePersonal(@PathVariable Long id) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "deleted");
+        this.spPersonalService.deletePersonal(id);
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 }

@@ -125,7 +125,7 @@ public class PersonalAreaCommand {
         personal.setAddress(personalAreaCommand.getAddress());
         personal.setCellphone(personalAreaCommand.getCellphone());
         personal.setEmail(personalAreaCommand.getEmail());
-        personal.setBirthdate(personalAreaCommand.getBirthdate());
+     //   personal.setBirthdate(personalAreaCommand.getBirthdate());
         personal.setActive(true);
         return personal;
     }
