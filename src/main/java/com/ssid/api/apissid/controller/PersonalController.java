@@ -137,7 +137,7 @@ public class PersonalController {
     public ResponseEntity<Map<String, Object>> savePersonal(@RequestBody Personal personal){
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("success", this.spPersonalService.createPersonal(personal));
-                   return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/getPersonalById/{id}", method = RequestMethod.GET)
