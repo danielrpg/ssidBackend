@@ -11,9 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-/**
- * @author Borisytu
- */
+
 @Entity
 @Table(name = "equipaments")
 @JsonIdentityInfo(

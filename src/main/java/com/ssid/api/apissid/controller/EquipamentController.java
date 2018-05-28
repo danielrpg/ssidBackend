@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-/**
- * @author daniel fernandez
- */
+
 @RestController
 @RequestMapping(value = ApiPath.EQUIPAMENT_PATH)
 public class EquipamentController {

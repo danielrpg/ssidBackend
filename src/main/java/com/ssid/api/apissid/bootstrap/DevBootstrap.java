@@ -226,7 +226,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             personal.setAddress("Av. Villazon N° 2326");
             personal.setCellphone("89632548");
             personal.setEmail("jDoe@gmail.com");
-            personal.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
+            //    personal.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
             personal.setActive(true);
 
             Personal personal2 = new Personal();
@@ -235,7 +235,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             personal2.setAddress("Av. Villazon N° 2326");
             personal2.setCellphone("89632548");
             personal2.setEmail("jDoe@gmail.com");
-            personal2.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
+            //    personal2.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
             personal2.setActive(true);
             personalRepository.save(personal);
 
@@ -315,7 +315,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             inventory.setDateAsignament(new Date());
             inventory.setStatus("nuevo");
             inventory.setActive(true);
-            inventoryRepository.save(inventory);
+            //inventoryRepository.save(inventory);
 
             //InventoryEquipment1
             Inventory inventory1 = new Inventory();
@@ -324,7 +324,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             inventory1.setDateAsignament(new Date());
             inventory1.setStatus("nuevo");
             inventory1.setActive(true);
-            inventoryRepository.save(inventory1);
+            //inventoryRepository.save(inventory1);
 
             Inventory inventory3 = new Inventory();
             inventory3.setPersonal(personal);
@@ -332,7 +332,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             inventory3.setDateAsignament(new Date());
             inventory3.setStatus("bueno");
             inventory3.setActive(true);
-            inventoryRepository.save(inventory3);
+            //inventoryRepository.save(inventory3);
 
             Inventory inventory4 = new Inventory();
             inventory4.setPersonal(personal2);
@@ -340,7 +340,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             inventory4.setDateAsignament(new Date());
             inventory4.setStatus("malo");
             inventory4.setActive(true);
-            inventoryRepository.save(inventory4);
+            //inventoryRepository.save(inventory4);
         }
     }
 
@@ -861,7 +861,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         loadDataInjuryType();
         loadDataInjuryBody();
         loadDataCausingAgent();
-        
+
         if (accidentRepository.count() == 0) {
             String[] lugares = new String[10];
             lugares[0] = "HOSPITAL ANOCARAIRE – VINTO BOLIVIA";
