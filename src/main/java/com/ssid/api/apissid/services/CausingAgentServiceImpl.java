@@ -1,9 +1,7 @@
 package com.ssid.api.apissid.services;
 
 import com.ssid.api.apissid.domain.CausingAgent;
-import com.ssid.api.apissid.domain.InjuryBody;
 import com.ssid.api.apissid.repositories.CausingAgentRepository;
-import com.ssid.api.apissid.repositories.InjuryBodyRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 

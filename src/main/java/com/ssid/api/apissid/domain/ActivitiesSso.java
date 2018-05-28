@@ -22,14 +22,14 @@ public class ActivitiesSso extends ModelBase implements Serializable{
     @Column(name = "sso_detail_id")
     private Long id;
 
-    @Column(name = "so_detail_number", length = 150)
-    private Integer detailNumber;
-
     @Column(name = "sso_detail_activities", length = 250)
     private String detailActivities;
 
     @Column(name = "sso_detail_goal", length = 200)
     private String detailGoal;
+
+    @Column(name = "so_detail_number", length = 150)
+    private Integer detailNumber;
 
     @Column(name = "sso_detail_time")
     private String detailTime;
@@ -41,13 +41,15 @@ public class ActivitiesSso extends ModelBase implements Serializable{
     @JoinColumn(name = "sso_id")
     private ProgramSso programSso;
 
+    @ManyToOne
+    @JoinColumn(name = "sso_trainer_id")
+    private TrainersSso trainersSso;
+
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "activitiesSso", fetch = FetchType.EAGER)
     private Set<ResourceSso> resourceSsos = new HashSet<ResourceSso>();
 
-    @ManyToOne
-    @JoinColumn(name = "sso_trainer_id")
-    private TrainersSso trainersSso;
+
 
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(name = "DetailPersonalSso",

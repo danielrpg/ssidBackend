@@ -37,7 +37,7 @@ public class PersonalCommand {
         setCellphone(personal.getCellphone());
         setTelephone(personal.getTelephone());
         setActive(personal.getActive());
-        setBirthdate(personal.getBirthdate());
+        //setBirthdate(personal.getBirthdate());
 
         Area area = personal.getArea();
 
@@ -60,7 +60,7 @@ public class PersonalCommand {
         personal.setCellphone(getCellphone());
         personal.setTelephone(getTelephone());
         personal.setActive(getActive());
-        personal.setBirthdate(getBirthdate());
+       // personal.setBirthdate(getBirthdate());
 
         if (getAreaId() != null && getAreaId() > 0) {
             Area area = new Area();

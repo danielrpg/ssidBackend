@@ -5,6 +5,7 @@ import com.ssid.api.apissid.command.ContractCommand;
 import com.ssid.api.apissid.command.ProgramSsoCommand;
 import com.ssid.api.apissid.domain.Contract;
 import com.ssid.api.apissid.services.ContractService;
+import com.ssid.api.apissid.services.SPSerives.SPContractService;
 import com.ssid.api.apissid.util.ApiPath;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,53 +20,38 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = ApiPath.CONTRACT_PATH)
 public class ContractController {
-    private ContractService contractService;
 
-    public ContractController(ContractService contractService) {
+    private ContractService contractService;
+    private SPContractService spContractService;
+
+    public ContractController(ContractService contractService, SPContractService spContractService) {
         this.contractService = contractService;
+        this.spContractService = spContractService;
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> getAllContracts() {
-        Map<String, Object> mapResponse = new HashMap<>();
-        mapResponse.put("status", "ok");
-        List<ContractCommand> contractList = new ArrayList<>();
-        this.contractService.findAll().forEach(contract -> {
-            contractList.add(new ContractCommand(contract));
-        });
-        mapResponse.put("data", contractList);
-        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+    public List<Contract> getAllContracts() {
+        return spContractService.getAllContracts();
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
     public @ResponseBody
-    void saveContract(@RequestBody ContractCommand contractCommand) {
-
-        if (StringUtils.isEmpty(contractCommand.getId())) {
-            this.contractService.saveContract(contractCommand.toContract());
-        } else {
-            // se busca el objeto existente
-            Contract contract = this.contractService.findById(contractCommand.getId());
-
-            contract.setCode(contractCommand.getCode());
-            contract.setCity(contractCommand.getCity());
-            contract.setDate(contractCommand.getDate());
-            contract.setSalary(contractCommand.getSalary());
-            contract.setDescription(contractCommand.getDescription());
-            contract.setType(contractCommand.getType());
-
-
-            this.contractService.saveContract(contract);
-        }
-
+    ResponseEntity<Map<String, Object>> saveContract(@RequestBody Contract contract) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("success", this.spContractService.createContract(contract));
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
 
     }
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Map<String, Object>> deleteRequirement(@PathVariable long id) {
+    public ResponseEntity<Map<String, Object>> deleteContract(@PathVariable Long id) {
         Map<String, Object> mapResponse = new HashMap<>();
-        mapResponse.put("status", "deleted");
-        this.contractService.deleteById(id);
+        mapResponse.put("success", this.spContractService.deleteContract(id));
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+    }
+
+    @RequestMapping( value = "/update/{id}", method = RequestMethod.PUT)
+    public Contract updatePersonal(@RequestBody Contract contract, @PathVariable("id") Long id) {
+        return  this.spContractService.updateContract(id, contract);
     }
 
     @RequestMapping(value = "/{code}", method = RequestMethod.GET)

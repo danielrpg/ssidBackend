@@ -8,11 +8,60 @@ import java.util.Set;
 
 @Entity
 @Table(name = "contracts")
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = "sp_getAllContracts",
+                procedureName = "sp_get_all_contracts",
+                resultClasses = Contract.class),
+        @NamedStoredProcedureQuery(
+                name = "sp_deleteContract",
+                procedureName = "sp_delete_contract",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "contract_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_createContract",
+                procedureName = "sp_create_contract",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "contract_code", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "contract_city", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "contract_type", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "contract_date", type = Date.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "contract_salary", type = Double.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "contract_description", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_editContract",
+                procedureName = "sp_edit_contract",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "contract_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "contract_code", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "contract_city", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "contract_type", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "contract_date", type = Date.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "contract_salary", type = Double.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "contract_description", type = String.class),
+                },
+                resultClasses = Contract.class
+        )/*,
+        @NamedStoredProcedureQuery(
+                name = "sp_personalById",
+                procedureName = "sp_personal_by_id",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_id", type = Long.class)
+                },
+                resultClasses = Personal.class
+        )*/
+})
 public class Contract extends ModelBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "contract_id")
     private Long id;
 
@@ -25,10 +74,10 @@ public class Contract extends ModelBase implements Serializable {
     @Column(name = "contract_type", length = 100)
     private String type;
 
-    @Column(name = "contract_date", length = 50)
+    @Column(name = "contract_date")
     private Date date;
 
-    @Column(name = "contract_salary", length = 50)
+    @Column(name = "contract_salary")
     private Double salary;
 
     @Column(name = "contract_description", length = 100)

@@ -4,58 +4,51 @@ import com.ssid.api.apissid.domain.ResourceSso;
 
 
 public class ResourcesSsoCommand {
-    private Long resourceId;
-    private Double resourceCost;
+    private Long id;
+    private float resourceCost;
     private String resourceDetail;
-    private Object[] activitiesSsos = new Object[0];
 
-    public ResourcesSsoCommand(ResourceSso resourceSso){
-        setId(resourceSso.getId());
-        setSsoCost(resourceSso.getResourceCost());
-        setSsoDetail(resourceSso.getResourceDetail());
-    }
+
+//    public ResourcesSsoCommand(ResourceSso resourceSso){
+//        setId(resourceSso.getId());
+//        setResourceCost(resourceSso.getResourceCost());
+//        setResourceDetail(resourceSso.getResourceDetail());
+//    }
 
     public ResourceSso toResourcesSso(){
         ResourceSso resourcesSso = new ResourceSso();
         resourcesSso.setId(getId());
-        resourcesSso.setResourceCost(getSsoCost());
-        resourcesSso.setResourceDetail(getSsoDetail());
+        resourcesSso.setResourceCost(getResourceCost());
+        resourcesSso.setResourceDetail(getResourceDetail());
+
 
 
         return resourcesSso;
     }
 
+
     public Long getId() {
-        return resourceId;
+        return id;
     }
 
-    public void setId(Long resourceId) {
-        this.resourceId = resourceId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-
-    public Double getSsoCost() {
+    public float getResourceCost() {
         return resourceCost;
     }
 
-    public void setSsoCost(Double ssoCost) {
-        this.resourceCost = ssoCost;
+    public void setResourceCost(float resourceCost) {
+        this.resourceCost = resourceCost;
     }
 
-    public String getSsoDetail() {
+    public String getResourceDetail() {
         return resourceDetail;
     }
 
-    public void setSsoDetail(String resourceDetail) {
+    public void setResourceDetail(String resourceDetail) {
         this.resourceDetail = resourceDetail;
-    }
-
-    public Object[] getActivitiesSsos() {
-        return activitiesSsos;
-    }
-
-    public void setActivitiesSsos(Object[] activitiesSsos) {
-        this.activitiesSsos = activitiesSsos;
     }
 }
 
