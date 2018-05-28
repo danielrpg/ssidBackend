@@ -46,18 +46,6 @@ public class Accident extends ModelBase implements Serializable{
     @ManyToOne
     private Personal reportBy;
 
-    // Forma de accidente
-    @ManyToOne
-    private InjuryForm injuryForm;
-
-    // tipo de lesion
-    @ManyToOne
-    private InjuryType injuryType;
-
-    // Parte del cuerpo lesionada
-    @ManyToOne
-    private InjuryBody injuryBody;
-
     // Agente Causante
     @ManyToOne
     private CausingAgent causingAgent;
@@ -120,30 +108,6 @@ public class Accident extends ModelBase implements Serializable{
 
     public void setReportBy(Personal reportBy) {
         this.reportBy = reportBy;
-    }
-
-    public InjuryForm getInjuryForm() {
-        return injuryForm;
-    }
-
-    public void setInjuryForm(InjuryForm injuryForm) {
-        this.injuryForm = injuryForm;
-    }
-
-    public InjuryType getInjuryType() {
-        return injuryType;
-    }
-
-    public void setInjuryType(InjuryType injuryType) {
-        this.injuryType = injuryType;
-    }
-
-    public InjuryBody getInjuryBody() {
-        return injuryBody;
-    }
-
-    public void setInjuryBody(InjuryBody injuryBody) {
-        this.injuryBody = injuryBody;
     }
 
     public CausingAgent getCausingAgent() {

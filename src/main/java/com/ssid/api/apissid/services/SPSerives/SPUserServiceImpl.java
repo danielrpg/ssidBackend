@@ -4,12 +4,10 @@ import com.ssid.api.apissid.domain.UserSystem;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 import java.util.List;
 
-import static javax.persistence.ParameterMode.IN;
 
 @Service
 public class SPUserServiceImpl implements SPUserService{

@@ -36,9 +36,6 @@ public class AccidentCommand {
         setDescripcion(accident.getDescription());
 
         setReportadopor(accident.getReportBy().getName());
-        setFormadeaccidente(accident.getInjuryForm().getName());
-        setTipodelesion(accident.getInjuryType().getName());
-        setPartedelcuerpolesionada(accident.getInjuryBody().getName());
         setAgentecausante(accident.getCausingAgent().getName());
         setTipodeaccidente(accident.getAccidentType().getName());
     }
