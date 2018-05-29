@@ -9,7 +9,7 @@ import java.util.*;
  * @author christian Tola
  */
 @Entity
-public class Incident implements Serializable {
+public class Incident extends ModelBaseAudit implements Serializable {
 
     @Id
     @Column(name = "incident_id", nullable = false)
