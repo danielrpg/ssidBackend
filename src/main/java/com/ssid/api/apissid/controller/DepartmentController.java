@@ -3,6 +3,7 @@ package com.ssid.api.apissid.controller;
 import com.ssid.api.apissid.command.DepartmentCommand;
 import com.ssid.api.apissid.domain.Department;
 import com.ssid.api.apissid.services.DepartmentService;
+import com.ssid.api.apissid.services.SPSerives.SPDeparmentService;
 import com.ssid.api.apissid.util.ApiPath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,10 +23,12 @@ import java.util.Map;
 public class DepartmentController {
 
     private DepartmentService departmentService;
+    private SPDeparmentService spDeparmentService;
 
     @Autowired
-    public DepartmentController(DepartmentService departmentService) {
+    public DepartmentController(DepartmentService departmentService, SPDeparmentService spDeparmentService) {
         this.departmentService = departmentService;
+        this.spDeparmentService = spDeparmentService;
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
@@ -33,7 +36,7 @@ public class DepartmentController {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "ok");
         List<DepartmentCommand> departmentList = new ArrayList<>();
-        this.departmentService.findAll().forEach(department -> {
+        this.spDeparmentService.getAllDepartment().forEach(department -> {
             departmentList.add(new DepartmentCommand(department));
         });
         mapResponse.put("data", departmentList);
@@ -72,23 +75,22 @@ public class DepartmentController {
     public ResponseEntity<Map<String, Object>> createDepartment(@RequestBody DepartmentCommand departmentCommand) {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "created");
-        mapResponse.put("data", departmentService.save(departmentCommand.toDepartment()));
+        mapResponse.put("data", spDeparmentService.createDepartment(departmentCommand.toDepartment()));
         return new ResponseEntity<>(mapResponse, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Map<String, Object>> updateDepartment(@RequestBody DepartmentCommand departmentCommand, @PathVariable int id) {
+    public ResponseEntity<Map<String, Object>> updateDepartment(@RequestBody DepartmentCommand departmentCommand, @PathVariable Long id) {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "updated");
-        mapResponse.put("data", departmentService.updateDepartment(departmentCommand.toDepartment(), (long) id));
+        mapResponse.put("data", spDeparmentService.updateDepartment(id, departmentCommand.toDepartment()));
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Map<String, Object>> deleteDepartment(@PathVariable long id) {
+    public ResponseEntity<Map<String, Object>> deleteDepartment(@PathVariable Long id) {
         Map<String, Object> mapResponse = new HashMap<>();
-        mapResponse.put("status", "deleted");
-        this.departmentService.deleteById(id);
+        mapResponse.put("status", this.spDeparmentService.deleteDepartment(id));
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 }
