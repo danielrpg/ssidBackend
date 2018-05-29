@@ -272,4 +272,4 @@ public class Personal extends ModelBase implements Serializable{
     public void setAccidents(Set<Accident> accidents) {
         this.accidents = accidents;
     }
-    }
+}
