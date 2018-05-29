@@ -13,7 +13,7 @@ import java.util.Set;
  * @author christian Tola
  */
 @Entity
-public class IncidentType implements Serializable {
+public class IncidentType extends ModelBaseAudit implements Serializable {
 
     @Id
     @Column(nullable = false)
