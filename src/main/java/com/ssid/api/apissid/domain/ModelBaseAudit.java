@@ -5,6 +5,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,16 +13,20 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 public class ModelBaseAudit implements Serializable {
 
-    @Column(columnDefinition = "VARCHAR(50) NOT NULL DEFAULT 'admin'")
+//    @Column(columnDefinition = "VARCHAR(50) NOT NULL DEFAULT 'admin'")
+    @Transient
     private String CreatedBy;
 
-    @Column(columnDefinition = "DATETIME NOT NULL DEFAULT GETDATE()")
+//    @Column(columnDefinition = "DATETIME NOT NULL DEFAULT GETDATE()")
+    @Transient
     private Date CreatedDate;
 
-    @Column(columnDefinition = "VARCHAR(50) NOT NULL DEFAULT 'admin'")
+//    @Column(columnDefinition = "VARCHAR(50) NOT NULL DEFAULT 'admin'")
+    @Transient
     private String ModifiedBy;
 
-    @Column(columnDefinition = "DATETIME NOT NULL DEFAULT GETDATE()")
+//    @Column(columnDefinition = "DATETIME NOT NULL DEFAULT GETDATE()")
+    @Transient
     private Date ModifiedDate;
 
     public String getCreatedBy() {
