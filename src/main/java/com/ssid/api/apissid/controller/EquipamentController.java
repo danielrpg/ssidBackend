@@ -3,6 +3,7 @@ package com.ssid.api.apissid.controller;
 import com.ssid.api.apissid.domain.Equipament;
 import com.ssid.api.apissid.services.EquipamentService;
 import com.ssid.api.apissid.command.EquipamentCommand;
+import com.ssid.api.apissid.services.SPSerives.SPEquipamentService;
 import com.ssid.api.apissid.util.ApiPath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +18,12 @@ import java.util.*;
 public class EquipamentController {
 
     private EquipamentService equipamentService;
+    private SPEquipamentService spEquipamentService;
 
     @Autowired
-    public EquipamentController(EquipamentService equipamentService) {
+    public EquipamentController(EquipamentService equipamentService, SPEquipamentService spEquipamentService) {
         this.equipamentService = equipamentService;
+        this.spEquipamentService = spEquipamentService;
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
@@ -29,6 +32,7 @@ public class EquipamentController {
         List<EquipamentCommand> equipamentCommadsList = new ArrayList<>();
 
         this.equipamentService.getListEquipament().forEach(equipament -> {
+        //this.spEquipamentService.getAllEquipaments().forEach(equipament -> {
             equipamentCommadsList.add(new EquipamentCommand(equipament));
         });
         return equipamentCommadsList;
@@ -38,6 +42,7 @@ public class EquipamentController {
     public @ResponseBody
     void saveEquipament(@RequestBody EquipamentCommand equipamentCommad) {
         this.equipamentService.saveEquipament(equipamentCommad.toEquipament());
+        //this.spEquipamentService.createEquipament(equipamentCommad.toEquipament());
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
