@@ -93,7 +93,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         loadDataSSO();
 
         //Cargando datos de Inventarios
-       // loadDataEquipamentInventary();
+        loadDataEquipamentInventary();
 
         //Cargando datos defecto de contratos
         loadDataContracts();
@@ -201,7 +201,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     }
 
     private void loadDataEquipamentInventary() {
-        if(equipamentRepository.count()==0) {
+        if(equipamentRepository.count()==0 && personalRepository.count()==0) {
             //Area
             Area area = new Area();
             area.setName("Construcción");
@@ -216,6 +216,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             personal.setEmail("jDoe@gmail.com");
             //    personal.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
             personal.setActive(true);
+            personalRepository.save(personal);
 
             Personal personal2 = new Personal();
             personal2.setArea(area);
@@ -225,7 +226,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             personal2.setEmail("jDoe@gmail.com");
             //    personal2.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
             personal2.setActive(true);
-            personalRepository.save(personal);
+            personalRepository.save(personal2);
 
             //Equipment 1
             Equipament equipament11 = new Equipament();
