@@ -16,14 +16,14 @@
 # Coneccion de sql server
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost:1433;databaseName=ssidb
+    url: jdbc:sqlserver://PIERO-ASUS\SQL2012;database=SSID
     username: sa
-    password: P@55w0rd
+    password: control
     platform: mssql
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
     database: SQL_SERVER
     show-sql: true
 

@@ -17,7 +17,7 @@ public class IncidentType extends ModelBaseAudit implements Serializable {
 
     @Id
     @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long incidentTypeId;
 
     @Column
@@ -26,12 +26,11 @@ public class IncidentType extends ModelBaseAudit implements Serializable {
     @Column
     private String incidentTypeDescription;
 
-    @Column
+    @Column(name = "incident_type_type")
     private String incidentType;
 
-    @Column
+    @Column(name = "incident_type_subtype")
     private String incidentSubType;
-
 
     @OneToMany(mappedBy = "incidentType", cascade = CascadeType.ALL)
     @JsonIgnore
