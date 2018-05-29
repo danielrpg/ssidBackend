@@ -21,8 +21,8 @@ public class AssignEquipamentServiceImpl implements AssignEquipamentService{
 
         for (Equipament equipament: assignEquipamentCommand.getEquipamentList()) {
             AssignEquipament assignEquipament = new AssignEquipament();
-            assignEquipament.setPersonal(assignEquipamentCommand.getPersonal());
-            assignEquipament.setEquipament(equipament);
+//            assignEquipament.setPersonal(assignEquipamentCommand.getPersonal());
+//            assignEquipament.setEquipament(equipament);
             assignEquipament.setNumberAssigned(assignEquipamentCommand.getNumberAssigned());
             this.assignEquipamentRepository.save(assignEquipament);
         }

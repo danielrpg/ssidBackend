@@ -839,7 +839,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             incident.setCode("ACC-01");
             incident.setDateAt(new Date());
             incident.setReportedBy("admin");
-            incident.setArea("soldadura");
+            //incident.setArea("soldadura");
             incident.setReincident(false);
             incident.setTreatment(false);
             incident.setRecurrence(40);
@@ -851,7 +851,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             incident1.setCode("ENF-01");
             incident1.setDateAt(new Date());
             incident1.setReportedBy("admin");
-            incident1.setArea("mecanica");
+            //incident1.setArea("mecanica");
             incident1.setReincident(false);
             incident1.setTreatment(false);
             incident1.setRecurrence(25);
@@ -863,7 +863,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             incident2.setCode("INC-01");
             incident2.setDateAt(new Date());
             incident2.setReportedBy("admin");
-            incident2.setArea("finanzas");
+            //incident2.setArea("finanzas");
             incident2.setReincident(false);
             incident2.setTreatment(false);
             incident2.setRecurrence(60);

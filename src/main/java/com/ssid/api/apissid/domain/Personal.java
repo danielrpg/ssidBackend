@@ -68,7 +68,7 @@ import java.util.Set;
                 resultClasses = Personal.class
         )
 })
-public class Personal extends ModelBase implements Serializable{
+public class Personal extends ModelBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -109,13 +109,17 @@ public class Personal extends ModelBase implements Serializable{
     @ManyToOne
     private Area area;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal", fetch = FetchType.LAZY)
-    private Set<Accident> accidents ;
+    //    @JsonIgnore
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal", fetch = FetchType.LAZY)
+    //private Set<Accident> accidents;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reportBy", fetch = FetchType.LAZY)
-    private Set<Accident> accidentsReport ;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal", fetch = FetchType.LAZY)
+    private Set<Incident> incidents;
+
+//    @JsonIgnore
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reportBy", fetch = FetchType.LAZY)
+    //private Set<Accident> accidentsReport;
 
     @JsonIgnore
     @OneToMany(mappedBy = "personal", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -130,24 +134,24 @@ public class Personal extends ModelBase implements Serializable{
     @ManyToMany(mappedBy = "personals", fetch = FetchType.EAGER)
     private Set<ActivitiesSso> activitiesSsos;
 
-    @OneToOne
-    private AssignEquipament assignEquipament;
+//    @OneToOne
+//    private AssignEquipament assignEquipament;
 
-    public AssignEquipament getAssignEquipament() {
-        return assignEquipament;
-    }
+//    public AssignEquipament getAssignEquipament() {
+//        return assignEquipament;
+//    }
+//
+//    public void setAssignEquipament(AssignEquipament assignEquipament) {
+//        this.assignEquipament = assignEquipament;
+//    }
 
-    public void setAssignEquipament(AssignEquipament assignEquipament) {
-        this.assignEquipament = assignEquipament;
-    }
-
-    public Set<Accident> getAccidentsReport() {
-        return accidentsReport;
-    }
-
-    public void setAccidentsReport(Set<Accident> accidentsReport) {
-        this.accidentsReport = accidentsReport;
-    }
+//    public Set<Accident> getAccidentsReport() {
+//        return accidentsReport;
+//    }
+//
+//    public void setAccidentsReport(Set<Accident> accidentsReport) {
+//        this.accidentsReport = accidentsReport;
+//    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -265,11 +269,19 @@ public class Personal extends ModelBase implements Serializable{
         this.activitiesSsos = activitiesSsos;
     }
 
-    public Set<Accident> getAccidents() {
-        return accidents;
+//    public Set<Accident> getAccidents() {
+//        return accidents;
+//    }
+//
+//    public void setAccidents(Set<Accident> accidents) {
+//        this.accidents = accidents;
+//    }
+
+    public Set<Incident> getIncidents() {
+        return incidents;
     }
 
-    public void setAccidents(Set<Accident> accidents) {
-        this.accidents = accidents;
+    public void setIncidents(Set<Incident> incidents) {
+        this.incidents = incidents;
     }
-    }
+}

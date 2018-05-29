@@ -52,7 +52,7 @@ public class IncidentServiceImpl implements IncidentService {
         incidentDetail.setIncidentDetailSubtype(incidentDTO.getIncidentSubType());
 
         Incident incident = new Incident();
-        incident.setArea(incidentDTO.getArea());
+        //incident.setArea(incidentDTO.getArea());
         incident.setCode(incidentDTO.getCode());
         incident.setDateAt(new Date());
         incident.setIncidentNumber(incidentDTO.getIncidentNumber());
@@ -77,7 +77,7 @@ public class IncidentServiceImpl implements IncidentService {
         Incident incident = incidentRepository.findById((long)id).get();
         IncidentDetail incidentDetail = incident.getIncidentDetail();
         incidentDetail.setIncidentDetailName(incidentDTO.getDescription());
-        incident.setArea(incidentDTO.getArea());
+        //incident.setArea(incidentDTO.getArea());
         incident.setCode(incidentDTO.getCode());
         incident.setRecurrence(incidentDTO.getRecurrence());
         incident.setSeverity(incidentDTO.getSeverity());
