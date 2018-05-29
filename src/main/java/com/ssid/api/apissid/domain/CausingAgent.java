@@ -19,7 +19,7 @@ import java.util.Set;
         property = "id")
 public class CausingAgent extends ModelBase implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ausing_agent_id")
     @JsonProperty("id")
     private Long id;
