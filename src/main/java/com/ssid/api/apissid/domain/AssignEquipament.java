@@ -29,11 +29,11 @@ public class AssignEquipament extends ModelBase implements Serializable{
     @Column(name = "assign_date")
     private Date dateAsssigned;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Personal personal;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private Equipament equipament;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    private Personal personal;
+//
+//    @OneToOne(cascade = CascadeType.ALL)
+//    private Equipament equipament;
 
     public Long getId() {
         return id;
@@ -59,19 +59,19 @@ public class AssignEquipament extends ModelBase implements Serializable{
         this.dateAsssigned = dateAsssigned;
     }
 
-    public Personal getPersonal() {
-        return personal;
-    }
-
-    public void setPersonal(Personal personal) {
-        this.personal = personal;
-    }
-
-    public Equipament getEquipament() {
-        return equipament;
-    }
-
-    public void setEquipament(Equipament equipament) {
-        this.equipament = equipament;
-    }
+//    public Personal getPersonal() {
+//        return personal;
+//    }
+//
+//    public void setPersonal(Personal personal) {
+//        this.personal = personal;
+//    }
+//
+//    public Equipament getEquipament() {
+//        return equipament;
+//    }
+//
+//    public void setEquipament(Equipament equipament) {
+//        this.equipament = equipament;
+//    }
 }

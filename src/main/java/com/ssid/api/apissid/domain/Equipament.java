@@ -54,16 +54,16 @@ public class Equipament extends ModelBase implements Serializable {
     @OneToMany(mappedBy = "equipament", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Inventory> inventories;
 
-    @OneToOne
-    private AssignEquipament assignEquipament;
+//    @OneToOne
+//    private AssignEquipament assignEquipament;
 
-    public AssignEquipament getAssignEquipament() {
-        return assignEquipament;
-    }
-
-    public void setAssignEquipament(AssignEquipament assignEquipament) {
-        this.assignEquipament = assignEquipament;
-    }
+//    public AssignEquipament getAssignEquipament() {
+//        return assignEquipament;
+//    }
+//
+//    public void setAssignEquipament(AssignEquipament assignEquipament) {
+//        this.assignEquipament = assignEquipament;
+//    }
 
     public Long getId() {
         return id;
