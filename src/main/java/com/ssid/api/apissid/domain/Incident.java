@@ -25,8 +25,8 @@ public class Incident implements Serializable {
     @Column
     private String reportedBy;
 
-    @Column
-    private String area;
+//    @Column
+//    private String area;
 
     @Column
     private boolean reincident;
@@ -53,6 +53,9 @@ public class Incident implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "incident_detail_id")
     private IncidentDetail incidentDetail;
+
+    @ManyToOne
+    private Personal personal;
 
     public Long getIncidentId() {
         return incidentId;
@@ -86,13 +89,13 @@ public class Incident implements Serializable {
         this.reportedBy = reportedBy;
     }
 
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
+//    public String getArea() {
+//        return area;
+//    }
+//
+//    public void setArea(String area) {
+//        this.area = area;
+//    }
 
     public boolean isReincident() {
         return reincident;
@@ -156,5 +159,13 @@ public class Incident implements Serializable {
 
     public void setSeverity(String severity) {
         this.severity = severity;
+    }
+
+    public Personal getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(Personal personal) {
+        this.personal = personal;
     }
 }
