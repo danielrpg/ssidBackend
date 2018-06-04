@@ -25,8 +25,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private IncidentTypeRepository incidentTypeRepository;
     private IncidentDetailRepository incidentDetailRepository;
     private IncidentRepository incidentRepository;
-    private AccidentRepository accidentRepository;
-    private AccidentTypeRepository accidentTypeRepository;
     private CausingAgentRepository causingAgentRepository;
     /**
      * Personal assignment Equipment repositories
@@ -50,8 +48,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                         IncidentTypeRepository incidentTypeRepository,
                         IncidentDetailRepository incidentDetailRepository,
                         IncidentRepository incidentRepository,
-                        AccidentRepository accidentRepository,
-                        AccidentTypeRepository accidentTypeRepository,
                         CausingAgentRepository causingAgentRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
@@ -72,8 +68,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         this.incidentTypeRepository = incidentTypeRepository;
         this.incidentDetailRepository = incidentDetailRepository;
         this.incidentRepository = incidentRepository;
-        this.accidentRepository = accidentRepository;
-        this.accidentTypeRepository = accidentTypeRepository;
         this.causingAgentRepository = causingAgentRepository;
     }
 
@@ -881,40 +875,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         }
     }
     private void loadDataAccidents() {
-        loadDataAccidentType();
         loadDataCausingAgent();
-        
-        if (accidentRepository.count() == 0) {
-            String[] lugares = new String[10];
-            lugares[0] = "HOSPITAL ANOCARAIRE – VINTO BOLIVIA";
-            lugares[1] = "HOSPITAL UNIVALLE";
-            lugares[2] = "HOSPITAL HARRY WILLIAMS";
-            lugares[3] = "HOSPITAL SAN VICENTE DE PAUL";
-            lugares[4] = "EMERGENCIAS HOSPITAL VIEDMA";
-            lugares[5] = "CAJA INTEGRAL CORDES";
-            lugares[6] = "CAJA DE SALUD DE LA BANCA PRIVADA";
-            lugares[7] = "CAJA PETROLERA DE SALUD – ADMINISTRACIÓN DEPARTAMENTAL COCHABAMBA";
-            lugares[8] = "CAJA PETROLERA DE SALUD – HOSPITAL ELIZABETH SETON";
-            lugares[9] = "CENTRO MEDICO QUIR. BOLIVIANO BELGA S.R.L.";
-
-            List<Personal> allPersonal = personalRepository.findAll();
-            List<AccidentType> accidentTypes = accidentTypeRepository.findAll();
-            List<CausingAgent> causingAgents = causingAgentRepository.findAll();
-
-            for (int i=0; i<100; i++){
-                Accident accident = new Accident();
-                accident.setPersonal(allPersonal.get((int)(Math.random()*(allPersonal.size()-1))));
-                accident.setDateAt(new Date());
-                accident.setBajamedica((long) (Math.random() * 20));
-                accident.setLugaratencion(lugares[(int)(Math.random()*(lugares.length-1))]);
-                accident.setDescription("Leccion en la espalda al tropezar");
-                accident.setReportBy(allPersonal.get((int)(Math.random()*(allPersonal.size()-1))));
-                accident.setCausingAgent(causingAgents.get((int)(Math.random()*(causingAgents.size()-1))));
-                accident.setAccidentType(accidentTypes.get((int)(Math.random()*(accidentTypes.size()-1))));
-                accidentRepository.save(accident);
-
-            }
-        }
     }
 
     private void loadDataCausingAgent() {
@@ -939,19 +900,4 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
 
 
-    private void loadDataAccidentType() {
-        if(accidentTypeRepository.count() == 0){
-            ArrayList<String> formaDeaccidentes = new ArrayList<String>();
-            formaDeaccidentes.add("Accidente del personal");
-            formaDeaccidentes.add("Daños a propiedad equipos");
-            formaDeaccidentes.add("Medio ambiente");
-            formaDeaccidentes.add("Fatalidad");
-
-            for (String formaDeaccidente : formaDeaccidentes){
-                AccidentType accidentType = new AccidentType();
-                accidentType.setName(formaDeaccidente);
-                accidentTypeRepository.save(accidentType);
-            }
-        }
-    }
 }

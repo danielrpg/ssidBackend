@@ -160,7 +160,7 @@ public class PersonalController {
     public ResponseEntity<Map<String, Object>> deletePersonal(@PathVariable Long id) {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "deleted");
-        this.spPersonalService.deletePersonal(id);
+                                                                                                                                                                                                                    this.spPersonalService.deletePersonal(id);
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 }
