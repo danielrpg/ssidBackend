@@ -16,9 +16,9 @@
 # Coneccion de sql server
 spring:
   datasource:
-    url: jdbc:sqlserver://PIERO-ASUS\SQL2012;database=SSID
+    url: jdbc:sqlserver://localhost:1433;database=SSID
     username: sa
-    password: control
+    password: P@55w0rd
     platform: mssql
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
