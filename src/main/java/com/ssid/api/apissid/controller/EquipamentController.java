@@ -18,6 +18,7 @@ import java.util.*;
 public class EquipamentController {
 
     private EquipamentService equipamentService;
+
     private SPEquipamentService spEquipamentService;
 
     @Autowired
@@ -41,8 +42,8 @@ public class EquipamentController {
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
     public @ResponseBody
     void saveEquipament(@RequestBody EquipamentCommand equipamentCommad) {
-        this.equipamentService.saveEquipament(equipamentCommad.toEquipament());
-        //this.spEquipamentService.createEquipament(equipamentCommad.toEquipament());
+        //this.equipamentService.saveEquipament(equipamentCommad.toEquipament());
+        this.spEquipamentService.createEquipament(equipamentCommad.toEquipament());
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -58,6 +59,7 @@ public class EquipamentController {
     void deleteEquipamentById(@PathVariable(value = "id") Long id) {
         this.equipamentService.deleteEquipamentById(id);
     }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Map<String, Object>> updateEquipament(@RequestBody EquipamentCommand equipament, @PathVariable int id) {
         Map<String, Object> mapResponse = new HashMap<>();
@@ -65,6 +67,7 @@ public class EquipamentController {
         mapResponse.put("data", this.equipamentService.updateEquipament(equipament.toEquipament(), (long) id));
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
+
     @RequestMapping(path = ApiPath.EQUIPAMENT_BY_ID, method = RequestMethod.PUT)
     public @ResponseBody
     EquipamentCommand updateEquipament(@RequestBody EquipamentCommand equipament, @PathVariable(value = "id") Long id){

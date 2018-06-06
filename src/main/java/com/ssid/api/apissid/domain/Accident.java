@@ -19,13 +19,13 @@ import java.util.*;
 public class Accident extends ModelBase implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "accident_id")
     @JsonProperty("id")
     private Long id;
 
     // Datos del accidentado
-    @ManyToOne
+    //@ManyToOne
     private Personal personal;
 
     @Column
@@ -43,7 +43,7 @@ public class Accident extends ModelBase implements Serializable{
     private String description;
 
     // Reportado por
-    @ManyToOne
+    //@ManyToOne
     private Personal reportBy;
 
     // Agente Causante

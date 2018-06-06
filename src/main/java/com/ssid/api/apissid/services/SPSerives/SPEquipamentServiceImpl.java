@@ -9,24 +9,25 @@ import javax.persistence.StoredProcedureQuery;
 import java.util.List;
 
 @Service
+
 public class SPEquipamentServiceImpl implements SPEquipamentService{
+
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
     public List<Equipament> getAllEquipaments() {
-
-        /*StoredProcedureQuery query =
-                entityManager.createNamedStoredProcedureQuery("sp_getAllPersonal");
-        query.execute();
-        return (List<Personal>) query.getResultList();*/
-        StoredProcedureQuery query = this.entityManager.createNamedStoredProcedureQuery("sp_getEquipament");
+        System.out.println("desde getEquipaments");
+        StoredProcedureQuery query =
+                this.entityManager.createNamedStoredProcedureQuery("sp_getAllEquipament");
         query.execute();
         return (List<Equipament>) query.getResultList();
     }
 
     @Override
     public void createEquipament(Equipament equipament) {
+        System.out.println("desde getEquipaments "+"name:  "+equipament.getName()+" desc:  "+
+        equipament.getDescription()+" type:"+equipament.getType()+" img:"+equipament.getImage());
         StoredProcedureQuery query = this.entityManager.createNamedStoredProcedureQuery("sp_createEquipament");
         query.setParameter("equipament_name", equipament.getName());
         query.setParameter("equipament_type", equipament.getType());

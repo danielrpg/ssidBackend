@@ -46,10 +46,10 @@ public class PersonalServiceImpl extends GenericServiceImpl<Personal> implements
                 isChanged = true;
             }
 
-            if (personalDB.getPhoto() != personal.getPhoto()) {
-                personalDB.setPhoto(personal.getPhoto());
-                isChanged = true;
-            }
+//            if (personalDB.getPhoto() != personal.getPhoto()) {
+//                personalDB.setPhoto(personal.getPhoto());
+//                isChanged = true;
+//            }
 
             if (personalDB.getEmail().compareTo(personal.getEmail()) != 0) {
                 personalDB.setEmail(personal.getEmail());
@@ -107,7 +107,7 @@ public class PersonalServiceImpl extends GenericServiceImpl<Personal> implements
         if (personalPersisted.isPresent()) {
             try {
                 Byte[] bytes = ImageUtils.inputStreamToByteArray(file);
-                personalPersisted.get().setPhoto(bytes);
+                //personalPersisted.get().setPhoto(bytes);
                 repository.save(personalPersisted.get());
             } catch (IOException e) {
                 logger.error("Error reading file", e);

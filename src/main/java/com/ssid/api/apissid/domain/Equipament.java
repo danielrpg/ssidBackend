@@ -17,18 +17,22 @@ import java.util.Set;
         property = "id")
 @NamedStoredProcedureQueries({
         @NamedStoredProcedureQuery(
-        name = "sp_createEquipament",
-        procedureName = "sp_create_equipament",
-        parameters = {
-                @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_name", type = String.class),
-                @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_type", type = Long.class),
-                @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_description", type = String.class),
-                @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_image", type = ByteArray.class),
-                //@StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
-        }
-        ),@NamedStoredProcedureQuery(
-                name = "sp_getEquipament",
+                name = "sp_getAllEquipament",
                 procedureName = "sp_get_all_equipament",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_id", type = Long.class),
+                },
+                resultClasses = Equipament.class
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_createEquipament",
+                procedureName = "sp_create_equipament",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_name", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_type", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_description", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_image", type = ByteArray.class),
+                },
                 resultClasses = Equipament.class
         )
 })
@@ -67,16 +71,16 @@ public class Equipament extends ModelBase implements Serializable {
     @OneToMany(mappedBy = "equipament", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Inventory> inventories;
 
-    @OneToOne
-    private AssignEquipament assignEquipament;
+//    @OneToOne
+//    private AssignEquipament assignEquipament;
 
-    public AssignEquipament getAssignEquipament() {
-        return assignEquipament;
-    }
-
-    public void setAssignEquipament(AssignEquipament assignEquipament) {
-        this.assignEquipament = assignEquipament;
-    }
+//    public AssignEquipament getAssignEquipament() {
+//        return assignEquipament;
+//    }
+//
+//    public void setAssignEquipament(AssignEquipament assignEquipament) {
+//        this.assignEquipament = assignEquipament;
+//    }
 
     public Long getId() {
         return id;

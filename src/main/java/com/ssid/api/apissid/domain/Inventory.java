@@ -12,20 +12,20 @@ public class Inventory extends ModelBase implements Serializable{
     @Column(name = "inventory_id")
     private Long id;
 
-    @Column(name = "date_asignament", length = 50)
+    @Column(name = "date_assignament", length = 50)
     private Date dateAsignament;
 
-    @Column(name = "status_asignament", length = 50)
+    @Column(name = "status_assignament", length = 50)
     private String status;
 
-    @Column(name = "active_asignament")
+    @Column(name = "active_assignament")
     private boolean active;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne//(cascade = {CascadeType.ALL})
     @JoinColumn(name = "equipament_id")
     private Equipament equipament;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne//(cascade = {CascadeType.ALL})
     @JoinColumn(name = "personal_id")
     private Personal personal;
 

@@ -87,7 +87,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         loadDataAreas();
 
         //Cargando datos base de estructura organizacional
-        loadDataStructureOrganizational();
+        //loadDataStructureOrganizational();
 
         //Cargando datos base de SSO
         loadDataSSO();
@@ -169,7 +169,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             UserSystem userSystem = new UserSystem();
             userSystem.setUsername("admin");
             userSystem.setPassword("$2a$10$XURPShQNCsLjp1ESc2laoObo9QZDhxz73hJPaEv7/cBha4pk0AgP.");
-            //userSystem.setUserActive(Boolean.TRUE);
+            userSystem.setUserActive(Boolean.TRUE);
             userSystem.setCreatedOn(new Date());
             userSystem.setRoles(listRoles);
             this.userSystemRepository.save(userSystem);
@@ -808,67 +808,63 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             IncidentType incidentType = new IncidentType();
             incidentType.setIncidentTypeDescription("Este es el registro de accidentes");
             incidentType.setIncidentTypeName("accidente");
+            incidentType.setIncidentType("");
             incidentType.setIncidentSubType("");
 
             IncidentType incidentType1 = new IncidentType();
             incidentType1.setIncidentTypeDescription("Enfermedad muy contagiosa");
             incidentType1.setIncidentTypeName("enfermedad");
+            incidentType1.setIncidentType("");
             incidentType1.setIncidentSubType("gripe");
 
             IncidentType incidentType2 = new IncidentType();
             incidentType2.setIncidentTypeDescription("Perdida de material");
             incidentType2.setIncidentTypeName("incidente");
+            incidentType2.setIncidentType("");
             incidentType2.setIncidentSubType("");
 
             IncidentDetail incidentDetail = new IncidentDetail();
             incidentDetail.setIncidentDetailName("En fecha 02 de Mayo el Ingeniero Perez sufrio un accidente");
             incidentDetail.setIncidentDetailStatus("entregado");
-            incidentDetail.setIncidentDetailType("");
+            incidentDetail.setIncidentDetailDescription("Description");
 
             IncidentDetail incidentDetail1 = new IncidentDetail();
             incidentDetail1.setIncidentDetailName("En fecha 02 de Mayo el cortador Gonzales reporto que tenia gripe");
             incidentDetail1.setIncidentDetailStatus("pendiente");
-            incidentDetail1.setIncidentDetailType("");
+            incidentDetail1.setIncidentDetailDescription("Description1");
 
             IncidentDetail incidentDetail2 = new IncidentDetail();
             incidentDetail2.setIncidentDetailName("En fecha 24 de Abril el Licenciado Maldonado reporto que el piso del sector 7 estaba mojado");
             incidentDetail2.setIncidentDetailStatus("reportado");
-            incidentDetail2.setIncidentDetailType("");
-
+            incidentDetail2.setIncidentDetailDescription("Description2");
 
             Incident incident = new Incident();
-            incident.setCode("ACC-01");
-            incident.setDateAt(new Date());
-            incident.setReportedBy("admin");
-            incident.setArea("soldadura");
-            incident.setReincident(false);
-            incident.setTreatment(false);
-            incident.setRecurrence(40);
-            incident.setSeverity("alta");
+            incident.setIncidentCode("ACC-01");
+            incident.setIncidentRegisteredDate(new Date());
+            incident.setIncidentReportedBy("admin");
+            incident.setIncidentReincident(false);
+            incident.setIncidentTreatment(false);
+            incident.setIncidentSeverity("alta");
             incident.setIncidentType(incidentType);
             incident.setIncidentDetail(incidentDetail);
 
             Incident incident1 = new Incident();
-            incident1.setCode("ENF-01");
-            incident1.setDateAt(new Date());
-            incident1.setReportedBy("admin");
-            incident1.setArea("mecanica");
-            incident1.setReincident(false);
-            incident1.setTreatment(false);
-            incident1.setRecurrence(25);
-            incident1.setSeverity("baja");
+            incident1.setIncidentCode("ENF-01");
+            incident1.setIncidentRegisteredDate(new Date());
+            incident1.setIncidentReportedBy("admin");
+            incident1.setIncidentReincident(false);
+            incident1.setIncidentTreatment(false);
+            incident1.setIncidentSeverity("baja");
             incident1.setIncidentType(incidentType1);
             incident1.setIncidentDetail(incidentDetail1);
 
             Incident incident2 = new Incident();
-            incident2.setCode("INC-01");
-            incident2.setDateAt(new Date());
-            incident2.setReportedBy("admin");
-            incident2.setArea("finanzas");
-            incident2.setReincident(false);
-            incident2.setTreatment(false);
-            incident2.setRecurrence(60);
-            incident2.setSeverity("media");
+            incident2.setIncidentCode("INC-01");
+            incident2.setIncidentRegisteredDate(new Date());
+            incident2.setIncidentReportedBy("admin");
+            incident2.setIncidentReincident(false);
+            incident2.setIncidentTreatment(false);
+            incident2.setIncidentSeverity("media");
             incident2.setIncidentType(incidentType2);
             incident2.setIncidentDetail(incidentDetail2);
 
