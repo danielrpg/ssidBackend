@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author christian Tola
  */
 @Entity
-public class IncidentDetail implements Serializable {
+public class IncidentDetail extends ModelBaseAudit implements Serializable {
 
     @Id
     @Column

@@ -41,6 +41,7 @@ import java.util.Set;
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_cellphone", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_telephone", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_active", type = Boolean.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "area_id", type = Long.class),
                         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
                 }
         ),
@@ -55,7 +56,8 @@ import java.util.Set;
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_direction", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_cellphone", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_telephone", type = String.class),
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_active", type = Boolean.class)
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_active", type = Boolean.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "area_id", type = Long.class),
                 },
                 resultClasses = Personal.class
         ),
