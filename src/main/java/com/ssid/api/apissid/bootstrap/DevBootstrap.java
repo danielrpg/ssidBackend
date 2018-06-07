@@ -202,25 +202,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             area.setDescription("Construcción de casas, habitaciones, departamentos, etc.");
             areaRepository.save(area);
             //Personal
-            Personal personal = new Personal();
-            personal.setArea(area);
-            personal.setName("Jhon Doe");
-            personal.setAddress("Av. Villazon N° 2326");
-            personal.setCellphone("89632548");
-            personal.setEmail("jDoe@gmail.com");
-            //    personal.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
-            personal.setActive(true);
-            personalRepository.save(personal);
-
-            Personal personal2 = new Personal();
-            personal2.setArea(area);
-            personal2.setName("valeria maza");
-            personal2.setAddress("Av. Villazon N° 2326");
-            personal2.setCellphone("89632548");
-            personal2.setEmail("jDoe@gmail.com");
-            //    personal2.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
-            personal2.setActive(true);
-            personalRepository.save(personal2);
 
             //Equipment 1
             Equipament equipament11 = new Equipament();
@@ -290,39 +271,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             kardexEquipament9.setBalanceKardex(10);
             kardexEquipamentRepository.save(kardexEquipament9);
 
-
-            //InventoryEquipment
-            Inventory inventory = new Inventory();
-            inventory.setPersonal(personal2);
-            inventory.setEquipament(equipament2);
-            inventory.setDateAsignament(new Date());
-            inventory.setStatus("nuevo");
-            inventory.setActive(true);
-            //inventoryRepository.save(inventory);
-
-            //InventoryEquipment1
-            Inventory inventory1 = new Inventory();
-            inventory1.setPersonal(personal);
-            inventory1.setEquipament(equipament11);
-            inventory1.setDateAsignament(new Date());
-            inventory1.setStatus("nuevo");
-            inventory1.setActive(true);
-            //inventoryRepository.save(inventory1);
-
-            Inventory inventory3 = new Inventory();
-            inventory3.setPersonal(personal);
-            inventory3.setEquipament(equipament4);
-            inventory3.setDateAsignament(new Date());
-            inventory3.setStatus("bueno");
-            inventory3.setActive(true);
-            //inventoryRepository.save(inventory3);
-
-            Inventory inventory4 = new Inventory();
-            inventory4.setPersonal(personal2);
-            inventory4.setEquipament(equipament3);
-            inventory4.setDateAsignament(new Date());
-            inventory4.setStatus("malo");
-            inventory4.setActive(true);
             //inventoryRepository.save(inventory4);
         }
     }

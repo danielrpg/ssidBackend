@@ -70,7 +70,7 @@ import java.util.Set;
                 resultClasses = Personal.class
         )
 })
-public class Personal extends ModelBase implements Serializable {
+public class Personal extends ModelBaseAudit implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
