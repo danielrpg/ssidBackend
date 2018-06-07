@@ -31,7 +31,7 @@ public class PersonalCommand {
         setId(personal.getId());
         setFirstname(personal.getName());
         setLastname(personal.getLastName());
-        setPhoto(personal.getPhoto());
+        //setPhoto(personal.getPhoto());
         setEmail(personal.getEmail());
         setAddress(personal.getAddress());
         setCellphone(personal.getCellphone());
@@ -54,7 +54,7 @@ public class PersonalCommand {
         personal.setId(getId());
         personal.setName(getFirstname());
         personal.setLastName(getLastname());
-        personal.setPhoto(getPhoto());
+        //personal.setPhoto(getPhoto());
         personal.setEmail(getEmail());
         personal.setAddress(getAddress());
         personal.setCellphone(getCellphone());

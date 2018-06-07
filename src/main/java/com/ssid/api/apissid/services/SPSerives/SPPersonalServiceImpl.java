@@ -44,6 +44,7 @@ public class SPPersonalServiceImpl implements SPPersonalService{
         query.setParameter("personal_cellphone", personal.getCellphone());
         query.setParameter("personal_telephone", personal.getCellphone());
         query.setParameter("personal_active", true);
+        query.setParameter("area_id", personal.getArea().getId());
 
 
         query.execute();
@@ -62,6 +63,7 @@ public class SPPersonalServiceImpl implements SPPersonalService{
         query.setParameter("personal_cellphone", personal.getCellphone());
         query.setParameter("personal_telephone", personal.getCellphone());
         query.setParameter("personal_active", true);
+        query.setParameter("area_id", personal.getArea().getId());
 
         query.execute();
 

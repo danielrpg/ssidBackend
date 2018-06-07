@@ -19,7 +19,7 @@ import java.util.Set;
         property = "id")
 public class CausingAgent extends ModelBase implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ausing_agent_id")
     @JsonProperty("id")
     private Long id;
@@ -27,9 +27,6 @@ public class CausingAgent extends ModelBase implements Serializable {
     @Column(name = "ausing_agent_name")
     private String name;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "causingAgent")
-    private Set<Accident> accidentSet;
 
     public Long getId() {
         return id;
@@ -47,11 +44,4 @@ public class CausingAgent extends ModelBase implements Serializable {
         this.name = name;
     }
 
-    public Set<Accident> getAccidentSet() {
-        return accidentSet;
-    }
-
-    public void setAccidentSet(Set<Accident> accidentSet) {
-        this.accidentSet = accidentSet;
-    }
 }

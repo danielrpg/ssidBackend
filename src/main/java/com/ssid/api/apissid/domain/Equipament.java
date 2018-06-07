@@ -1,9 +1,7 @@
 package com.ssid.api.apissid.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
+import javassist.bytecode.ByteArray;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,14 +9,33 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-/**
- * @author Borisytu
- */
+
 @Entity
 @Table(name = "equipaments")
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = "sp_getAllEquipament",
+                procedureName = "sp_get_all_equipament",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_id", type = Long.class),
+                },
+                resultClasses = Equipament.class
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_createEquipament",
+                procedureName = "sp_create_equipament",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_name", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_type", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_description", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_image", type = ByteArray.class),
+                },
+                resultClasses = Equipament.class
+        )
+})
 public class Equipament extends ModelBase implements Serializable {
 
     private static final long serialVersionUID=1L;

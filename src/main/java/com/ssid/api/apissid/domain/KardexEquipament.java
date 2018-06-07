@@ -36,6 +36,7 @@ public class KardexEquipament extends ModelBase implements Serializable{
     private int balanceKardex;
 
     @ManyToOne
+    @JoinColumn(name = "equipament_id")
     private Equipament equipament;
 
     public Long getId() {

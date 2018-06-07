@@ -11,11 +11,44 @@ import java.util.Set;
 
 @Entity
 @Table(name = "department")
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = "sp_getAllDepartments",
+                procedureName = "sp_get_all_departments",
+                resultClasses = Department.class),
+        @NamedStoredProcedureQuery(
+                name = "sp_createDepartment",
+                procedureName = "sp_create_department",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "department_description", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "department_name", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_deleteDepartment",
+                procedureName = "sp_delete_department",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "department_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_editDepartment",
+                procedureName = "sp_edit_department",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "department_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "department_description", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "department_name", type = String.class),
+                },
+                resultClasses = Department.class
+        )
+})
 public class Department extends ModelBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "department_id")
     private Long id;
 

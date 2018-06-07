@@ -41,6 +41,7 @@ import java.util.Set;
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_cellphone", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_telephone", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_active", type = Boolean.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "area_id", type = Long.class),
                         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
                 }
         ),
@@ -55,7 +56,8 @@ import java.util.Set;
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_direction", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_cellphone", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_telephone", type = String.class),
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_active", type = Boolean.class)
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_active", type = Boolean.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "area_id", type = Long.class),
                 },
                 resultClasses = Personal.class
         ),
@@ -83,9 +85,9 @@ public class Personal extends ModelBase implements Serializable {
     @Column(name = "personal_last_name", length = 100)
     private String lastName;
 
-    @Lob
-    @Column(name = "personal_photo")
-    private Byte[] photo;
+//    @Lob
+//    @Column(name = "personal_photo")
+//    private Byte[] photo;
 
     @Column(name = "personal_email", length = 200)
     private String email;
@@ -102,9 +104,9 @@ public class Personal extends ModelBase implements Serializable {
     @Column(name = "personal_active")
     private Boolean active;
 
-//    @Column(name = "personal_birthdate")
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/mm/dd")
-//    private Date birthdate;
+    /*@Column(name = "personal_birthdate")
+    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/mm/dd")
+    private String birthdate;*/
 
     @ManyToOne
     private Area area;
@@ -213,13 +215,13 @@ public class Personal extends ModelBase implements Serializable {
         this.active = active;
     }
 
-//    public Date getBirthdate() {
-//        return birthdate;
-//    }
-//
-//    public void setBirthdate(Date birthdate) {
-//        this.birthdate = birthdate;
-//    }
+    /*public String getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }*/
 
     public Area getArea() {
         return area;
@@ -229,13 +231,13 @@ public class Personal extends ModelBase implements Serializable {
         this.area = area;
     }
 
-    public Byte[] getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(Byte[] photo) {
-        this.photo = photo;
-    }
+//    public Byte[] getPhoto() {
+//        return photo;
+//    }
+//
+//    public void setPhoto(Byte[] photo) {
+//        this.photo = photo;
+//    }
 
     public Set<PersonalPositionContract> getPersonalPositionContracts() {
         return personalPositionContracts;
@@ -285,3 +287,4 @@ public class Personal extends ModelBase implements Serializable {
         this.incidents = incidents;
     }
 }
+
