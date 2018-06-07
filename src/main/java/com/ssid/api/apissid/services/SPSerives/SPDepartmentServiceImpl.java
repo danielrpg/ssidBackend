@@ -18,7 +18,6 @@ public class SPDepartmentServiceImpl implements SPDeparmentService{
     public List<Department> getAllDepartment() {
         StoredProcedureQuery query =
                 entityManager.createNamedStoredProcedureQuery("sp_getAllDepartments");
-
         query.execute();
 
         return (List<Department>) query.getResultList();

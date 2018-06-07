@@ -21,7 +21,8 @@ public class EquipamentCommand {
         setName(equipament.getName());
         setDescription(equipament.getDescription());
         setType(equipament.getType());
-        setImage(ImageUtilsCommand.setImageBase64(equipament.getImage()));
+        setImage("");
+        //setImage(ImageUtilsCommand.setImageBase64(equipament.getImage()));
     }
 
     public Equipament toEquipament() {
@@ -30,7 +31,8 @@ public class EquipamentCommand {
         equipament.setName(getName());
         equipament.setDescription(getDescription());
         equipament.setType(getType());
-        equipament.setImage(ImageUtilsCommand.decodeToImage(getImage()));
+        equipament.setImage(new Byte[0]);
+        //equipament.setImage(ImageUtilsCommand.decodeToImage(getImage()));
         return equipament;
     }
 

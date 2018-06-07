@@ -104,9 +104,9 @@ public class Personal extends ModelBaseAudit implements Serializable {
     @Column(name = "personal_active")
     private Boolean active;
 
-    @Column(name = "personal_birthdate")
+    /*@Column(name = "personal_birthdate")
     //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/mm/dd")
-    private String birthdate;
+    private String birthdate;*/
 
     @ManyToOne
     private Area area;
@@ -215,13 +215,13 @@ public class Personal extends ModelBaseAudit implements Serializable {
         this.active = active;
     }
 
-    public String getBirthdate() {
+    /*public String getBirthdate() {
         return birthdate;
     }
 
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
-    }
+    }*/
 
     public Area getArea() {
         return area;
