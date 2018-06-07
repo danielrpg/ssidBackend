@@ -32,8 +32,8 @@ public class EquipamentController {
 
         List<EquipamentCommand> equipamentCommadsList = new ArrayList<>();
 
-        this.equipamentService.getListEquipament().forEach(equipament -> {
-        //this.spEquipamentService.getAllEquipaments().forEach(equipament -> {
+        //this.equipamentService.getListEquipament().forEach(equipament -> {
+        this.spEquipamentService.getAllEquipaments().forEach(equipament -> {
             equipamentCommadsList.add(new EquipamentCommand(equipament));
         });
         return equipamentCommadsList;
@@ -50,21 +50,26 @@ public class EquipamentController {
     public @ResponseBody
     EquipamentCommand findEquipamentById(@PathVariable(value = "id") Long id) {
 
-        Optional<Equipament> equipament = equipamentService.getEquipamentById(id);
-        return new EquipamentCommand(equipament.get());
+        //Optional<Equipament> equipament = equipamentService.getEquipamentById(id);
+        //return new EquipamentCommand(equipament.get());
+        Equipament equipament = spEquipamentService.getEquipamentByID(id);
+        return new EquipamentCommand(equipament);
     }
 
     @RequestMapping(value = ApiPath.EQUIPAMENT_BY_ID, method = RequestMethod.DELETE)
     public @ResponseBody
     void deleteEquipamentById(@PathVariable(value = "id") Long id) {
-        this.equipamentService.deleteEquipamentById(id);
+
+        //this.equipamentService.deleteEquipamentById(id);
+        this.spEquipamentService.deleteEquipament(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Map<String, Object>> updateEquipament(@RequestBody EquipamentCommand equipament, @PathVariable int id) {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "updated");
-        mapResponse.put("data", this.equipamentService.updateEquipament(equipament.toEquipament(), (long) id));
+        //mapResponse.put("data", this.equipamentService.updateEquipament(equipament.toEquipament(), (long) id));
+        mapResponse.put("data", this.spEquipamentService.updateEquipament(equipament.toEquipament(),(long) id));
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
@@ -72,7 +77,8 @@ public class EquipamentController {
     public @ResponseBody
     EquipamentCommand updateEquipament(@RequestBody EquipamentCommand equipament, @PathVariable(value = "id") Long id){
 
-        Equipament update =this.equipamentService.updateEquipament(equipament.toEquipament(), id);
+        //Equipament update =this.equipamentService.updateEquipament(equipament.toEquipament(), id);
+        Equipament update =this.spEquipamentService.updateEquipament(equipament.toEquipament(), id);
         return new EquipamentCommand(update);
     }
 }
