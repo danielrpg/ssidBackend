@@ -9,4 +9,10 @@ public interface SPEquipamentService {
     List<Equipament> getAllEquipaments();
 
     void createEquipament(Equipament equipament);
+
+    Equipament getEquipamentByID(Long equipamentID);
+
+    Equipament updateEquipament(Equipament equipament, Long id);
+
+    void deleteEquipament(Long equipamentID);
 }
