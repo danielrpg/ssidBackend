@@ -16,8 +16,8 @@ import java.util.Set;
         property = "id")*/
 @NamedStoredProcedureQueries({
         @NamedStoredProcedureQuery(
-                name = "sp_getAllAuditHistory",
-                procedureName = "sp_get_all_audithistory",
+                name = "sp_AuditHistoryAll",
+                procedureName = "sp_AuditHistoryAll",
                 resultClasses = AuditHistory.class),
         @NamedStoredProcedureQuery(
                 name = "sp_AuditHistory",

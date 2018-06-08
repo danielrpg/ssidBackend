@@ -19,7 +19,7 @@ public class SPAuditHistoryServiceImpl implements SPAuditHistoryService{
 
     @Override
     public List<AuditHistory> getAllAuditHistory() {
-        StoredProcedureQuery query = entityManager.createNamedStoredProcedureQuery("sp_AuditHistory");
+        StoredProcedureQuery query = entityManager.createNamedStoredProcedureQuery("sp_AuditHistoryAll");
         query.execute();
 
         return (List<AuditHistory>) query.getResultList();

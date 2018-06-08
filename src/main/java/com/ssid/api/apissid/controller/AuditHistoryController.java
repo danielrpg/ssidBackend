@@ -39,6 +39,4 @@ public class AuditHistoryController {
         return this.spAuditHistoryService.getAuditHistory(date,date1);
 
     }
-
-
 }
