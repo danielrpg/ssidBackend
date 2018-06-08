@@ -1,9 +1,11 @@
 package com.ssid.api.apissid.domain;
 
 import com.fasterxml.jackson.annotation.*;
-import javassist.bytecode.ByteArray;
+//import javassist.bytecode.ByteArray;
+//import sun.security.util.BitArray;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,9 +21,6 @@ import java.util.Set;
         @NamedStoredProcedureQuery(
                 name = "sp_getAllEquipament",
                 procedureName = "sp_get_all_equipament",
-                parameters = {
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_id", type = Long.class),
-                },
                 resultClasses = Equipament.class
         ),
         @NamedStoredProcedureQuery(
@@ -29,11 +28,37 @@ import java.util.Set;
                 procedureName = "sp_create_equipament",
                 parameters = {
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_name", type = String.class),
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_type", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_type", type = Integer.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_description", type = String.class),
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_image", type = ByteArray.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_image", type = Byte[].class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_equipamentById",
+                procedureName = "sp_get_all_equipament",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_id", type = Long.class)
                 },
                 resultClasses = Equipament.class
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_editEquipament",
+                procedureName = "sp_edit_equipament",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_name", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_type", type = Integer.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_description", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_image", type = Byte[].class)
+                },
+                resultClasses = Equipament.class
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_deleteEquipament",
+                procedureName = "sp_delete_equipament",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_id", type = Long.class)
+                }
         )
 })
 public class Equipament extends ModelBase implements Serializable {
