@@ -1,24 +1,66 @@
 package com.ssid.api.apissid.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
+//import javassist.bytecode.ByteArray;
+//import sun.security.util.BitArray;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 
-/**
- * @author Borisytu
- */
+
 @Entity
 @Table(name = "equipaments")
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = "sp_getAllEquipament",
+                procedureName = "sp_get_all_equipament",
+                resultClasses = Equipament.class
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_createEquipament",
+                procedureName = "sp_create_equipament",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_name", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_type", type = Integer.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_description", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_image", type = Byte[].class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_equipamentById",
+                procedureName = "sp_get_all_equipament",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_id", type = Long.class)
+                },
+                resultClasses = Equipament.class
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_editEquipament",
+                procedureName = "sp_edit_equipament",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_name", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_type", type = Integer.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_description", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_image", type = Byte[].class)
+                },
+                resultClasses = Equipament.class
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_deleteEquipament",
+                procedureName = "sp_delete_equipament",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "equipament_id", type = Long.class)
+                }
+        )
+})
 public class Equipament extends ModelBase implements Serializable {
 
     private static final long serialVersionUID=1L;
@@ -54,16 +96,16 @@ public class Equipament extends ModelBase implements Serializable {
     @OneToMany(mappedBy = "equipament", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Inventory> inventories;
 
-    @OneToOne
-    private AssignEquipament assignEquipament;
+//    @OneToOne
+//    private AssignEquipament assignEquipament;
 
-    public AssignEquipament getAssignEquipament() {
-        return assignEquipament;
-    }
-
-    public void setAssignEquipament(AssignEquipament assignEquipament) {
-        this.assignEquipament = assignEquipament;
-    }
+//    public AssignEquipament getAssignEquipament() {
+//        return assignEquipament;
+//    }
+//
+//    public void setAssignEquipament(AssignEquipament assignEquipament) {
+//        this.assignEquipament = assignEquipament;
+//    }
 
     public Long getId() {
         return id;

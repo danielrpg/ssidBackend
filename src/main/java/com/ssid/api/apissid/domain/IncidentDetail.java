@@ -8,11 +8,11 @@ import java.io.Serializable;
  * @author christian Tola
  */
 @Entity
-public class IncidentDetail implements Serializable {
+public class IncidentDetail extends ModelBaseAudit implements Serializable {
 
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long incidentDetailId;
 
     @Column
@@ -22,10 +22,7 @@ public class IncidentDetail implements Serializable {
     private String incidentDetailName;
 
     @Column
-    private String incidentDetailType;
-
-    @Column
-    private String incidentDetailSubtype;
+    private String incidentDetailDescription;
 
     @OneToOne(mappedBy = "incidentDetail", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -55,27 +52,19 @@ public class IncidentDetail implements Serializable {
         this.incidentDetailName = incidentDetailName;
     }
 
-    public String getIncidentDetailType() {
-        return incidentDetailType;
-    }
-
-    public void setIncidentDetailType(String incidentDetailType) {
-        this.incidentDetailType = incidentDetailType;
-    }
-
-    public String getIncidentDetailSubtype() {
-        return incidentDetailSubtype;
-    }
-
-    public void setIncidentDetailSubtype(String incidentDetailSubtype) {
-        this.incidentDetailSubtype = incidentDetailSubtype;
-    }
-
     public Incident getIncident() {
         return incident;
     }
 
     public void setIncident(Incident incident) {
         this.incident = incident;
+    }
+
+    public String getIncidentDetailDescription() {
+        return incidentDetailDescription;
+    }
+
+    public void setIncidentDetailDescription(String incidentDetailDescription) {
+        this.incidentDetailDescription = incidentDetailDescription;
     }
 }

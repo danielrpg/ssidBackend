@@ -16,21 +16,21 @@ import java.util.Set;
         property = "id")*/
 @NamedStoredProcedureQueries({
         @NamedStoredProcedureQuery(
-                name = "sp_getAllAuditHistory",
-                procedureName = "sp_get_all_audithistory",
+                name = "sp_AuditHistoryAll",
+                procedureName = "sp_AuditHistoryAll",
                 resultClasses = AuditHistory.class),
         @NamedStoredProcedureQuery(
-                name = "sp_getAuditHistory",
-                procedureName = "sp_get_audithistory",
+                name = "sp_AuditHistory",
+                procedureName = "sp_AuditHistory",
                 parameters = {
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "modified_date", type = String.class),
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "modified_date1", type = String.class)
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "start_date", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "end_date", type = String.class)
                 },
                 resultClasses = AuditHistory.class
         )
 
 })
-public class AuditHistory extends ModelBase implements Serializable{
+public class AuditHistory implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @Id
