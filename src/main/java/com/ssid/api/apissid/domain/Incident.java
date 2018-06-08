@@ -9,7 +9,55 @@ import java.util.*;
  * @author christian Tola
  */
 @Entity
-public class Incident implements Serializable {
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = "sp_getAllInicident",
+                procedureName = "sp_get_all_incident",
+                resultClasses = Incident.class),
+        @NamedStoredProcedureQuery(
+                name = "sp_deleteIncident",
+                procedureName = "sp_delete_incident",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_createIncident",
+                procedureName = "sp_create_Incident",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_code", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_number", type = Integer.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_registered_date", type = Date.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_reincident", type = Boolean.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_treatment", type = Boolean.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_severity", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_reported_by", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_detail_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_type_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_editIncident",
+                procedureName = "sp_edit_incident",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_name", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_last_name", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_email", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_direction", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_cellphone", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_telephone", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_active", type = Boolean.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "area_id", type = Long.class),
+                },
+                resultClasses = Incident.class
+        )
+})
+
+public class Incident extends ModelBaseAudit implements Serializable {
 
     @Id
     @Column(name = "incident_id", nullable = false)

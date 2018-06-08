@@ -25,8 +25,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private IncidentTypeRepository incidentTypeRepository;
     private IncidentDetailRepository incidentDetailRepository;
     private IncidentRepository incidentRepository;
-    private AccidentRepository accidentRepository;
-    private AccidentTypeRepository accidentTypeRepository;
     private CausingAgentRepository causingAgentRepository;
     /**
      * Personal assignment Equipment repositories
@@ -50,8 +48,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                         IncidentTypeRepository incidentTypeRepository,
                         IncidentDetailRepository incidentDetailRepository,
                         IncidentRepository incidentRepository,
-                        AccidentRepository accidentRepository,
-                        AccidentTypeRepository accidentTypeRepository,
                         CausingAgentRepository causingAgentRepository){
         this.activitiesSsoRepository = activitiesSsoRepository;
         this.programSsoRepository = programSsoRepository;
@@ -72,8 +68,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         this.incidentTypeRepository = incidentTypeRepository;
         this.incidentDetailRepository = incidentDetailRepository;
         this.incidentRepository = incidentRepository;
-        this.accidentRepository = accidentRepository;
-        this.accidentTypeRepository = accidentTypeRepository;
         this.causingAgentRepository = causingAgentRepository;
     }
 
@@ -87,18 +81,18 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         loadDataAreas();
 
         //Cargando datos base de estructura organizacional
-        loadDataStructureOrganizational();
+        //loadDataStructureOrganizational();
 
         //Cargando datos base de SSO
         loadDataSSO();
 
         //Cargando datos de Inventarios
-       // loadDataEquipamentInventary();
+        loadDataEquipamentInventary();
 
         //Cargando datos defecto de contratos
         loadDataContracts();
 
-        loadDataIncidents();
+//        loadDataIncidents();
 //        loadDataAccidents();
     }
 
@@ -201,31 +195,13 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     }
 
     private void loadDataEquipamentInventary() {
-        if(equipamentRepository.count()==0) {
+        if(equipamentRepository.count()==0 && personalRepository.count()==0) {
             //Area
             Area area = new Area();
             area.setName("Construcción");
             area.setDescription("Construcción de casas, habitaciones, departamentos, etc.");
             areaRepository.save(area);
             //Personal
-            Personal personal = new Personal();
-            personal.setArea(area);
-            personal.setName("Jhon Doe");
-            personal.setAddress("Av. Villazon N° 2326");
-            personal.setCellphone("89632548");
-            personal.setEmail("jDoe@gmail.com");
-        //    personal.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
-            personal.setActive(true);
-
-            Personal personal2 = new Personal();
-            personal2.setArea(area);
-            personal2.setName("valeria maza");
-            personal2.setAddress("Av. Villazon N° 2326");
-            personal2.setCellphone("89632548");
-            personal2.setEmail("jDoe@gmail.com");
-        //    personal2.setBirthdate(new GregorianCalendar(1987, 05, 15).getTime());
-            personal2.setActive(true);
-            personalRepository.save(personal);
 
             //Equipment 1
             Equipament equipament11 = new Equipament();
@@ -295,40 +271,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
             kardexEquipament9.setBalanceKardex(10);
             kardexEquipamentRepository.save(kardexEquipament9);
 
-
-            //InventoryEquipment
-            Inventory inventory = new Inventory();
-            inventory.setPersonal(personal2);
-            inventory.setEquipament(equipament2);
-            inventory.setDateAsignament(new Date());
-            inventory.setStatus("nuevo");
-            inventory.setActive(true);
-            inventoryRepository.save(inventory);
-
-            //InventoryEquipment1
-            Inventory inventory1 = new Inventory();
-            inventory1.setPersonal(personal);
-            inventory1.setEquipament(equipament11);
-            inventory1.setDateAsignament(new Date());
-            inventory1.setStatus("nuevo");
-            inventory1.setActive(true);
-            inventoryRepository.save(inventory1);
-
-            Inventory inventory3 = new Inventory();
-            inventory3.setPersonal(personal);
-            inventory3.setEquipament(equipament4);
-            inventory3.setDateAsignament(new Date());
-            inventory3.setStatus("bueno");
-            inventory3.setActive(true);
-            inventoryRepository.save(inventory3);
-
-            Inventory inventory4 = new Inventory();
-            inventory4.setPersonal(personal2);
-            inventory4.setEquipament(equipament3);
-            inventory4.setDateAsignament(new Date());
-            inventory4.setStatus("malo");
-            inventory4.setActive(true);
-            inventoryRepository.save(inventory4);
+            //inventoryRepository.save(inventory4);
         }
     }
 
@@ -802,119 +745,87 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         requirement2.setPosition(position1);
         requirementRepository.save(requirement2);
     }
-    private void loadDataIncidents() {
-        if(incidentTypeRepository.count() == 0) {
-            IncidentType incidentType = new IncidentType();
-            incidentType.setIncidentTypeDescription("Este es el registro de accidentes");
-            incidentType.setIncidentTypeName("accidente");
-            incidentType.setIncidentType("");
-            incidentType.setIncidentSubType("");
-
-            IncidentType incidentType1 = new IncidentType();
-            incidentType1.setIncidentTypeDescription("Enfermedad muy contagiosa");
-            incidentType1.setIncidentTypeName("enfermedad");
-            incidentType1.setIncidentType("");
-            incidentType1.setIncidentSubType("gripe");
-
-            IncidentType incidentType2 = new IncidentType();
-            incidentType2.setIncidentTypeDescription("Perdida de material");
-            incidentType2.setIncidentTypeName("incidente");
-            incidentType2.setIncidentType("");
-            incidentType2.setIncidentSubType("");
-
-            IncidentDetail incidentDetail = new IncidentDetail();
-            incidentDetail.setIncidentDetailName("En fecha 02 de Mayo el Ingeniero Perez sufrio un accidente");
-            incidentDetail.setIncidentDetailStatus("entregado");
-            incidentDetail.setIncidentDetailDescription("Description");
-
-            IncidentDetail incidentDetail1 = new IncidentDetail();
-            incidentDetail1.setIncidentDetailName("En fecha 02 de Mayo el cortador Gonzales reporto que tenia gripe");
-            incidentDetail1.setIncidentDetailStatus("pendiente");
-            incidentDetail1.setIncidentDetailDescription("Description1");
-
-            IncidentDetail incidentDetail2 = new IncidentDetail();
-            incidentDetail2.setIncidentDetailName("En fecha 24 de Abril el Licenciado Maldonado reporto que el piso del sector 7 estaba mojado");
-            incidentDetail2.setIncidentDetailStatus("reportado");
-            incidentDetail2.setIncidentDetailDescription("Description2");
-
-            Incident incident = new Incident();
-            incident.setIncidentCode("ACC-01");
-            incident.setIncidentRegisteredDate(new Date());
-            incident.setIncidentReportedBy("admin");
-            incident.setIncidentReincident(false);
-            incident.setIncidentTreatment(false);
-            incident.setIncidentSeverity("alta");
-            incident.setIncidentType(incidentType);
-            incident.setIncidentDetail(incidentDetail);
-
-            Incident incident1 = new Incident();
-            incident1.setIncidentCode("ENF-01");
-            incident1.setIncidentRegisteredDate(new Date());
-            incident1.setIncidentReportedBy("admin");
-            incident1.setIncidentReincident(false);
-            incident1.setIncidentTreatment(false);
-            incident1.setIncidentSeverity("baja");
-            incident1.setIncidentType(incidentType1);
-            incident1.setIncidentDetail(incidentDetail1);
-
-            Incident incident2 = new Incident();
-            incident2.setIncidentCode("INC-01");
-            incident2.setIncidentRegisteredDate(new Date());
-            incident2.setIncidentReportedBy("admin");
-            incident2.setIncidentReincident(false);
-            incident2.setIncidentTreatment(false);
-            incident2.setIncidentSeverity("media");
-            incident2.setIncidentType(incidentType2);
-            incident2.setIncidentDetail(incidentDetail2);
-
-            incidentTypeRepository.save(incidentType);
-            incidentTypeRepository.save(incidentType1);
-            incidentTypeRepository.save(incidentType2);
-
-//            incidentDetailRepository.save(incidentDetail);
-//            incidentDetailRepository.save(incidentDetail1);
-//            incidentDetailRepository.save(incidentDetail2);
+//    private void loadDataIncidents() {
+//        if(incidentTypeRepository.count() == 0) {
+//            IncidentType incidentType = new IncidentType();
+//            incidentType.setIncidentTypeDescription("Este es el registro de accidentes");
+//            incidentType.setIncidentTypeName("accidente");
+//            incidentType.setIncidentType("");
+//            incidentType.setIncidentSubType("");
 //
-            incidentRepository.save(incident);
-            incidentRepository.save(incident1);
-            incidentRepository.save(incident2);
-        }
-    }
+//            IncidentType incidentType1 = new IncidentType();
+//            incidentType1.setIncidentTypeDescription("Enfermedad muy contagiosa");
+//            incidentType1.setIncidentTypeName("enfermedad");
+//            incidentType1.setIncidentType("");
+//            incidentType1.setIncidentSubType("gripe");
+//
+//            IncidentType incidentType2 = new IncidentType();
+//            incidentType2.setIncidentTypeDescription("Perdida de material");
+//            incidentType2.setIncidentTypeName("incidente");
+//            incidentType2.setIncidentType("");
+//            incidentType2.setIncidentSubType("");
+//
+//            IncidentDetail incidentDetail = new IncidentDetail();
+//            incidentDetail.setIncidentDetailName("En fecha 02 de Mayo el Ingeniero Perez sufrio un accidente");
+//            incidentDetail.setIncidentDetailStatus("entregado");
+//            incidentDetail.setIncidentDetailDescription("Description");
+//
+//            IncidentDetail incidentDetail1 = new IncidentDetail();
+//            incidentDetail1.setIncidentDetailName("En fecha 02 de Mayo el cortador Gonzales reporto que tenia gripe");
+//            incidentDetail1.setIncidentDetailStatus("pendiente");
+//            incidentDetail1.setIncidentDetailDescription("Description1");
+//
+//            IncidentDetail incidentDetail2 = new IncidentDetail();
+//            incidentDetail2.setIncidentDetailName("En fecha 24 de Abril el Licenciado Maldonado reporto que el piso del sector 7 estaba mojado");
+//            incidentDetail2.setIncidentDetailStatus("reportado");
+//            incidentDetail2.setIncidentDetailDescription("Description2");
+//
+//            Incident incident = new Incident();
+//            incident.setIncidentCode("ACC-01");
+//            incident.setIncidentRegisteredDate(new Date());
+//            incident.setIncidentReportedBy("admin");
+//            incident.setIncidentReincident(false);
+//            incident.setIncidentTreatment(false);
+//            incident.setIncidentSeverity("alta");
+//            incident.setIncidentType(incidentType);
+//            incident.setIncidentDetail(incidentDetail);
+//
+//            Incident incident1 = new Incident();
+//            incident1.setIncidentCode("ENF-01");
+//            incident1.setIncidentRegisteredDate(new Date());
+//            incident1.setIncidentReportedBy("admin");
+//            incident1.setIncidentReincident(false);
+//            incident1.setIncidentTreatment(false);
+//            incident1.setIncidentSeverity("baja");
+//            incident1.setIncidentType(incidentType1);
+//            incident1.setIncidentDetail(incidentDetail1);
+//
+//            Incident incident2 = new Incident();
+//            incident2.setIncidentCode("INC-01");
+//            incident2.setIncidentRegisteredDate(new Date());
+//            incident2.setIncidentReportedBy("admin");
+//            incident2.setIncidentReincident(false);
+//            incident2.setIncidentTreatment(false);
+//            incident2.setIncidentSeverity("media");
+//            incident2.setIncidentType(incidentType2);
+//            incident2.setIncidentDetail(incidentDetail2);
+//
+//            incidentTypeRepository.save(incidentType);
+//            incidentTypeRepository.save(incidentType1);
+//            incidentTypeRepository.save(incidentType2);
+//
+////            incidentDetailRepository.save(incidentDetail);
+////            incidentDetailRepository.save(incidentDetail1);
+////            incidentDetailRepository.save(incidentDetail2);
+////
+//            incidentRepository.save(incident);
+//            incidentRepository.save(incident1);
+//            incidentRepository.save(incident2);
+//        }
+//    }
+
     private void loadDataAccidents() {
-        loadDataAccidentType();
         loadDataCausingAgent();
-        
-        if (accidentRepository.count() == 0) {
-            String[] lugares = new String[10];
-            lugares[0] = "HOSPITAL ANOCARAIRE – VINTO BOLIVIA";
-            lugares[1] = "HOSPITAL UNIVALLE";
-            lugares[2] = "HOSPITAL HARRY WILLIAMS";
-            lugares[3] = "HOSPITAL SAN VICENTE DE PAUL";
-            lugares[4] = "EMERGENCIAS HOSPITAL VIEDMA";
-            lugares[5] = "CAJA INTEGRAL CORDES";
-            lugares[6] = "CAJA DE SALUD DE LA BANCA PRIVADA";
-            lugares[7] = "CAJA PETROLERA DE SALUD – ADMINISTRACIÓN DEPARTAMENTAL COCHABAMBA";
-            lugares[8] = "CAJA PETROLERA DE SALUD – HOSPITAL ELIZABETH SETON";
-            lugares[9] = "CENTRO MEDICO QUIR. BOLIVIANO BELGA S.R.L.";
-
-            List<Personal> allPersonal = personalRepository.findAll();
-            List<AccidentType> accidentTypes = accidentTypeRepository.findAll();
-            List<CausingAgent> causingAgents = causingAgentRepository.findAll();
-
-            for (int i=0; i<100; i++){
-                Accident accident = new Accident();
-                accident.setPersonal(allPersonal.get((int)(Math.random()*(allPersonal.size()-1))));
-                accident.setDateAt(new Date());
-                accident.setBajamedica((long) (Math.random() * 20));
-                accident.setLugaratencion(lugares[(int)(Math.random()*(lugares.length-1))]);
-                accident.setDescription("Leccion en la espalda al tropezar");
-                accident.setReportBy(allPersonal.get((int)(Math.random()*(allPersonal.size()-1))));
-                accident.setCausingAgent(causingAgents.get((int)(Math.random()*(causingAgents.size()-1))));
-                accident.setAccidentType(accidentTypes.get((int)(Math.random()*(accidentTypes.size()-1))));
-                accidentRepository.save(accident);
-
-            }
-        }
     }
 
     private void loadDataCausingAgent() {
@@ -939,19 +850,4 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
 
 
-    private void loadDataAccidentType() {
-        if(accidentTypeRepository.count() == 0){
-            ArrayList<String> formaDeaccidentes = new ArrayList<String>();
-            formaDeaccidentes.add("Accidente del personal");
-            formaDeaccidentes.add("Daños a propiedad equipos");
-            formaDeaccidentes.add("Medio ambiente");
-            formaDeaccidentes.add("Fatalidad");
-
-            for (String formaDeaccidente : formaDeaccidentes){
-                AccidentType accidentType = new AccidentType();
-                accidentType.setName(formaDeaccidente);
-                accidentTypeRepository.save(accidentType);
-            }
-        }
-    }
 }

@@ -41,6 +41,7 @@ import java.util.Set;
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_cellphone", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_telephone", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_active", type = Boolean.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "area_id", type = Long.class),
                         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
                 }
         ),
@@ -55,7 +56,8 @@ import java.util.Set;
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_direction", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_cellphone", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_telephone", type = String.class),
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_active", type = Boolean.class)
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_active", type = Boolean.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "area_id", type = Long.class),
                 },
                 resultClasses = Personal.class
         ),
@@ -68,7 +70,7 @@ import java.util.Set;
                 resultClasses = Personal.class
         )
 })
-public class Personal extends ModelBase implements Serializable {
+public class Personal extends ModelBaseAudit implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -102,9 +104,9 @@ public class Personal extends ModelBase implements Serializable {
     @Column(name = "personal_active")
     private Boolean active;
 
-    @Column(name = "personal_birthdate")
+    /*@Column(name = "personal_birthdate")
     //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/mm/dd")
-    private String birthdate;
+    private String birthdate;*/
 
     @ManyToOne
     private Area area;
@@ -213,13 +215,13 @@ public class Personal extends ModelBase implements Serializable {
         this.active = active;
     }
 
-    public String getBirthdate() {
+    /*public String getBirthdate() {
         return birthdate;
     }
 
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
-    }
+    }*/
 
     public Area getArea() {
         return area;
