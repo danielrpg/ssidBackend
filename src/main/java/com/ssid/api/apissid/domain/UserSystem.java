@@ -58,7 +58,7 @@ public class UserSystem extends ModelBase implements Serializable{
     private String password;
 
     @Column(name = "user_active")
-    private Integer userActive;
+    private Boolean userActive;
 
     @ManyToMany( fetch=FetchType.EAGER )
     @JoinTable(name = "user_role",
@@ -90,11 +90,11 @@ public class UserSystem extends ModelBase implements Serializable{
         this.password = password;
     }
 
-    public Integer getUserActive() {
+    public Boolean getUserActive() {
         return userActive;
     }
 
-    public void setUserActive(Integer userActive) {
+    public void setUserActive(Boolean userActive) {
         this.userActive = userActive;
     }
 

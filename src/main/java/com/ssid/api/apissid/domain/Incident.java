@@ -9,39 +9,87 @@ import java.util.*;
  * @author christian Tola
  */
 @Entity
-public class Incident implements Serializable {
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = "sp_getAllInicident",
+                procedureName = "sp_get_all_incident",
+                resultClasses = Incident.class),
+        @NamedStoredProcedureQuery(
+                name = "sp_deleteIncident",
+                procedureName = "sp_delete_incident",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_createIncident",
+                procedureName = "sp_create_Incident",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_code", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_number", type = Integer.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_registered_date", type = Date.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_reincident", type = Boolean.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_treatment", type = Boolean.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_severity", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_reported_by", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_detail_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "incident_type_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_editIncident",
+                procedureName = "sp_edit_incident",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_name", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_last_name", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_email", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_direction", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_cellphone", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_telephone", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_active", type = Boolean.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "area_id", type = Long.class),
+                },
+                resultClasses = Incident.class
+        )
+})
+
+public class Incident extends ModelBaseAudit implements Serializable {
 
     @Id
     @Column(name = "incident_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long incidentId;
 
     @Column
-    private String code;
+    private String incidentCode;
 
     @Column
-    private Date dateAt;
+    private Date incidentRegisteredDate;
 
     @Column
-    private String reportedBy;
+    private String incidentReportedBy;
+
+//    @Column
+//    private String area;
 
     @Column
-    private String area;
+    private boolean incidentReincident;
 
     @Column
-    private boolean reincident;
-
-    @Column
-    private boolean treatment;
+    private boolean incidentTreatment;
 
     @Column
     private int incidentNumber;
 
-    @Column
-    private int recurrence;
+//    @Column
+//    private int recurrence;
 
     @Column
-    private String severity;
+    private String incidentSeverity;
 
 //    @ManyToMany(mappedBy = "incidents", fetch = FetchType.LAZY)
 //    private Set<RiskIpercDetail> riskIpercDetails;
@@ -54,6 +102,10 @@ public class Incident implements Serializable {
     @JoinColumn(name = "incident_detail_id")
     private IncidentDetail incidentDetail;
 
+    @ManyToOne
+    @JoinColumn(name = "personal_id")
+    private Personal personal;
+
     public Long getIncidentId() {
         return incidentId;
     }
@@ -62,52 +114,44 @@ public class Incident implements Serializable {
         this.incidentId = incidentId;
     }
 
-    public String getCode() {
-        return code;
+    public String getIncidentCode() {
+        return incidentCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setIncidentCode(String incidentCode) {
+        this.incidentCode = incidentCode;
     }
 
-    public Date getDateAt() {
-        return dateAt;
+    public Date getIncidentRegisteredDate() {
+        return incidentRegisteredDate;
     }
 
-    public void setDateAt(Date dateAt) {
-        this.dateAt = dateAt;
+    public void setIncidentRegisteredDate(Date incidentRegisteredDate) {
+        this.incidentRegisteredDate = incidentRegisteredDate;
     }
 
-    public String getReportedBy() {
-        return reportedBy;
+    public String getIncidentReportedBy() {
+        return incidentReportedBy;
     }
 
-    public void setReportedBy(String reportedBy) {
-        this.reportedBy = reportedBy;
+    public void setIncidentReportedBy(String incidentReportedBy) {
+        this.incidentReportedBy = incidentReportedBy;
     }
 
-    public String getArea() {
-        return area;
+    public boolean isIncidentReincident() {
+        return incidentReincident;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setIncidentReincident(boolean incidentReincident) {
+        this.incidentReincident = incidentReincident;
     }
 
-    public boolean isReincident() {
-        return reincident;
+    public boolean isIncidentTreatment() {
+        return incidentTreatment;
     }
 
-    public void setReincident(boolean reincident) {
-        this.reincident = reincident;
-    }
-
-    public boolean isTreatment() {
-        return treatment;
-    }
-
-    public void setTreatment(boolean treatment) {
-        this.treatment = treatment;
+    public void setIncidentTreatment(boolean incidentTreatment) {
+        this.incidentTreatment = incidentTreatment;
     }
 
     public int getIncidentNumber() {
@@ -118,6 +162,14 @@ public class Incident implements Serializable {
         this.incidentNumber = incidentNumber;
     }
 
+    public String getIncidentSeverity() {
+        return incidentSeverity;
+    }
+
+    public void setIncidentSeverity(String incidentSeverity) {
+        this.incidentSeverity = incidentSeverity;
+    }
+
     public IncidentType getIncidentType() {
         return incidentType;
     }
@@ -125,14 +177,6 @@ public class Incident implements Serializable {
     public void setIncidentType(IncidentType incidentType) {
         this.incidentType = incidentType;
     }
-
-    //    public Set<RiskIpercDetail> getRiskIpercDetails() {
-//        return riskIpercDetails;
-//    }
-//
-//    public void setRiskIpercDetails(Set<RiskIpercDetail> riskIpercDetails) {
-//        this.riskIpercDetails = riskIpercDetails;
-//    }
 
     public IncidentDetail getIncidentDetail() {
         return incidentDetail;
@@ -142,19 +186,11 @@ public class Incident implements Serializable {
         this.incidentDetail = incidentDetail;
     }
 
-    public int getRecurrence() {
-        return recurrence;
+    public Personal getPersonal() {
+        return personal;
     }
 
-    public void setRecurrence(int recurrence) {
-        this.recurrence = recurrence;
-    }
-
-    public String getSeverity() {
-        return severity;
-    }
-
-    public void setSeverity(String severity) {
-        this.severity = severity;
+    public void setPersonal(Personal personal) {
+        this.personal = personal;
     }
 }

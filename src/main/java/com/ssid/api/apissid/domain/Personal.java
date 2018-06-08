@@ -41,6 +41,7 @@ import java.util.Set;
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_cellphone", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_telephone", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_active", type = Boolean.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "area_id", type = Long.class),
                         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
                 }
         ),
@@ -55,7 +56,8 @@ import java.util.Set;
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_direction", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_cellphone", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_telephone", type = String.class),
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_active", type = Boolean.class)
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "personal_active", type = Boolean.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "area_id", type = Long.class),
                 },
                 resultClasses = Personal.class
         ),
@@ -68,7 +70,7 @@ import java.util.Set;
                 resultClasses = Personal.class
         )
 })
-public class Personal extends ModelBase implements Serializable{
+public class Personal extends ModelBaseAudit implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -83,9 +85,9 @@ public class Personal extends ModelBase implements Serializable{
     @Column(name = "personal_last_name", length = 100)
     private String lastName;
 
-    @Lob
-    @Column(name = "personal_photo")
-    private Byte[] photo;
+//    @Lob
+//    @Column(name = "personal_photo")
+//    private Byte[] photo;
 
     @Column(name = "personal_email", length = 200)
     private String email;
@@ -102,20 +104,24 @@ public class Personal extends ModelBase implements Serializable{
     @Column(name = "personal_active")
     private Boolean active;
 
-//    @Column(name = "personal_birthdate")
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/mm/dd")
-//    private Date birthdate;
+    /*@Column(name = "personal_birthdate")
+    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/mm/dd")
+    private String birthdate;*/
 
     @ManyToOne
     private Area area;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal", fetch = FetchType.LAZY)
-    private Set<Accident> accidents ;
+    //    @JsonIgnore
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal", fetch = FetchType.LAZY)
+    //private Set<Accident> accidents;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reportBy", fetch = FetchType.LAZY)
-    private Set<Accident> accidentsReport ;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal", fetch = FetchType.LAZY)
+    private Set<Incident> incidents;
+
+//    @JsonIgnore
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reportBy", fetch = FetchType.LAZY)
+    //private Set<Accident> accidentsReport;
 
     @JsonIgnore
     @OneToMany(mappedBy = "personal", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -130,24 +136,24 @@ public class Personal extends ModelBase implements Serializable{
     @ManyToMany(mappedBy = "personals", fetch = FetchType.EAGER)
     private Set<ActivitiesSso> activitiesSsos;
 
-    @OneToOne
-    private AssignEquipament assignEquipament;
+//    @OneToOne
+//    private AssignEquipament assignEquipament;
 
-    public AssignEquipament getAssignEquipament() {
-        return assignEquipament;
-    }
+//    public AssignEquipament getAssignEquipament() {
+//        return assignEquipament;
+//    }
+//
+//    public void setAssignEquipament(AssignEquipament assignEquipament) {
+//        this.assignEquipament = assignEquipament;
+//    }
 
-    public void setAssignEquipament(AssignEquipament assignEquipament) {
-        this.assignEquipament = assignEquipament;
-    }
-
-    public Set<Accident> getAccidentsReport() {
-        return accidentsReport;
-    }
-
-    public void setAccidentsReport(Set<Accident> accidentsReport) {
-        this.accidentsReport = accidentsReport;
-    }
+//    public Set<Accident> getAccidentsReport() {
+//        return accidentsReport;
+//    }
+//
+//    public void setAccidentsReport(Set<Accident> accidentsReport) {
+//        this.accidentsReport = accidentsReport;
+//    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -209,13 +215,13 @@ public class Personal extends ModelBase implements Serializable{
         this.active = active;
     }
 
-//    public Date getBirthdate() {
-//        return birthdate;
-//    }
-//
-//    public void setBirthdate(Date birthdate) {
-//        this.birthdate = birthdate;
-//    }
+    /*public String getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }*/
 
     public Area getArea() {
         return area;
@@ -225,13 +231,13 @@ public class Personal extends ModelBase implements Serializable{
         this.area = area;
     }
 
-    public Byte[] getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(Byte[] photo) {
-        this.photo = photo;
-    }
+//    public Byte[] getPhoto() {
+//        return photo;
+//    }
+//
+//    public void setPhoto(Byte[] photo) {
+//        this.photo = photo;
+//    }
 
     public Set<PersonalPositionContract> getPersonalPositionContracts() {
         return personalPositionContracts;
@@ -265,11 +271,20 @@ public class Personal extends ModelBase implements Serializable{
         this.activitiesSsos = activitiesSsos;
     }
 
-    public Set<Accident> getAccidents() {
-        return accidents;
+//    public Set<Accident> getAccidents() {
+//        return accidents;
+//    }
+//
+//    public void setAccidents(Set<Accident> accidents) {
+//        this.accidents = accidents;
+//    }
+
+    public Set<Incident> getIncidents() {
+        return incidents;
     }
 
-    public void setAccidents(Set<Accident> accidents) {
-        this.accidents = accidents;
+    public void setIncidents(Set<Incident> incidents) {
+        this.incidents = incidents;
     }
-    }
+}
+

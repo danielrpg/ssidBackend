@@ -60,7 +60,7 @@ public class KardexEquipamentServiceImpl implements KardexEquipamentService {
     public List<KardexEquipament> getKardexByIdEquipment(Long id) {
         List<KardexEquipament> neo = new ArrayList<>();
         List<KardexEquipament> old = this.getListKardexEquipament();
-        for(int i = 0; i <= old.size(); i++) {
+        for(int i = 0; i < old.size(); i++) {
             if(old.get(i).getEquipament().getId().intValue()==id.intValue())
             {
                 neo.add(old.get(i));

@@ -14,7 +14,7 @@ public class Position extends ModelBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "position_id")
     private Long id;
 

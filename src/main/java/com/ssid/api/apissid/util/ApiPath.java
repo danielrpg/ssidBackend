@@ -84,4 +84,5 @@ public class ApiPath {
 
     public static final String ACCIDENT_PATH = VERSION_API + "/accident" ;
 
+    public static final String AUDITHISTORY_PATH = VERSION_API + "/audit";
 }
