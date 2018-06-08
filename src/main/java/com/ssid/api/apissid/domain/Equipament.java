@@ -1,8 +1,8 @@
 package com.ssid.api.apissid.domain;
 
 import com.fasterxml.jackson.annotation.*;
-import javassist.bytecode.ByteArray;
-import sun.security.util.BitArray;
+//import javassist.bytecode.ByteArray;
+//import sun.security.util.BitArray;
 
 import javax.persistence.*;
 import javax.validation.constraints.Null;
