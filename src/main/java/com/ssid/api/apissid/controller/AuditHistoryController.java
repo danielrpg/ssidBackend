@@ -34,9 +34,9 @@ public class AuditHistoryController {
     }
 
 
-    @RequestMapping( value = "/{date}/{date1}", method = RequestMethod.GET)
-    public List<AuditHistory> getAuditHistory(@PathVariable String date, @PathVariable String date1){
-        return this.spAuditHistoryService.getAuditHistory(date,date1);
+    @RequestMapping( value = "/filter", method = RequestMethod.GET)
+    public List<AuditHistory> getAuditHistory(@RequestParam String startDate, @RequestParam String endDate){
+        return this.spAuditHistoryService.getAuditHistory(startDate, endDate);
 
     }
 }
