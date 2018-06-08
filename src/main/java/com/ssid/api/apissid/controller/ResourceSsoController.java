@@ -2,7 +2,9 @@
 package com.ssid.api.apissid.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ssid.api.apissid.command.ResourcesSsoCommand;
+import com.ssid.api.apissid.domain.ActivitiesSso;
 import com.ssid.api.apissid.domain.ResourceSso;
 import com.ssid.api.apissid.services.ResourceSsoService;
 import com.ssid.api.apissid.util.ApiPath;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.ssid.api.apissid.services.SPSerives.SPResourceService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +22,12 @@ import java.util.Map;
 @RequestMapping(value = ApiPath.RESOURCES_SSO_PATH)
 public class ResourceSsoController {
     private ResourceSsoService resourceSsoService;
+    private SPResourceService spResourceService;
 
     @Autowired
-    public ResourceSsoController(ResourceSsoService resourceSsoService) {
+    public ResourceSsoController(ResourceSsoService resourceSsoService, SPResourceService spResourceService) {
         this.resourceSsoService = resourceSsoService;
+        this.spResourceService = spResourceService;
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
@@ -69,4 +74,35 @@ public class ResourceSsoController {
         this.resourceSsoService.deleteResourceById(id);
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
+
+   @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ResponseEntity<Map<String, Object>> saveActivity(@RequestBody ResourceSso resourceSso){
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("success", this.spResourceService.createResource(resourceSso));
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getResourceById/{id}", method = RequestMethod.GET)
+    public ResourceSso getActivityById(@PathVariable Long id) throws JsonProcessingException {
+        return spResourceService.getResourceById(id);
+    }
+
+    @RequestMapping( value = "/update/{id}", method = RequestMethod.PUT)
+    public ResourceSso updateResource(@RequestBody ResourceSso resourceSso, @PathVariable Long id) {
+        return  this.spResourceService.updateResource(id, resourceSso);
+    }
+
+    @RequestMapping( value = {"/resourceList"}, method = RequestMethod.GET)
+    public List<ResourceSso> listResources(){
+        return this.spResourceService.getAllResources();
+    }
+
+
+    /*@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Map<String, Object>> deleteResource(@PathVariable Long id) {
+        Map<String, Object> mapResponse = new HashMap<>();
+        mapResponse.put("status", "deleted");
+        this.spResourceService.deleteResource(id);
+        return new ResponseEntity<>(mapResponse, HttpStatus.OK);
+    }*/
 }
