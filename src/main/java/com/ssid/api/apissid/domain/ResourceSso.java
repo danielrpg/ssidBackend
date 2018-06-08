@@ -1,6 +1,8 @@
 package com.ssid.api.apissid.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +13,54 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "program_sso_resource")
+
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = "sp_get_all_program_sso_resource",
+                procedureName = "sp_get_all_program_sso_resource",
+                resultClasses = ResourceSso.class),
+        @NamedStoredProcedureQuery(
+                name = "sp_delete_program_sso_resource",
+                procedureName = "sp_delete_program_sso_resource",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "sso_resource_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_create_program_sso_resource",
+                procedureName = "sp_create_program_sso_resource",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "sso_resource_cost", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "sso_resource_detail", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "sso_detail_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_edit_program_sso_resource",
+                procedureName = "sp_edit_program_sso_resource",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "sso_resource_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "sso_resource_cost", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "sso_resource_detail", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "sso_detail_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
+                },
+                resultClasses = ResourceSso.class
+        ),
+        @NamedStoredProcedureQuery(
+                name = "sp_resourceById",
+                procedureName = "sp_resourceById",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "sso_resource_id", type = Long.class)
+                },
+                resultClasses = ResourceSso.class
+        )
+})
 public class ResourceSso extends ModelBase implements Serializable{
 
     private static final long serialVersionUID=1L;
