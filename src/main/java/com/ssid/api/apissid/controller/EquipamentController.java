@@ -25,6 +25,7 @@ public class EquipamentController {
     public EquipamentController(EquipamentService equipamentService, SPEquipamentService spEquipamentService) {
         this.equipamentService = equipamentService;
         this.spEquipamentService = spEquipamentService;
+        System.out.println("desde equipament");
     }
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
@@ -56,10 +57,10 @@ public class EquipamentController {
         return new EquipamentCommand(equipament);
     }
 
-    @RequestMapping(value = ApiPath.EQUIPAMENT_BY_ID, method = RequestMethod.DELETE)
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public @ResponseBody
     void deleteEquipamentById(@PathVariable(value = "id") Long id) {
-
         //this.equipamentService.deleteEquipamentById(id);
         this.spEquipamentService.deleteEquipament(id);
     }

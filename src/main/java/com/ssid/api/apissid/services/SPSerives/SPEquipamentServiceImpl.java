@@ -56,7 +56,7 @@ public class SPEquipamentServiceImpl implements SPEquipamentService{
 
     @Override
     public void deleteEquipament(Long equipamentID) {
-        StoredProcedureQuery query = entityManager.createNamedStoredProcedureQuery("spo_deteleEquipament");
+        StoredProcedureQuery query = entityManager.createNamedStoredProcedureQuery("sp_deleteEquipament");
         query.setParameter("equipament_id", equipamentID);
         query.execute();
     }
