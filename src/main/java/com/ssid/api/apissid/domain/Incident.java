@@ -102,7 +102,7 @@ public class Incident extends ModelBaseAudit implements Serializable {
     @JoinColumn(name = "incident_detail_id")
     private IncidentDetail incidentDetail;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "personal_id")
     private Personal personal;
 

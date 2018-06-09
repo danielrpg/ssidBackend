@@ -116,7 +116,7 @@ public class Personal extends ModelBaseAudit implements Serializable {
     //private Set<Accident> accidents;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal")
     private Set<Incident> incidents;
 
 //    @JsonIgnore
