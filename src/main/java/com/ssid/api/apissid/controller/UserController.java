@@ -6,12 +6,12 @@ import com.ssid.api.apissid.services.UserSystemService;
 import com.ssid.api.apissid.util.ApiPath;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author daniel fernandez
@@ -21,9 +21,11 @@ public class UserController {
 
 
     private SPUserService spUserService;
+    private UserSystemService userSystemService;
 
-    public UserController(SPUserService spUserService) {
+    public UserController(SPUserService spUserService, UserSystemService userSystemService) {
         this.spUserService = spUserService;
+        this.userSystemService = userSystemService;
     }
 
     @RequestMapping(value = ApiPath.USER_PATH, method = RequestMethod.POST)
@@ -52,5 +54,9 @@ public class UserController {
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
+    @RequestMapping(value = ApiPath.USER_PATH + "/{id}", method = RequestMethod.GET)
+    public Optional<UserSystem> getUserById(@PathVariable("id") Long idUser) {
+       return this.userSystemService.findUserById(idUser);
+    }	
 
 }

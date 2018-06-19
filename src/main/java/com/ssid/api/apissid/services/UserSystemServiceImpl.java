@@ -4,7 +4,6 @@ package com.ssid.api.apissid.services;
  */
 import com.ssid.api.apissid.domain.UserSystem;
 import com.ssid.api.apissid.repositories.UserSystemRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Collections.emptyList;
 
@@ -39,6 +39,11 @@ public class UserSystemServiceImpl implements UserSystemService, UserDetailsServ
     public UserSystem findByUserName(String userName) {
         return userSystemRepository.findByUsername(userName);
     }
+
+    @Override
+    public Optional<UserSystem> findUserById(Long idUser) {
+	return userSystemRepository.findById(idUser);
+    }	
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
