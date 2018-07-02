@@ -35,10 +35,9 @@ public class SPResourceServiceImpl implements SPResourceService{
 
     @Override
     public Boolean createResource(ResourceSso resourceSso) {
-        StoredProcedureQuery  query = entityManager.createNamedStoredProcedureQuery("sp_create_program_sso_resources");
-        query.setParameter("sso_resource_cost", resourceSso.getResourceCost());
-        query.setParameter("sso_resource_detail", resourceSso.getResourceDetail());
-        query.setParameter("sso_detail_id", resourceSso.getActivitiesSso().getId());
+        StoredProcedureQuery  query = entityManager.createNamedStoredProcedureQuery("sp_create_program_sso_resource");
+        query.setParameter("resource_cost", resourceSso.getResourceCost());
+        query.setParameter("resource_detail", resourceSso.getResourceDetail());
 
         query.execute();
 
