@@ -1,5 +1,7 @@
 package com.ssid.api.apissid.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -83,6 +85,7 @@ public class Contract extends ModelBase implements Serializable {
     @Column(name = "contract_description", length = 100)
     private String description;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "contract",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             orphanRemoval = true)

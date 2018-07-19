@@ -34,9 +34,8 @@ import java.util.Date;
                 name = "sp_create_program_sso_resource",
                 procedureName = "sp_create_program_sso_resource",
                 parameters = {
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "sso_resource_cost", type = String.class),
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "sso_resource_detail", type = String.class),
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "sso_detail_id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "resource_cost", type = Float.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "resource_detail", type = String.class),
                         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
                 }
         ),

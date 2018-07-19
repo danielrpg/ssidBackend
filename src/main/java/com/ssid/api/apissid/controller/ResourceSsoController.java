@@ -51,13 +51,13 @@ public class ResourceSsoController {
 
     }
 
-    @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
+   /* @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
     public ResponseEntity<Map<String, Object>> saveResourceSso(@RequestBody ResourcesSsoCommand resourcesSsoCommand) {
         Map<String, Object> mapResponse = new HashMap<>();
         mapResponse.put("status", "created");
         mapResponse.put("data", resourceSsoService.saveResourceSso(resourcesSsoCommand.toResourcesSso()));
         return new ResponseEntity<>(mapResponse, HttpStatus.CREATED);
-    }
+    }*/
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Map<String, Object>> updateResourceSso(@RequestBody ResourcesSsoCommand resourcesSsoCommand, @PathVariable Long id) {
         Map<String, Object> mapResponse = new HashMap<>();
@@ -75,20 +75,20 @@ public class ResourceSsoController {
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
-   @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ResponseEntity<Map<String, Object>> saveActivity(@RequestBody ResourceSso resourceSso){
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
+    public ResponseEntity<Map<String, Object>> saveResourceSso(@RequestBody ResourcesSsoCommand resourcesSsoCommand) {
         Map<String, Object> mapResponse = new HashMap<>();
-        mapResponse.put("success", this.spResourceService.createResource(resourceSso));
+        mapResponse.put("success", this.spResourceService.createResource(resourcesSsoCommand.toResourcesSso()));
         return new ResponseEntity<>(mapResponse, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/getResourceById/{id}", method = RequestMethod.GET)
-    public ResourceSso getActivityById(@PathVariable Long id) throws JsonProcessingException {
+    public ResourceSso getResourceSSOById(@PathVariable Long id) throws JsonProcessingException {
         return spResourceService.getResourceById(id);
     }
 
-    @RequestMapping( value = "/update/{id}", method = RequestMethod.PUT)
-    public ResourceSso updateResource(@RequestBody ResourceSso resourceSso, @PathVariable Long id) {
+    @RequestMapping( value = "/updateSSO/{id}", method = RequestMethod.PUT)
+    public ResourceSso updateResourceSSO(@RequestBody ResourceSso resourceSso, @PathVariable Long id) {
         return  this.spResourceService.updateResource(id, resourceSso);
     }
 
